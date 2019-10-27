@@ -1,18 +1,18 @@
 {
-  "author": "Sendil Kumar N<sendilkumarn@live.com>",
-  "name": "create-rust-parcel",
-  "version": "0.0.2",
-  "repository": "https://github.com/rustwasm/rust-parcel-template",
+  "author": "Francisco Jesus Navarro Cortes<spieljs@gmail.com>",
+  "name": "create-yew-parcel",
+  "version": "0.0.1",
   "license": "Apache-2.0/MIT",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html"
   },
   "bin": {
-    "create-rust-parcel": ".bin/create-rust-parcel.js"
+    "create-yew-parcel": ".bin/create-yew-parcel.js"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
-    "parcel-plugin-wasm.rs": "^1.2.15"
+    "parcel-plugin-wasm.rs": "^1.2.15",
+    "typescript": "^3.6.4"
   }
 }

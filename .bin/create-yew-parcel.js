@@ -17,7 +17,7 @@ clone.on("close", (code) => {
   if (code !== 0) {
     handleError("install", code);
   } else {
-    console.log("🦀Rust + 🕸 WebAssembly + 📦Parcel = ❤️");
+    console.log("Yew and parcel ready. Mucha locura Tzzzzz :)");
     
     const install = spawn('npm', ['install'], { cwd: folderName });
     install.on("close", (code) => {

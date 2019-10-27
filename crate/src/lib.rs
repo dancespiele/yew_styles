@@ -1,9 +1,16 @@
+#![recursion_limit="256"]
+
 #[macro_use]
 extern crate cfg_if;
 
 extern crate wasm_bindgen;
 extern crate web_sys;
+extern crate yew;
+extern crate yew_router;
 use wasm_bindgen::prelude::*;
+
+mod app;
+use app::App;
 
 cfg_if! {
     // When the `console_error_panic_hook` feature is enabled, we can call the
@@ -29,23 +36,11 @@ cfg_if! {
 
 // Called by our JS entry point to run the example
 #[wasm_bindgen]
-pub fn run() -> Result<(), JsValue> {
+pub fn run() {
     // If the `console_error_panic_hook` feature is enabled this will set a panic hook, otherwise
     // it will do nothing.
     set_panic_hook();
 
-    // Use `web_sys`'s global `window` function to get a handle on the global
-    // window object.
-    let window = web_sys::window().expect("no global `window` exists");
-    let document = window.document().expect("should have a document on window");
-    let body = document.body().expect("document should have a body");
-
-    // Manufacture the element we're gonna append
-    let val = document.create_element("p")?;
-    val.set_inner_html("Hello from Rust, WebAssembly, and Parcel!");
-
-    body.append_child(&val)?;
-
-    Ok(())
+    yew::start_app::<App>();
 }
 

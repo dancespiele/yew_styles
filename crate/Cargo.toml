@@ -1,9 +1,9 @@
 [package]
 authors = ["The RustWasm Developers"]
 categories = ["wasm"]
-description = "My super awesome Rust, WebAssembly, and Parcel project!"
+description = "My awesome yew with yew router and Parcel application!"
 license = "Apache-2.0/MIT"
-name = "rust-parcel"
+name = "yew-parcel"
 readme = "./README.md"
 repository = "https://github.com/rustwasm/rust-parcel-template"
 version = "0.1.0"
@@ -12,30 +12,14 @@ version = "0.1.0"
 crate-type = ["cdylib"]
 
 [dependencies]
-cfg-if = "0.1.5"
-wasm-bindgen = "0.2.29"
-
-# The `console_error_panic_hook` crate provides better debugging of panics by
-# logging them with `console.error`. This is great for development, but requires
-# all the `std::fmt` and `std::panicking` infrastructure, so isn't great for
-# code size when deploying.
-console_error_panic_hook = { version = "0.1.5", optional = true }
-
-# `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
-# compared to the default allocator's ~10K. It is slower than the default
-# allocator, however. Also as of wee_alloc v0.4.2, does not yet work on stable
-# (tested with rust v1.31.1).
-wee_alloc = { version = "0.4.2", optional = true }
-
-[dependencies.web-sys]
-version = "0.3.6"
-features = [
-  'Document',
-  'Element',
-  'HtmlElement',
-  'Node',
-  'Window',
-]
-
-[features]
-default = ["console_error_panic_hook"]
+cfg-if = "0.1"
+wasm-bindgen = "0.2"
+console_error_panic_hook = { version = "0.1", optional = true }
+wee_alloc = { version = "0.4", optional = true }
+serde = "1.0"
+serde_derive = "1.0"
+dotenv = "0.15"
+failure = "0.1"
+yew = { version = "0.9", features = ["toml", "yaml", "msgpack", "cbor"]}
+yew-router = "0.6"
+web-sys = "0.3"
