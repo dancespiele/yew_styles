@@ -1,5 +1,8 @@
 {
   "author": "Francisco Jesus Navarro Cortes<spieljs@gmail.com>",
+  "repository": {
+    "url": "https://github.com/spielrs/yew-parcel-template"
+  },
   "name": "create-yew-parcel",
   "version": "0.0.1",
   "license": "Apache-2.0/MIT",

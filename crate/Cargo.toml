@@ -1,11 +1,11 @@
 [package]
 authors = ["The RustWasm Developers"]
 categories = ["wasm"]
-description = "My awesome yew with yew router and Parcel application!"
+description = "My awesome Yew with Yew-Router and Parcel application!"
 license = "Apache-2.0/MIT"
 name = "yew-parcel"
 readme = "./README.md"
-repository = "https://github.com/rustwasm/rust-parcel-template"
+repository = "https://github.com/spielrs/yew-parcel-template.git"
 version = "0.1.0"
 
 [lib]

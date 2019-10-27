@@ -11,7 +11,7 @@ if (process.argv.length >= 3) {
   }
 }
 
-const clone = spawn("git", ["clone", "https://github.com/rustwasm/rust-parcel-template.git", folderName]);
+const clone = spawn("git", ["clone", "https://github.com/spielrs/yew-parcel-template.git", folderName]);
 
 clone.on("close", (code) => {
   if (code !== 0) {
