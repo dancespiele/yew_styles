@@ -4,7 +4,7 @@
     "url": "https://github.com/spielrs/yew-parcel-template"
   },
   "name": "create-yew-parcel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "Apache-2.0/MIT",
   "scripts": {
     "start": "parcel index.html",
