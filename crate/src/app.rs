@@ -3,7 +3,7 @@ use yew_router::{prelude::*, Switch, route::Route};
 
 pub struct App;
 
-#[derive(Switch, Debug)]
+#[derive(Switch, Debug, Clone)]
 pub enum AppRouter {
     #[to= "/!"]
     RootPath,
@@ -26,9 +26,7 @@ impl Component for App {
     fn update(&mut self, _: Self::Message) -> ShouldRender {
         true
     }
- }
 
-impl Renderable<App> for App {
     fn view(&self) -> Html<Self> {
         html! {
             <div>
@@ -49,4 +47,4 @@ impl Renderable<App> for App {
             </div>
         }
     }
-}
+ }
