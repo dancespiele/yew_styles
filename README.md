@@ -20,3 +20,7 @@ cargo install wasm-pack
 ```sh
 npm init yew-parcel my-app
 ```
+
+## Rustc Version Required
+
+- 1.39.0
