@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_router::{prelude::*, Switch, route::Route};
+use yew_router::{prelude::*, Switch, switch::Permissive , route::Route};
 
 pub struct App;
 
@@ -12,7 +12,7 @@ pub enum AppRouter {
     #[to= "/awasome!"]
     AwasomePath,
     #[to = "/page-not-found"]
-    PageNotFound(Option<String>),
+    PageNotFound(Permissive<String>),
 }
 
 impl Component for App {
@@ -27,7 +27,7 @@ impl Component for App {
         true
     }
 
-    fn view(&self) -> Html<Self> {
+    fn view(&self) -> Html {
         html! {
             <div>
                 <Router<AppRouter, ()>
@@ -36,12 +36,12 @@ impl Component for App {
                             AppRouter::RootPath => html!{<h2>{"this is root"}</h2>},
                             AppRouter::HelloPath => html!{<h2>{"Hello world"}</h2>},
                             AppRouter::AwasomePath => html!{<h2>{"My awesome Yew with Yew-Router and Parcel application!"}</h2>},
-                            AppRouter::PageNotFound(None) => html!{"Page not found"},
-                            AppRouter::PageNotFound(Some(missed_route)) => html!{format!("Page '{}' not found", missed_route)}
+                            AppRouter::PageNotFound(Permissive(None)) => html!{"Page not found"},
+                            AppRouter::PageNotFound(Permissive(Some(missed_route))) => html!{format!("Page '{}' not found", missed_route)}
                         }
                     } )
                     redirect = Router::redirect(|route: Route<()>| {
-                        AppRouter::PageNotFound(Some(route.route))
+                        AppRouter::PageNotFound(Permissive(Some(route.route)))
                     })
                 />
             </div>

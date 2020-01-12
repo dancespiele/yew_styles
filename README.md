@@ -23,4 +23,4 @@ npm init yew-parcel my-app
 
 ## Rustc Version Required
 
-- 1.39.0
+- 1.40.0
