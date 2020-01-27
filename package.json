@@ -3,7 +3,7 @@
   "repository": {
     "url": "https://github.com/spielrs/yew-parcel-template"
   },
-  "name": "yewstyle",
+  "name": "yewstyle-page",
   "version": "0.1.0",
   "license": "Apache-2.0/MIT",
   "scripts": {
