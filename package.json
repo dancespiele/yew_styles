@@ -3,7 +3,7 @@
   "repository": {
     "url": "https://github.com/spielrs/yew-parcel-template"
   },
-  "name": "create-yew-parcel",
+  "name": "yewstyle",
   "version": "0.1.0",
   "license": "Apache-2.0/MIT",
   "scripts": {
@@ -16,6 +16,7 @@
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-wasm.rs": "^1.2.15",
+    "sass": "^1.25.1-test.1",
     "typescript": "^3.7.4"
   }
 }

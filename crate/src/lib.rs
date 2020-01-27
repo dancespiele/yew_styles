@@ -1,4 +1,4 @@
-#![recursion_limit="256"]
+#![recursion_limit="512"]
 
 #[macro_use]
 extern crate cfg_if;
@@ -10,6 +10,8 @@ extern crate yew_router;
 use wasm_bindgen::prelude::*;
 
 mod app;
+mod components;
+mod page;
 use app::App;
 
 cfg_if! {

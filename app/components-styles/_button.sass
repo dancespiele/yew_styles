@@ -1,0 +1,15 @@
+@import "_global-variables.sass"
+    
+.button
+    padding: 5px 10px
+    border: none
+    border-radius: 2px
+
+    @each $name, $size in $sizes
+        &.#{$name}
+            font-size: $size
+
+    @each $name, $background, $color in $button-types
+        &.#{$name}
+            background-color: $background
+            color: $color
