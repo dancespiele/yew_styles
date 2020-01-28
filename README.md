@@ -1,26 +1,7 @@
-# `yew-parcel-template`
+# `yewstyle`
 
-**Kickstart your Yew, Yew-Router, WebAssembly, and Parcel project!**
+This is an initial project of a framework style for yew
 
-This template comes pre-configured with all the boilerplate for compiling Yew framework and Yew Router
-to WebAssembly and hooking into a Parcel build pipeline.
+you can run the project with:
 
-* `npm run start` -- Serve the project locally for
-  development at `http://localhost:1234`.
-
-* `npm run build` -- Bundle the project (in production mode)
-
-
-## Using This Template
-
-```sh
-cargo install wasm-pack
-```
-
-```sh
-npm init yew-parcel my-app
-```
-
-## Rustc Version Required
-
-- 1.40.0
+* `npm start`
