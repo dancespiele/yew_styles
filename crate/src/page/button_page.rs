@@ -68,7 +68,7 @@ fn get_buttons(link: ComponentLink<ButtonPage>) -> Html {
                                 class_name="button-page"
                                 button_type=button_types_enum[index].clone()
                                 size=size.clone()
-                            >{get_button_type(button_types_enum[index].clone()).to_uppercase()}
+                            >{get_button_type(button_types_enum[index].clone())}
                             </Button>
                         };
             
