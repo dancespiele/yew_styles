@@ -47,6 +47,15 @@ impl Component for ButtonPage {
     }
 }
 
+fn to_first_upercase(word: &str) -> String {
+    let mut letters = word.chars();
+
+    match letters.next() {
+        None => String::new(),
+        Some(letter) => letter.to_uppercase().collect::<String>() + letters.as_str(),
+    }
+}
+
 fn get_buttons(link: ComponentLink<ButtonPage>) -> Html {
     let sizes: Vec<Size> = vec!(Size::Small, Size::Medium, Size::Big);
 
@@ -68,7 +77,7 @@ fn get_buttons(link: ComponentLink<ButtonPage>) -> Html {
                                 class_name="button-page"
                                 button_type=button_types_enum[index].clone()
                                 size=size.clone()
-                            >{get_button_type(button_types_enum[index].clone())}
+                            >{to_first_upercase(&get_button_type(button_types_enum[index].clone()))}
                             </Button>
                         };
             

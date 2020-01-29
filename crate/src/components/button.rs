@@ -20,11 +20,27 @@ pub enum Size {
 
 pub struct Button {
     link: ComponentLink<Self>,
+    props: ButtonProps,
+}
+
+pub struct ButtonProps {
     button_type: String,
-    class_name: String,
     size: String,
+    class_name: String,
     onsignal: Callback<()>,
     children: Children,
+}
+
+impl From<Props> for ButtonProps {
+    fn from(props: Props) -> Self {
+        ButtonProps {
+            button_type: get_button_type(props.button_type),
+            size: get_size(props.size),
+            class_name: props.class_name,
+            onsignal: props.onsignal,
+            children: props.children,
+        }
+    }
 }
 
 #[derive(Clone, Properties)]
@@ -80,18 +96,14 @@ impl Component for Button {
     fn create(props: Self::Properties, link: ComponentLink<Self>)-> Self {
         Button {
             link,
-            button_type: get_button_type(props.button_type),
-            class_name: props.class_name,
-            size: get_size(props.size),
-            onsignal: props.onsignal,
-            children: props.children,
+            props: ButtonProps::from(props),
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked => {
-                self.onsignal.emit(());
+                self.props.onsignal.emit(());
             }
         };
 
@@ -99,11 +111,11 @@ impl Component for Button {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.button_type = get_button_type(props.button_type);
-        self.class_name = props.class_name;
-        self.size = get_size(props.size);
-        self.onsignal = props.onsignal;
-        self.children = props.children;
+        self.props.button_type = get_button_type(props.button_type);
+        self.props.class_name = props.class_name;
+        self.props.size = get_size(props.size);
+        self.props.onsignal = props.onsignal;
+        self.props.children = props.children;
         true
     }
 
@@ -111,8 +123,8 @@ impl Component for Button {
         html! {
             <button
                 onclick=self.link.callback(|_| Msg::Clicked)
-                class=format!("button {} {} {}", self.button_type.clone(), self.size.clone(), self.class_name.clone())
-            > { self.children.render() }
+                class=format!("button {} {} {}", self.props.button_type.clone(), self.props.size.clone(), self.props.class_name.clone())
+            > { self.props.children.render() }
             </button>
         }
     }
