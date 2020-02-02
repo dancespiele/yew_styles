@@ -1,5 +1,6 @@
 @import "_global-variables.sass"
-    
+@import "_mixins.sass"
+
 .button
     padding: 5px 10px
     border: none
@@ -11,7 +12,11 @@
         &.#{$name}
             font-size: $size
 
-    @each $name, $background, $color in $button-types
-        &.#{$name}
-            background-color: $background
-            color: $color
+    &.regular
+        @include button-style($regular-style)
+
+    &.outline
+        @include button-style($outline-style)
+    &.light
+        @include button-style($light-style)
+        

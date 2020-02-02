@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use components::{Button, ButtonType, Size, get_button_type, get_size};
+use components::{Button, ButtonType, Size, ButtonStyle, get_button_type, get_size, get_button_style};
 
 pub struct ButtonPage {
     link: ComponentLink<Self>,
@@ -37,9 +37,11 @@ impl Component for ButtonPage {
     fn view(&self)-> Html {
 
         html! {
-            <div>
-                {get_buttons(self.link.clone())}
-                <div>
+            <div class="container">
+                <div class="buttons-example">
+                    {get_button_styles(self.link.clone())}
+                </div>
+                <div class="action">
                     {self.button_type.clone()}
                 </div>
             </div>
@@ -56,37 +58,55 @@ fn to_first_upercase(word: &str) -> String {
     }
 }
 
-fn get_buttons(link: ComponentLink<ButtonPage>) -> Html {
+fn get_button_styles(link: ComponentLink<ButtonPage>) -> Html {
+    let styles: Vec<ButtonStyle> = vec!(ButtonStyle::Regular, ButtonStyle::Light, ButtonStyle::Outline); 
+
+    styles.into_iter().map(move |style| {
+        html! {
+            <>
+                <h2>{get_button_style(style.clone()).to_uppercase()}</h2>
+                {get_sizes(style, link.clone())}
+            </>
+        }
+    }).collect::<Html>()
+}
+
+fn get_sizes(button_style: ButtonStyle,link: ComponentLink<ButtonPage>) -> Html {
     let sizes: Vec<Size> = vec!(Size::Small, Size::Medium, Size::Big);
 
     sizes.into_iter().map(move |size| {
-        let button_types: Vec<&str> = vec!("Standard", "Primary", "Secondary", "Info", "Success", "Warning", "Danger");
-        let button_types_enum: Vec<ButtonType> = vec!(ButtonType::Standard, ButtonType::Primary, ButtonType::Secondary,
-            ButtonType::Info, ButtonType::Success, ButtonType::Warning, ButtonType::Danger);
-        
-        let mut index = 0;
-
-        html! {
-            <div class="show-size">
-                <h3>{get_size(size.clone()).to_uppercase()}</h3>
-                {
-                    button_types.into_iter().map(|button_type| {
-                        let button = html! {
-                            <Button
-                                onsignal=link.callback(move |_| Msg::ChangeType(button_type.to_string().clone()))
-                                class_name="button-page"
-                                button_type=button_types_enum[index].clone()
-                                size=size.clone()
-                            >{to_first_upercase(&get_button_type(button_types_enum[index].clone()))}
-                            </Button>
-                        };
-            
-                        index = index + 1;
-            
-                        button
-                    }).collect::<Html>()
-                }
-            </div>
-        }
+        get_buttons(size, button_style.clone(), link.clone())
     }).collect::<Html>()
+}
+
+fn get_buttons(size: Size, button_style: ButtonStyle, link: ComponentLink<ButtonPage>) -> Html {
+    let button_types: Vec<&str> = vec!("Standard", "Primary", "Secondary", "Info", "Link", "Success", "Warning", "Danger");
+    let button_types_enum: Vec<ButtonType> = vec!(ButtonType::Standard, ButtonType::Primary, ButtonType::Secondary,
+        ButtonType::Info, ButtonType::Link, ButtonType::Success, ButtonType::Warning, ButtonType::Danger);
+    
+    let mut index = 0;
+
+    html! {
+        <div class="show-size">
+            <h3>{get_size(size.clone()).to_uppercase()}</h3>
+            {
+                button_types.into_iter().map(|button_type| {
+                    let button = html! {
+                        <Button
+                            onsignal=link.callback(move |_| Msg::ChangeType(button_type.to_string().clone()))
+                            class_name="button-page"
+                            button_type=button_types_enum[index].clone()
+                            button_style=button_style.clone()
+                            size=size.clone()
+                        >{to_first_upercase(&get_button_type(button_types_enum[index].clone()))}
+                        </Button>
+                    };
+        
+                    index = index + 1;
+        
+                    button
+                }).collect::<Html>()
+            }
+        </div>
+    }
 }

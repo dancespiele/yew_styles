@@ -1,0 +1,13 @@
+@mixin button-style($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            background-color: $background
+            color: $color
+            border: get-border($border-color)
+
+@function get-border($border-color)
+    $border: none
+    @if $border-color != none
+        $border: 1px solid $border-color
+    
+    @return $border
