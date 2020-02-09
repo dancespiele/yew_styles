@@ -7,6 +7,7 @@ extern crate wasm_bindgen;
 extern crate web_sys;
 extern crate yew;
 extern crate yew_router;
+
 use wasm_bindgen::prelude::*;
 
 mod app;
