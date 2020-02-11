@@ -11,6 +11,9 @@ struct ContainerModel;
 #[derive(Clone)]
 struct ContainerProps {
     container_type: String,
+    justify_content: String,
+    align_content: String,
+    align_items: String,
 }
 
 #[derive(Clone)]
@@ -131,7 +134,13 @@ impl Component for Container {
 
         html! {
             <div
-                class=format!("{}", container_props.container_type)
+                class=format!(
+                    "{} {} {} {}",
+                    container_props.container_type,
+                    container_props.justify_content,
+                    container_props.align_content,
+                    container_props.align_items
+                )
             >
                 {self.props.children.render()}
             </div>
@@ -143,6 +152,9 @@ impl From<Props> for ContainerProps{
     fn from(props: Props) -> Self {
         ContainerProps {
             container_type: ContainerModel.get_container_type(props.container_type),
+            justify_content: ContainerModel.get_justify_content(props.justify_content),
+            align_content: ContainerModel.get_align_content(props.align_content),
+            align_items: ContainerModel.get_align_items(props.align_items),
         }
     }
 }
@@ -197,6 +209,22 @@ impl ContainerModel {
             AlignContent::space_around(mode) => format!("align-content-space-around{}", self.get_mode(mode)),
             AlignContent::space_between(mode) => format!("align-content-space-between{}", self.get_mode(mode)),
             AlignContent::space_evenly(mode) => format!("align-content-evenly{}", self.get_mode(mode)),
+        }
+    }
+
+    fn get_align_items(self, align_items: AlignItems) -> String {
+        match align_items {
+            AlignItems::stretch(mode) => format!("align-items-stretch{}", self.get_mode(mode)),
+            AlignItems::baseline(mode) => format!("align-items-baseline{}", self.get_mode(mode)),
+            AlignItems::start(mode) => format!("align-items-start{}", self.get_mode(mode)),
+            AlignItems::end(mode) => format!("align-items-end{}", self.get_mode(mode)),
+            AlignItems::flex_start(mode) => format!("align-items-start{}", self.get_mode(mode)),
+            AlignItems::flex_end(mode) => format!("align-items-flex-end{}", self.get_mode(mode)),
+            AlignItems::first_baseline(mode) => format!("align-items-first-baseline{}", self.get_mode(mode)),
+            AlignItems::last_baseline(mode) => format!("align-items-last-baseline{}", self.get_mode(mode)),
+            AlignItems::self_start(mode) => format!("align-items-self-start{}", self.get_mode(mode)),
+            AlignItems::self_end(mode) => format!("align-items-self-end{}", self.get_mode(mode)),
+            AlignItems::center(mode) => format!("align-items-center{}", self.get_mode(mode))
         }
     }
 }
