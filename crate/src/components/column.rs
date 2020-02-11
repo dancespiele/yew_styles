@@ -19,6 +19,10 @@ pub enum ColumnAlign {
     stretch,
 }
 
+pub enum Msg {
+    Clicked,
+}
+
 pub struct Column {
     link: ComponentLink<Self>,
     props: Props
@@ -40,10 +44,6 @@ pub struct Props {
     pub column_align: ColumnAlign,
     pub onsignal: DefaultCallback<Callback<()>>,
     pub children: Children,
-}
-
-pub enum Msg {
-    Clicked,
 }
 
 #[derive(Clone)]
