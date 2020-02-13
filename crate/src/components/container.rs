@@ -1,4 +1,5 @@
 use yew::prelude::*;
+use stdweb::js;
 
 pub struct Container {
     link: ComponentLink<Self>,
@@ -11,20 +12,23 @@ struct ContainerModel;
 #[derive(Clone)]
 struct ContainerProps {
     container_type: String,
-    justify_content: String,
     align_content: String,
     align_items: String,
 }
 
 #[derive(Clone)]
-pub enum ContainerType {
+pub enum Direction {
     row,
     row_reverse,
     column,
     column_reverse,
-    no_wrap,
+}
+
+#[derive(Clone)]
+pub enum Wrap {
+    nowrap,
     wrap,
-    wrap_reverse,
+    wrap_reverse
 }
 
 #[derive(Clone)]
@@ -84,7 +88,9 @@ pub enum Msg {}
 #[derive(Clone, Properties)]
 pub struct Props {
     #[props(required)]
-    pub container_type: ContainerType,
+    pub direction: Direction,
+    #[props(required)]
+    pub wrap: Wrap,
     pub justify_content: JustifyContent,
     pub align_content: AlignContent,
     pub align_items: AlignItems,
@@ -114,6 +120,8 @@ impl Component for Container {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+        ContainerModel.init(props.clone());
+
         Container {
             link,
             props
@@ -125,106 +133,113 @@ impl Component for Container {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
+        ContainerModel.init(props.clone());
         self.props = props;
         true
     }
 
     fn view(&self) -> Html {
-        let container_props = ContainerProps::from(self.props.clone());
-
         html! {
-            <div
-                class=format!(
-                    "{} {} {} {}",
-                    container_props.container_type,
-                    container_props.justify_content,
-                    container_props.align_content,
-                    container_props.align_items
-                )
-            >
+            <div class="container">
                 {self.props.children.render()}
             </div>
         }
     }
 }
 
-impl From<Props> for ContainerProps{
-    fn from(props: Props) -> Self {
-        ContainerProps {
-            container_type: ContainerModel.get_container_type(props.container_type),
-            justify_content: ContainerModel.get_justify_content(props.justify_content),
-            align_content: ContainerModel.get_align_content(props.align_content),
-            align_items: ContainerModel.get_align_items(props.align_items),
-        }
-    }
-}
-
 impl ContainerModel {
-    fn get_container_type(self, container_type: ContainerType) -> String {
-        match container_type {
-            ContainerType::row => format!("row"),
-            ContainerType::row_reverse => format!("row-reverse"),
-            ContainerType::column => format!("column"),
-            ContainerType::column_reverse => format!("column-reverse"),
-            ContainerType::no_wrap => format!("no-wrap"),
-            ContainerType::wrap => format!("wrap"),
-            ContainerType::wrap_reverse => format!("wrap-reverse"),
-        }
+    fn init (self, props: Props) {
+        self.get_flow(props.direction, props.wrap);
+        self.get_justify_content(props.justify_content);
+        self.get_align_content(props.align_content);
+        self.get_align_items(props.align_items);
+    } 
+
+    fn get_flow(self, direction: Direction, wrap: Wrap) {
+        let direction = match direction {
+            Direction::row => format!("row"),
+            Direction::row_reverse => format!("row-reverse"),
+            Direction::column => format!("column"),
+            Direction::column_reverse => format!("column-reverse"),
+        };
+
+        let wrap = match wrap {
+            Wrap::nowrap => format!("nowrap"),
+            Wrap::wrap => format!("wrap"),
+            Wrap::wrap_reverse => format!("wrap_reverse")
+        };
+
+        let value = format!("{} {}", direction, wrap);
+
+        self.create_style(String::from("flexFlow"), value);
     }
 
     fn get_mode(self, mode: Mode) -> String {
         match mode {
             Mode::no_mode => format!(""),
-            Mode::safe_mode => format!("-safe"),
-            Mode::unsafe_mode => format!("-unsafe"),
+            Mode::safe_mode => format!(" safe"),
+            Mode::unsafe_mode => format!(" unsafe"),
         }
     }
 
-    fn get_justify_content(self, justify_content: JustifyContent) -> String {
-        match justify_content {
-            JustifyContent::flex_start(mode) => format!("justify-content-flex-start{}", self.get_mode(mode)),
-            JustifyContent::flex_end(mode) => format!("justify-content-flex-end{}", self.get_mode(mode)),
-            JustifyContent::start(mode) => format!("justify-content-start{}", self.get_mode(mode)),
-            JustifyContent::end(mode) => format!("justify-content-end{}", self.get_mode(mode)),
-            JustifyContent::left(mode) => format!("justify-content-left{}", self.get_mode(mode)),
-            JustifyContent::center(mode) => format!("justify-content-center{}", self.get_mode(mode)),
-            JustifyContent::rigth(mode) => format!("justify-content-right{}", self.get_mode(mode)),
-            JustifyContent::space_around(mode) => format!("justify-content-space-around{}", self.get_mode(mode)),
-            JustifyContent::space_between(mode) => format!("justify-content-space-between{}", self.get_mode(mode)),
-            JustifyContent::space_evenly(mode) => format!("justify-content-evenly{}", self.get_mode(mode)),
-        }
+    fn get_justify_content(self, justify_content: JustifyContent) {
+        let value = match justify_content {
+            JustifyContent::flex_start(mode) => format!("flex-start{}", self.get_mode(mode)),
+            JustifyContent::flex_end(mode) => format!("flex-end{}", self.get_mode(mode)),
+            JustifyContent::start(mode) => format!("start{}", self.get_mode(mode)),
+            JustifyContent::end(mode) => format!("end{}", self.get_mode(mode)),
+            JustifyContent::left(mode) => format!("left{}", self.get_mode(mode)),
+            JustifyContent::center(mode) => format!("center{}", self.get_mode(mode)),
+            JustifyContent::rigth(mode) => format!("right{}", self.get_mode(mode)),
+            JustifyContent::space_around(mode) => format!("space-around{}", self.get_mode(mode)),
+            JustifyContent::space_between(mode) => format!("space-between{}", self.get_mode(mode)),
+            JustifyContent::space_evenly(mode) => format!("evenly{}", self.get_mode(mode)),
+        };
+
+        self.create_style(String::from("justifyContent"), value)
     }
 
-    fn get_align_content(self, align_content: AlignContent) -> String {
-        match align_content {
-            AlignContent::stretch(mode) => format!("align-content-stretch{}", self.get_mode(mode)),
-            AlignContent::flex_start(mode) => format!("align-content-flex-start{}", self.get_mode(mode)),
-            AlignContent::flex_end(mode) => format!("align-content-flex-end{}", self.get_mode(mode)),
-            AlignContent::start(mode) => format!("align-content-start{}", self.get_mode(mode)),
-            AlignContent::end(mode) => format!("align-content-end{}", self.get_mode(mode)),
-            AlignContent::center(mode) => format!("align-content-center{}", self.get_mode(mode)),
-            AlignContent::baseline(mode) => format!("align-content-baseline{}", self.get_mode(mode)),
-            AlignContent::first_baseline(mode) => format!("align-content-first-baseline{}", self.get_mode(mode)),
-            AlignContent::last_baseline(mode) => format!("align-content-last-baseline{}", self.get_mode(mode)),
-            AlignContent::space_around(mode) => format!("align-content-space-around{}", self.get_mode(mode)),
-            AlignContent::space_between(mode) => format!("align-content-space-between{}", self.get_mode(mode)),
-            AlignContent::space_evenly(mode) => format!("align-content-evenly{}", self.get_mode(mode)),
-        }
+    fn get_align_content(self, align_content: AlignContent) {
+        let value = match align_content {
+            AlignContent::stretch(mode) => format!("stretch{}", self.get_mode(mode)),
+            AlignContent::flex_start(mode) => format!("flex-start{}", self.get_mode(mode)),
+            AlignContent::flex_end(mode) => format!("flex-end{}", self.get_mode(mode)),
+            AlignContent::start(mode) => format!("start{}", self.get_mode(mode)),
+            AlignContent::end(mode) => format!("end{}", self.get_mode(mode)),
+            AlignContent::center(mode) => format!("center{}", self.get_mode(mode)),
+            AlignContent::baseline(mode) => format!("baseline{}", self.get_mode(mode)),
+            AlignContent::first_baseline(mode) => format!("first-baseline{}", self.get_mode(mode)),
+            AlignContent::last_baseline(mode) => format!("last-baseline{}", self.get_mode(mode)),
+            AlignContent::space_around(mode) => format!("space-around{}", self.get_mode(mode)),
+            AlignContent::space_between(mode) => format!("space-between{}", self.get_mode(mode)),
+            AlignContent::space_evenly(mode) => format!("evenly{}", self.get_mode(mode)),
+        };
+
+        self.create_style(String::from("alignContent"), value);
     }
 
-    fn get_align_items(self, align_items: AlignItems) -> String {
-        match align_items {
-            AlignItems::stretch(mode) => format!("align-items-stretch{}", self.get_mode(mode)),
-            AlignItems::baseline(mode) => format!("align-items-baseline{}", self.get_mode(mode)),
-            AlignItems::start(mode) => format!("align-items-start{}", self.get_mode(mode)),
-            AlignItems::end(mode) => format!("align-items-end{}", self.get_mode(mode)),
-            AlignItems::flex_start(mode) => format!("align-items-start{}", self.get_mode(mode)),
-            AlignItems::flex_end(mode) => format!("align-items-flex-end{}", self.get_mode(mode)),
-            AlignItems::first_baseline(mode) => format!("align-items-first-baseline{}", self.get_mode(mode)),
-            AlignItems::last_baseline(mode) => format!("align-items-last-baseline{}", self.get_mode(mode)),
-            AlignItems::self_start(mode) => format!("align-items-self-start{}", self.get_mode(mode)),
-            AlignItems::self_end(mode) => format!("align-items-self-end{}", self.get_mode(mode)),
-            AlignItems::center(mode) => format!("align-items-center{}", self.get_mode(mode))
+    fn get_align_items(self, align_items: AlignItems) {
+        let value = match align_items {
+            AlignItems::stretch(mode) => format!("stretch{}", self.get_mode(mode)),
+            AlignItems::baseline(mode) => format!("baseline{}", self.get_mode(mode)),
+            AlignItems::start(mode) => format!("start{}", self.get_mode(mode)),
+            AlignItems::end(mode) => format!("end{}", self.get_mode(mode)),
+            AlignItems::flex_start(mode) => format!("start{}", self.get_mode(mode)),
+            AlignItems::flex_end(mode) => format!("flex-end{}", self.get_mode(mode)),
+            AlignItems::first_baseline(mode) => format!("first-baseline{}", self.get_mode(mode)),
+            AlignItems::last_baseline(mode) => format!("last-baseline{}", self.get_mode(mode)),
+            AlignItems::self_start(mode) => format!("self-start{}", self.get_mode(mode)),
+            AlignItems::self_end(mode) => format!("self-end{}", self.get_mode(mode)),
+            AlignItems::center(mode) => format!("center{}", self.get_mode(mode))
+        };
+
+        self.create_style(String::from("alignItems"), value);
+    }
+
+    fn create_style(self, style: String, value: String) {
+        js! {
+            const container = document.getElementsByClassName(".container")[0];
+            container.style[@{style}] = @{value};
         }
     }
 }
