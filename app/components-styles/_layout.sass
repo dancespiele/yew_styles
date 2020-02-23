@@ -3,9 +3,6 @@
     
 .container
     display: flex
-    .column
+    .item
         @each $screen in $screens
-            @include layout-screen($screen, cl)
-    .row
-        @each $screen in $screens
-            @include layout-screen($screen, rw)
+            @include layout-screen($screen)
