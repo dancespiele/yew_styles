@@ -1,7 +1,8 @@
+use utils::create_style;
 use yew::prelude::*;
 
 #[derive(Clone)]
-pub enum Layout {
+pub enum ColumnLayout {
     cl_xs(i8),
     cl_s(i8),
     cl_m(i8),
@@ -25,12 +26,11 @@ pub enum Msg {
 
 pub struct Column {
     link: ComponentLink<Self>,
-    props: Props
+    props: Props,
 }
 
 #[derive(Clone)]
 struct ColumnProps {
-    column_align: String,
     layouts_classes: String,
 }
 
@@ -40,7 +40,7 @@ struct ColumnModel;
 #[derive(Clone, Properties)]
 pub struct Props {
     #[props(required)]
-    pub layouts: Vec<Layout>,
+    pub layouts: Vec<ColumnLayout>,
     pub column_align: ColumnAlign,
     pub onsignal: DefaultCallback<Callback<()>>,
     pub children: Children,
@@ -48,7 +48,7 @@ pub struct Props {
 
 #[derive(Clone)]
 pub struct DefaultCallback<T> {
-    callback: T
+    callback: T,
 }
 
 impl Default for DefaultCallback<Callback<()>> {
@@ -72,10 +72,13 @@ impl Component for Column {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Column {
-            link,
-            props
-        }
+        Column { link, props }
+    }
+
+    fn mounted(&mut self) -> ShouldRender {
+        ColumnModel.init(self.props.clone());
+
+        true
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -89,6 +92,8 @@ impl Component for Column {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
+        ColumnModel.init(props.clone());
+
         self.props = props;
         true
     }
@@ -98,7 +103,7 @@ impl Component for Column {
 
         html! {
             <div
-                class=format!("{} {}", column_props.column_align, column_props.layouts_classes)
+                class=format!("column {}", column_props.layouts_classes)
                 onclick=self.link.callback(|_| Msg::Clicked)
             >
                 {self.props.children.render()}
@@ -107,44 +112,49 @@ impl Component for Column {
     }
 }
 
-impl From<Props> for ColumnProps{
+impl From<Props> for ColumnProps {
     fn from(props: Props) -> Self {
         ColumnProps {
             layouts_classes: ColumnModel.get_layout_classes(props.layouts),
-            column_align: ColumnModel.get_column_align(props.column_align),
         }
     }
 }
 
 impl ColumnModel {
-    fn get_layout_classes(self, layouts_prop: Vec<Layout>) -> String {
-        let mut layouts = layouts_prop.into_iter().map(|layout| {
-            self.get_layout(layout)
-        }).collect::<String>();
+    fn init(self, props: Props) {
+        self.get_column_align(props.column_align);
+    }
+
+    fn get_layout_classes(self, layouts_prop: Vec<ColumnLayout>) -> String {
+        let mut layouts = layouts_prop
+            .into_iter()
+            .map(|layout| self.get_layout(layout))
+            .collect::<String>();
 
         layouts.truncate(layouts.len() - 1);
-        
         layouts
     }
 
-    fn get_layout(self, layout: Layout) -> String {
-        match layout {
-            Layout::cl_xs(size) => format!("cl-xs-{} ", size),
-            Layout::cl_s(size) => format!("cl-s-{} ", size),
-            Layout::cl_m(size) => format!("cl-m-{} ", size),
-            Layout::cl_l(size) => format!("cl-l-{} ", size),
-            Layout::cl_xl(size) => format!("cl_xl-{} ", size),
+    fn get_layout(self, column_layout: ColumnLayout) -> String {
+        match column_layout {
+            ColumnLayout::cl_xs(size) => format!("cl-xs-{} ", size),
+            ColumnLayout::cl_s(size) => format!("cl-s-{} ", size),
+            ColumnLayout::cl_m(size) => format!("cl-m-{} ", size),
+            ColumnLayout::cl_l(size) => format!("cl-l-{} ", size),
+            ColumnLayout::cl_xl(size) => format!("cl-xl-{} ", size),
         }
     }
 
-    fn get_column_align(self, align: ColumnAlign) -> String {
-        match align {
+    fn get_column_align(self, align: ColumnAlign) {
+        let value = match align {
             ColumnAlign::auto => format!("auto"),
             ColumnAlign::baseline => format!("baseline"),
             ColumnAlign::center => format!("center"),
             ColumnAlign::flex_start => format!("flex-start"),
             ColumnAlign::flex_end => format!("flex-end"),
             ColumnAlign::stretch => format!("stretch"),
-        }
+        };
+
+        create_style(String::from("rowAlign"), value, String::from("column"));
     }
 }

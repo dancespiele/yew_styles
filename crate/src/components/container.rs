@@ -1,9 +1,10 @@
-use yew::prelude::*;
 use stdweb::js;
+use utils::create_style;
+use yew::prelude::*;
 
 pub struct Container {
     link: ComponentLink<Self>,
-    props: Props
+    props: Props,
 }
 
 #[derive(Clone, Copy)]
@@ -28,7 +29,7 @@ pub enum Direction {
 pub enum Wrap {
     nowrap,
     wrap,
-    wrap_reverse
+    wrap_reverse,
 }
 
 #[derive(Clone)]
@@ -36,7 +37,7 @@ pub enum Mode {
     safe_mode,
     unsafe_mode,
     no_mode,
-} 
+}
 
 #[derive(Clone)]
 pub enum JustifyContent {
@@ -120,12 +121,13 @@ impl Component for Container {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        ContainerModel.init(props.clone());
+        Container { link, props }
+    }
 
-        Container {
-            link,
-            props
-        }
+    fn mounted(&mut self) -> ShouldRender {
+        ContainerModel.init(self.props.clone());
+
+        true
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
@@ -148,12 +150,12 @@ impl Component for Container {
 }
 
 impl ContainerModel {
-    fn init (self, props: Props) {
+    fn init(self, props: Props) {
         self.get_flow(props.direction, props.wrap);
         self.get_justify_content(props.justify_content);
         self.get_align_content(props.align_content);
         self.get_align_items(props.align_items);
-    } 
+    }
 
     fn get_flow(self, direction: Direction, wrap: Wrap) {
         let direction = match direction {
@@ -166,12 +168,12 @@ impl ContainerModel {
         let wrap = match wrap {
             Wrap::nowrap => format!("nowrap"),
             Wrap::wrap => format!("wrap"),
-            Wrap::wrap_reverse => format!("wrap_reverse")
+            Wrap::wrap_reverse => format!("wrap_reverse"),
         };
 
         let value = format!("{} {}", direction, wrap);
 
-        self.create_style(String::from("flexFlow"), value);
+        create_style(String::from("flexFlow"), value, String::from("container"));
     }
 
     fn get_mode(self, mode: Mode) -> String {
@@ -196,7 +198,11 @@ impl ContainerModel {
             JustifyContent::space_evenly(mode) => format!("evenly{}", self.get_mode(mode)),
         };
 
-        self.create_style(String::from("justifyContent"), value)
+        create_style(
+            String::from("justifyContent"),
+            value,
+            String::from("container"),
+        )
     }
 
     fn get_align_content(self, align_content: AlignContent) {
@@ -215,7 +221,11 @@ impl ContainerModel {
             AlignContent::space_evenly(mode) => format!("evenly{}", self.get_mode(mode)),
         };
 
-        self.create_style(String::from("alignContent"), value);
+        create_style(
+            String::from("alignContent"),
+            value,
+            String::from("container"),
+        );
     }
 
     fn get_align_items(self, align_items: AlignItems) {
@@ -230,17 +240,9 @@ impl ContainerModel {
             AlignItems::last_baseline(mode) => format!("last-baseline{}", self.get_mode(mode)),
             AlignItems::self_start(mode) => format!("self-start{}", self.get_mode(mode)),
             AlignItems::self_end(mode) => format!("self-end{}", self.get_mode(mode)),
-            AlignItems::center(mode) => format!("center{}", self.get_mode(mode))
+            AlignItems::center(mode) => format!("center{}", self.get_mode(mode)),
         };
 
-        self.create_style(String::from("alignItems"), value);
-    }
-
-    fn create_style(self, style: String, value: String) {
-        js! {
-            const container = document.getElementsByClassName(".container")[0];
-            container.style[@{style}] = @{value};
-        }
+        create_style(String::from("alignItems"), value, String::from("container"));
     }
 }
-

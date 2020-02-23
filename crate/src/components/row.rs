@@ -1,7 +1,8 @@
+use utils::create_style;
 use yew::prelude::*;
 
 #[derive(Clone)]
-pub enum Layout {
+pub enum RowLayout {
     rw_xs(i8),
     rw_s(i8),
     rw_m(i8),
@@ -21,12 +22,11 @@ pub enum RowAlign {
 
 pub struct Row {
     link: ComponentLink<Self>,
-    props: Props
+    props: Props,
 }
 
 #[derive(Clone)]
 struct RowProps {
-    row_align: String,
     layouts_classes: String,
 }
 
@@ -36,7 +36,7 @@ struct RowModel;
 #[derive(Clone, Properties)]
 pub struct Props {
     #[props(required)]
-    pub layouts: Vec<Layout>,
+    pub layouts: Vec<RowLayout>,
     pub row_align: RowAlign,
     pub onsignal: DefaultCallback<Callback<()>>,
     pub children: Children,
@@ -48,7 +48,7 @@ pub enum Msg {
 
 #[derive(Clone)]
 pub struct DefaultCallback<T> {
-    callback: T
+    callback: T,
 }
 
 impl Default for DefaultCallback<Callback<()>> {
@@ -72,10 +72,13 @@ impl Component for Row {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Row {
-            link,
-            props
-        }
+        Row { link, props }
+    }
+
+    fn mounted(&mut self) -> ShouldRender {
+        RowModel.init(self.props.clone());
+
+        true
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -89,6 +92,7 @@ impl Component for Row {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
+        RowModel.init(props.clone());
         self.props = props;
         true
     }
@@ -98,7 +102,7 @@ impl Component for Row {
 
         html! {
             <div
-                class=format!("{} {}", row_props.row_align, row_props.layouts_classes)
+                class=format!("row {}", row_props.layouts_classes)
                 onclick=self.link.callback(|_| Msg::Clicked)
             >
                 {self.props.children.render()}
@@ -107,44 +111,49 @@ impl Component for Row {
     }
 }
 
-impl From<Props> for RowProps{
+impl From<Props> for RowProps {
     fn from(props: Props) -> Self {
         RowProps {
             layouts_classes: RowModel.get_layout_classes(props.layouts),
-            row_align: RowModel.get_row_align(props.row_align),
         }
     }
 }
 
 impl RowModel {
-    fn get_layout_classes(self, layouts_prop: Vec<Layout>) -> String {
-        let mut layouts = layouts_prop.into_iter().map(|layout| {
-            self.get_layout(layout)
-        }).collect::<String>();
+    fn init(self, props: Props) {
+        self.get_row_align(props.row_align);
+    }
+
+    fn get_layout_classes(self, layouts_prop: Vec<RowLayout>) -> String {
+        let mut layouts = layouts_prop
+            .into_iter()
+            .map(|layout| self.get_layout(layout))
+            .collect::<String>();
 
         layouts.truncate(layouts.len() - 1);
-        
         layouts
     }
 
-    fn get_layout(self, layout: Layout) -> String {
-        match layout {
-            Layout::rw_xs(size) => format!("rw-xs-{} ", size),
-            Layout::rw_s(size) => format!("rw-s-{} ", size),
-            Layout::rw_m(size) => format!("rw-m-{} ", size),
-            Layout::rw_l(size) => format!("rw-l-{} ", size),
-            Layout::rw_xl(size) => format!("rw-xl-{} ", size),
+    fn get_layout(self, row_layout: RowLayout) -> String {
+        match row_layout {
+            RowLayout::rw_xs(size) => format!("rw-xs-{} ", size),
+            RowLayout::rw_s(size) => format!("rw-s-{} ", size),
+            RowLayout::rw_m(size) => format!("rw-m-{} ", size),
+            RowLayout::rw_l(size) => format!("rw-l-{} ", size),
+            RowLayout::rw_xl(size) => format!("rw-xl-{} ", size),
         }
     }
 
-    fn get_row_align(self, align: RowAlign) -> String {
-        match align {
+    fn get_row_align(self, align: RowAlign) {
+        let value = match align {
             RowAlign::auto => format!("auto"),
             RowAlign::baseline => format!("baseline"),
             RowAlign::center => format!("center"),
             RowAlign::flex_start => format!("flex-start"),
             RowAlign::flex_end => format!("flex-end"),
             RowAlign::stretch => format!("stretch"),
-        }
+        };
+
+        create_style(String::from("rowAlign"), value, String::from("row"));
     }
 }
