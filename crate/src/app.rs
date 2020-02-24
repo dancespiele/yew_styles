@@ -1,15 +1,18 @@
+use components::{AlignItems, Container, Direction, Item, ItemLayout, Mode, Wrap};
+use page::{ButtonPage, LayoutsPage};
 use yew::prelude::*;
-use yew_router::{prelude::*, Switch, switch::Permissive , route::Route};
-use page::ButtonPage;
+use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
 
 pub struct App;
 
 #[derive(Switch, Debug, Clone)]
 pub enum AppRouter {
-    #[to= "/!"]
+    #[to = "/!"]
     RootPath,
-    #[to= "/button!"]
+    #[to = "/button!"]
     ButtonPath,
+    #[to = "/layouts!"]
+    LayoutsPage,
     #[to = "/page-not-found"]
     PageNotFound(Permissive<String>),
 }
@@ -28,28 +31,49 @@ impl Component for App {
 
     fn view(&self) -> Html {
         html! {
-            <div>
-                <Router<AppRouter, ()>
-                    render = Router::render(|switch: AppRouter | {
-                        match switch {
-                            AppRouter::RootPath => html!{
-                                <div>
-                                  <h2>{"Yew Styles Component"}</h2>
-                                  <div>
-                                    <a href="/button">{"Button"}</a>
-                                  </div>
-                                </div>
-                            },
-                            AppRouter::ButtonPath => html!{<ButtonPage/>},
-                            AppRouter::PageNotFound(Permissive(None)) => html!{"Page not found"},
-                            AppRouter::PageNotFound(Permissive(Some(missed_route))) => html!{format!("Page '{}' not found", missed_route)}
-                        }
-                    } )
-                    redirect = Router::redirect(|route: Route<()>| {
-                        AppRouter::PageNotFound(Permissive(Some(route.route)))
-                    })
-                />
-            </div>
+            <Container name="root" direction=Direction::Row wrap=Wrap::Wrap>
+                <Item name="left-side" layouts=vec!(ItemLayout::ItXs(2))>
+                    <Container
+                        name="components"
+                        direction=Direction::Column
+                        align_items=AlignItems::FlexStart(Mode::NoMode)
+                        wrap=Wrap::Wrap
+                    >
+                        <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
+                            <h2>{"Yew Styles Component"}</h2>
+                        </Item>
+                        <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
+                            <RouterAnchor<AppRouter> route=AppRouter::RootPath>{"Let's start"}</RouterAnchor<AppRouter>>
+                        </Item>
+                        <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
+                            <RouterAnchor<AppRouter> route=AppRouter::LayoutsPage>{"Layouts"}</RouterAnchor<AppRouter>>
+                        </Item>
+                        <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
+                            <RouterAnchor<AppRouter> route=AppRouter::ButtonPath>{"Button"}</RouterAnchor<AppRouter>>
+                        </Item>
+                    </Container>
+                </Item>
+                <Item name="right-side" layouts=vec!(ItemLayout::ItXs(10))>
+                    <Router<AppRouter, ()>
+                        render = Router::render(|switch: AppRouter | {
+                            match switch {
+                                AppRouter::RootPath => html!{
+                                    <div>
+                                        <h1>{"Welcome to Yew Style"}</h1>
+                                    </div>
+                                },
+                                AppRouter::ButtonPath => html!{<ButtonPage/>},
+                                AppRouter::LayoutsPage => html!{<LayoutsPage/>},
+                                AppRouter::PageNotFound(Permissive(None)) => html!{"Page not found"},
+                                AppRouter::PageNotFound(Permissive(Some(missed_route))) => html!{format!("Page '{}' not found", missed_route)}
+                            }
+                        } )
+                        redirect = Router::redirect(|route: Route<()>| {
+                            AppRouter::PageNotFound(Permissive(Some(route.route)))
+                        })
+                    />
+                </Item>
+            </Container>
         }
     }
- }
+}

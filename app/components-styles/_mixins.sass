@@ -5,6 +5,29 @@
             color: $color
             border: get-border($border-color)
 
+@mixin layout-screen($screen)
+    @for $size from 1 through 12
+        @if $screen == s
+            @media (min-width: 576px)
+                @include get-layout($screen, $size)
+        @else if $screen == m
+            @media (min-width: 768px)
+                @include get-layout($screen, $size)
+        @else if $screen == l
+            @media (min-width: 992px)
+                @include get-layout($screen, $size)
+        @else if $screen == xl
+            @media (min-width: 1200px)
+                @include get-layout($screen, $size)
+        @else
+            @include get-layout($screen, $size)
+            
+
+@mixin get-layout($screen, $size)
+    &.it-#{$screen}-#{$size}
+        flex-basis: 100% / (12/$size)
+    
+
 @function get-border($border-color)
     $border: none
     @if $border-color != none

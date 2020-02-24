@@ -1,6 +1,6 @@
 use yew::prelude::*;
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone)]
 pub enum ButtonType {
     Primary,
     Secondary,
@@ -12,14 +12,14 @@ pub enum ButtonType {
     Standard,
 }
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone)]
 pub enum ButtonStyle {
     Regular,
     Light,
     Outline,
 }
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone)]
 pub enum Size {
     Small,
     Medium,
@@ -137,12 +137,7 @@ impl Component for Button {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props.button_type = get_button_type(props.button_type);
-        self.props.class_name = props.class_name;
-        self.props.size = get_size(props.size);
-        self.props.button_style = get_button_style(props.button_style);
-        self.props.onsignal = props.onsignal;
-        self.props.children = props.children;
+        self.props = ButtonProps::from(props);
         true
     }
 
