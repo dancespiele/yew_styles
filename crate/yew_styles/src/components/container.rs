@@ -1,8 +1,7 @@
-use utils::create_style;
+use crate::utils::create_style;
 use yew::prelude::*;
 
 pub struct Container {
-    link: ComponentLink<Self>,
     props: Props,
 }
 
@@ -115,8 +114,8 @@ impl Component for Container {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Container { link, props }
+    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
+        Container { props }
     }
 
     fn mounted(&mut self) -> ShouldRender {

@@ -1,4 +1,4 @@
-use utils::create_style;
+use crate::utils::create_style;
 use yew::prelude::*;
 
 #[derive(Clone)]

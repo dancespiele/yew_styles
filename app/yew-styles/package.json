@@ -1,0 +1,16 @@
+{
+  "name": "yew-styles",
+  "version": "0.1.0",
+  "description": "css for yew_styles",
+  "main": "main.css",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "styles",
+    "yew_styles",
+    "framework"
+  ],
+  "author": "Francisco Jesus Navarro Cortes",
+  "license": "MIT"
+}
