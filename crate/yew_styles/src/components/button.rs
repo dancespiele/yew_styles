@@ -31,7 +31,7 @@ pub struct Button {
     props: ButtonProps,
 }
 
-pub struct ButtonProps {
+struct ButtonProps {
     button_type: String,
     size: String,
     button_style: String,
@@ -119,7 +119,7 @@ impl Component for Button {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>)-> Self {
+    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         Button {
             link,
             props: ButtonProps::from(props),

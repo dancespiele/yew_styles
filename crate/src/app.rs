@@ -1,7 +1,10 @@
-use components::{AlignItems, Container, Direction, Item, ItemLayout, Mode, Wrap};
 use page::{ButtonPage, LayoutsPage};
 use yew::prelude::*;
 use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
+use yew_styles::{
+    container::{AlignItems, Container, Direction, Mode, Wrap},
+    item::{Item, ItemLayout},
+};
 
 pub struct App;
 

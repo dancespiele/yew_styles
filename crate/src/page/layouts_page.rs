@@ -1,8 +1,8 @@
-use components::{
-    AlignContent, AlignItems, AlignSelf, Container, Direction, Item, ItemLayout, JustifyContent,
-    Mode, Wrap,
-};
 use yew::prelude::*;
+use yew_styles::{
+    container::{AlignContent, AlignItems, Container, Direction, JustifyContent, Mode, Wrap},
+    item::{AlignSelf, Item, ItemLayout},
+};
 
 pub struct LayoutsPage;
 

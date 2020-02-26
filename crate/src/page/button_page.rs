@@ -1,7 +1,7 @@
-use components::{
+use yew::prelude::*;
+use yew_styles::button::{
     get_button_style, get_button_type, get_size, Button, ButtonStyle, ButtonType, Size,
 };
-use yew::prelude::*;
 
 pub struct ButtonPage {
     link: ComponentLink<Self>,
