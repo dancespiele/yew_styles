@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["spieljs <spieljs@gmail.com>"]
 edition = "2018"
 license = "MIT"
+repository = "https://github.com/spielrs/yew-styles-page/tree/master/crate/yew_styles"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
