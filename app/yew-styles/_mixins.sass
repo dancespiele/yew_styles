@@ -4,6 +4,12 @@
             background-color: $background
             color: $color
             border: get-border($border-color)
+            &:focus
+                background-color: darken($background, 5%)
+            &:hover
+                background-color: darken($background, 10%)
+            &:active
+                background-color: darken($background, 15%)
 
 @mixin layout-screen($screen)
     @for $size from 1 through 12
