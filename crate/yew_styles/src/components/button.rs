@@ -1,3 +1,4 @@
+use crate::palette::{BuildPalette, Palettes};
 use yew::prelude::*;
 
 #[derive(Clone)]
@@ -43,7 +44,7 @@ struct ButtonProps {
 impl From<Props> for ButtonProps {
     fn from(props: Props) -> Self {
         ButtonProps {
-            button_type: get_button_type(props.button_type),
+            button_type: BuildPalette::new(props.button_type),
             size: get_size(props.size),
             button_style: get_button_style(props.button_style),
             class_name: props.class_name,
@@ -55,7 +56,7 @@ impl From<Props> for ButtonProps {
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    pub button_type: ButtonType,
+    pub button_type: Palettes,
     pub class_name: String,
     pub size: Size,
     pub button_style: ButtonStyle,
@@ -66,19 +67,6 @@ pub struct Props {
 
 pub enum Msg {
     Clicked,
-}
-
-pub fn get_button_type(button_type: ButtonType) -> String {
-    match button_type {
-        ButtonType::Primary => String::from("primary"),
-        ButtonType::Secondary => String::from("secondary"),
-        ButtonType::Info => String::from("info"),
-        ButtonType::Link => String::from("link"),
-        ButtonType::Success => String::from("success"),
-        ButtonType::Warning => String::from("warning"),
-        ButtonType::Danger => String::from("danger"),
-        ButtonType::Standard => String::from("standard"),
-    }
 }
 
 pub fn get_size(size: Size) -> String {
