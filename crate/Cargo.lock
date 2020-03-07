@@ -815,7 +815,7 @@ dependencies = [
 
 [[package]]
 name = "yew_style_page"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "cfg-if 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "console_error_panic_hook 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -828,12 +828,12 @@ dependencies = [
  "wee_alloc 0.4.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "yew 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "yew-router 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "yew_styles 0.1.0",
+ "yew_styles 0.2.0",
 ]
 
 [[package]]
 name = "yew_styles"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "wasm-bindgen 0.2.58 (registry+https://github.com/rust-lang/crates.io-index)",
  "web-sys 0.3.35 (registry+https://github.com/rust-lang/crates.io-index)",
