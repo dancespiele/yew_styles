@@ -2,8 +2,6 @@
 
 #[macro_use]
 extern crate cfg_if;
-
-extern crate stdweb;
 extern crate wasm_bindgen;
 extern crate web_sys;
 extern crate yew;

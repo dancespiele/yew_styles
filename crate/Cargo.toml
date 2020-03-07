@@ -6,7 +6,7 @@ license = "Apache-2.0/MIT"
 name = "yew_style_page"
 readme = "./README.md"
 repository = "https://github.com/spielrs/yew-styles-page.git"
-version = "0.1.0"
+version = "0.2.0"
 
 [lib]
 crate-type = ["cdylib"]
@@ -20,8 +20,10 @@ serde = "1.0"
 serde_derive = "1.0"
 dotenv = "0.15"
 failure = "0.1"
-yew = { version = "0.12.0", features = ["toml", "yaml", "msgpack", "cbor"]}
-yew-router = "0.9"
+yew = { version = "0.13", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"]}
+yew-router = {version = "0.10", features = ["web_sys"] }
 web-sys = "0.3"
-stdweb = "0.4"
-yew_styles= {path= "./yew_styles", version = "0.1.0"}
+yew_styles= {path= "./yew_styles", version = "0.2.0", features = ["web_sys"]}
+
+[build]
+target="wasm32-unknown-unknown"
