@@ -55,11 +55,14 @@ impl From<Props> for ButtonProps {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    #[prop_or(ButtonType::Standard)]
     pub button_type: ButtonType,
+    #[prop_or_default]
     pub class_name: String,
+    #[prop_or(Size::Medium)]
     pub size: Size,
+    #[prop_or(ButtonStyle::Regular)]
     pub button_style: ButtonStyle,
-    #[props(required)]
     pub onsignal: Callback<()>,
     pub children: Children,
 }
@@ -94,24 +97,6 @@ pub fn get_button_style(button_style: ButtonStyle) -> String {
         ButtonStyle::Regular => String::from("regular"),
         ButtonStyle::Light => String::from("light"),
         ButtonStyle::Outline => String::from("outline"),
-    }
-}
-
-impl Default for Size {
-    fn default() -> Self {
-        Size::Medium
-    }
-}
-
-impl Default for ButtonType {
-    fn default() -> Self {
-        ButtonType::Standard
-    }
-}
-
-impl Default for ButtonStyle {
-    fn default() -> Self {
-        ButtonStyle::Regular
     }
 }
 

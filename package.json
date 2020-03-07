@@ -4,7 +4,7 @@
     "url": "https://github.com/spielrs/yew-styles-page.git"
   },
   "name": "yewstyle-page",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "license": "Apache-2.0/MIT",
   "scripts": {
     "start": "parcel index.html",
