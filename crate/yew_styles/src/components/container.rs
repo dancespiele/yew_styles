@@ -79,35 +79,21 @@ pub enum Msg {}
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    #[props(required)]
     pub direction: Direction,
-    #[props(required)]
     pub wrap: Wrap,
+    #[prop_or_default]
     pub index: i16,
+    #[prop_or(JustifyContent::FlexStart(Mode::NoMode))]
     pub justify_content: JustifyContent,
+    #[prop_or(AlignContent::Stretch(Mode::NoMode))]
     pub align_content: AlignContent,
+    #[prop_or(AlignItems::Stretch(Mode::NoMode))]
     pub align_items: AlignItems,
+    #[prop_or_default]
     pub class_name: String,
+    #[prop_or_default]
     pub name: String,
     pub children: Children,
-}
-
-impl Default for JustifyContent {
-    fn default() -> Self {
-        JustifyContent::FlexStart(Mode::NoMode)
-    }
-}
-
-impl Default for AlignContent {
-    fn default() -> Self {
-        AlignContent::Stretch(Mode::NoMode)
-    }
-}
-
-impl Default for AlignItems {
-    fn default() -> Self {
-        AlignItems::Stretch(Mode::NoMode)
-    }
 }
 
 impl Component for Container {
@@ -174,14 +160,15 @@ impl ContainerModel {
         let value = format!("{} {}", direction, wrap);
 
         create_style(
-            String::from("flexFlow"),
+            String::from("flex-flow"),
             value,
             if name == "" {
                 format!("container-{}", index)
             } else {
                 format!("container-{}-{}", name, index)
             },
-        );
+        )
+        .unwrap();
     }
 
     fn get_mode(self, mode: Mode) -> String {
@@ -207,7 +194,7 @@ impl ContainerModel {
         };
 
         create_style(
-            String::from("justifyContent"),
+            String::from("justify-content"),
             value,
             if name == "" {
                 format!("container-{}", index)
@@ -215,6 +202,7 @@ impl ContainerModel {
                 format!("container-{}-{}", name, index)
             },
         )
+        .unwrap();
     }
 
     fn get_align_content(self, align_content: AlignContent, index: i16, name: String) {
@@ -234,14 +222,15 @@ impl ContainerModel {
         };
 
         create_style(
-            String::from("alignContent"),
+            String::from("align-content"),
             value,
             if name == "" {
                 format!("container-{}", index)
             } else {
                 format!("container-{}-{}", name, index)
             },
-        );
+        )
+        .unwrap();
     }
 
     fn get_align_items(self, align_items: AlignItems, index: i16, name: String) {
@@ -260,13 +249,14 @@ impl ContainerModel {
         };
 
         create_style(
-            String::from("alignItems"),
+            String::from("align-items"),
             value,
             if name == "" {
                 format!("container-{}", index)
             } else {
                 format!("container-{}-{}", name, index)
             },
-        );
+        )
+        .unwrap();
     }
 }
