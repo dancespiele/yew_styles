@@ -1,3 +1,4 @@
+#[cfg(any(feature = "web_sys", feature = "std_web"))]
 use crate::utils::create_style;
 use yew::prelude::*;
 
@@ -159,6 +160,7 @@ impl ItemModel {
             AlignSelf::Stretch => format!("stretch"),
         };
 
+        #[cfg(any(feature = "web_sys", feature = "std_web"))]
         create_style(
             String::from("align-self"),
             value,
@@ -167,7 +169,6 @@ impl ItemModel {
             } else {
                 format!("item-{}-{}", name, index)
             },
-        )
-        .unwrap();
+        );
     }
 }

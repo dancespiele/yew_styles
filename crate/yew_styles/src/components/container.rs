@@ -167,8 +167,7 @@ impl ContainerModel {
             } else {
                 format!("container-{}-{}", name, index)
             },
-        )
-        .unwrap();
+        );
     }
 
     fn get_mode(self, mode: Mode) -> String {
@@ -193,6 +192,7 @@ impl ContainerModel {
             JustifyContent::SpaceEvenly(mode) => format!("evenly{}", self.get_mode(mode)),
         };
 
+        #[cfg(any(feature = "web_sys", feature = "std_web"))]
         create_style(
             String::from("justify-content"),
             value,
@@ -201,8 +201,7 @@ impl ContainerModel {
             } else {
                 format!("container-{}-{}", name, index)
             },
-        )
-        .unwrap();
+        );
     }
 
     fn get_align_content(self, align_content: AlignContent, index: i16, name: String) {
@@ -229,8 +228,7 @@ impl ContainerModel {
             } else {
                 format!("container-{}-{}", name, index)
             },
-        )
-        .unwrap();
+        );
     }
 
     fn get_align_items(self, align_items: AlignItems, index: i16, name: String) {
@@ -256,7 +254,6 @@ impl ContainerModel {
             } else {
                 format!("container-{}-{}", name, index)
             },
-        )
-        .unwrap();
+        );
     }
 }

@@ -9,8 +9,12 @@ repository = "https://github.com/spielrs/yew-styles-page/tree/master/crate/yew_s
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+std_web = ["stdweb"]
+web_sys = ["web-sys"]
+
 [dependencies]
 wasm-bindgen = "0.2"
 yew = { version = "0.13", features = ["toml", "yaml", "msgpack", "cbor"]}
-stdweb = { version = "0.4"}
-web-sys = {version = "0.3", features = ["HtmlDocument", "HtmlCollection", "CssStyleDeclaration", "HtmlElement"]}
+stdweb = { version = "0.4", optional = true}
+web-sys = {version = "0.3", features = ["HtmlDocument", "HtmlCollection", "CssStyleDeclaration", "HtmlElement"], optional=true}
