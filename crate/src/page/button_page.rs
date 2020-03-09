@@ -1,6 +1,7 @@
 use yew::prelude::*;
-use yew_styles::button::{
-    get_button_style, get_button_type, get_size, Button, ButtonStyle, ButtonType, Size,
+use yew_styles::{
+    button::{get_button_style, get_size, Button, ButtonStyle, Size},
+    palette::{BuildPalette, Palettes},
 };
 
 pub struct ButtonPage {
@@ -98,15 +99,15 @@ fn get_buttons(size: Size, button_style: ButtonStyle, link: ComponentLink<Button
         "Warning",
         "Danger",
     ];
-    let button_types_enum: Vec<ButtonType> = vec![
-        ButtonType::Standard,
-        ButtonType::Primary,
-        ButtonType::Secondary,
-        ButtonType::Info,
-        ButtonType::Link,
-        ButtonType::Success,
-        ButtonType::Warning,
-        ButtonType::Danger,
+    let button_types_enum: Vec<Palettes> = vec![
+        Palettes::Standard,
+        Palettes::Primary,
+        Palettes::Secondary,
+        Palettes::Info,
+        Palettes::Link,
+        Palettes::Success,
+        Palettes::Warning,
+        Palettes::Danger,
     ];
     let mut index = 0;
 
@@ -122,7 +123,7 @@ fn get_buttons(size: Size, button_style: ButtonStyle, link: ComponentLink<Button
                             button_type=button_types_enum[index].clone()
                             button_style=button_style.clone()
                             size=size.clone()
-                        >{to_first_upercase(&get_button_type(button_types_enum[index].clone()))}
+                        >{to_first_upercase(&BuildPalette::new(button_types_enum[index].clone()))}
                         </Button>
                     };
                     index = index + 1;

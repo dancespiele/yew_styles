@@ -84,8 +84,6 @@ impl Component for Item {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        ItemModel.init(props.clone());
-
         self.props = props;
         true
     }

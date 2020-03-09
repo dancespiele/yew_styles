@@ -115,7 +115,6 @@ impl Component for Container {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        ContainerModel.init(props.clone());
         self.props = props;
         true
     }
