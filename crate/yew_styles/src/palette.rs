@@ -10,12 +10,6 @@ pub enum Palettes {
     Standard,
 }
 
-impl Default for Palettes {
-    fn default() -> Self {
-        Palettes::Standard
-    }
-}
-
 pub struct BuildPalette;
 
 impl BuildPalette {

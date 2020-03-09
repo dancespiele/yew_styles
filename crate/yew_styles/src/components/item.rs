@@ -1,5 +1,5 @@
 #[cfg(any(feature = "web_sys", feature = "std_web"))]
-use crate::utils::create_style;
+use crate::utils::{create_style, DefaultCallback};
 use yew::prelude::*;
 
 #[derive(Clone)]
@@ -57,11 +57,6 @@ pub struct Props {
     })]
     pub onsignal: DefaultCallback<Callback<()>>,
     pub children: Children,
-}
-
-#[derive(Clone)]
-pub struct DefaultCallback<T> {
-    callback: T,
 }
 
 impl Component for Item {
