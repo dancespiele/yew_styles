@@ -1,4 +1,4 @@
-use crate::palette::{BuildPalette, Palettes};
+use crate::styles::{get_pallete, get_style, Palette, Style};
 use yew::prelude::*;
 
 #[derive(Clone)]
@@ -44,9 +44,9 @@ struct ButtonProps {
 impl From<Props> for ButtonProps {
     fn from(props: Props) -> Self {
         ButtonProps {
-            button_type: BuildPalette::new(props.button_type),
+            button_type: get_pallete(props.button_type),
             size: get_size(props.size),
-            button_style: get_button_style(props.button_style),
+            button_style: get_style(props.button_style),
             class_name: props.class_name,
             onsignal: props.onsignal,
             children: props.children,
@@ -56,14 +56,14 @@ impl From<Props> for ButtonProps {
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    #[prop_or(Palettes::Standard)]
-    pub button_type: Palettes,
+    #[prop_or(Palette::Standard)]
+    pub button_type: Palette,
     #[prop_or_default]
     pub class_name: String,
     #[prop_or(Size::Medium)]
     pub size: Size,
-    #[prop_or(ButtonStyle::Regular)]
-    pub button_style: ButtonStyle,
+    #[prop_or(Style::Regular)]
+    pub button_style: Style,
     pub onsignal: Callback<()>,
     pub children: Children,
 }
@@ -77,14 +77,6 @@ pub fn get_size(size: Size) -> String {
         Size::Small => String::from("small"),
         Size::Medium => String::from("medium"),
         Size::Big => String::from("big"),
-    }
-}
-
-pub fn get_button_style(button_style: ButtonStyle) -> String {
-    match button_style {
-        ButtonStyle::Regular => String::from("regular"),
-        ButtonStyle::Light => String::from("light"),
-        ButtonStyle::Outline => String::from("outline"),
     }
 }
 

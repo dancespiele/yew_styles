@@ -5,20 +5,10 @@
     display: flex
 
     &.regular
-        @include pallete-style($regular-style, false)
+        @include navar-style($regular-style)
     &.outline
-        @include pallete-style($outline-style, false)
+        @include navar-style($outline-style)
     &.light
-        @include pallete-style($light-style, false)
-
-
-    .navbar-item
-        padding: 10px
-        &:host-context(.regular)
-            @include pallete-style($regular-style, true)
-        &:host-context(.outline)
-            @include pallete-style($outline-style, true)
-        &:host-context(.light)
-            @include pallete-style($light-style, true)
+        @include navar-style($light-style)
             
             

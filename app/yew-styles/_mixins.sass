@@ -1,17 +1,16 @@
-@mixin pallete-style($style, $event)
+@mixin pallete-style($style)
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
             background-color: $background
             color: $color
             border: get-border($border-color)
 
-            @if $event == true
-                &:focus
-                    background-color: darken($background, 5%)
-                &:hover
-                    background-color: darken($background, 10%)
-                &:active
-                    background-color: darken($background, 15%)
+        &:focus
+            background-color: darken($background, 5%)
+        &:hover
+            background-color: darken($background, 10%)
+        &:active
+            background-color: darken($background, 15%)
 
 @mixin layout-screen($screen)
     @for $size from 1 through 12
@@ -34,6 +33,25 @@
 @mixin get-layout($screen, $size)
     &.it-#{$screen}-#{$size}
         flex-basis: 100% / (12/$size)
+
+@mixin navar-style($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            background-color: $background
+            color: $color
+            border: get-border($border-color)
+        .navbar-item
+            padding: 10px
+            cursor: pointer
+
+            &:focus
+                background-color: darken($background, 5%)
+            &:hover
+                background-color: darken($background, 10%)
+            &:active
+                background-color: darken($background, 15%)
+        
+    
     
 
 @function get-border($border-color)

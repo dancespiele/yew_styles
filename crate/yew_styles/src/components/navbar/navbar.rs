@@ -1,10 +1,11 @@
 use crate::container::{Container, Direction, Wrap};
-use crate::palette::{BuildPalette, Palettes};
+use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;
 
 #[derive(Clone, PartialEq)]
 pub enum Fixed {
+    None,
     Top,
     Bottom,
 }
@@ -19,8 +20,10 @@ struct NavbarModel;
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    #[prop_or(Palettes::Standard)]
-    pub navbar_type: Palettes,
+    #[prop_or(Palette::Standard)]
+    pub navbar_type: Palette,
+    #[prop_or(Style::Regular)]
+    pub navbar_style: Style,
     #[prop_or_default]
     pub class_name: String,
     #[prop_or(Fixed::Top)]
@@ -31,6 +34,7 @@ pub struct Props {
 #[derive(Clone)]
 pub struct NavbarProps {
     pub navbar_type: String,
+    pub navbar_style: String,
     pub class_name: String,
     pub fixed: Fixed,
     pub children: Children,
@@ -39,7 +43,8 @@ pub struct NavbarProps {
 impl From<Props> for NavbarProps {
     fn from(props: Props) -> Self {
         NavbarProps {
-            navbar_type: BuildPalette::new(props.navbar_type),
+            navbar_type: get_pallete(props.navbar_type),
+            navbar_style: get_style(props.navbar_style),
             class_name: props.class_name,
             fixed: props.fixed,
             children: props.children,
@@ -76,7 +81,7 @@ impl Component for Navbar {
     fn view(&self) -> Html {
         html! {
             <div
-                class=format!("navbar {} {}", self.props.navbar_type, self.props.class_name)
+                class=format!("navbar {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
             >
                 <Container direction=Direction::Row, wrap=Wrap::Wrap>
                     {self.props.children.render()}
@@ -94,17 +99,24 @@ impl NavbarModel {
     fn set_fixed(self, fixed: Fixed) {
         create_style(
             String::from("position"),
-            String::from("fixed"),
-            String::from("navbar"),
-        );
-        create_style(
-            if fixed == Fixed::Top {
-                String::from("top")
+            if fixed == Fixed::None {
+                String::from("inherit")
             } else {
-                String::from("bottom")
+                String::from("fixed")
             },
-            String::from("0"),
             String::from("navbar"),
         );
+
+        if fixed != Fixed::None {
+            create_style(
+                if fixed == Fixed::Top {
+                    String::from("top")
+                } else {
+                    String::from("bottom")
+                },
+                String::from("0"),
+                String::from("navbar"),
+            );
+        }
     }
 }

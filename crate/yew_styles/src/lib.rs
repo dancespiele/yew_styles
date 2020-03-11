@@ -1,5 +1,5 @@
 mod components;
-pub mod palette;
-mod utils;
+pub mod styles;
+pub mod utils;
 
 pub use components::{button, container, item, navbar};

@@ -1,9 +1,14 @@
 use yew::prelude::*;
-use yew_styles::navbar::{AligSelf, Fixed, Navbar, NavbarItem};
+use yew::services::ConsoleService;
+use yew_styles::{
+    navbar::{AligSelf, Fixed, Navbar, NavbarItem},
+    styles::{Palette, Style},
+};
 
 pub struct NavbarPage {
     link: ComponentLink<Self>,
     navbar_menu: Vec<String>,
+    console: ConsoleService,
 }
 
 pub enum Msg {
@@ -20,6 +25,7 @@ impl Component for NavbarPage {
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         NavbarPage {
             link,
+            console: ConsoleService::new(),
             navbar_menu: vec![String::from("home"); 10],
         }
     }
@@ -27,6 +33,8 @@ impl Component for NavbarPage {
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::ChangeType(index, navbar_menu) => {
+                let index_log = index.to_string();
+                self.console.info(index_log.as_ref());
                 self.navbar_menu[index] = navbar_menu;
             }
         };
@@ -36,9 +44,13 @@ impl Component for NavbarPage {
 
     fn view(&self) -> Html {
         html! {
-            <div class="container">
-                <Navbar fixed=Fixed::Top>
-                    {get_menus(self.link.clone())}
+            <div class="root">
+                <Navbar
+                    fixed=Fixed::None
+                    navbar_style=Style::Regular
+                    navbar_type=Palette::Info
+                >
+                    {get_menus(self.link.clone(), 0)}
                 </Navbar>
                 <div>{self.navbar_menu[0].clone()}</div>
             </div>
@@ -46,14 +58,13 @@ impl Component for NavbarPage {
     }
 }
 
-fn get_menus(link: ComponentLink<NavbarPage>) -> Html {
+fn get_menus(link: ComponentLink<NavbarPage>, index: usize) -> Html {
     let menus = vec!["home", "shop", "about us", "contact us"];
-    let mut index = 0;
 
     menus
         .into_iter()
         .map(|menu| {
-            let item = html! {
+            html! {
                 <>
                     <NavbarItem
                         side=AligSelf::Left
@@ -62,10 +73,7 @@ fn get_menus(link: ComponentLink<NavbarPage>) -> Html {
                         <span>{menu}</span>
                     </NavbarItem>
                 </>
-            };
-
-            index = index + 1;
-            item
+            }
         })
         .collect::<Html>()
 }
