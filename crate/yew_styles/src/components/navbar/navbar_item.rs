@@ -22,9 +22,11 @@ pub struct NavbarItemModel;
 #[derive(Clone, Properties)]
 pub struct Props {
     #[prop_or(AligSelf::Left)]
-    side: AligSelf,
-    onsignal: Callback<()>,
-    children: Children,
+    pub side: AligSelf,
+    #[prop_or_default]
+    pub class_name: String,
+    pub onsignal: Callback<()>,
+    pub children: Children,
 }
 
 impl Component for NavbarItem {
@@ -61,7 +63,7 @@ impl Component for NavbarItem {
     fn view(&self) -> Html {
         html! {
             <div
-                class="navbar-item"
+                class=format!("navbar-item {}", self.props.class_name)
                 onclick=self.link.callback(|_| Msg::Clicked)
             >
                 {self.props.children.render()}

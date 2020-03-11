@@ -22,7 +22,7 @@ pub struct Props {
     #[prop_or(Palettes::Standard)]
     pub navbar_type: Palettes,
     #[prop_or_default]
-    pub navbar_styles: String,
+    pub class_name: String,
     #[prop_or(Fixed::Top)]
     pub fixed: Fixed,
     pub children: Children,
@@ -31,7 +31,7 @@ pub struct Props {
 #[derive(Clone)]
 pub struct NavbarProps {
     pub navbar_type: String,
-    pub navbar_styles: String,
+    pub class_name: String,
     pub fixed: Fixed,
     pub children: Children,
 }
@@ -40,7 +40,7 @@ impl From<Props> for NavbarProps {
     fn from(props: Props) -> Self {
         NavbarProps {
             navbar_type: BuildPalette::new(props.navbar_type),
-            navbar_styles: props.navbar_styles,
+            class_name: props.class_name,
             fixed: props.fixed,
             children: props.children,
         }
@@ -51,7 +51,7 @@ impl Component for Navbar {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
         Navbar {
             props: NavbarProps::from(props),
         }
@@ -76,7 +76,7 @@ impl Component for Navbar {
     fn view(&self) -> Html {
         html! {
             <div
-                class=format!("navbar {} {}", self.props.navbar_type, self.props.navbar_styles)
+                class=format!("navbar {} {}", self.props.navbar_type, self.props.class_name)
             >
                 <Container direction=Direction::Row, wrap=Wrap::Wrap>
                     {self.props.children.render()}

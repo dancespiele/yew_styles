@@ -1,0 +1,24 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+
+.navbar
+    display: flex
+
+    &.regular
+        @include pallete-style($regular-style, false)
+    &.outline
+        @include pallete-style($outline-style, false)
+    &.light
+        @include pallete-style($light-style, false)
+
+
+    .navbar-item
+        padding: 10px
+        &:host-context(.regular)
+            @include pallete-style($regular-style, true)
+        &:host-context(.outline)
+            @include pallete-style($outline-style, true)
+        &:host-context(.light)
+            @include pallete-style($light-style, true)
+            
+            
