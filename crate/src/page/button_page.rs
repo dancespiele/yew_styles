@@ -38,7 +38,7 @@ impl Component for ButtonPage {
 
     fn view(&self) -> Html {
         html! {
-            <div class="container">
+            <div class="container-button">
                 <div class="buttons-example">
                     {get_button_styles(self.link.clone())}
                 </div>

@@ -45,10 +45,9 @@ impl Component for NavbarPage {
     fn view(&self) -> Html {
         html! {
             <div class="root">
+                <h2>{"Basic"}</h2>
                 <Navbar
                     fixed=Fixed::None
-                    navbar_style=Style::Regular
-                    navbar_type=Palette::Info
                 >
                     {get_menus(self.link.clone(), 0)}
                 </Navbar>
