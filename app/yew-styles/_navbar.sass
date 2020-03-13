@@ -2,11 +2,15 @@
 @import "_mixins.sass"
 
 .navbar
+    display: inline-flex
+    width: 100%
+
     &.regular
         @include navar-style($regular-style)
     &.outline
         @include navar-style($outline-style)
     &.light
         @include navar-style($light-style)
-            
-            
+    
+    .navbar-container
+        width: 100%

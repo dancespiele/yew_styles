@@ -1,8 +1,8 @@
 use yew::prelude::*;
 use yew::services::ConsoleService;
 use yew_styles::{
-    navbar::{AligSelf, Fixed, Navbar, NavbarItem},
-    styles::{Palette, Style},
+    container::{JustifyContent, Mode},
+    navbar::{Fixed, Navbar, NavbarContainer, NavbarItem},
 };
 
 pub struct NavbarPage {
@@ -49,7 +49,9 @@ impl Component for NavbarPage {
                 <Navbar
                     fixed=Fixed::None
                 >
-                    {get_menus(self.link.clone(), 0)}
+                    <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
+                        {get_menus(self.link.clone(), 0)}
+                    </NavbarContainer>
                 </Navbar>
                 <div>{self.navbar_menu[0].clone()}</div>
             </div>
@@ -66,7 +68,6 @@ fn get_menus(link: ComponentLink<NavbarPage>, index: usize) -> Html {
             html! {
                 <>
                     <NavbarItem
-                        side=AligSelf::Left
                         onsignal=link.callback(move |_| Msg::ChangeType(index, String::from(menu)))
                     >
                         <span>{menu}</span>

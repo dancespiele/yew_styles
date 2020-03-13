@@ -1,4 +1,3 @@
-use crate::container::{Container, Direction, Wrap};
 use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;
@@ -83,9 +82,7 @@ impl Component for Navbar {
             <div
                 class=format!("navbar {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
             >
-                <Container direction=Direction::Row, wrap=Wrap::Wrap>
-                    {self.props.children.render()}
-                </Container>
+                {self.props.children.render()}
             </div>
         }
     }

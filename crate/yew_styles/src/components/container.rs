@@ -191,7 +191,6 @@ impl ContainerModel {
             JustifyContent::SpaceEvenly(mode) => format!("evenly{}", self.get_mode(mode)),
         };
 
-        #[cfg(any(feature = "web_sys", feature = "std_web"))]
         create_style(
             String::from("justify-content"),
             value,
