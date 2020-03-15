@@ -1,3 +1,6 @@
+use super::navbar_container::NavbarContainer;
+use super::navbar_item::NavbarItem;
+use crate::container::{JustifyContent, Mode};
 use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;
@@ -9,10 +12,14 @@ pub enum Fixed {
     Bottom,
 }
 
-pub enum Msg {}
+pub enum Msg {
+    TroggleMenu,
+}
 
 pub struct Navbar {
+    pub link: ComponentLink<Self>,
     pub props: NavbarProps,
+    pub display_menu: bool,
 }
 
 struct NavbarModel;
@@ -55,9 +62,11 @@ impl Component for Navbar {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
+    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         Navbar {
+            link,
             props: NavbarProps::from(props),
+            display_menu: false,
         }
     }
 
@@ -67,8 +76,14 @@ impl Component for Navbar {
         true
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
+    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+        match msg {
+            Msg::TroggleMenu => {
+                self.display_menu = !self.display_menu;
+            }
+        };
+
+        true
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
@@ -79,11 +94,30 @@ impl Component for Navbar {
 
     fn view(&self) -> Html {
         html! {
-            <div
-                class=format!("navbar {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
-            >
-                {self.props.children.render()}
-            </div>
+            <>
+                <div
+                    class=format!("navbar-mobile {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
+                >
+                    <NavbarContainer justify_content=JustifyContent::End(Mode::NoMode)>
+                        <NavbarItem
+                            onsignal=self.link.callback(move |_| Msg::TroggleMenu)
+                        >
+                            <img src="./assets/menu.svg"/>
+                        </NavbarItem>
+                    </NavbarContainer>
+                    {if self.display_menu {
+                        self.props.children.render()
+                    } else {
+                        html!{}
+                    }}
+                </div>
+
+                <div
+                    class=format!("navbar {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
+                >
+                    {self.props.children.render()}
+                </div>
+            </>
         }
     }
 }

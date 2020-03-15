@@ -1,16 +1,38 @@
 @import "_global-variables.sass"
 @import "_mixins.sass"
 
-.navbar
-    display: inline-flex
-    width: 100%
+@media all and (max-width: 768px)
+    .navbar
+        display: none
 
-    &.regular
-        @include navar-style($regular-style)
-    &.outline
-        @include navar-style($outline-style)
-    &.light
-        @include navar-style($light-style)
-    
-    .navbar-container
+    .navbar-mobile
         width: 100%
+
+        &.regular
+            @include navar-style($regular-style)
+        &.outline
+            @include navar-style($outline-style)
+        &.light
+            @include navar-style($light-style)
+
+        .navbar-container
+            display: flex
+            direction: column
+
+@media all and (min-width: 769px)
+    .navbar-mobile
+        display: none
+
+    .navbar
+        display: inline-flex
+        width: 100%
+
+        &.regular
+            @include navar-style($regular-style)
+        &.outline
+            @include navar-style($outline-style)
+        &.light
+            @include navar-style($light-style)
+        
+        .navbar-container
+            width: 100%
