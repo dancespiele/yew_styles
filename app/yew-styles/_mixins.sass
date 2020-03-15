@@ -1,9 +1,10 @@
-@mixin button-style($style)
+@mixin pallete-style($style)
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
             background-color: $background
             color: $color
             border: get-border($border-color)
+
             &:focus
                 background-color: darken($background, 5%)
             &:hover
@@ -32,6 +33,30 @@
 @mixin get-layout($screen, $size)
     &.it-#{$screen}-#{$size}
         flex-basis: 100% / (12/$size)
+
+@mixin navar-style($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            background-color: $background
+            color: $color
+            border: get-border($border-color)
+
+            .navbar-menu
+                fill: $color
+                width: 40px
+
+            .navbar-item
+                padding: 10px
+                cursor: pointer
+
+                &:focus
+                    background-color: darken($background, 5%)
+                &:hover
+                    background-color: darken($background, 10%)
+                &:active
+                    background-color: darken($background, 15%)
+        
+    
     
 
 @function get-border($border-color)

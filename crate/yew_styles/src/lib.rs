@@ -1,4 +1,8 @@
-mod components;
-mod utils;
+#![recursion_limit = "512"]
 
-pub use components::{button, container, item};
+pub mod assets;
+mod components;
+pub mod styles;
+pub mod utils;
+
+pub use components::{button, container, item, navbar};

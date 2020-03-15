@@ -115,7 +115,6 @@ impl Component for Container {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        ContainerModel.init(props.clone());
         self.props = props;
         true
     }
@@ -192,7 +191,6 @@ impl ContainerModel {
             JustifyContent::SpaceEvenly(mode) => format!("evenly{}", self.get_mode(mode)),
         };
 
-        #[cfg(any(feature = "web_sys", feature = "std_web"))]
         create_style(
             String::from("justify-content"),
             value,
