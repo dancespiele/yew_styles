@@ -48,6 +48,7 @@ impl Component for NavbarPage {
                 <h2>{"Basic"}</h2>
                 <Navbar
                     fixed=Fixed::None
+                    branch=html!{<img src="/assets/spielrs_logo.png"></img>}
                 >
                     <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
                         {get_menus(self.link.clone(), 0)}

@@ -8,6 +8,9 @@
     .navbar-mobile
         width: 100%
 
+        .navbar-dropdown
+            display: flex
+
         &.regular
             @include navar-style($regular-style)
         &.outline
@@ -16,8 +19,18 @@
             @include navar-style($light-style)
 
         .navbar-container
-            display: flex
-            direction: column
+            width: 100%
+            flex-direction: column !important
+            justify-content: s
+
+            &.navbar-container-mobile
+                flex-direction: row !important
+        
+        .branch
+            align-self: center
+            margin-left: 5px
+            img
+                width: 50px
 
 @media all and (min-width: 769px)
     .navbar-mobile

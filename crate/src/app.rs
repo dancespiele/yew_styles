@@ -37,7 +37,7 @@ impl Component for App {
     fn view(&self) -> Html {
         html! {
             <Container name="root" direction=Direction::Row wrap=Wrap::Wrap>
-                <Item name="left-side" layouts=vec!(ItemLayout::ItXs(2))>
+                <Item name="left-side" layouts=vec!(ItemLayout::ItL(2), ItemLayout::ItXs(12))>
                     <Container
                         name="components"
                         direction=Direction::Column
@@ -61,7 +61,7 @@ impl Component for App {
                         </Item>
                     </Container>
                 </Item>
-                <Item name="right-side" layouts=vec!(ItemLayout::ItXs(10))>
+                <Item name="right-side" layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItL(10) )>
                     <Router<AppRouter, ()>
                         render = Router::render(|switch: AppRouter | {
                             match switch {

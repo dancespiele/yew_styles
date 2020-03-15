@@ -1,6 +1,6 @@
 use super::navbar_container::NavbarContainer;
 use super::navbar_item::NavbarItem;
-use crate::container::{JustifyContent, Mode};
+use crate::container::{Direction, JustifyContent, Mode};
 use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;
@@ -34,6 +34,8 @@ pub struct Props {
     pub class_name: String,
     #[prop_or(Fixed::Top)]
     pub fixed: Fixed,
+    #[prop_or_default]
+    pub branch: Html,
     pub children: Children,
 }
 
@@ -43,6 +45,7 @@ pub struct NavbarProps {
     pub navbar_style: String,
     pub class_name: String,
     pub fixed: Fixed,
+    pub branch: Html,
     pub children: Children,
 }
 
@@ -53,6 +56,7 @@ impl From<Props> for NavbarProps {
             navbar_style: get_style(props.navbar_style),
             class_name: props.class_name,
             fixed: props.fixed,
+            branch: props.branch,
             children: props.children,
         }
     }
@@ -98,13 +102,64 @@ impl Component for Navbar {
                 <div
                     class=format!("navbar-mobile {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
                 >
-                    <NavbarContainer justify_content=JustifyContent::End(Mode::NoMode)>
-                        <NavbarItem
-                            onsignal=self.link.callback(move |_| Msg::TroggleMenu)
-                        >
-                            <img src="./assets/menu.svg"/>
-                        </NavbarItem>
-                    </NavbarContainer>
+                    <div class="navbar-dropdown">
+                        <NavbarContainer justify_content=JustifyContent::Start(Mode::NoMode)
+                        direction=Direction::Row
+                        class_name="navbar-container-mobile">
+                        {get_branch(self.props.branch.clone())}
+                        </NavbarContainer>
+                        <NavbarContainer justify_content=JustifyContent::End(Mode::NoMode)
+                            direction=Direction::Row
+                            class_name="navbar-container-mobile">
+                            <NavbarItem
+                                onsignal=self.link.callback(move |_| Msg::TroggleMenu)
+                            >
+                                <div class="navbar-menu">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="10mm" height="10mm"
+                                        viewBox="0 0 512 512">
+                                        <path id="Selección"
+                                            stroke="black" stroke-width="1"
+                                            d="M 97.00,64.12
+                                                C 79.03,68.69 64.23,84.02 64.00,103.00
+                                                    63.84,116.87 65.18,126.19 75.30,136.83
+                                                    84.09,146.07 96.54,149.98 109.00,150.00
+                                                    109.00,150.00 403.00,150.00 403.00,150.00
+                                                    421.29,149.97 436.72,142.10 444.68,125.00
+                                                    447.01,119.98 447.93,115.50 448.00,110.00
+                                                    448.05,105.17 448.30,99.65 447.08,95.00
+                                                    442.20,76.40 426.08,64.03 407.00,64.12
+                                                    407.00,64.12 201.00,64.12 201.00,64.12
+                                                    201.00,64.12 133.00,64.12 133.00,64.12
+                                                    133.00,64.12 97.00,64.12 97.00,64.12 Z
+                                                M 99.00,213.12
+                                                C 88.99,215.69 81.18,219.22 74.18,227.01
+                                                    60.29,242.50 60.29,269.50 74.18,284.99
+                                                    82.99,294.80 94.06,298.98 107.00,299.00
+                                                    107.00,299.00 405.00,299.00 405.00,299.00
+                                                    418.47,298.98 431.05,293.87 439.47,283.00
+                                                    455.95,261.72 448.50,228.23 424.00,216.80
+                                                    417.73,213.87 411.83,213.01 405.00,213.12
+                                                    405.00,213.12 202.00,213.12 202.00,213.12
+                                                    202.00,213.12 135.00,213.12 135.00,213.12
+                                                    135.00,213.12 99.00,213.12 99.00,213.12 Z
+                                                M 101.00,362.11
+                                                C 85.09,365.38 73.47,372.65 66.88,388.00
+                                                    64.82,392.78 64.06,396.83 64.00,402.00
+                                                    63.95,406.83 63.70,412.35 64.92,417.00
+                                                    69.80,435.60 85.92,447.97 105.00,448.00
+                                                    105.00,448.00 407.00,448.00 407.00,448.00
+                                                    428.40,447.97 447.74,430.94 448.00,409.00
+                                                    448.10,400.54 448.38,394.95 444.68,387.00
+                                                    436.72,369.90 421.29,362.03 403.00,362.11
+                                                    403.00,362.11 203.00,362.11 203.00,362.11
+                                                    203.00,362.11 137.00,362.11 137.00,362.11
+                                                    137.00,362.11 101.00,362.11 101.00,362.11 Z" />
+                                    </svg>
+                                </div>
+                            </NavbarItem>
+                        </NavbarContainer>
+                    </div>
                     {if self.display_menu {
                         self.props.children.render()
                     } else {
@@ -149,5 +204,17 @@ impl NavbarModel {
                 String::from("navbar"),
             );
         }
+    }
+}
+
+fn get_branch(branch: Html) -> Html {
+    if branch != html! {} {
+        html! {
+            <div class="branch">
+                {branch}
+            </div>
+        }
+    } else {
+        html! {}
     }
 }

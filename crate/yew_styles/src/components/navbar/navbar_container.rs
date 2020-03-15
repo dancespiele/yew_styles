@@ -11,7 +11,11 @@ pub enum Msg {
 pub struct Props {
     #[prop_or(JustifyContent::FlexStart(Mode::NoMode))]
     pub justify_content: JustifyContent,
+    #[prop_or(Direction::Row)]
+    pub direction: Direction,
     pub children: Children,
+    #[prop_or_default]
+    pub class_name: String,
 }
 
 pub struct NavbarContainer {
@@ -33,8 +37,8 @@ impl Component for NavbarContainer {
     fn view(&self) -> Html {
         html! {
             <Container
-                class_name="navbar-container"
-                direction=Direction::Row
+                class_name=format!("navbar-container {}", self.props.class_name)
+                direction=self.props.direction.clone()
                 wrap=Wrap::Wrap
                 justify_content=self.props.justify_content.clone()
                 name=format!("{}", Uuid::new_v4())>
