@@ -1,4 +1,4 @@
-use page::{ButtonPage, LayoutsPage};
+use page::{ButtonPage, LayoutsPage, NavbarPage};
 use yew::prelude::*;
 use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
 use yew_styles::{
@@ -15,7 +15,9 @@ pub enum AppRouter {
     #[to = "/button!"]
     ButtonPath,
     #[to = "/layouts!"]
-    LayoutsPage,
+    LayoutsPath,
+    #[to = "/navbar!"]
+    NavbarPath,
     #[to = "/page-not-found"]
     PageNotFound(Permissive<String>),
 }
@@ -35,7 +37,7 @@ impl Component for App {
     fn view(&self) -> Html {
         html! {
             <Container name="root" direction=Direction::Row wrap=Wrap::Wrap>
-                <Item name="left-side" layouts=vec!(ItemLayout::ItXs(2))>
+                <Item name="left-side" layouts=vec!(ItemLayout::ItL(2), ItemLayout::ItXs(12))>
                     <Container
                         name="components"
                         direction=Direction::Column
@@ -49,14 +51,17 @@ impl Component for App {
                             <RouterAnchor<AppRouter> route=AppRouter::RootPath>{"Let's start"}</RouterAnchor<AppRouter>>
                         </Item>
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
-                            <RouterAnchor<AppRouter> route=AppRouter::LayoutsPage>{"Layouts"}</RouterAnchor<AppRouter>>
+                            <RouterAnchor<AppRouter> route=AppRouter::LayoutsPath>{"Layouts"}</RouterAnchor<AppRouter>>
                         </Item>
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
                             <RouterAnchor<AppRouter> route=AppRouter::ButtonPath>{"Button"}</RouterAnchor<AppRouter>>
                         </Item>
+                        <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
+                            <RouterAnchor<AppRouter> route=AppRouter::NavbarPath>{"Navbar"}</RouterAnchor<AppRouter>>
+                        </Item>
                     </Container>
                 </Item>
-                <Item name="right-side" layouts=vec!(ItemLayout::ItXs(10))>
+                <Item name="right-side" layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItL(10) )>
                     <Router<AppRouter, ()>
                         render = Router::render(|switch: AppRouter | {
                             match switch {
@@ -66,7 +71,8 @@ impl Component for App {
                                     </div>
                                 },
                                 AppRouter::ButtonPath => html!{<ButtonPage/>},
-                                AppRouter::LayoutsPage => html!{<LayoutsPage/>},
+                                AppRouter::LayoutsPath => html!{<LayoutsPage/>},
+                                AppRouter::NavbarPath => html!{<NavbarPage/>},
                                 AppRouter::PageNotFound(Permissive(None)) => html!{"Page not found"},
                                 AppRouter::PageNotFound(Permissive(Some(missed_route))) => html!{format!("Page '{}' not found", missed_route)}
                             }

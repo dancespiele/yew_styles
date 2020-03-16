@@ -1,0 +1,48 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+
+@media all and (max-width: 768px)
+    .navbar
+        display: none
+
+    .navbar-mobile
+        width: 100%
+
+        .navbar-dropdown
+            display: flex
+
+        &.regular
+            @include navar-style($regular-style)
+        &.outline
+            @include navar-style($outline-style)
+        &.light
+            @include navar-style($light-style)
+
+        .navbar-container
+            width: 100%
+            flex-direction: column !important
+
+            &.navbar-container-mobile
+                flex-direction: row !important
+        
+        @include get-branch(50px)
+
+@media all and (min-width: 769px)
+    .navbar-mobile
+        display: none
+
+    .navbar
+        display: inline-flex
+        width: 100%
+
+        &.regular
+            @include navar-style($regular-style)
+        &.outline
+            @include navar-style($outline-style)
+        &.light
+            @include navar-style($light-style)
+
+        .navbar-item
+            align-self: center
+
+        @include get-branch(40px)

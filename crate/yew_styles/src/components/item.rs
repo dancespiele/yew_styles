@@ -1,4 +1,5 @@
-use crate::utils::create_style;
+#[cfg(any(feature = "web_sys", feature = "std_web"))]
+use crate::utils::{create_style, DefaultCallback};
 use yew::prelude::*;
 
 #[derive(Clone)]
@@ -43,33 +44,19 @@ struct ItemModel;
 #[derive(Clone, Properties)]
 pub struct Props {
     pub layouts: Vec<ItemLayout>,
+    #[prop_or(AlignSelf::Auto)]
     pub align_self: AlignSelf,
+    #[prop_or_default]
     pub name: String,
+    #[prop_or_default]
     pub class_name: String,
+    #[prop_or_default]
+    pub index: i16,
+    #[prop_or(DefaultCallback {
+        callback: Callback::noop(),
+    })]
     pub onsignal: DefaultCallback<Callback<()>>,
     pub children: Children,
-    pub index: i16,
-}
-
-#[derive(Clone)]
-pub struct DefaultCallback<T> {
-    callback: T,
-}
-
-impl Default for DefaultCallback<Callback<()>> {
-    fn default() -> Self {
-        let callback = DefaultCallback {
-            callback: Callback::noop(),
-        };
-
-        callback
-    }
-}
-
-impl Default for AlignSelf {
-    fn default() -> Self {
-        AlignSelf::Auto
-    }
 }
 
 impl Component for Item {
@@ -97,8 +84,6 @@ impl Component for Item {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        ItemModel.init(props.clone());
-
         self.props = props;
         true
     }
@@ -168,8 +153,9 @@ impl ItemModel {
             AlignSelf::Stretch => format!("stretch"),
         };
 
+        #[cfg(any(feature = "web_sys", feature = "std_web"))]
         create_style(
-            String::from("alignSelf"),
+            String::from("align-self"),
             value,
             if name == "" {
                 format!("item-{}", index)

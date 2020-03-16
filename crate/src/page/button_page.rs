@@ -1,6 +1,7 @@
 use yew::prelude::*;
-use yew_styles::button::{
-    get_button_style, get_button_type, get_size, Button, ButtonStyle, ButtonType, Size,
+use yew_styles::{
+    button::{get_size, Button, Size},
+    styles::{get_pallete, get_style, Palette, Style},
 };
 
 pub struct ButtonPage {
@@ -37,7 +38,7 @@ impl Component for ButtonPage {
 
     fn view(&self) -> Html {
         html! {
-            <div class="container">
+            <div class="container-button">
                 <div class="buttons-example">
                     {get_button_styles(self.link.clone())}
                 </div>
@@ -59,18 +60,14 @@ fn to_first_upercase(word: &str) -> String {
 }
 
 fn get_button_styles(link: ComponentLink<ButtonPage>) -> Html {
-    let styles: Vec<ButtonStyle> = vec![
-        ButtonStyle::Regular,
-        ButtonStyle::Light,
-        ButtonStyle::Outline,
-    ];
+    let styles: Vec<Style> = vec![Style::Regular, Style::Light, Style::Outline];
 
     styles
         .into_iter()
         .map(move |style| {
             html! {
                 <>
-                    <h2>{get_button_style(style.clone()).to_uppercase()}</h2>
+                    <h2>{get_style(style.clone()).to_uppercase()}</h2>
                     {get_sizes(style, link.clone())}
                 </>
             }
@@ -78,7 +75,7 @@ fn get_button_styles(link: ComponentLink<ButtonPage>) -> Html {
         .collect::<Html>()
 }
 
-fn get_sizes(button_style: ButtonStyle, link: ComponentLink<ButtonPage>) -> Html {
+fn get_sizes(button_style: Style, link: ComponentLink<ButtonPage>) -> Html {
     let sizes: Vec<Size> = vec![Size::Small, Size::Medium, Size::Big];
 
     sizes
@@ -87,7 +84,7 @@ fn get_sizes(button_style: ButtonStyle, link: ComponentLink<ButtonPage>) -> Html
         .collect::<Html>()
 }
 
-fn get_buttons(size: Size, button_style: ButtonStyle, link: ComponentLink<ButtonPage>) -> Html {
+fn get_buttons(size: Size, button_style: Style, link: ComponentLink<ButtonPage>) -> Html {
     let button_types: Vec<&str> = vec![
         "Standard",
         "Primary",
@@ -98,15 +95,15 @@ fn get_buttons(size: Size, button_style: ButtonStyle, link: ComponentLink<Button
         "Warning",
         "Danger",
     ];
-    let button_types_enum: Vec<ButtonType> = vec![
-        ButtonType::Standard,
-        ButtonType::Primary,
-        ButtonType::Secondary,
-        ButtonType::Info,
-        ButtonType::Link,
-        ButtonType::Success,
-        ButtonType::Warning,
-        ButtonType::Danger,
+    let button_types_enum: Vec<Palette> = vec![
+        Palette::Standard,
+        Palette::Primary,
+        Palette::Secondary,
+        Palette::Info,
+        Palette::Link,
+        Palette::Success,
+        Palette::Warning,
+        Palette::Danger,
     ];
     let mut index = 0;
 
@@ -122,7 +119,7 @@ fn get_buttons(size: Size, button_style: ButtonStyle, link: ComponentLink<Button
                             button_type=button_types_enum[index].clone()
                             button_style=button_style.clone()
                             size=size.clone()
-                        >{to_first_upercase(&get_button_type(button_types_enum[index].clone()))}
+                        >{to_first_upercase(&get_pallete(button_types_enum[index].clone()))}
                         </Button>
                     };
                     index = index + 1;
