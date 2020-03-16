@@ -1173,7 +1173,6 @@
   .navbar-mobile .navbar-container {
     width: 100%;
     flex-direction: column !important;
-    justify-content: s;
   }
   .navbar-mobile .navbar-container.navbar-container-mobile {
     flex-direction: row !important;
@@ -1723,8 +1722,15 @@
   .navbar.light.danger .navbar-item:active {
     background-color: #fa7b7b;
   }
-  .navbar .navbar-container {
-    width: 100%;
+  .navbar .navbar-item {
+    align-self: center;
+  }
+  .navbar .branch {
+    align-self: center;
+    margin-left: 5px;
+  }
+  .navbar .branch img {
+    width: 40px;
   }
 }
 

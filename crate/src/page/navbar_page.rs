@@ -175,7 +175,8 @@ fn get_menus(link: ComponentLink<NavbarPage>, index: usize) -> Html {
             html! {
                 <>
                     <NavbarItem
-                        onsignal=link.callback(move |_| Msg::ChangeType(index, String::from(menu)))
+                        onsignal=link.callback(move |_| Msg::ChangeType(index, String::from(menu))
+                    )
                     >
                         <span>{menu}</span>
                     </NavbarItem>

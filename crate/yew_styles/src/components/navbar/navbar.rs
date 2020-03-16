@@ -132,6 +132,11 @@ impl Component for Navbar {
                 <div
                     class=format!("navbar {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
                 >
+                <NavbarContainer justify_content=JustifyContent::Start(Mode::NoMode)
+                    direction=Direction::Row
+                    class_name="navbar-container-mobile">
+                    {get_branch(self.props.branch.clone())}
+                </NavbarContainer>
                     {self.props.children.render()}
                 </div>
             </>

@@ -21,16 +21,11 @@
         .navbar-container
             width: 100%
             flex-direction: column !important
-            justify-content: s
 
             &.navbar-container-mobile
                 flex-direction: row !important
         
-        .branch
-            align-self: center
-            margin-left: 5px
-            img
-                width: 50px
+        @include get-branch(50px)
 
 @media all and (min-width: 769px)
     .navbar-mobile
@@ -46,6 +41,8 @@
             @include navar-style($outline-style)
         &.light
             @include navar-style($light-style)
-        
-        .navbar-container
-            width: 100%
+
+        .navbar-item
+            align-self: center
+
+        @include get-branch(40px)

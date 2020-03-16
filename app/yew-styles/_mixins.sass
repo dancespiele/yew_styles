@@ -56,7 +56,12 @@
                 &:active
                     background-color: darken($background, 15%)
         
-    
+@mixin get-branch($size)
+    .branch
+        align-self: center
+        margin-left: 5px
+        img
+            width: $size
     
 
 @function get-border($border-color)
