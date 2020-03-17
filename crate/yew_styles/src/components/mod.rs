@@ -1,8 +1,4 @@
 extern crate uuid;
-#[cfg(feature = "std_web")]
-extern crate yew;
-#[cfg(feature = "web_sys")]
-extern crate yew;
 pub mod button;
 pub mod container;
 pub mod item;
