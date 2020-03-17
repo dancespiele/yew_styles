@@ -1,4 +1,5 @@
 use crate::utils::create_style;
+#[cfg(any(feature = "std_web", feature = "web_sys"))]
 use yew::prelude::*;
 
 pub struct Container {

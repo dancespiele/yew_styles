@@ -1,5 +1,6 @@
 #[cfg(any(feature = "web_sys", feature = "std_web"))]
 use crate::utils::{create_style, DefaultCallback};
+#[cfg(any(feature = "std_web", feature = "web_sys"))]
 use yew::prelude::*;
 
 #[derive(Clone)]

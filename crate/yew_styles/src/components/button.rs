@@ -1,4 +1,5 @@
 use crate::styles::{get_pallete, get_style, Palette, Style};
+#[cfg(any(feature = "std_web", feature = "web_sys"))]
 use yew::prelude::*;
 
 #[derive(Clone)]
