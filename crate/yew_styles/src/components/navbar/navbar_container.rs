@@ -1,5 +1,4 @@
 use crate::container::{Container, Direction, JustifyContent, Mode, Wrap};
-#[cfg(any(feature = "std_web", feature = "web_sys"))]
 use yew::prelude::*;
 
 use uuid::Uuid;

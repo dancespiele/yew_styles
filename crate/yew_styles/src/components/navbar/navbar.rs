@@ -4,7 +4,6 @@ use crate::assets::{Assets, Icon};
 use crate::container::{Direction, JustifyContent, Mode};
 use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
-#[cfg(any(feature = "std_web", feature = "web_sys"))]
 use yew::prelude::*;
 
 #[derive(Clone, PartialEq)]

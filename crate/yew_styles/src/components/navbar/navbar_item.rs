@@ -1,4 +1,3 @@
-#[cfg(any(feature = "std_web", feature = "web_sys"))]
 use yew::prelude::*;
 
 pub enum Msg {
