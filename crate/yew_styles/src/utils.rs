@@ -11,6 +11,11 @@ use wasm_bindgen::JsCast;
 #[cfg(feature = "web_sys")]
 use web_sys::{window, HtmlElement};
 
+use yew::{
+    callback::Callback,
+    virtual_dom::{Transformer, VComp},
+};
+
 pub fn create_style(style: String, value: String, wrap: String) {
     #[cfg(feature = "web_sys")]
     {

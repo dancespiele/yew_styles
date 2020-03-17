@@ -1,3 +1,4 @@
+use crate::utils::DefaultCallback;
 use yew::prelude::*;
 
 pub enum Msg {
@@ -15,7 +16,10 @@ pub struct NavbarItemModel;
 pub struct Props {
     #[prop_or_default]
     pub class_name: String,
-    pub onsignal: Callback<()>,
+    #[prop_or(DefaultCallback {
+        callback: Callback::noop()
+    })]
+    pub onsignal: DefaultCallback<Callback<()>>,
     pub children: Children,
 }
 
@@ -34,7 +38,7 @@ impl Component for NavbarItem {
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked => {
-                self.props.onsignal.emit(());
+                self.props.onsignal.callback.emit(());
             }
         }
 
