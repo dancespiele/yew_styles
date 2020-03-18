@@ -31,8 +31,3 @@ pub fn create_style(style: String, value: String, wrap: String) {
         element.style[@{style}] = @{value};
     };
 }
-
-#[derive(Clone)]
-pub struct DefaultCallback<T> {
-    pub callback: T,
-}

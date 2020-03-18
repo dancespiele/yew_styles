@@ -15,6 +15,7 @@ pub struct NavbarItemModel;
 pub struct Props {
     #[prop_or_default]
     pub class_name: String,
+    #[prop_or(Callback::noop())]
     pub onsignal: Callback<()>,
     pub children: Children,
 }
