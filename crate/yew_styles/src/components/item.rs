@@ -1,5 +1,5 @@
 #[cfg(any(feature = "web_sys", feature = "std_web"))]
-use crate::utils::{create_style, DefaultCallback};
+use crate::utils::create_style;
 use yew::prelude::*;
 
 #[derive(Clone)]
@@ -52,10 +52,8 @@ pub struct Props {
     pub class_name: String,
     #[prop_or_default]
     pub index: i16,
-    #[prop_or(DefaultCallback {
-        callback: Callback::noop(),
-    })]
-    pub onsignal: DefaultCallback<Callback<()>>,
+    #[prop_or(Callback::noop())]
+    pub onsignal: Callback<()>,
     pub children: Children,
 }
 
@@ -76,7 +74,7 @@ impl Component for Item {
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked => {
-                self.props.onsignal.callback.emit(());
+                self.props.onsignal.emit(());
             }
         };
 

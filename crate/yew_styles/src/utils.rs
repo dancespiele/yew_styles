@@ -11,11 +11,6 @@ use wasm_bindgen::JsCast;
 #[cfg(feature = "web_sys")]
 use web_sys::{window, HtmlElement};
 
-use yew::{
-    callback::Callback,
-    virtual_dom::{Transformer, VComp},
-};
-
 pub fn create_style(style: String, value: String, wrap: String) {
     #[cfg(feature = "web_sys")]
     {
@@ -35,9 +30,4 @@ pub fn create_style(style: String, value: String, wrap: String) {
         const element = document.getElementsByClassName(@{wrap})[0];
         element.style[@{style}] = @{value};
     };
-}
-
-#[derive(Clone)]
-pub struct DefaultCallback<T> {
-    pub callback: T,
 }
