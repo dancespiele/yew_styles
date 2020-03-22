@@ -1,4 +1,5 @@
 #![recursion_limit = "512"]
+extern crate wasm_bindgen_test;
 
 pub mod assets;
 mod components;
