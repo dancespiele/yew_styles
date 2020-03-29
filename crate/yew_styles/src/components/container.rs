@@ -144,16 +144,16 @@ impl ContainerModel {
 
     fn get_flow(self, direction: Direction, wrap: Wrap, index: i16, name: String) {
         let direction = match direction {
-            Direction::Row => format!("row"),
-            Direction::RowReverse => format!("row-reverse"),
-            Direction::Column => format!("column"),
-            Direction::ColumnReverse => format!("column-reverse"),
+            Direction::Row => "row".to_string(),
+            Direction::RowReverse => "row-reverse".to_string(),
+            Direction::Column => "column".to_string(),
+            Direction::ColumnReverse => "column-reverse".to_string(),
         };
 
         let wrap = match wrap {
-            Wrap::Nowrap => format!("nowrap"),
-            Wrap::Wrap => format!("wrap"),
-            Wrap::WrapReverse => format!("wrap-reverse"),
+            Wrap::Nowrap => "nowrap".to_string(),
+            Wrap::Wrap => "wrap".to_string(),
+            Wrap::WrapReverse => "wrap-reverse".to_string(),
         };
 
         let value = format!("{} {}", direction, wrap);
@@ -171,9 +171,9 @@ impl ContainerModel {
 
     fn get_mode(self, mode: Mode) -> String {
         match mode {
-            Mode::NoMode => format!(""),
-            Mode::SafeMode => format!(" safe"),
-            Mode::UnsafeMode => format!(" unsafe"),
+            Mode::NoMode => "".to_string(),
+            Mode::SafeMode => " safe".to_string(),
+            Mode::UnsafeMode => " unsafe".to_string(),
         }
     }
 
