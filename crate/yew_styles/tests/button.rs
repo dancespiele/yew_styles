@@ -1,7 +1,3 @@
-#![cfg(target_arch = "wasm32")]
-extern crate wasm_bindgen_test;
-extern crate yew_styles;
-
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
