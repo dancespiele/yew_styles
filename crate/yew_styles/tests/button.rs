@@ -65,8 +65,6 @@ fn should_trigger_action_when_button_clicked() {
 
 #[wasm_bindgen_test]
 fn should_create_button_component() {
-    use web_sys::window;
-
     let on_add_child = Callback::from(|_| {
         let body = window().unwrap().document().unwrap().body().unwrap();
 
