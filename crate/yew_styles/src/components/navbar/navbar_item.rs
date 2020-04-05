@@ -9,8 +9,6 @@ pub struct NavbarItem {
     props: Props,
 }
 
-pub struct NavbarItemModel;
-
 #[derive(Clone, Properties)]
 pub struct Props {
     #[prop_or_default]
