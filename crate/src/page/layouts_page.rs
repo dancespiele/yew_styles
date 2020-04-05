@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_styles::{
+use yew_styles::layouts::{
     container::{AlignContent, AlignItems, Container, Direction, JustifyContent, Mode, Wrap},
     item::{AlignSelf, Item, ItemLayout},
 };

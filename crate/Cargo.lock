@@ -907,39 +907,9 @@ dependencies = [
 
 [[package]]
 name = "yew"
-version = "0.14.1"
+version = "0.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "29d4669e99b3ab4473eb8337c4c2f0c5e1ad6230ee704d6460bdf40084480db1"
-dependencies = [
- "anyhow",
- "anymap",
- "bincode",
- "cfg-if",
- "cfg-match",
- "console_error_panic_hook",
- "futures",
- "gloo",
- "http",
- "indexmap",
- "js-sys",
- "log",
- "proc-macro-hack",
- "proc-macro-nested",
- "ryu",
- "serde",
- "serde_json",
- "slab",
- "thiserror",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
- "yew-macro 0.14.0 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "yew"
-version = "0.14.2"
-source = "git+https://github.com/yewstack/yew.git#b989494cd9aca4dacb81adb1e582b835228508b6"
+checksum = "2e48bc6b264e30362e5d420cd6aa2cd24dd4c9131284bc24afc0a41c28c125f3"
 dependencies = [
  "anyhow",
  "anymap",
@@ -967,27 +937,14 @@ dependencies = [
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
- "yew-macro 0.14.0 (git+https://github.com/yewstack/yew.git)",
+ "yew-macro",
 ]
 
 [[package]]
 name = "yew-macro"
-version = "0.14.0"
-source = "git+https://github.com/yewstack/yew.git#b989494cd9aca4dacb81adb1e582b835228508b6"
-dependencies = [
- "boolinator",
- "lazy_static",
- "proc-macro-hack",
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "yew-macro"
-version = "0.14.0"
+version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb25d91f16265dd1643497ac3252be6c21c169d9cf3babcae32325c74200499f"
+checksum = "074c652331c32cf6431b0c5c4b6cb6fbb2168a1be6022e51b32c95fefb70153c"
 dependencies = [
  "boolinator",
  "lazy_static",
@@ -1013,7 +970,7 @@ dependencies = [
  "serde_json",
  "wasm-bindgen",
  "web-sys",
- "yew 0.14.1",
+ "yew",
  "yew-router-macro",
  "yew-router-route-parser",
 ]
@@ -1052,7 +1009,7 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "wee_alloc",
- "yew 0.14.2",
+ "yew",
  "yew-router",
  "yew_styles",
 ]
@@ -1064,5 +1021,5 @@ dependencies = [
  "uuid",
  "wasm-bindgen",
  "web-sys",
- "yew 0.14.2",
+ "yew",
 ]

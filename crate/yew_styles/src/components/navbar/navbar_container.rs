@@ -1,4 +1,4 @@
-use crate::container::{Container, Direction, JustifyContent, Mode, Wrap};
+use crate::layouts::container::{Container, Direction, JustifyContent, Mode, Wrap};
 use yew::prelude::*;
 
 use uuid::Uuid;

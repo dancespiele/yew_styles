@@ -1,7 +1,7 @@
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
-use yew_styles::{
+use yew_styles::layouts::{
     container::{
         AlignContent, AlignItems, Container, Direction, JustifyContent, Mode,
         Props as PropsContainer, Wrap,

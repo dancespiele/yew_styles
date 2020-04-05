@@ -122,7 +122,7 @@ fn get_buttons(size: Size, button_style: Style, link: ComponentLink<ButtonPage>)
                         >{to_first_upercase(&get_pallete(button_types_enum[index].clone()))}
                         </Button>
                     };
-                    index = index + 1;
+                    index += 1;
                     button
                 }).collect::<Html>()
             }

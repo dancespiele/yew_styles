@@ -1,7 +1,7 @@
 use page::{ButtonPage, LayoutsPage, NavbarPage};
 use yew::prelude::*;
 use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
-use yew_styles::{
+use yew_styles::layouts::{
     container::{AlignItems, Container, Direction, Mode, Wrap},
     item::{Item, ItemLayout},
 };
