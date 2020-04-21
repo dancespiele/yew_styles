@@ -1,4 +1,4 @@
-use crate::container::{Container, Direction, JustifyContent, Mode, Wrap};
+use crate::layouts::container::{Container, Direction, JustifyContent, Mode, Wrap};
 use yew::prelude::*;
 
 use uuid::Uuid;
@@ -27,7 +27,7 @@ impl Component for NavbarContainer {
     type Properties = Props;
 
     fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        NavbarContainer { props: props }
+        NavbarContainer { props }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {

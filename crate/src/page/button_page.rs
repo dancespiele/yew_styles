@@ -124,7 +124,7 @@ fn get_buttons(size: Size, button_style: Style, link: ComponentLink<ButtonPage>)
                             </Button>
                         </>
                     };
-                    index = index + 1;
+                    index += 1;
                     button
                 }).collect::<Html>()
             }

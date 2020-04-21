@@ -1,7 +1,7 @@
 use super::navbar_container::NavbarContainer;
 use super::navbar_item::NavbarItem;
 use crate::assets::{Assets, Icon};
-use crate::container::{Direction, JustifyContent, Mode};
+use crate::layouts::container::{Direction, JustifyContent, Mode};
 use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;

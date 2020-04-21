@@ -1,7 +1,11 @@
 use yew::prelude::*;
 use yew_styles::{
-    container::{JustifyContent, Mode},
-    navbar::{Fixed, Navbar, NavbarContainer, NavbarItem},
+    layouts::container::{JustifyContent, Mode},
+    navbar::{
+        navbar_component::{Fixed, Navbar},
+        navbar_container::NavbarContainer,
+        navbar_item::NavbarItem,
+    },
     styles::{Palette, Style},
 };
 

@@ -1,4 +1,3 @@
-#[cfg(any(feature = "web_sys", feature = "std_web"))]
 use crate::utils::create_style;
 use yew::prelude::*;
 
@@ -143,15 +142,14 @@ impl ItemModel {
 
     fn get_item_align(self, align: AlignSelf, index: i16, name: String) {
         let value = match align {
-            AlignSelf::Auto => format!("auto"),
-            AlignSelf::Baseline => format!("baseline"),
-            AlignSelf::Center => format!("center"),
-            AlignSelf::FlexStart => format!("flex-start"),
-            AlignSelf::FlexEnd => format!("flex-end"),
-            AlignSelf::Stretch => format!("stretch"),
+            AlignSelf::Auto => "auto".to_string(),
+            AlignSelf::Baseline => "baseline".to_string(),
+            AlignSelf::Center => "center".to_string(),
+            AlignSelf::FlexStart => "flex-start".to_string(),
+            AlignSelf::FlexEnd => "flex-end".to_string(),
+            AlignSelf::Stretch => "stretch".to_string(),
         };
 
-        #[cfg(any(feature = "web_sys", feature = "std_web"))]
         create_style(
             String::from("align-self"),
             value,
