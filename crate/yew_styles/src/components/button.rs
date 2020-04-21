@@ -1,25 +1,7 @@
 use crate::styles::{get_pallete, get_style, Palette, Style};
 use yew::prelude::*;
 
-#[derive(Clone)]
-pub enum ButtonType {
-    Primary,
-    Secondary,
-    Success,
-    Info,
-    Link,
-    Warning,
-    Danger,
-    Standard,
-}
-
-#[derive(Clone)]
-pub enum ButtonStyle {
-    Regular,
-    Light,
-    Outline,
-}
-
+/// The standard sizes for button
 #[derive(Clone)]
 pub enum Size {
     Small,
@@ -27,6 +9,61 @@ pub enum Size {
     Big,
 }
 
+/// # Button component
+///
+/// ## Example
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew::services::ConsoleService;
+/// use yew_styles::{
+///     button::{Button, Size},
+///     styles::{Palette, Style},
+/// };
+///
+/// pub struct App {
+///   link: ComponentLink<Self>,
+/// }
+///
+/// pub enum Msg {
+///   Clicked(String),
+/// }
+/// #[derive(Clone, Properties)]
+/// pub struct Props {}
+///
+/// impl Component for App {
+///     type Message = Msg;
+///     type Properties = Props;
+///
+///     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         App {
+///             link
+///         }
+///     }
+///
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::Clicked(greeting) => {
+///                 let mut console = ConsoleService::new();
+///                 console.log(format!("{}", greeting))
+///             }
+///         }
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///        html! {
+///          <Button
+///             onsignal=link.callback(move |_| Msg::Clicked("Hello world"))
+///             class_name="hello-world"
+///             button_type=Pallete::Standard
+///             button_style=Style::Light
+///             size=Size::Medium
+///          >{"Greeting"}</Button>
+///        }
+///     }
+/// }
+/// ```
 pub struct Button {
     link: ComponentLink<Self>,
     props: ButtonProps,
@@ -56,14 +93,19 @@ impl From<Props> for ButtonProps {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// Type botton style. Options included in `Pallete`
     #[prop_or(Palette::Standard)]
     pub button_type: Palette,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// Three diffent button standard sizes. Options included in `Size`
     #[prop_or(Size::Medium)]
     pub size: Size,
+    /// Button styles. Options included in `Style`
     #[prop_or(Style::Regular)]
     pub button_style: Style,
+    /// Click event for button
     pub onsignal: Callback<()>,
     pub children: Children,
 }

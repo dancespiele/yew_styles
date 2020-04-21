@@ -1,6 +1,9 @@
+use super::highlighters::button_code;
 use yew::prelude::*;
+use yew_prism::Prism;
 use yew_styles::{
     button::{get_size, Button, Size},
+    layouts::item::{Item, ItemLayout},
     styles::{get_pallete, get_style, Palette, Style},
 };
 
@@ -38,14 +41,37 @@ impl Component for ButtonPage {
 
     fn view(&self) -> Html {
         html! {
-            <div class="container-button">
-                <div class="buttons-example">
-                    {get_button_styles(self.link.clone())}
+            <>
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h1>{"Button Component"}</h1>
+                </Item>
+
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Code example"}</h2>
+                    <Prism
+                        code=button_code()
+                        language="rust"
+                    />
+                </Item>
+
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Propeties"}</h2>
+                    <ul>
+                        <li><b>{"button_type: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
+                        <li><b>{"size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code></li>
+                        <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code></li>
+                        <li><b>{"onsignal: "}</b>{"click event for button"}</li>
+                    </ul>
+                </Item>
+                <div class="container-button">
+                    <div class="buttons-example">
+                        {get_button_styles(self.link.clone())}
+                    </div>
+                    <div class="action">
+                        {self.button_type.clone()}
+                    </div>
                 </div>
-                <div class="action">
-                    {self.button_type.clone()}
-                </div>
-            </div>
+            </>
         }
     }
 }
