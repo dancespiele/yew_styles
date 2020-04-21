@@ -83,7 +83,7 @@ fn get_style(link: ComponentLink<NavbarPage>, navbar_menu: Vec<String>) -> Html 
     styles
         .into_iter()
         .map(|style| {
-            let navbar = get_navbar_type(link.clone(), style.clone(), navbar_menu.clone(), index);
+            let navbar = get_navbar_type(link.clone(), style, navbar_menu.clone(), index);
 
             index = navbar.index + 1;
 
@@ -154,7 +154,7 @@ fn get_navbar_type(
                 </div>
             };
 
-            navbar_type_rendered = navbar_type_rendered + 1;
+            navbar_type_rendered += 1;
 
             element
         })

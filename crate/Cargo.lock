@@ -890,6 +890,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "yew_prism"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "wasm-bindgen 0.2.59 (registry+https://github.com/rust-lang/crates.io-index)",
+ "web-sys 0.3.36 (registry+https://github.com/rust-lang/crates.io-index)",
+ "yew 0.14.1 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "yew_style_page"
 version = "0.2.0"
 dependencies = [
@@ -904,6 +914,7 @@ dependencies = [
  "wee_alloc 0.4.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "yew 0.14.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "yew-router 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "yew_prism 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "yew_styles 0.2.1",
 ]
 
@@ -1025,3 +1036,4 @@ dependencies = [
 "checksum yew-router 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "19145953cfaa35cbd26a06ef5f589553d8e16d2a8d889d9c3e74516617ea7db8"
 "checksum yew-router-macro 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "5e2b24468a3ea4ac70f2c46f6ca07a80b2cbb14eb725a16bc74eb5d759fbb3e7"
 "checksum yew-router-route-parser 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "8e6801d6eb8583313fb33f20b141627c51881d24225e8de1660571e971f268d8"
+"checksum yew_prism 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "bd106672abd15d82f60486abaafcde1491c33ee5f3fcd138cb7429edf449850e"

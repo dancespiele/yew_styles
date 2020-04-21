@@ -113,14 +113,16 @@ fn get_buttons(size: Size, button_style: Style, link: ComponentLink<ButtonPage>)
             {
                 button_types.into_iter().map(|button_type| {
                     let button = html! {
-                        <Button
-                            onsignal=link.callback(move |_| Msg::ChangeType(button_type.to_string().clone()))
-                            class_name="button-page"
-                            button_type=button_types_enum[index].clone()
-                            button_style=button_style.clone()
-                            size=size.clone()
-                        >{to_first_upercase(&get_pallete(button_types_enum[index].clone()))}
-                        </Button>
+                        <>
+                            <Button
+                                onsignal=link.callback(move |_| Msg::ChangeType(button_type.to_string().clone()))
+                                class_name="button-page"
+                                button_type=button_types_enum[index].clone()
+                                button_style=button_style.clone()
+                                size=size.clone()
+                            >{to_first_upercase(&get_pallete(button_types_enum[index].clone()))}
+                            </Button>
+                        </>
                     };
                     index = index + 1;
                     button
