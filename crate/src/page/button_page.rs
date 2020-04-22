@@ -60,9 +60,11 @@ impl Component for ButtonPage {
                         <li><b>{"button_type: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
                         <li><b>{"size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code></li>
                         <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code></li>
-                        <li><b>{"onsignal: "}</b>{"click event for button"}</li>
+                        <li><b>{"onsignal: "}</b>{"click event for button. Required"}</li>
                     </ul>
                 </Item>
+
+                <h2>{"Visual examples"}</h2>
                 <div class="container-button">
                     <div class="buttons-example">
                         {get_button_styles(self.link.clone())}
@@ -93,7 +95,7 @@ fn get_button_styles(link: ComponentLink<ButtonPage>) -> Html {
         .map(move |style| {
             html! {
                 <>
-                    <h2>{get_style(style.clone()).to_uppercase()}</h2>
+                    <h3>{get_style(style.clone()).to_uppercase()}</h3>
                     {get_sizes(style, link.clone())}
                 </>
             }
@@ -135,7 +137,7 @@ fn get_buttons(size: Size, button_style: Style, link: ComponentLink<ButtonPage>)
 
     html! {
         <div class="show-size">
-            <h3>{get_size(size.clone()).to_uppercase()}</h3>
+            <h4>{get_size(size.clone()).to_uppercase()}</h4>
             {
                 button_types.into_iter().map(|button_type| {
                     let button = html! {

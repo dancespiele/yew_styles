@@ -20,7 +20,7 @@ web_sys = ["web-sys", "yew/web_sys"]
 wasm-bindgen = "0.2.60"
 yew = { version="0.14.2", features = ["toml", "yaml", "msgpack", "cbor"], optional = true }
 stdweb = { version = "0.4", optional = true}
-web-sys = {version = "0.3.36", features = ["HtmlDocument", "HtmlCollection", "CssStyleDeclaration", "HtmlElement", "Node"], optional=true}
+web-sys = {version = "0.3.36", features = ["HtmlDocument", "HtmlCollection", "CssStyleDeclaration", "HtmlElement", "Node"], optional= true}
 uuid = {version= "0.8", features=["v4", "wasm-bindgen", "stdweb"]}
 
 [dev-dependencies]
