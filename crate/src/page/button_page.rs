@@ -1,6 +1,9 @@
+use super::highlighters::button_code;
 use yew::prelude::*;
+use yew_prism::Prism;
 use yew_styles::{
     button::{get_size, Button, Size},
+    layouts::item::{Item, ItemLayout},
     styles::{get_pallete, get_style, Palette, Style},
 };
 
@@ -38,14 +41,39 @@ impl Component for ButtonPage {
 
     fn view(&self) -> Html {
         html! {
-            <div class="container-button">
-                <div class="buttons-example">
-                    {get_button_styles(self.link.clone())}
+            <>
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h1>{"Button Component"}</h1>
+                </Item>
+
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Code example"}</h2>
+                    <Prism
+                        code=button_code()
+                        language="rust"
+                    />
+                </Item>
+
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Propeties"}</h2>
+                    <ul>
+                        <li><b>{"button_type: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
+                        <li><b>{"size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code></li>
+                        <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code></li>
+                        <li><b>{"onsignal: "}</b>{"click event for button. Required"}</li>
+                    </ul>
+                </Item>
+
+                <h2>{"Visual examples"}</h2>
+                <div class="container-button">
+                    <div class="buttons-example">
+                        {get_button_styles(self.link.clone())}
+                    </div>
+                    <div class="action">
+                        {self.button_type.clone()}
+                    </div>
                 </div>
-                <div class="action">
-                    {self.button_type.clone()}
-                </div>
-            </div>
+            </>
         }
     }
 }
@@ -67,7 +95,7 @@ fn get_button_styles(link: ComponentLink<ButtonPage>) -> Html {
         .map(move |style| {
             html! {
                 <>
-                    <h2>{get_style(style.clone()).to_uppercase()}</h2>
+                    <h3>{get_style(style.clone()).to_uppercase()}</h3>
                     {get_sizes(style, link.clone())}
                 </>
             }
@@ -109,18 +137,20 @@ fn get_buttons(size: Size, button_style: Style, link: ComponentLink<ButtonPage>)
 
     html! {
         <div class="show-size">
-            <h3>{get_size(size.clone()).to_uppercase()}</h3>
+            <h4>{get_size(size.clone()).to_uppercase()}</h4>
             {
                 button_types.into_iter().map(|button_type| {
                     let button = html! {
-                        <Button
-                            onsignal=link.callback(move |_| Msg::ChangeType(button_type.to_string().clone()))
-                            class_name="button-page"
-                            button_type=button_types_enum[index].clone()
-                            button_style=button_style.clone()
-                            size=size.clone()
-                        >{to_first_upercase(&get_pallete(button_types_enum[index].clone()))}
-                        </Button>
+                        <>
+                            <Button
+                                onsignal=link.callback(move |_| Msg::ChangeType(button_type.to_string().clone()))
+                                class_name="button-page"
+                                button_type=button_types_enum[index].clone()
+                                button_style=button_style.clone()
+                                size=size.clone()
+                            >{to_first_upercase(&get_pallete(button_types_enum[index].clone()))}
+                            </Button>
+                        </>
                     };
                     index += 1;
                     button

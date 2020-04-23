@@ -1,6 +1,7 @@
 use crate::utils::create_style;
 use yew::prelude::*;
 
+/// Percent of the layout that will take the item.
 #[derive(Clone)]
 pub enum ItemLayout {
     ItXs(i8),
@@ -10,6 +11,7 @@ pub enum ItemLayout {
     ItXl(i8),
 }
 
+/// Align the item itself
 #[derive(Clone)]
 pub enum AlignSelf {
     Auto,
@@ -24,6 +26,64 @@ pub enum Msg {
     Clicked,
 }
 
+/// # Item component
+///
+/// The layouts in yew styles is base in flexbox
+/// you can fine more information about the properties options
+/// [here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
+///
+/// ## Example
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew_styles::{
+///     layouts::{
+///         container::{Wrap, Direction},
+///         item::{ItenLayout, AlignSelf}
+///     }
+/// };
+///
+/// pub struct App {
+///   link: ComponentLink<Self>,
+/// }
+///
+/// pub enum Msg {
+///   Clicked(String),
+/// }
+/// #[derive(Clone, Properties)]
+/// pub struct Props {}
+///
+/// impl Component for App {
+///     type Message = Msg;
+///     type Properties = Props;
+///
+///     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         App {
+///             link
+///         }
+///     }
+///
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///        html! {
+///          <Container direction=Direction::Row wrap=Wrap::Wrap class_name="align-item">
+///                <Item name="align" layouts=vec!(ItemLayout::ItXs(4)) align_self=AlignSelf::FlexStart>
+///                    <h3>{"start"}</h3>
+///                </Item>
+///                <Item name="align" layouts=vec!(ItemLayout::ItXs(4)) align_self=AlignSelf::Center>
+///                    <h3>{"center"}</h3>
+///                </Item>
+///                <Item name="align" layouts=vec!(ItemLayout::ItXs(4)) align_self=AlignSelf::FlexEnd>
+///                    <h3>{"end"}</h3>
+///                </Item>
+///           </Container>
+///        }
+///     }
+/// }
+/// ```
 pub struct Item {
     link: ComponentLink<Self>,
     props: Props,
@@ -42,15 +102,19 @@ struct ItemModel;
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// Percent of the layout that will take the item.
     pub layouts: Vec<ItemLayout>,
     #[prop_or(AlignSelf::Auto)]
+    /// Align the item itself
     pub align_self: AlignSelf,
     #[prop_or_default]
     pub name: String,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
     #[prop_or_default]
     pub index: i16,
+    /// Click event for the item
     #[prop_or(Callback::noop())]
     pub onsignal: Callback<()>,
     pub children: Children,

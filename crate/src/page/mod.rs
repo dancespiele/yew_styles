@@ -1,4 +1,5 @@
 pub mod button_page;
+mod highlighters;
 pub mod layouts_page;
 pub mod navbar_page;
 
