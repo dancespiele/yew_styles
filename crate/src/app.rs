@@ -36,10 +36,9 @@ impl Component for App {
 
     fn view(&self) -> Html {
         html! {
-            <Container name="root" direction=Direction::Row wrap=Wrap::Wrap>
-                <Item name="left-side" layouts=vec!(ItemLayout::ItL(2), ItemLayout::ItXs(12))>
+            <Container direction=Direction::Row wrap=Wrap::Wrap>
+                <Item layouts=vec!(ItemLayout::ItL(2), ItemLayout::ItXs(12))>
                     <Container
-                        name="components"
                         direction=Direction::Column
                         align_items=AlignItems::FlexStart(Mode::NoMode)
                         wrap=Wrap::Wrap
@@ -61,7 +60,7 @@ impl Component for App {
                         </Item>
                     </Container>
                 </Item>
-                <Item name="right-side" layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItL(10) )>
+                <Item layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItL(10) )>
                     <Router<AppRouter, ()>
                         render = Router::render(|switch: AppRouter | {
                             match switch {

@@ -1,4 +1,4 @@
-use crate::utils::create_style;
+use crate::utils::{create_style, get_hash};
 use yew::prelude::*;
 
 /// # Container component
@@ -61,6 +61,7 @@ use yew::prelude::*;
 /// ```
 pub struct Container {
     props: Props,
+    hash: String,
 }
 
 #[derive(Clone, Copy)]
@@ -146,8 +147,6 @@ pub struct Props {
     pub direction: Direction,
     /// Set a wrap for the items
     pub wrap: Wrap,
-    #[prop_or_default]
-    pub index: i16,
     /// Set how will be justified the content
     #[prop_or(JustifyContent::FlexStart(Mode::NoMode))]
     pub justify_content: JustifyContent,
@@ -160,8 +159,6 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
-    #[prop_or_default]
-    pub name: String,
     pub children: Children,
 }
 
@@ -170,11 +167,13 @@ impl Component for Container {
     type Properties = Props;
 
     fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        Container { props }
+        let hash = get_hash(10);
+
+        Container { props, hash }
     }
 
     fn mounted(&mut self) -> ShouldRender {
-        ContainerModel.init(self.props.clone());
+        ContainerModel.init(self.props.clone(), self.hash.clone());
 
         true
     }
@@ -190,12 +189,7 @@ impl Component for Container {
 
     fn view(&self) -> Html {
         html! {
-            <div class=if self.props.name == ""
-                {
-                    format!("container container-{} {}", self.props.index, self.props.class_name)
-                } else {
-                    format!("container container-{}-{} {}", self.props.name, self.props.index, self.props.class_name)
-                }
+            <div class=format!("container container-{} {}", self.hash, self.props.class_name)
             >
                 {self.props.children.render()}
             </div>
@@ -204,14 +198,14 @@ impl Component for Container {
 }
 
 impl ContainerModel {
-    fn init(self, props: Props) {
-        self.get_flow(props.direction, props.wrap, props.index, props.name.clone());
-        self.get_justify_content(props.justify_content, props.index, props.name.clone());
-        self.get_align_content(props.align_content, props.index, props.name.clone());
-        self.get_align_items(props.align_items, props.index, props.name);
+    fn init(self, props: Props, hash: String) {
+        self.get_flow(props.direction, props.wrap, hash.clone());
+        self.get_justify_content(props.justify_content, hash.clone());
+        self.get_align_content(props.align_content, hash.clone());
+        self.get_align_items(props.align_items, hash);
     }
 
-    fn get_flow(self, direction: Direction, wrap: Wrap, index: i16, name: String) {
+    fn get_flow(self, direction: Direction, wrap: Wrap, hash: String) {
         let direction = match direction {
             Direction::Row => "row".to_string(),
             Direction::RowReverse => "row-reverse".to_string(),
@@ -230,11 +224,7 @@ impl ContainerModel {
         create_style(
             String::from("flex-flow"),
             value,
-            if name == "" {
-                format!("container-{}", index)
-            } else {
-                format!("container-{}-{}", name, index)
-            },
+            format!("container-{}", hash),
         );
     }
 
@@ -246,7 +236,7 @@ impl ContainerModel {
         }
     }
 
-    fn get_justify_content(self, justify_content: JustifyContent, index: i16, name: String) {
+    fn get_justify_content(self, justify_content: JustifyContent, hash: String) {
         let value = match justify_content {
             JustifyContent::FlexStart(mode) => format!("flex-start{}", self.get_mode(mode)),
             JustifyContent::FlexEnd(mode) => format!("flex-end{}", self.get_mode(mode)),
@@ -263,15 +253,11 @@ impl ContainerModel {
         create_style(
             String::from("justify-content"),
             value,
-            if name == "" {
-                format!("container-{}", index)
-            } else {
-                format!("container-{}-{}", name, index)
-            },
+            format!("container-{}", hash),
         );
     }
 
-    fn get_align_content(self, align_content: AlignContent, index: i16, name: String) {
+    fn get_align_content(self, align_content: AlignContent, hash: String) {
         let value = match align_content {
             AlignContent::Stretch(mode) => format!("stretch{}", self.get_mode(mode)),
             AlignContent::FlexStart(mode) => format!("flex-start{}", self.get_mode(mode)),
@@ -290,15 +276,11 @@ impl ContainerModel {
         create_style(
             String::from("align-content"),
             value,
-            if name == "" {
-                format!("container-{}", index)
-            } else {
-                format!("container-{}-{}", name, index)
-            },
+            format!("container-{}", hash),
         );
     }
 
-    fn get_align_items(self, align_items: AlignItems, index: i16, name: String) {
+    fn get_align_items(self, align_items: AlignItems, hash: String) {
         let value = match align_items {
             AlignItems::Stretch(mode) => format!("stretch{}", self.get_mode(mode)),
             AlignItems::Baseline(mode) => format!("baseline{}", self.get_mode(mode)),
@@ -316,11 +298,7 @@ impl ContainerModel {
         create_style(
             String::from("align-items"),
             value,
-            if name == "" {
-                format!("container-{}", index)
-            } else {
-                format!("container-{}-{}", name, index)
-            },
+            format!("container-{}", hash),
         );
     }
 }

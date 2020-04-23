@@ -730,6 +730,7 @@ dependencies = [
 name = "yew_styles"
 version = "0.2.1"
 dependencies = [
+ "rand 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "uuid 0.8.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "wasm-bindgen 0.2.60 (registry+https://github.com/rust-lang/crates.io-index)",
  "wasm-bindgen-test 0.3.10 (registry+https://github.com/rust-lang/crates.io-index)",

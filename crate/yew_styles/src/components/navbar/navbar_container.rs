@@ -1,8 +1,6 @@
 use crate::layouts::container::{Container, Direction, JustifyContent, Mode, Wrap};
 use yew::prelude::*;
 
-use uuid::Uuid;
-
 pub enum Msg {
     Clicked,
 }
@@ -40,8 +38,7 @@ impl Component for NavbarContainer {
                 class_name=format!("navbar-container {}", self.props.class_name)
                 direction=self.props.direction.clone()
                 wrap=Wrap::Wrap
-                justify_content=self.props.justify_content.clone()
-                name=format!("{}", Uuid::new_v4())>
+                justify_content=self.props.justify_content.clone()>
                     {self.props.children.render()}
             </Container>
         }
