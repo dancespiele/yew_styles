@@ -24,4 +24,4 @@ yew = { version="0.14.2", features = ["toml", "yaml", "msgpack", "cbor", "web_sy
 yew-router = {version = "0.11", features = ["web_sys"] }
 web-sys = "0.3"
 yew_prism = "0.1"
-yew_styles= {path= "./yew_styles", version = "0.2.0", features = ["web_sys"]}
+yew_styles= {path= "./yew_styles", version = "0.2.0"}

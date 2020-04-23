@@ -1,4 +1,4 @@
-use crate::utils::create_style;
+use crate::utils::{create_style, get_hash};
 use yew::prelude::*;
 
 /// Percent of the layout that will take the item.
@@ -87,13 +87,12 @@ pub enum Msg {
 pub struct Item {
     link: ComponentLink<Self>,
     props: Props,
+    hash: String,
 }
 
 #[derive(Clone)]
 struct ItemProps {
     layouts_classes: String,
-    name: String,
-    index: i16,
     class_name: String,
 }
 
@@ -107,13 +106,9 @@ pub struct Props {
     #[prop_or(AlignSelf::Auto)]
     /// Align the item itself
     pub align_self: AlignSelf,
-    #[prop_or_default]
-    pub name: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
-    #[prop_or_default]
-    pub index: i16,
     /// Click event for the item
     #[prop_or(Callback::noop())]
     pub onsignal: Callback<()>,
@@ -125,11 +120,13 @@ impl Component for Item {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Item { link, props }
+        let hash = get_hash(10);
+
+        Item { link, props, hash }
     }
 
     fn mounted(&mut self) -> ShouldRender {
-        ItemModel.init(self.props.clone());
+        ItemModel.init(self.props.align_self.clone(), self.hash.clone());
 
         true
     }
@@ -154,11 +151,7 @@ impl Component for Item {
 
         html! {
             <div
-                class=if item_props.name == "" {
-                    format!("item item-{} {} {}", item_props.index, item_props.layouts_classes, item_props.class_name)
-                } else {
-                    format!("item item-{}-{} {} {}", item_props.name, item_props.index, item_props.layouts_classes, item_props.class_name)
-                }
+                class=format!("item item-{} {} {}", self.hash, item_props.layouts_classes, item_props.class_name)
 
                 onclick=self.link.callback(|_| Msg::Clicked)
             >
@@ -172,16 +165,14 @@ impl From<Props> for ItemProps {
     fn from(props: Props) -> Self {
         ItemProps {
             layouts_classes: ItemModel.get_layout_classes(props.layouts),
-            name: props.name,
-            index: props.index,
             class_name: props.class_name,
         }
     }
 }
 
 impl ItemModel {
-    fn init(self, props: Props) {
-        self.get_item_align(props.align_self, props.index, props.name);
+    fn init(self, align_self: AlignSelf, hash: String) {
+        self.get_item_align(align_self, hash);
     }
 
     fn get_layout_classes(self, layouts_prop: Vec<ItemLayout>) -> String {
@@ -204,7 +195,7 @@ impl ItemModel {
         }
     }
 
-    fn get_item_align(self, align: AlignSelf, index: i16, name: String) {
+    fn get_item_align(self, align: AlignSelf, hash: String) {
         let value = match align {
             AlignSelf::Auto => "auto".to_string(),
             AlignSelf::Baseline => "baseline".to_string(),
@@ -214,14 +205,6 @@ impl ItemModel {
             AlignSelf::Stretch => "stretch".to_string(),
         };
 
-        create_style(
-            String::from("align-self"),
-            value,
-            if name == "" {
-                format!("item-{}", index)
-            } else {
-                format!("item-{}-{}", name, index)
-            },
-        );
+        create_style(String::from("align-self"), value, format!("item-{}", hash));
     }
 }
