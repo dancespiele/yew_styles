@@ -23,3 +23,35 @@ pub fn container_code() -> String {
 </Container>"
         .to_string()
 }
+
+pub fn navbar_code() -> String {
+    "<Navbar
+    fixed=Fixed::None
+    navbar_style=Style::Light
+    navbar_type=Palette::Info
+    branch=html!{<img src=\"/assets/spielrs_logo.png\"></img>}>
+        <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
+            <NavbarItem
+                onsignal=link.callback(move |_| Msg::ChangeMenu(String::from(\"Home\")))>
+                <span>{\"Home\"}</span>
+            </NavbarItem>
+            <NavbarItem
+                onsignal=link.callback(move |_| Msg::ChangeMenu(String::from(\"Shop\")))>
+                <span>{\"Shop\"}</span>
+            </NavbarItem>
+            <NavbarItem
+                onsignal=link.callback(move |_| Msg::ChangeMenu(String::from(\"Shop\")))>
+                <span>{\"Shop\"}</span>
+            </NavbarItem>
+            <NavbarItem
+                onsignal=link.callback(move |_| Msg::ChangeMenu(String::from(\"About us\")))>   
+                <span>{\"About us\"}</span>
+            </NavbarItem>
+            <NavbarItem
+                onsignal=link.callback(move |_| Msg::ChangeMenu(String::from(\"Contact\")))>   
+                <span>{\"Contact\"}</span>
+            </NavbarItem>
+        </NavbarContainer>
+</Navbar>"
+        .to_string()
+}

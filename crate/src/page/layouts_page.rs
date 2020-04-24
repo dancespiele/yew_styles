@@ -26,7 +26,7 @@ impl Component for LayoutsPage {
         html! {
             <div>
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
-                    <h1>{"Layouts components"}</h1>
+                    <h1>{"Layouts Components"}</h1>
                 </Item>
 
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
@@ -40,12 +40,12 @@ impl Component for LayoutsPage {
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Container properties"}</h2>
                     <ul>
-                        <li><b>{"direction: "}</b>{"which direction are placing the items. Options include in "}<code>{"Direction"}</code>{". Required"}</li>
-                        <li><b>{"wrap: "}</b>{"set a wrap for the items. Options included in "}<code>{"Wrap"}</code>{". Default "}<code>{"Wrap"}</code></li>
-                        <li><b>{"justify_content: "}</b>{"set how will be justified the content. Options included in "}<code>{"JustifyContent"}</code>{". Default "}<code>{"FlexStart(No Mode)"}</code></li>
-                        <li><b>{"align_content: "}</b>{"set how will be aligned the content. Options included in "}<code>{"AlignContent"}</code>{". Default "}<code>{"Stretch(NoMode)"}</code></li>
-                        <li><b>{"align_items: "}</b>{"set how will be aligned the items. Options included in "}<code>{"AlignItems"}</code>{". Default "}<code>{"Stretch(NoMode)"}</code></li>
-                        <li><b>{"mode: "}</b>{"safe postion handler which is additional option for justify_content, align_content and align_items. Options included in "}<code>{"Mode"}</code>{". Default "}<code>{"NoMode"}</code></li>
+                        <li><b>{"direction: "}</b>{"which direction are placing the items. Options include in "}<code>{"Direction"}</code>{". Required."}</li>
+                        <li><b>{"wrap: "}</b>{"set a wrap for the items. Options included in "}<code>{"Wrap"}</code>{". Default "}<code>{"Wrap"}</code>{"."}</li>
+                        <li><b>{"justify_content: "}</b>{"set how will be justified the content. Options included in "}<code>{"JustifyContent"}</code>{". Default "}<code>{"FlexStart(No Mode)"}</code>{"."}</li>
+                        <li><b>{"align_content: "}</b>{"set how will be aligned the content. Options included in "}<code>{"AlignContent"}</code>{". Default "}<code>{"Stretch(NoMode)"}</code>{"."}</li>
+                        <li><b>{"align_items: "}</b>{"set how will be aligned the items. Options included in "}<code>{"AlignItems"}</code>{". Default "}<code>{"Stretch(NoMode)"}</code>{"."}</li>
+                        <li><b>{"mode: "}</b>{"safe postion handler which is additional option for justify_content, align_content and align_items. Options included in "}<code>{"Mode"}</code>{". Default "}<code>{"NoMode"}</code>{"."}</li>
                     </ul>
                 </Item>
 

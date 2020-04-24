@@ -57,10 +57,10 @@ impl Component for ButtonPage {
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Propeties"}</h2>
                     <ul>
-                        <li><b>{"button_type: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
-                        <li><b>{"size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code></li>
-                        <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code></li>
-                        <li><b>{"onsignal: "}</b>{"click event for button. Required"}</li>
+                        <li><b>{"button_type: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                        <li><b>{"size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
+                        <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
+                        <li><b>{"onsignal: "}</b>{"click event for button. Required."}</li>
                     </ul>
                 </Item>
 

@@ -1,3 +1,4 @@
+/// Palette of styles according with the purpose
 #[derive(Clone)]
 pub enum Palette {
     Primary,
@@ -23,6 +24,7 @@ pub fn get_pallete(palette: Palette) -> String {
     }
 }
 
+/// Standars button styles
 #[derive(Clone)]
 pub enum Style {
     Regular,

@@ -2,6 +2,6 @@
 pub mod assets;
 mod components;
 pub mod styles;
-pub mod utils;
+mod utils;
 
 pub use components::{button, layouts, navbar};

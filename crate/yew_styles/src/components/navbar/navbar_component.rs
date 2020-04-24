@@ -6,6 +6,7 @@ use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;
 
+/// the location of the navbar which is fixed
 #[derive(Clone, PartialEq)]
 pub enum Fixed {
     None,
@@ -17,6 +18,89 @@ pub enum Msg {
     TroggleMenu,
 }
 
+/// # Navbar component
+///
+/// ## Example
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew::services::ConsoleService;
+/// use yew_styles::{
+///     navbar::{
+///         navbar_component::{Fixed, Navbar},
+///         navbar_container::NavbarContainer,
+///         navbar_item::NavbarItem,
+///     },
+///     styles::{Palette, Style},
+///     layouts::{
+///         container::{JustifyContent, Mode},
+///     },
+/// };
+///
+/// pub struct App {
+///   link: ComponentLink<Self>,
+/// }
+///
+/// pub enum Msg {
+///   ChangeMenu(String),
+/// }
+/// #[derive(Clone, Properties)]
+/// pub struct Props {}
+///
+/// impl Component for App {
+///     type Message = Msg;
+///     type Properties = Props;
+///
+///     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         App {
+///             link
+///         }
+///     }
+///
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::ChangeMenu(menu) => {
+///                 let mut console = ConsoleService::new();
+///                 console.log(format!("{}", menu))
+///             }
+///         }
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///        html! {
+///            <Navbar
+///                fixed=Fixed::None
+///                navbar_style=Style::Light
+///                navbar_type=Palette::Info
+///                branch=html!{<img src="/assets/spielrs_logo.png"></img>}>
+///                    <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
+///                        <NavbarItem
+///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Home")))>
+///                            <span>{"Home"}</span>
+///                        </NavbarItem>
+///                        <NavbarItem
+///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
+///                            <span>{"Shop"}</span>
+///                        </NavbarItem>
+///                        <NavbarItem
+///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
+///                            <span>{"Shop"}</span>
+///                        </NavbarItem>
+///                        <NavbarItem
+///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>   
+///                            <span>{"About us"}</span>
+///                        </NavbarItem>
+///                        <NavbarItem
+///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
+///                            <span>{"Contact"}</span>
+///                        </NavbarItem>
+///                    </NavbarContainer>
+///              </Navbar>
+///         }
+///     }
+/// }
+/// ```
 pub struct Navbar {
     pub link: ComponentLink<Self>,
     pub props: NavbarProps,
@@ -27,14 +111,19 @@ struct NavbarModel;
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// Type navbar style
     #[prop_or(Palette::Standard)]
     pub navbar_type: Palette,
+    /// Navbar styles
     #[prop_or(Style::Regular)]
     pub navbar_style: Style,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// The location of the navbar which is fixed
     #[prop_or(Fixed::Top)]
     pub fixed: Fixed,
+    /// Vnode embedded in the beginning of the navbar, useful to include a branch logo
     #[prop_or_default]
     pub branch: Html,
     pub children: Children,

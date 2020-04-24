@@ -17,7 +17,7 @@ pub fn create_style(style: String, value: String, wrap: String) {
     element.style().set_property(&style, &value).unwrap();
 }
 
-pub fn get_hash(len: usize) -> String {
+pub fn get_random_string(len: usize) -> String {
     thread_rng()
         .sample_iter(&Alphanumeric)
         .take(len)
