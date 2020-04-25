@@ -25,7 +25,6 @@ install:
   - rustup component add clippy
   - rustup install stable
   - rustup target add wasm32-unknown-unknown
-  - cargo +stable install wasm-bindgen-cli
 
 script:
   - ./ci/run_checks.sh
