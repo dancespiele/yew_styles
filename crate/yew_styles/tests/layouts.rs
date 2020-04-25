@@ -16,12 +16,10 @@ fn should_create_a_container() {
     let props_container = PropsContainer {
         direction: Direction::Row,
         wrap: Wrap::Wrap,
-        index: 0,
         justify_content: JustifyContent::Center(Mode::NoMode),
         align_content: AlignContent::Center(Mode::NoMode),
         align_items: AlignItems::Center(Mode::NoMode),
         class_name: String::from("layout-test"),
-        name: String::from("layout-test"),
         children: Children::new(vec![html! {
             <div id="container">{"Container"}</div>
         }]),
@@ -34,7 +32,7 @@ fn should_create_a_container() {
     let container_vnode = container.render();
 
     let vnode_expected = html! {
-        <div class="container container-layout-test-0 layout-test">
+        <div class=format!("container container-{} layout-test", container.hash)>
             <>
                 <div id="container">{"Container"}</div>
             </>
@@ -49,9 +47,7 @@ fn should_create_item() {
     let props_item = PropsItem {
         layouts: vec![ItemLayout::ItXs(12)],
         align_self: AlignSelf::Center,
-        name: "item-test".to_string(),
         class_name: "item-test".to_string(),
-        index: 0,
         onsignal: Callback::noop(),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
@@ -67,7 +63,7 @@ fn should_create_item() {
     let vnode_expected = html! {
         <div
             onclick=Callback::noop()
-            class="item item-item-test-0 it-xs-12 item-test">
+            class=format!("item item-{} it-xs-12 item-test", item.hash)>
             <>
                 <div id="item">{"Item"}</div>
             </>
@@ -97,9 +93,7 @@ fn should_create_clickable_item() {
     let props_item = PropsItem {
         layouts: vec![ItemLayout::ItXs(12)],
         align_self: AlignSelf::Center,
-        name: "item-test".to_string(),
         class_name: "item-test".to_string(),
-        index: 0,
         onsignal: on_add_item_div,
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>

@@ -1,7 +1,8 @@
 [package]
 name = "yew_styles"
-version = "0.2.1"
+version = "0.3.0"
 description = "Framework styles for yew"
+documentation = "https://docs.rs/crate/yew_styles/0.3.0"
 authors = ["Francisco Jesus Navarro Cortes <spieljs@gmail.com>"]
 edition = "2018"
 license = "MIT"
@@ -16,8 +17,7 @@ crate-type = ["cdylib", "rlib"]
 wasm-bindgen = "0.2.60"
 yew = { version="0.14", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"] }
 web-sys = {version = "0.3.36", features = ["HtmlDocument", "HtmlCollection", "CssStyleDeclaration", "HtmlElement", "Node"]}
-uuid = {version= "0.8", features=["v4", "wasm-bindgen", "stdweb"]}
-rand = "0.7"
-
+rand = {version="0.7", features = ["getrandom"]}
+getrandom = {version = "0.1", features= ["wasm-bindgen"]}
 [dev-dependencies]
 wasm-bindgen-test = "0.3"

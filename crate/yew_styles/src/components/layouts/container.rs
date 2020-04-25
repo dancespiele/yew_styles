@@ -1,4 +1,4 @@
-use crate::utils::{create_style, get_hash};
+use crate::utils::{create_style, get_random_string};
 use yew::prelude::*;
 
 /// # Container component
@@ -61,7 +61,7 @@ use yew::prelude::*;
 /// ```
 pub struct Container {
     props: Props,
-    hash: String,
+    pub hash: String,
 }
 
 #[derive(Clone, Copy)]
@@ -167,7 +167,7 @@ impl Component for Container {
     type Properties = Props;
 
     fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        let hash = get_hash(10);
+        let hash = get_random_string(10);
 
         Container { props, hash }
     }

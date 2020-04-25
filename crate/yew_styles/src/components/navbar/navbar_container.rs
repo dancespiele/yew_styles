@@ -7,15 +7,101 @@ pub enum Msg {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// set how will be justified the navbar items
     #[prop_or(JustifyContent::FlexStart(Mode::NoMode))]
     pub justify_content: JustifyContent,
+    /// which direction are placing the navbar items
     #[prop_or(Direction::Row)]
     pub direction: Direction,
     pub children: Children,
     #[prop_or_default]
+    /// General property to add custom class styles
     pub class_name: String,
 }
 
+/// # Navbar Container component
+///
+/// ## Example
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew::services::ConsoleService;
+/// use yew_styles::{
+///     navbar::{
+///         navbar_component::{Fixed, Navbar},
+///         navbar_container::NavbarContainer,
+///         navbar_item::NavbarItem,
+///     },
+///     styles::{Palette, Style},
+///     layouts::{
+///         container::{JustifyContent, Mode},
+///     },
+/// };
+///
+/// pub struct App {
+///   link: ComponentLink<Self>,
+/// }
+///
+/// pub enum Msg {
+///   ChangeMenu(String),
+/// }
+/// #[derive(Clone, Properties)]
+/// pub struct Props {}
+///
+/// impl Component for App {
+///     type Message = Msg;
+///     type Properties = Props;
+///
+///     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         App {
+///             link
+///         }
+///     }
+///
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::ChangeMenu(menu) => {
+///                 let mut console = ConsoleService::new();
+///                 console.log(format!("{}", menu))
+///             }
+///         }
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///        html! {
+///            <Navbar
+///                fixed=Fixed::None
+///                navbar_style=Style::Light
+///                navbar_type=Palette::Info
+///                branch=html!{<img src="/assets/spielrs_logo.png"></img>}>
+///                    <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
+///                        <NavbarItem
+///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Home")))>
+///                            <span>{"Home"}</span>
+///                        </NavbarItem>
+///                        <NavbarItem
+///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
+///                            <span>{"Shop"}</span>
+///                        </NavbarItem>
+///                        <NavbarItem
+///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
+///                            <span>{"Shop"}</span>
+///                        </NavbarItem>
+///                        <NavbarItem
+///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>   
+///                            <span>{"About us"}</span>
+///                        </NavbarItem>
+///                        <NavbarItem
+///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
+///                            <span>{"Contact"}</span>
+///                        </NavbarItem>
+///                    </NavbarContainer>
+///              </Navbar>
+///         }
+///     }
+/// }
+/// ```
 pub struct NavbarContainer {
     pub props: Props,
 }

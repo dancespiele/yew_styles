@@ -1,4 +1,4 @@
-use crate::utils::{create_style, get_hash};
+use crate::utils::{create_style, get_random_string};
 use yew::prelude::*;
 
 /// Percent of the layout that will take the item.
@@ -87,7 +87,7 @@ pub enum Msg {
 pub struct Item {
     link: ComponentLink<Self>,
     props: Props,
-    hash: String,
+    pub hash: String,
 }
 
 #[derive(Clone)]
@@ -120,7 +120,7 @@ impl Component for Item {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        let hash = get_hash(10);
+        let hash = get_random_string(10);
 
         Item { link, props, hash }
     }
