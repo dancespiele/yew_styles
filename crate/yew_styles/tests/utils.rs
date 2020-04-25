@@ -1,7 +1,7 @@
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use web_sys::{window, HtmlElement};
-use yew_styles::utils::create_style;
+use yew_styles::utils::{create_style, get_random_string};
 
 wasm_bindgen_test_configure!(run_in_browser);
 
@@ -39,4 +39,30 @@ fn should_set_style_prop() {
     let value = item.style().get_property_value("padding").unwrap();
 
     assert_eq!(value, "10px");
+}
+
+#[wasm_bindgen_test]
+fn should_generate_random_string() {
+    let mut random_values: Vec<String> = vec![];
+    let mut i = 0;
+    loop {
+        random_values.push(get_random_string(10));
+        i += 1;
+
+        if i == 1000 {
+            break;
+        }
+    }
+
+    let mut i = 0;
+    for value in &random_values {
+        let mut index = 0;
+        let repeat = &random_values.iter().any(move |random_value| {
+            let exist = random_value.to_string() == value.to_string() && i != index;
+            index += 1;
+            exist
+        });
+        assert_eq!(*repeat, false);
+        i += 1;
+    }
 }

@@ -87,7 +87,7 @@ pub enum Msg {
 pub struct Item {
     link: ComponentLink<Self>,
     props: Props,
-    hash: String,
+    pub hash: String,
 }
 
 #[derive(Clone)]

@@ -1,4 +1,4 @@
-use page::{ButtonPage, LayoutsPage, NavbarPage};
+use page::{ButtonPage, HomePage, LayoutsPage, NavbarPage};
 use yew::prelude::*;
 use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
 use yew_styles::layouts::{
@@ -44,7 +44,7 @@ impl Component for App {
                         wrap=Wrap::Wrap
                     >
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
-                            <h2>{"Yew Styles Component"}</h2>
+                            <h2>{"Documentation"}</h2>
                         </Item>
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
                             <RouterAnchor<AppRouter> route=AppRouter::RootPath>{"Let's start"}</RouterAnchor<AppRouter>>
@@ -64,11 +64,7 @@ impl Component for App {
                     <Router<AppRouter, ()>
                         render = Router::render(|switch: AppRouter | {
                             match switch {
-                                AppRouter::RootPath => html!{
-                                    <div>
-                                        <h1>{"Welcome to Yew Style"}</h1>
-                                    </div>
-                                },
+                                AppRouter::RootPath => html!{<HomePage/>},
                                 AppRouter::ButtonPath => html!{<ButtonPage/>},
                                 AppRouter::LayoutsPath => html!{<LayoutsPage/>},
                                 AppRouter::NavbarPath => html!{<NavbarPage/>},

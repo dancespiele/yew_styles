@@ -61,7 +61,7 @@ use yew::prelude::*;
 /// ```
 pub struct Container {
     props: Props,
-    hash: String,
+    pub hash: String,
 }
 
 #[derive(Clone, Copy)]
