@@ -11,6 +11,7 @@ in the most of the cases which makes fast for developing applications and avoids
 ## How it works
 Each component is splited in two parts, the logical yew component and its sass module,
 however, it is not necessary to worry about the sass module only it needs to be include in the project
+
 ### How install it
 1. Install the sass module: `npm install yew-styles`
 2. Add the yew_style crate in Cargo.toml file: `yew_styles = "0.3.0"`

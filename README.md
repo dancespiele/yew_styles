@@ -22,6 +22,16 @@ however, it is not necessary to worry about the sass module only it needs to be 
 In the left side there is a list of links where each one access to a correspondent component documentation,
 there, shows how to use it.
 
+## Run the documentation page
+Inside of the project run:
+
+`npm start`
+
+## Run the tests
+Inside of the project run:
+
+`cargo test --target wasm32-unknown-unknown --manifest-path=crate/yew_styles/Cargo.toml`
+
 ## Development phase
 Yew style is in early phase, currently doesn't have enough components to cover all the requirements that could need a website/web application.
 All contributions are appreciated.

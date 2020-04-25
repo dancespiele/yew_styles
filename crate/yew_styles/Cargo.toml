@@ -19,5 +19,4 @@ yew = { version="0.14", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"
 web-sys = {version = "0.3.36", features = ["HtmlDocument", "HtmlCollection", "CssStyleDeclaration", "HtmlElement", "Node"]}
 rand = {version="0.7", features = ["getrandom"]}
 getrandom = {version = "0.1", features= ["wasm-bindgen"]}
-[dev-dependencies]
 wasm-bindgen-test = "0.3"
