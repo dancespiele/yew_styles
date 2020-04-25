@@ -29,4 +29,4 @@ install:
   - tar -xzf geckodriver-v0.26.0-linux64.tar.gz
 
 script:
-  - ./ci/run_checks.sh
+  - GECKODRIVER=$(pwd)/geckodriver ./ci/run_checks.sh
