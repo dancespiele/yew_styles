@@ -830,7 +830,7 @@ dependencies = [
 
 [[package]]
 name = "yew_style_page"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "cfg-if 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "console_error_panic_hook 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",

@@ -19,7 +19,8 @@
 //!
 //!     1. Install the sass module: `npm install yew-styles`
 //!     2. Add the yew_style crate in Cargo.toml file: `yew_styles = "0.2.0"`
-//!     3. Ready to import and use in your project 🚀
+//!     3. Import the main.css file in you main javascript/typescript file project: `import 'node_modules/yew-styles/main.css';`
+//!     4. Ready to import and use in your project 🚀
 //!
 //! In the left side there is a list of links where each one access to a correspondent component documentation,
 //! there, shows how to use it.

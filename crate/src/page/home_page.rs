@@ -47,6 +47,9 @@ impl Component for HomePage {
                         <li>{"Add the yew_style crate in Cargo.toml file: "}
                             <code>{"yew_styles = \"0.3.0\""}</code>
                         </li>
+                        <li>{"Import the main.css file in you main javascript/typescript file project: "}
+                            <code>{"import 'node_modules/yew-styles/main.css';"}</code>
+                        </li>
                         <li>{"Ready to import and use in your project \u{1F680}"}</li>
                     </ol>
 
