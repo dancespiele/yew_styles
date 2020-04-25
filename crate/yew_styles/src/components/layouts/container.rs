@@ -1,4 +1,5 @@
 use crate::utils::{create_style, get_random_string};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
 
 /// # Container component
@@ -301,4 +302,37 @@ impl ContainerModel {
             format!("container-{}", hash),
         );
     }
+}
+
+wasm_bindgen_test_configure!(run_in_browser);
+
+#[wasm_bindgen_test]
+fn should_create_a_container() {
+    let props_container = Props {
+        direction: Direction::Row,
+        wrap: Wrap::Wrap,
+        justify_content: JustifyContent::Center(Mode::NoMode),
+        align_content: AlignContent::Center(Mode::NoMode),
+        align_items: AlignItems::Center(Mode::NoMode),
+        class_name: String::from("layout-test"),
+        children: Children::new(vec![html! {
+            <div id="container">{"Container"}</div>
+        }]),
+    };
+
+    let link = ComponentLink::new();
+
+    let container = Container::create(props_container, link);
+
+    let container_vnode = container.render();
+
+    let vnode_expected = html! {
+        <div class=format!("container container-{} layout-test", container.hash)>
+            <>
+                <div id="container">{"Container"}</div>
+            </>
+        </div>
+    };
+
+    assert_eq!(container_vnode, vnode_expected);
 }
