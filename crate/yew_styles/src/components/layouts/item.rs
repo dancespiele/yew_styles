@@ -127,12 +127,6 @@ impl Component for Item {
         Item { link, props, hash }
     }
 
-    fn mounted(&mut self) -> ShouldRender {
-        ItemModel.init(self.props.align_self.clone(), self.hash.clone());
-
-        true
-    }
-
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked => {
@@ -140,7 +134,11 @@ impl Component for Item {
             }
         };
 
-        false
+        true
+    }
+
+    fn rendered(&mut self, _first_render: bool) {
+        ItemModel.init(self.props.align_self.clone(), self.hash.clone());
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {

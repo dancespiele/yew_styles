@@ -30,6 +30,10 @@ impl Component for Assets {
         false
     }
 
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
+    }
+
     fn view(&self) -> Html {
         get_icon(self.props.asset.clone(), self.props.class_name.clone())
     }

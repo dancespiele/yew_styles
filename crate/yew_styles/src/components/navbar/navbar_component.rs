@@ -164,12 +164,6 @@ impl Component for Navbar {
         }
     }
 
-    fn mounted(&mut self) -> ShouldRender {
-        NavbarModel.init(self.props.clone());
-
-        true
-    }
-
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::TroggleMenu => {
@@ -178,6 +172,10 @@ impl Component for Navbar {
         };
 
         true
+    }
+
+    fn rendered(&mut self, _first_render: bool) {
+        NavbarModel.init(self.props.clone());
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {

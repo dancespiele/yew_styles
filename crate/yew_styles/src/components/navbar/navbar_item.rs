@@ -113,10 +113,6 @@ impl Component for NavbarItem {
         NavbarItem { link, props }
     }
 
-    fn mounted(&mut self) -> ShouldRender {
-        true
-    }
-
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked => {
