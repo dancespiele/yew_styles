@@ -174,14 +174,16 @@ impl Component for Navbar {
         true
     }
 
-    fn rendered(&mut self, _first_render: bool) {
-        NavbarModel.init(self.props.clone());
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            NavbarModel.init(self.props.clone());
+        }
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         NavbarModel.init(self.props.clone());
         self.props = NavbarProps::from(props);
-        true
+        false
     }
 
     fn view(&self) -> Html {

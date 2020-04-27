@@ -173,17 +173,18 @@ impl Component for Container {
         Container { props, hash }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
-        ContainerModel.init(self.props.clone(), self.hash.clone());
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            ContainerModel.init(self.props.clone(), self.hash.clone());
+        }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
         false
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
     }
 
     fn view(&self) -> Html {

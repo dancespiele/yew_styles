@@ -126,7 +126,7 @@ impl Component for NavbarItem {
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         self.props = props;
 
-        true
+        false
     }
 
     fn view(&self) -> Html {

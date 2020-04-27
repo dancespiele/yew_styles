@@ -20,8 +20,8 @@ serde = "1.0"
 serde_derive = "1.0"
 dotenv = "0.15"
 failure = "0.1"
-yew = { version="0.14", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"]}
-yew-router = {version = "0.11", features = ["web_sys"] }
+yew = { version="0.15", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"]}
+yew-router = {version = "0.12", features = ["web_sys"] }
 web-sys = "0.3"
-yew_prism = "0.1"
+yew_prism = "0.2"
 yew_styles= {path= "./yew_styles"}

@@ -18,6 +18,10 @@ impl Component for HomePage {
         false
     }
 
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
+    }
+
     fn view(&self) -> Html {
         html! {
             <Container wrap=Wrap::Wrap

@@ -134,16 +134,17 @@ impl Component for Item {
             }
         };
 
-        true
+        false
     }
 
-    fn rendered(&mut self, _first_render: bool) {
-        ItemModel.init(self.props.align_self.clone(), self.hash.clone());
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            ItemModel.init(self.props.align_self.clone(), self.hash.clone());
+        }
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
     }
 
     fn view(&self) -> Html {
