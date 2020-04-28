@@ -62,7 +62,7 @@ use yew::prelude::*;
 /// ```
 pub struct Container {
     props: Props,
-    pub hash: String,
+    pub key: String,
 }
 
 #[derive(Clone, Copy)]
@@ -168,14 +168,14 @@ impl Component for Container {
     type Properties = Props;
 
     fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        let hash = get_random_string(10);
+        let key = get_random_string(10);
 
-        Container { props, hash }
+        Container { props, key }
     }
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            ContainerModel.init(self.props.clone(), self.hash.clone());
+            ContainerModel.init(self.props.clone(), self.key.clone());
         }
     }
 
@@ -189,7 +189,7 @@ impl Component for Container {
 
     fn view(&self) -> Html {
         html! {
-            <div class=format!("container container-{} {}", self.hash, self.props.class_name)
+            <div class=format!("container container-{} {}", self.key, self.props.class_name)
             >
                 {self.props.children.render()}
             </div>
@@ -198,14 +198,14 @@ impl Component for Container {
 }
 
 impl ContainerModel {
-    fn init(self, props: Props, hash: String) {
-        self.get_flow(props.direction, props.wrap, hash.clone());
-        self.get_justify_content(props.justify_content, hash.clone());
-        self.get_align_content(props.align_content, hash.clone());
-        self.get_align_items(props.align_items, hash);
+    fn init(self, props: Props, key: String) {
+        self.get_flow(props.direction, props.wrap, key.clone());
+        self.get_justify_content(props.justify_content, key.clone());
+        self.get_align_content(props.align_content, key.clone());
+        self.get_align_items(props.align_items, key);
     }
 
-    fn get_flow(self, direction: Direction, wrap: Wrap, hash: String) {
+    fn get_flow(self, direction: Direction, wrap: Wrap, key: String) {
         let direction = match direction {
             Direction::Row => "row".to_string(),
             Direction::RowReverse => "row-reverse".to_string(),
@@ -224,7 +224,7 @@ impl ContainerModel {
         create_style(
             String::from("flex-flow"),
             value,
-            format!("container-{}", hash),
+            format!("container-{}", key),
         );
     }
 
@@ -236,7 +236,7 @@ impl ContainerModel {
         }
     }
 
-    fn get_justify_content(self, justify_content: JustifyContent, hash: String) {
+    fn get_justify_content(self, justify_content: JustifyContent, key: String) {
         let value = match justify_content {
             JustifyContent::FlexStart(mode) => format!("flex-start{}", self.get_mode(mode)),
             JustifyContent::FlexEnd(mode) => format!("flex-end{}", self.get_mode(mode)),
@@ -253,11 +253,11 @@ impl ContainerModel {
         create_style(
             String::from("justify-content"),
             value,
-            format!("container-{}", hash),
+            format!("container-{}", key),
         );
     }
 
-    fn get_align_content(self, align_content: AlignContent, hash: String) {
+    fn get_align_content(self, align_content: AlignContent, key: String) {
         let value = match align_content {
             AlignContent::Stretch(mode) => format!("stretch{}", self.get_mode(mode)),
             AlignContent::FlexStart(mode) => format!("flex-start{}", self.get_mode(mode)),
@@ -276,11 +276,11 @@ impl ContainerModel {
         create_style(
             String::from("align-content"),
             value,
-            format!("container-{}", hash),
+            format!("container-{}", key),
         );
     }
 
-    fn get_align_items(self, align_items: AlignItems, hash: String) {
+    fn get_align_items(self, align_items: AlignItems, key: String) {
         let value = match align_items {
             AlignItems::Stretch(mode) => format!("stretch{}", self.get_mode(mode)),
             AlignItems::Baseline(mode) => format!("baseline{}", self.get_mode(mode)),
@@ -298,7 +298,7 @@ impl ContainerModel {
         create_style(
             String::from("align-items"),
             value,
-            format!("container-{}", hash),
+            format!("container-{}", key),
         );
     }
 }
@@ -326,7 +326,7 @@ fn should_create_a_container() {
     let container_vnode = container.render();
 
     let vnode_expected = html! {
-        <div class=format!("container container-{} layout-test", container.hash)>
+        <div class=format!("container container-{} layout-test", container.key)>
             <>
                 <div id="container">{"Container"}</div>
             </>
