@@ -67,6 +67,10 @@ pub enum Msg {
 ///         false
 ///     }
 ///
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
 ///     fn view(&self) -> Html {
 ///        html! {
 ///            <Navbar
@@ -193,12 +197,12 @@ impl Component for Navbar {
                     class=format!("navbar-mobile {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
                 >
                     <div class="navbar-dropdown">
-                        <NavbarContainer justify_content=JustifyContent::Start(Mode::NoMode)
+                        <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)
                         direction=Direction::Row
                         class_name="navbar-container-mobile">
                         {get_branch(self.props.branch.clone())}
                         </NavbarContainer>
-                        <NavbarContainer justify_content=JustifyContent::End(Mode::NoMode)
+                        <NavbarContainer justify_content=JustifyContent::FlexEnd(Mode::NoMode)
                             direction=Direction::Row
                             class_name="navbar-container-mobile">
                             <NavbarItem

@@ -68,6 +68,10 @@ pub struct Props {
 ///         false
 ///     }
 ///
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
 ///     fn view(&self) -> Html {
 ///        html! {
 ///            <Navbar
@@ -119,7 +123,7 @@ impl Component for NavbarContainer {
     }
 
     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
-        false
+        true
     }
 
     fn view(&self) -> Html {
