@@ -67,6 +67,10 @@ pub enum Msg {
 ///         false
 ///     }
 ///
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
 ///     fn view(&self) -> Html {
 ///        html! {
 ///            <Navbar
@@ -164,12 +168,6 @@ impl Component for Navbar {
         }
     }
 
-    fn mounted(&mut self) -> ShouldRender {
-        NavbarModel.init(self.props.clone());
-
-        true
-    }
-
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::TroggleMenu => {
@@ -180,10 +178,16 @@ impl Component for Navbar {
         true
     }
 
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            NavbarModel.init(self.props.clone());
+        }
+    }
+
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         NavbarModel.init(self.props.clone());
         self.props = NavbarProps::from(props);
-        true
+        false
     }
 
     fn view(&self) -> Html {
@@ -193,12 +197,12 @@ impl Component for Navbar {
                     class=format!("navbar-mobile {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
                 >
                     <div class="navbar-dropdown">
-                        <NavbarContainer justify_content=JustifyContent::Start(Mode::NoMode)
+                        <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)
                         direction=Direction::Row
                         class_name="navbar-container-mobile">
                         {get_branch(self.props.branch.clone())}
                         </NavbarContainer>
-                        <NavbarContainer justify_content=JustifyContent::End(Mode::NoMode)
+                        <NavbarContainer justify_content=JustifyContent::FlexEnd(Mode::NoMode)
                             direction=Direction::Row
                             class_name="navbar-container-mobile">
                             <NavbarItem

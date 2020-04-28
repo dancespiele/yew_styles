@@ -53,6 +53,10 @@ impl Component for NavbarPage {
         }
     }
 
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
+    }
+
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::ChangeType(index, navbar_menu) => {

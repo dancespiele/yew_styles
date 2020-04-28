@@ -53,6 +53,10 @@ pub enum Size {
 ///         false
 ///     }
 ///
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
 ///     fn view(&self) -> Html {
 ///        html! {
 ///          <Button
@@ -147,7 +151,7 @@ impl Component for Button {
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         self.props = ButtonProps::from(props);
-        true
+        false
     }
 
     fn view(&self) -> Html {
