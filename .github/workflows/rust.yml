@@ -6,8 +6,7 @@ on:
 
 jobs:
   build:
-    
-    run: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: install rustfmt
