@@ -89,7 +89,7 @@ pub enum Msg {
 pub struct Item {
     link: ComponentLink<Self>,
     props: Props,
-    pub hash: String,
+    pub key: String,
 }
 
 #[derive(Clone)]
@@ -122,15 +122,9 @@ impl Component for Item {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        let hash = get_random_string(10);
+        let key = get_random_string(10);
 
-        Item { link, props, hash }
-    }
-
-    fn mounted(&mut self) -> ShouldRender {
-        ItemModel.init(self.props.align_self.clone(), self.hash.clone());
-
-        true
+        Item { link, props, key }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -143,9 +137,14 @@ impl Component for Item {
         false
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            ItemModel.init(self.props.align_self.clone(), self.key.clone());
+        }
+    }
+
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
     }
 
     fn view(&self) -> Html {
@@ -153,7 +152,7 @@ impl Component for Item {
 
         html! {
             <div
-                class=format!("item item-{} {} {}", self.hash, item_props.layouts_classes, item_props.class_name)
+                class=format!("item item-{} {} {}", self.key, item_props.layouts_classes, item_props.class_name)
 
                 onclick=self.link.callback(|_| Msg::Clicked)
             >
@@ -173,8 +172,8 @@ impl From<Props> for ItemProps {
 }
 
 impl ItemModel {
-    fn init(self, align_self: AlignSelf, hash: String) {
-        self.get_item_align(align_self, hash);
+    fn init(self, align_self: AlignSelf, key: String) {
+        self.get_item_align(align_self, key);
     }
 
     fn get_layout_classes(self, layouts_prop: Vec<ItemLayout>) -> String {
@@ -197,7 +196,7 @@ impl ItemModel {
         }
     }
 
-    fn get_item_align(self, align: AlignSelf, hash: String) {
+    fn get_item_align(self, align: AlignSelf, key: String) {
         let value = match align {
             AlignSelf::Auto => "auto".to_string(),
             AlignSelf::Baseline => "baseline".to_string(),
@@ -207,7 +206,7 @@ impl ItemModel {
             AlignSelf::Stretch => "stretch".to_string(),
         };
 
-        create_style(String::from("align-self"), value, format!("item-{}", hash));
+        create_style(String::from("align-self"), value, format!("item-{}", key));
     }
 }
 
@@ -234,7 +233,7 @@ fn should_create_item() {
     let vnode_expected = html! {
         <div
             onclick=Callback::noop()
-            class=format!("item item-{} it-xs-12 item-test", item.hash)>
+            class=format!("item item-{} it-xs-12 item-test", item.key)>
             <>
                 <div id="item">{"Item"}</div>
             </>

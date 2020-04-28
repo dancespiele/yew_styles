@@ -20,8 +20,6 @@ however, it is not necessary to worry about the sass module only it needs to be 
     import 'node_modules/yew-styles/main.css';
 ```
 4. Ready to import and use in your project 🚀
-In the left side there is a list of links where each one access to a correspondent component documentation,
-there, shows how to use it.
 
 ## Development phase
 Yew style is in early phase, currently doesn't have enough components to cover all the requirements that could need a website/web application.

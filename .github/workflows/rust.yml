@@ -1,0 +1,31 @@
+name: Yew Styles
+
+on:
+  pull_request:
+    branches: [ master, development ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: wasm-pack
+        uses: jetli/wasm-pack-action@v0.3.0
+        with:
+          version: 'latest'
+      - name: install rustfmt
+        run: rustup component add rustfmt
+      - name: install clippy
+        run: rustup component add clippy
+      - name: install stable
+        run: rustup install stable
+      - name: add wasm32-unknown-unknown
+        run: rustup target add wasm32-unknown-unknown
+      - name: download geckodriver
+        run: curl --retry 5 -LO https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+      - name: uncompress geckodriver
+        run: tar -xzf geckodriver-v0.26.0-linux64.tar.gz
+      - name: execute CI
+        run: GECKODRIVER=$(pwd)/geckodriver ./ci/run_checks.sh

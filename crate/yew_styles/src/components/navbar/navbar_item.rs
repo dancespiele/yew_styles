@@ -55,6 +55,10 @@ pub enum Msg {
 ///         false
 ///     }
 ///
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
 ///     fn view(&self) -> Html {
 ///        html! {
 ///            <Navbar
@@ -113,10 +117,6 @@ impl Component for NavbarItem {
         NavbarItem { link, props }
     }
 
-    fn mounted(&mut self) -> ShouldRender {
-        true
-    }
-
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked => {
@@ -130,7 +130,7 @@ impl Component for NavbarItem {
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         self.props = props;
 
-        true
+        false
     }
 
     fn view(&self) -> Html {

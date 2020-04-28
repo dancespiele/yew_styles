@@ -19,13 +19,14 @@ however, it is not necessary to worry about the sass module only it needs to be 
     import 'node_modules/yew-styles/main.css';
 ```
 4. Ready to import and use in your project 🚀
-In the left side there is a list of links where each one access to a correspondent component documentation,
-there, shows how to use it.
 
 ## Run the documentation page
-Inside of the project run:
+1. `git clone https://github.com/spielrs/yew_styles.git`
+2. `cd yew_styles`
+3. `npm start`
 
-`npm start`
+In the left side there is a list of links where each one access to a correspondent component documentation,
+there, shows how to use it.
 
 ## Run the tests
 Inside of the project run:
@@ -35,3 +36,7 @@ Inside of the project run:
 ## Development phase
 Yew style is in early phase, currently doesn't have enough components to cover all the requirements that could need a website/web application.
 All contributions are appreciated.
+
+## License
+
+Yew Style is MIT licensed. See [license](LICENSE)

@@ -7,6 +7,7 @@ authors = ["Francisco Jesus Navarro Cortes <spieljs@gmail.com>"]
 edition = "2018"
 license = "MIT"
 repository = "https://github.com/spielrs/yew-styles-page/tree/master/crate/yew_styles"
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -15,7 +16,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 wasm-bindgen = "0.2.60"
-yew = { version="0.14", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"] }
+yew = { version="0.15", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"] }
 web-sys = {version = "0.3.36", features = ["HtmlDocument", "HtmlCollection", "CssStyleDeclaration", "HtmlElement", "Node"]}
 rand = {version="0.7", features = ["getrandom"]}
 getrandom = {version = "0.1", features= ["wasm-bindgen"]}
