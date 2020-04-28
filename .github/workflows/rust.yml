@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Include Firefox
-        uses: trmcnvn/firefox-addon@v1
       - name: install rustfmt
         run: rustup component add rustfmt
       - name: install clippy
