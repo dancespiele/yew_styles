@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: main
       - name: install rustfmt
         run: rustup component add rustfmt
       - name: install clippy
@@ -21,6 +25,5 @@ jobs:
         run: curl --retry 5 -LO https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
       - name: uncompress geckodriver
         run: tar -xzf geckodriver-v0.26.0-linux64.tar.gz
-      - name: check directory
-        run: ls -a
-        
+      - name: execute CI
+        run: GECKODRIVER=$(pwd)/geckodriver ./ci/run_checks.sh
