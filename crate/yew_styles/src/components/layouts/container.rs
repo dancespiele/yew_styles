@@ -1,13 +1,74 @@
-use crate::utils::create_style;
+use crate::utils::{create_style, get_random_string};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
 
+/// # Container component
+///
+/// ## Example
+///
+/// The layouts in yew styles is base in flexbox
+/// you can fine more information about the properties options
+/// [here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew_styles::{
+///     layouts::{
+///         container::{Wrap, Direction},
+///         item::{ItenLayout, AlignSelf}
+///     }
+/// };
+///
+/// pub struct App {
+///   link: ComponentLink<Self>,
+/// }
+///
+/// pub enum Msg {
+///   Clicked(String),
+/// }
+/// #[derive(Clone, Properties)]
+/// pub struct Props {}
+///
+/// impl Component for App {
+///     type Message = Msg;
+///     type Properties = Props;
+///
+///     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         App {
+///             link
+///         }
+///     }
+///
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///        html! {
+///          <Container direction=Direction::Row wrap=Wrap::Wrap class_name="align-item">
+///                <Item name="align" layouts=vec!(ItemLayout::ItXs(4)) align_self=AlignSelf::FlexStart>
+///                    <h3>{"start"}</h3>
+///                </Item>
+///                <Item name="align" layouts=vec!(ItemLayout::ItXs(4)) align_self=AlignSelf::Center>
+///                    <h3>{"center"}</h3>
+///                </Item>
+///                <Item name="align" layouts=vec!(ItemLayout::ItXs(4)) align_self=AlignSelf::FlexEnd>
+///                    <h3>{"end"}</h3>
+///                </Item>
+///           </Container>
+///        }
+///     }
+/// }
+/// ```
 pub struct Container {
     props: Props,
+    pub key: String,
 }
 
 #[derive(Clone, Copy)]
 struct ContainerModel;
 
+/// Which direction are placing the items
 #[derive(Clone)]
 pub enum Direction {
     Row,
@@ -16,6 +77,7 @@ pub enum Direction {
     ColumnReverse,
 }
 
+/// Set a wrap for the items
 #[derive(Clone)]
 pub enum Wrap {
     Nowrap,
@@ -30,6 +92,7 @@ pub enum Mode {
     NoMode,
 }
 
+/// Set how will be justified the content
 #[derive(Clone)]
 pub enum JustifyContent {
     FlexStart(Mode),
@@ -44,6 +107,7 @@ pub enum JustifyContent {
     Rigth(Mode),
 }
 
+/// Set how will be aligned the items
 #[derive(Clone)]
 pub enum AlignItems {
     Stretch(Mode),
@@ -59,6 +123,7 @@ pub enum AlignItems {
     SelfEnd(Mode),
 }
 
+/// set how will be aligned the content
 #[derive(Clone)]
 pub enum AlignContent {
     FlexStart(Mode),
@@ -79,20 +144,22 @@ pub enum Msg {}
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// Which direction are placing the items
     pub direction: Direction,
+    /// Set a wrap for the items
     pub wrap: Wrap,
-    #[prop_or_default]
-    pub index: i16,
+    /// Set how will be justified the content
     #[prop_or(JustifyContent::FlexStart(Mode::NoMode))]
     pub justify_content: JustifyContent,
+    /// Set how will be aligned the content
     #[prop_or(AlignContent::Stretch(Mode::NoMode))]
     pub align_content: AlignContent,
+    /// Set how will be aligned the items
     #[prop_or(AlignItems::Stretch(Mode::NoMode))]
     pub align_items: AlignItems,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
-    #[prop_or_default]
-    pub name: String,
     pub children: Children,
 }
 
@@ -101,32 +168,28 @@ impl Component for Container {
     type Properties = Props;
 
     fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        Container { props }
+        let key = get_random_string(10);
+
+        Container { props, key }
     }
 
-    fn mounted(&mut self) -> ShouldRender {
-        ContainerModel.init(self.props.clone());
-
-        true
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            ContainerModel.init(self.props.clone(), self.key.clone());
+        }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
         false
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
     }
 
     fn view(&self) -> Html {
         html! {
-            <div class=if self.props.name == ""
-                {
-                    format!("container container-{} {}", self.props.index, self.props.class_name)
-                } else {
-                    format!("container container-{}-{} {}", self.props.name, self.props.index, self.props.class_name)
-                }
+            <div class=format!("container container-{} {}", self.key, self.props.class_name)
             >
                 {self.props.children.render()}
             </div>
@@ -135,25 +198,25 @@ impl Component for Container {
 }
 
 impl ContainerModel {
-    fn init(self, props: Props) {
-        self.get_flow(props.direction, props.wrap, props.index, props.name.clone());
-        self.get_justify_content(props.justify_content, props.index, props.name.clone());
-        self.get_align_content(props.align_content, props.index, props.name.clone());
-        self.get_align_items(props.align_items, props.index, props.name);
+    fn init(self, props: Props, key: String) {
+        self.get_flow(props.direction, props.wrap, key.clone());
+        self.get_justify_content(props.justify_content, key.clone());
+        self.get_align_content(props.align_content, key.clone());
+        self.get_align_items(props.align_items, key);
     }
 
-    fn get_flow(self, direction: Direction, wrap: Wrap, index: i16, name: String) {
+    fn get_flow(self, direction: Direction, wrap: Wrap, key: String) {
         let direction = match direction {
-            Direction::Row => format!("row"),
-            Direction::RowReverse => format!("row-reverse"),
-            Direction::Column => format!("column"),
-            Direction::ColumnReverse => format!("column-reverse"),
+            Direction::Row => "row".to_string(),
+            Direction::RowReverse => "row-reverse".to_string(),
+            Direction::Column => "column".to_string(),
+            Direction::ColumnReverse => "column-reverse".to_string(),
         };
 
         let wrap = match wrap {
-            Wrap::Nowrap => format!("nowrap"),
-            Wrap::Wrap => format!("wrap"),
-            Wrap::WrapReverse => format!("wrap-reverse"),
+            Wrap::Nowrap => "nowrap".to_string(),
+            Wrap::Wrap => "wrap".to_string(),
+            Wrap::WrapReverse => "wrap-reverse".to_string(),
         };
 
         let value = format!("{} {}", direction, wrap);
@@ -161,23 +224,19 @@ impl ContainerModel {
         create_style(
             String::from("flex-flow"),
             value,
-            if name == "" {
-                format!("container-{}", index)
-            } else {
-                format!("container-{}-{}", name, index)
-            },
+            format!("container-{}", key),
         );
     }
 
     fn get_mode(self, mode: Mode) -> String {
         match mode {
-            Mode::NoMode => format!(""),
-            Mode::SafeMode => format!(" safe"),
-            Mode::UnsafeMode => format!(" unsafe"),
+            Mode::NoMode => "".to_string(),
+            Mode::SafeMode => " safe".to_string(),
+            Mode::UnsafeMode => " unsafe".to_string(),
         }
     }
 
-    fn get_justify_content(self, justify_content: JustifyContent, index: i16, name: String) {
+    fn get_justify_content(self, justify_content: JustifyContent, key: String) {
         let value = match justify_content {
             JustifyContent::FlexStart(mode) => format!("flex-start{}", self.get_mode(mode)),
             JustifyContent::FlexEnd(mode) => format!("flex-end{}", self.get_mode(mode)),
@@ -194,15 +253,11 @@ impl ContainerModel {
         create_style(
             String::from("justify-content"),
             value,
-            if name == "" {
-                format!("container-{}", index)
-            } else {
-                format!("container-{}-{}", name, index)
-            },
+            format!("container-{}", key),
         );
     }
 
-    fn get_align_content(self, align_content: AlignContent, index: i16, name: String) {
+    fn get_align_content(self, align_content: AlignContent, key: String) {
         let value = match align_content {
             AlignContent::Stretch(mode) => format!("stretch{}", self.get_mode(mode)),
             AlignContent::FlexStart(mode) => format!("flex-start{}", self.get_mode(mode)),
@@ -221,15 +276,11 @@ impl ContainerModel {
         create_style(
             String::from("align-content"),
             value,
-            if name == "" {
-                format!("container-{}", index)
-            } else {
-                format!("container-{}-{}", name, index)
-            },
+            format!("container-{}", key),
         );
     }
 
-    fn get_align_items(self, align_items: AlignItems, index: i16, name: String) {
+    fn get_align_items(self, align_items: AlignItems, key: String) {
         let value = match align_items {
             AlignItems::Stretch(mode) => format!("stretch{}", self.get_mode(mode)),
             AlignItems::Baseline(mode) => format!("baseline{}", self.get_mode(mode)),
@@ -247,11 +298,40 @@ impl ContainerModel {
         create_style(
             String::from("align-items"),
             value,
-            if name == "" {
-                format!("container-{}", index)
-            } else {
-                format!("container-{}-{}", name, index)
-            },
+            format!("container-{}", key),
         );
     }
+}
+
+wasm_bindgen_test_configure!(run_in_browser);
+
+#[wasm_bindgen_test]
+fn should_create_a_container() {
+    let props_container = Props {
+        direction: Direction::Row,
+        wrap: Wrap::Wrap,
+        justify_content: JustifyContent::Center(Mode::NoMode),
+        align_content: AlignContent::Center(Mode::NoMode),
+        align_items: AlignItems::Center(Mode::NoMode),
+        class_name: String::from("layout-test"),
+        children: Children::new(vec![html! {
+            <div id="container">{"Container"}</div>
+        }]),
+    };
+
+    let link = ComponentLink::new();
+
+    let container = Container::create(props_container, link);
+
+    let container_vnode = container.render();
+
+    let vnode_expected = html! {
+        <div class=format!("container container-{} layout-test", container.key)>
+            <>
+                <div id="container">{"Container"}</div>
+            </>
+        </div>
+    };
+
+    assert_eq!(container_vnode, vnode_expected);
 }

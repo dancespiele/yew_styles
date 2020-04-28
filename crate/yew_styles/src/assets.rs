@@ -1,4 +1,3 @@
-#[cfg(any(feature = "std_web", feature = "web_sys"))]
 use yew::prelude::*;
 
 #[derive(Clone)]
@@ -28,6 +27,10 @@ impl Component for Assets {
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
+
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
         false
     }
 

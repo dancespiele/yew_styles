@@ -4,4 +4,5 @@ crate/pkg
 crate/target
 crate/wasm-pack.log
 crate/yew_styles/target
+crate/yew_styles/pkg
 .cache

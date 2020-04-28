@@ -1,7 +1,7 @@
-use page::{ButtonPage, LayoutsPage, NavbarPage};
+use page::{ButtonPage, HomePage, LayoutsPage, NavbarPage};
 use yew::prelude::*;
 use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
-use yew_styles::{
+use yew_styles::layouts::{
     container::{AlignItems, Container, Direction, Mode, Wrap},
     item::{Item, ItemLayout},
 };
@@ -31,21 +31,24 @@ impl Component for App {
     }
 
     fn update(&mut self, _: Self::Message) -> ShouldRender {
-        true
+        false
+    }
+
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
     }
 
     fn view(&self) -> Html {
         html! {
-            <Container name="root" direction=Direction::Row wrap=Wrap::Wrap>
-                <Item name="left-side" layouts=vec!(ItemLayout::ItL(2), ItemLayout::ItXs(12))>
+            <Container direction=Direction::Row wrap=Wrap::Wrap>
+                <Item layouts=vec!(ItemLayout::ItL(2), ItemLayout::ItXs(12))>
                     <Container
-                        name="components"
                         direction=Direction::Column
                         align_items=AlignItems::FlexStart(Mode::NoMode)
                         wrap=Wrap::Wrap
                     >
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
-                            <h2>{"Yew Styles Component"}</h2>
+                            <h2>{"Documentation"}</h2>
                         </Item>
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
                             <RouterAnchor<AppRouter> route=AppRouter::RootPath>{"Let's start"}</RouterAnchor<AppRouter>>
@@ -61,15 +64,11 @@ impl Component for App {
                         </Item>
                     </Container>
                 </Item>
-                <Item name="right-side" layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItL(10) )>
+                <Item layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItL(10) )>
                     <Router<AppRouter, ()>
                         render = Router::render(|switch: AppRouter | {
                             match switch {
-                                AppRouter::RootPath => html!{
-                                    <div>
-                                        <h1>{"Welcome to Yew Style"}</h1>
-                                    </div>
-                                },
+                                AppRouter::RootPath => html!{<HomePage/>},
                                 AppRouter::ButtonPath => html!{<ButtonPage/>},
                                 AppRouter::LayoutsPath => html!{<LayoutsPage/>},
                                 AppRouter::NavbarPath => html!{<NavbarPage/>},

@@ -1,7 +1,16 @@
+use super::highlighters::navbar_code;
 use yew::prelude::*;
+use yew_prism::Prism;
 use yew_styles::{
-    container::{JustifyContent, Mode},
-    navbar::{Fixed, Navbar, NavbarContainer, NavbarItem},
+    layouts::{
+        container::{JustifyContent, Mode},
+        item::{Item, ItemLayout},
+    },
+    navbar::{
+        navbar_component::{Fixed, Navbar},
+        navbar_container::NavbarContainer,
+        navbar_item::NavbarItem,
+    },
     styles::{Palette, Style},
 };
 
@@ -44,6 +53,10 @@ impl Component for NavbarPage {
         }
     }
 
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
+    }
+
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::ChangeType(index, navbar_menu) => {
@@ -57,6 +70,43 @@ impl Component for NavbarPage {
     fn view(&self) -> Html {
         html! {
             <div class="root">
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h1>{"Navbar Components"}</h1>
+                </Item>
+
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Code example"}</h2>
+                    <Prism
+                        code=navbar_code()
+                        language="rust"
+                    />
+                </Item>
+
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Navbar properties"}</h2>
+                    <ul>
+                        <li><b>{"navbar_type: "}</b>{"type navbar style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
+                        <li><b>{"button_style: "}</b>{"navbar styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
+                        <li><b>{"fixed: "}</b>{"the location of the navbar which is fixed .Options included in "}<code>{"Fixed"}</code>{". Default "}<code>{"Top"}</code>{"."}</li>
+                        <li><b>{"branch: "}</b>{"vnode embedded in the beginning of the navbar, useful to include a branch logo. Optional"}</li>
+                    </ul>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Navbar Container properties"}</h2>
+                    <ul>
+                        <li><b>{"justify_content: "}</b>{"set how will be justified the navbar items. Options included in "}<code>{"JustifyContent"}</code>{". Default "}<code>{"FlexStart(No Mode)"}</code>{"."}</li>
+                        <li><b>{"direction: "}</b>{"which direction are placing the navbar items. Options include in "}<code>{"Direction"}</code>{". Default "}<code>{"Row"}</code>{"."}</li>
+                        <li><b>{"mode: "}</b>{"safe postion handler which is additional option for justify_content. Options included in "}<code>{"Mode"}</code>{". Default "}<code>{"NoMode"}</code>{"."}</li>
+                    </ul>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Navbar Item properties"}</h2>
+                    <ul>
+                        <li><b>{"onsignal: "}</b>{"click event for navbar item. Default "}<code>{"noop()"}</code></li>
+                    </ul>
+                </Item>
+
+                <h2>{"Visual examples"}</h2>
                 {get_style(self.link.clone(), self.navbar_menu.clone())}
             </div>
         }
@@ -83,7 +133,7 @@ fn get_style(link: ComponentLink<NavbarPage>, navbar_menu: Vec<String>) -> Html 
     styles
         .into_iter()
         .map(|style| {
-            let navbar = get_navbar_type(link.clone(), style.clone(), navbar_menu.clone(), index);
+            let navbar = get_navbar_type(link.clone(), style, navbar_menu.clone(), index);
 
             index = navbar.index + 1;
 
@@ -139,7 +189,7 @@ fn get_navbar_type(
         .map(|navbar_type| {
             let element = html! {
                 <div>
-                    <h2>{format!("{} {}",style.name.clone(), navbar_type.name)}</h2>
+                    <h3>{format!("{} {}",style.name.clone(), navbar_type.name)}</h3>
                     <Navbar
                         fixed=Fixed::None
                         navbar_style=style.style.clone()
@@ -154,7 +204,7 @@ fn get_navbar_type(
                 </div>
             };
 
-            navbar_type_rendered = navbar_type_rendered + 1;
+            navbar_type_rendered += 1;
 
             element
         })
