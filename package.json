@@ -19,7 +19,7 @@
     "prismjs": "^1.20.0",
     "sass": "^1.26.5",
     "typescript": "^3.8.3",
-    "minimist": "1.2.5",
+    "minimist": "1.2.3",
     "kind-of": "6.0.3"
   },
   "dependencies": {}
