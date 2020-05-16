@@ -2,6 +2,7 @@ use crate::utils::{create_style, get_random_string};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
+use yew::{utils, App};
 
 /// Percent of the layout that will take the item.
 #[derive(Clone)]
@@ -224,23 +225,16 @@ fn should_create_item() {
         }]),
     };
 
-    let link = ComponentLink::new();
+    let item: App<Item> = App::new();
 
-    let item = Item::create(props_item, link);
+    item.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        props_item,
+    );
 
-    let item_vnode = item.render();
+    let item_element = utils::document().get_element_by_id("item").unwrap();
 
-    let vnode_expected = html! {
-        <div
-            onclick=Callback::noop()
-            class=format!("item item-{} it-xs-12 item-test", item.key)>
-            <>
-                <div id="item">{"Item"}</div>
-            </>
-        </div>
-    };
-
-    assert_eq!(item_vnode, vnode_expected);
+    assert_eq!(item_element.text_content().unwrap(), "Item".to_string());
 }
 
 #[wasm_bindgen_test]

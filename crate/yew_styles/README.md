@@ -14,7 +14,7 @@ however, it is not necessary to worry about the sass module only it needs to be 
 
 ### How install it
 1. Install the sass module: `npm install yew-styles`
-2. Add the yew_style crate in Cargo.toml file: `yew_styles = "0.3.0"`
+2. Add the yew_style crate in Cargo.toml file: `yew_styles = "0.3.1"`
 3. Import the main.css file in you main javascript/typescript file project: 
 ```typescript
     import 'node_modules/yew-styles/main.css';
