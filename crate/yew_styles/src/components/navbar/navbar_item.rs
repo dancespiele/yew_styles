@@ -1,6 +1,7 @@
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
+use yew::{utils, App};
 
 pub enum Msg {
     Clicked,
@@ -157,23 +158,16 @@ fn should_create_navbar_item() {
         }]),
     };
 
-    let link = ComponentLink::new();
-    let navbar_item = NavbarItem::create(navbar_item_props, link);
-    let navbar_item_vnode = navbar_item.render();
+    let navbar_item: App<NavbarItem> = App::new();
 
-    let vnode_expected = html! {
-        <div
-            onclick=Callback::noop()
-            class="navbar-item navbar-item-test">
-            <>
-                <div id="item">
-                    {"Item"}
-                </div>
-            </>
-        </div>
-    };
+    navbar_item.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        navbar_item_props,
+    );
 
-    assert_eq!(navbar_item_vnode, vnode_expected);
+    let item_element = utils::document().get_element_by_id("item").unwrap();
+
+    assert_eq!(item_element.text_content().unwrap(), "Item".to_string());
 }
 
 #[wasm_bindgen_test]

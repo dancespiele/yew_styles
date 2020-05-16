@@ -1,26 +1,34 @@
 {
   "author": "Francisco Jesus Navarro Cortes<spieljs@gmail.com>",
   "repository": {
-    "url": "https://github.com/spielrs/yew-styles-page.git"
+    "url": "https://github.com/spielrs/yew-parcel-template"
   },
-  "name": "yewstyle-page",
-  "version": "0.2.0",
-  "license": "Apache-2.0/MIT",
+  "name": "create-yew-parcel",
+  "version": "0.16.0",
+  "license": "MIT",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "start": "node wasm-builder.js",
+    "build": "node wasm-builder.js production",
+    "debug": "NODE_ENV=dev node --nolazy --inspect-brk=9229 wasm-builder.js"
   },
   "bin": {
     "create-yew-parcel": ".bin/create-yew-parcel.js"
   },
   "devDependencies": {
+    "chokidar": "^3.4.0",
+    "dotenv": "^8.2.0",
     "parcel-bundler": "^1.12.4",
-    "parcel-plugin-wasm.rs": "^1.2.15",
-    "prismjs": "^1.20.0",
+    "parcel-plugin-static-files-copy": "^2.3.1",
     "sass": "^1.26.5",
     "typescript": "^3.8.3",
-    "minimist": "1.2.5",
-    "kind-of": "6.0.3"
+    "yew-styles": "0.2.0",
+    "prismjs": "^1.20.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "prismjs": "^1.20.0"
+  },
+  "staticFiles": {
+    "staticPath": ["./crate/pkg", "./crate/assets"],
+    "watcherGlob": false
+  }
 }
