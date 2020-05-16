@@ -1,6 +1,7 @@
 use crate::utils::{create_style, get_random_string};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::{utils, App};
 
 /// # Container component
 ///
@@ -319,19 +320,16 @@ fn should_create_a_container() {
         }]),
     };
 
-    let link = ComponentLink::new();
+    let container: App<Container> = App::new();
+    container.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        props_container,
+    );
 
-    let container = Container::create(props_container, link);
+    let container_element = utils::document().get_element_by_id("container").unwrap();
 
-    let container_vnode = container.render();
-
-    let vnode_expected = html! {
-        <div class=format!("container container-{} layout-test", container.key)>
-            <>
-                <div id="container">{"Container"}</div>
-            </>
-        </div>
-    };
-
-    assert_eq!(container_vnode, vnode_expected);
+    assert_eq!(
+        container_element.text_content().unwrap(),
+        "Container".to_string()
+    );
 }

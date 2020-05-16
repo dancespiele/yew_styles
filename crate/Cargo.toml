@@ -6,7 +6,7 @@ license = "MIT"
 name = "yew_style_page"
 readme = "./README.md"
 repository = "https://github.com/spielrs/yew-styles-page.git"
-version = "0.3.0"
+version = "0.3.1"
 
 [lib]
 crate-type = ["cdylib"]
@@ -20,8 +20,8 @@ serde = "1.0"
 serde_derive = "1.0"
 dotenv = "0.15"
 failure = "0.1"
-yew = { version="0.15", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"]}
-yew-router = {version="0.12", features = ["web_sys"] }
+yew = { version="0.16", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"]}
+yew-router = {version="0.13", features = ["web_sys"] }
 web-sys = "0.3"
-yew_prism = {version="0.2"}
+yew_prism = {version="0.3"}
 yew_styles= {path= "./yew_styles"}

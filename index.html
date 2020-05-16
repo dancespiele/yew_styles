@@ -6,6 +6,15 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Rosario" />
     <title>Yew Styles Page</title>
     <script src="app/index.ts"></script>
+    <script type="module">
+      import init, { run } from './yew_style_page.js';
+
+      const start = async() => {
+        await init('./yew_style_page_bg.wasm');
+        run();
+      };
+      start();
+    </script>
   </head>
   <body>
   </body>
