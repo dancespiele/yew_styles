@@ -1,5 +1,5 @@
 [package]
-authors = ["The RustWasm Developers"]
+authors = ["Francisco Jesus Navarro Cortes"]
 categories = ["wasm"]
 description = "My awesome Yew with Yew-Router and Parcel application!"
 license = "MIT"
