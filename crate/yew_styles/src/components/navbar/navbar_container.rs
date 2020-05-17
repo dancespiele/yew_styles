@@ -17,6 +17,9 @@ pub struct Props {
     #[prop_or_default]
     /// General property to add custom class styles
     pub class_name: String,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
 }
 
 /// # Navbar Container component

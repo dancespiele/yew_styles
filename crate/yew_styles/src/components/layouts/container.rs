@@ -161,6 +161,9 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
     pub children: Children,
 }
 
@@ -191,6 +194,7 @@ impl Component for Container {
     fn view(&self) -> Html {
         html! {
             <div class=format!("container container-{} {}", self.key, self.props.class_name)
+                id=format!("{}", self.props.id)
             >
                 {self.props.children.render()}
             </div>
@@ -315,6 +319,7 @@ fn should_create_a_container() {
         align_content: AlignContent::Center(Mode::NoMode),
         align_items: AlignItems::Center(Mode::NoMode),
         class_name: String::from("layout-test"),
+        id: String::from("layout-id-test"),
         children: Children::new(vec![html! {
             <div id="container">{"Container"}</div>
         }]),
