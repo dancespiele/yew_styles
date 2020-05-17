@@ -1,4 +1,14 @@
 # Yew Styles
+
+<div align="center">
+    <p>
+        <a href="https://crates.io/crates/yew_styles"><img alt="Crate Info" src="https://img.shields.io/badge/yew__styles-framework%20styles-brightgreen"/></a>
+        <a href="https://docs.rs/yew_styles/"><img alt="API Docs" src="https://img.shields.io/badge/yew__styles-docs-informational"/></a>
+        <a href="https://discord.gg/VQck8X4"><img alt="Discord Chat" src="https://img.shields.io/discord/701068342760570933"/></a>
+    </p>
+</div>
+
+
 Yew Styles is a style framework for yew
 
 ## Motivation
