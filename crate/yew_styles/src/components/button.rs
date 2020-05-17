@@ -106,6 +106,9 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
     /// Three diffent button standard sizes. Options included in `Size`
     #[prop_or(Size::Medium)]
     pub size: Size,
@@ -200,6 +203,7 @@ fn should_trigger_action_when_button_clicked() {
 
     let props = Props {
         class_name: String::from("test-button"),
+        id: String::from("button-id-test"),
         size: Size::Medium,
         button_style: Style::Regular,
         onsignal: onchange_name,
@@ -225,6 +229,7 @@ fn should_trigger_action_when_button_clicked() {
 fn should_create_button_component() {
     let props = Props {
         class_name: String::from("test-button"),
+        id: String::from("button-id-test"),
         size: Size::Medium,
         button_style: Style::Regular,
         onsignal: Callback::noop(),

@@ -124,6 +124,9 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
     /// The location of the navbar which is fixed
     #[prop_or(Fixed::Top)]
     pub fixed: Fixed,

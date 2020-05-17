@@ -104,6 +104,9 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
     /// click event for navbar item
     #[prop_or(Callback::noop())]
     pub onsignal: Callback<()>,
@@ -152,6 +155,7 @@ wasm_bindgen_test_configure!(run_in_browser);
 fn should_create_navbar_item() {
     let navbar_item_props = Props {
         class_name: "navbar-item-test".to_string(),
+        id: "navbar-item-id-test".to_string(),
         onsignal: Callback::noop(),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
@@ -189,6 +193,7 @@ fn should_create_clickable_navbar_item() {
 
     let navbar_item_props = Props {
         class_name: "navbar-item-test".to_string(),
+        id: "navbar-item-id-test".to_string(),
         onsignal: on_add_item_div,
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>

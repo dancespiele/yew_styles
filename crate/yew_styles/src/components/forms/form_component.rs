@@ -1,6 +1,6 @@
 use wasm_bindgen_test::*;
-use web_sys::window;
 use yew::prelude::*;
+use yew::{utils, App};
 
 pub struct Form {
     link: ComponentLink<Self>,
@@ -12,7 +12,9 @@ pub struct Props {
     // get all the values from the form
     pub onsignal: Callback<()>,
     pub children: Children,
+    #[prop_or_default]
     pub class_name: String,
+    #[prop_or_default]
     pub id: String,
 }
 
@@ -57,26 +59,37 @@ impl Component for Form {
 
 #[wasm_bindgen_test]
 fn should_create_form_component() {
-    let body = window().unwrap().document().unwrap().body().unwrap();
+    let props = Props {
+        class_name: "form-test".to_string(),
+        id: "form-test-id".to_string(),
+        onsignal: Callback::noop(),
+        children: Children::new(vec![html! {<input id="result"/>}]),
+    };
 
-    let element = window()
-        .unwrap()
-        .document()
-        .unwrap()
-        .create_element("div")
-        .unwrap();
+    let form_component: App<Form> = App::new();
+
+    form_component.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        props,
+    );
+
+    let form_element = utils::document().get_element_by_id("result").unwrap();
+
+    assert_eq!(form_element.tag_name(), "INPUT");
+}
+
+#[wasm_bindgen_test]
+fn should_submit_the_form() {
+    let body = utils::document().body().unwrap();
+
+    let element = utils::document().create_element("div").unwrap();
     element.set_text_content(Some("fill the form"));
     element.set_id("form");
 
     body.append_child(&element).unwrap();
 
     let onsubmit = Callback::from(|_| {
-        let content = window()
-            .unwrap()
-            .document()
-            .unwrap()
-            .get_element_by_id("form")
-            .unwrap();
+        let content = utils::document().get_element_by_id("form").unwrap();
 
         content.set_text_content(Some("form submitted"));
     });
@@ -88,22 +101,12 @@ fn should_create_form_component() {
         children: Children::new(vec![html! {<input/>}]),
     };
 
-    let link = ComponentLink::new();
+    props.onsignal.emit(());
 
-    let form = Form::create(props, link.clone());
+    let form_element = utils::document().get_element_by_id("form").unwrap();
 
-    let form_vnode = form.render();
-
-    let vsnode_expected = html! {
-        <form
-            onsubmit=link.callback(|_| Msg::Submitted)
-            class="form form-test"
-            id="form-test-id"
-        >
-            <>
-                <input/>
-            </>
-        </form>
-    };
-    assert_eq!(form_vnode, vsnode_expected);
+    assert_eq!(
+        form_element.text_content().unwrap(),
+        "form submitted".to_string()
+    );
 }

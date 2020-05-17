@@ -35,4 +35,4 @@ mod components;
 pub mod styles;
 mod utils;
 
-pub use components::{button, layouts, navbar};
+pub use components::{button, forms, layouts, navbar};

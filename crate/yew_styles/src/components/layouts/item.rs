@@ -112,6 +112,9 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
     /// Click event for the item
     #[prop_or(Callback::noop())]
     pub onsignal: Callback<()>,
@@ -219,6 +222,7 @@ fn should_create_item() {
         layouts: vec![ItemLayout::ItXs(12)],
         align_self: AlignSelf::Center,
         class_name: "item-test".to_string(),
+        id: "item-id-test".to_string(),
         onsignal: Callback::noop(),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
@@ -258,6 +262,7 @@ fn should_create_clickable_item() {
         layouts: vec![ItemLayout::ItXs(12)],
         align_self: AlignSelf::Center,
         class_name: "item-test".to_string(),
+        id: "item-id-test".to_string(),
         onsignal: on_add_item_div,
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
