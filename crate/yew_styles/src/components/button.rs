@@ -2,6 +2,7 @@ use crate::styles::{get_pallete, get_style, Palette, Style};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
+use yew::{utils, App};
 
 /// The standard sizes for button
 #[derive(Clone)]
@@ -206,13 +207,7 @@ fn should_trigger_action_when_button_clicked() {
         children: Children::new(vec![html! {<div id="submenu">{"another menu"}</div>}]),
     };
 
-    let link = ComponentLink::new();
-
-    let mut button = Button::create(props.clone(), link);
-
     props.onsignal.emit(());
-
-    button.change(props);
 
     let updated_content = window()
         .unwrap()
@@ -228,49 +223,28 @@ fn should_trigger_action_when_button_clicked() {
 
 #[wasm_bindgen_test]
 fn should_create_button_component() {
-    let on_add_child = Callback::from(|_| {
-        let body = window().unwrap().document().unwrap().body().unwrap();
-
-        let child_element = window()
-            .unwrap()
-            .document()
-            .unwrap()
-            .create_element("div")
-            .unwrap();
-
-        child_element.set_text_content(Some("child"));
-        child_element.set_id("child");
-        body.append_child(&child_element).unwrap();
-    });
-
     let props = Props {
         class_name: String::from("test-button"),
         size: Size::Medium,
         button_style: Style::Regular,
-        onsignal: on_add_child,
+        onsignal: Callback::noop(),
         button_type: Palette::Standard,
-        children: Children::new(vec![html! {<div id="parent">{"parent"}</div>}]),
+        children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
     };
 
-    let link = ComponentLink::new();
+    let button: App<Button> = App::new();
+    button.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        props,
+    );
 
-    let mut button = Button::create(props.clone(), link.clone());
+    let button_element = utils::document()
+        .get_elements_by_tag_name("button")
+        .get_with_index(0)
+        .unwrap();
 
-    props.onsignal.emit(());
+    let child = button_element.first_element_child().unwrap();
 
-    button.change(props);
-
-    let button_vnode = button.render();
-
-    let vnode_expected = html! {
-        <button
-            onclick=link.callback(|_| Msg::Clicked)
-            class="button standard medium regular test-button">
-            <>
-                <div id="parent">{"parent"}</div>
-            </>
-        </button>
-    };
-
-    assert_eq!(button_vnode, vnode_expected);
+    assert_eq!(button_element.tag_name(), "BUTTON");
+    assert_eq!(child.id(), "result");
 }

@@ -1,4 +1,14 @@
 # Yew Styles
+
+<div align="center">
+    <p>
+        <a href="https://crates.io/crates/yew_styles"><img alt="Crate Info" src="https://img.shields.io/badge/yew__styles-framework%20styles-brightgreen"/></a>
+        <a href="https://docs.rs/yew_styles/"><img alt="API Docs" src="https://img.shields.io/badge/yew__styles-docs-informational"/></a>
+        <a href="https://discord.gg/VQck8X4"><img alt="Discord Chat" src="https://img.shields.io/discord/701068342760570933"/></a>
+    </p>
+</div>
+
+
 Yew Styles is a style framework for yew
 
 ## Motivation
@@ -13,7 +23,7 @@ Each component is splited in two parts, the logical yew component and its sass m
 however, it is not necessary to worry about the sass module only it needs to be include in the project
 ### How install it
 1. Install the sass module: `npm install yew-styles`
-2. Add the yew_style crate in Cargo.toml file: `yew_styles = "0.3.0"`
+2. Add the yew_style crate in Cargo.toml file: `yew_styles = "0.3.1"`
 3. Import the main.css file in you main javascript/typescript file project: 
 ```typescript
     import 'node_modules/yew-styles/main.css';
