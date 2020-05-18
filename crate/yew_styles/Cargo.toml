@@ -21,5 +21,3 @@ web-sys = {version = "0.3.36", features = ["HtmlDocument", "HtmlCollection", "Cs
 rand = {version="0.7", features = ["getrandom"]}
 getrandom = {version = "0.1", features= ["wasm-bindgen"]}
 wasm-bindgen-test = "0.3"
-validator="0.10"
-validator_derive="0.10"
