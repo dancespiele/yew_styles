@@ -1,8 +1,6 @@
-use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
-use web_sys::{Event, HtmlInputElement};
 use yew::prelude::*;
-use yew::{services::ConsoleService, utils, App, InputData};
+use yew::{utils, App, ChangeData, FocusEvent, InputData, KeyboardEvent};
 
 pub struct FormInput {
     link: ComponentLink<Self>,
@@ -43,11 +41,11 @@ pub struct Props {
     #[prop_or_default(Callback::noop())]
     pub oninput_signal: Callback<InputData>,
     #[prop_or_default(Callback::noop())]
-    pub onblur_signal: Callback<()>,
+    pub onblur_signal: Callback<FocusEvent>,
     #[prop_or_default(Callback::noop())]
-    pub onkeypress_signal: Callback<()>,
+    pub onkeypress_signal: Callback<KeyboardEvent>,
     #[prop_or_default(Callback::noop())]
-    pub onchange_signal: Callback<()>,
+    pub onchange_signal: Callback<ChangeData>,
     #[prop_or_default]
     pub checked: bool,
     #[prop_or_default]
@@ -69,9 +67,9 @@ pub struct Props {
 #[derive(Debug)]
 pub enum Msg {
     Input(InputData),
-    Blur,
-    KeyPressed,
-    Changed,
+    Blur(FocusEvent),
+    KeyPressed(KeyboardEvent),
+    Changed(ChangeData),
 }
 
 impl Component for FormInput {
@@ -87,14 +85,14 @@ impl Component for FormInput {
             Msg::Input(input_data) => {
                 self.props.oninput_signal.emit(input_data);
             }
-            Msg::Blur => {
-                self.props.onblur_signal.emit(());
+            Msg::Blur(focus_event) => {
+                self.props.onblur_signal.emit(focus_event);
             }
-            Msg::KeyPressed => {
-                self.props.onkeypress_signal.emit(());
+            Msg::KeyPressed(keyboard_event) => {
+                self.props.onkeypress_signal.emit(keyboard_event);
             }
-            Msg::Changed => {
-                self.props.onchange_signal.emit(());
+            Msg::Changed(change_data) => {
+                self.props.onchange_signal.emit(change_data);
             }
         };
 
@@ -116,8 +114,9 @@ impl Component for FormInput {
                     type=get_type(self.props.input_type.clone())
                     oninput=self.link.callback(|input_data| Msg::Input(input_data))
                     checked=self.props.checked
-                    onblur=self.link.callback(|_| Msg::Blur)
-                    onkeypress=self.link.callback(|_| Msg::KeyPressed)
+                    onblur=self.link.callback(|focus_event| Msg::Blur(focus_event))
+                    onkeypress=self.link.callback(|keyboard_event| Msg::KeyPressed(keyboard_event))
+                    onchange=self.link.callback(|change_data| Msg::Changed(change_data))
                     value=self.props.value
                 />
                 {get_error_message(self.props.error_state, self.props.error_message.clone())}
@@ -246,77 +245,4 @@ fn should_create_form_input_without_label() {
 
     assert_eq!(label_element, None);
     assert_eq!(input_element.id(), "input-test");
-}
-
-#[wasm_bindgen_test]
-fn should_write_a_text() {
-    let mut console = ConsoleService::new();
-
-    let oninput_event = Event::new("oninput").unwrap();
-
-    struct WriteInput {
-        link: ComponentLink<Self>,
-        value: String,
-    }
-
-    enum MsgWriteInput {
-        Input(String),
-    }
-
-    impl Component for WriteInput {
-        type Message = MsgWriteInput;
-        type Properties = ();
-        fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-            WriteInput {
-                link,
-                value: String::from(""),
-            }
-        }
-        fn update(&mut self, msg: Self::Message) -> ShouldRender {
-            match msg {
-                MsgWriteInput::Input(value) => {
-                    self.value = value;
-                }
-            };
-            true
-        }
-        fn change(&mut self, _props: Self::Properties) -> ShouldRender {
-            false
-        }
-        fn view(&self) -> Html {
-            html! {
-                <div>
-                    <FormInput
-                        input_type=InputType::Text
-                        value=self.value.clone()
-                        input_id="form-input-test"
-                        oninput_signal=self.link.callback(|e: InputData| MsgWriteInput::Input(e.value))
-                    />
-                    <span id="result">{self.value.clone()}</span>
-                </div>
-            }
-        }
-    }
-
-    let write_input: App<WriteInput> = App::new();
-
-    write_input.mount(utils::document().get_element_by_id("output").unwrap());
-
-    let input_element = utils::document()
-        .get_element_by_id("form-input-test")
-        .unwrap()
-        .dyn_into::<HtmlInputElement>()
-        .unwrap();
-
-    input_element.set_value("hello");
-
-    input_element.dispatch_event(&oninput_event).unwrap();
-
-    console.log(&format!("{:#?}", input_element));
-
-    let span_element = utils::document().get_element_by_id("result").unwrap();
-
-    console.log(&format!("{:#?}", span_element));
-
-    assert_eq!(span_element.text_content().unwrap(), "hello".to_string());
 }
