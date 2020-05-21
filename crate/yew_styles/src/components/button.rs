@@ -1,16 +1,8 @@
-use crate::styles::{get_pallete, get_style, Palette, Style};
+use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
 use yew::{utils, App};
-
-/// The standard sizes for button
-#[derive(Clone)]
-pub enum Size {
-    Small,
-    Medium,
-    Big,
-}
 
 /// # Button component
 ///
@@ -122,14 +114,6 @@ pub struct Props {
 
 pub enum Msg {
     Clicked,
-}
-
-pub fn get_size(size: Size) -> String {
-    match size {
-        Size::Small => String::from("small"),
-        Size::Medium => String::from("medium"),
-        Size::Big => String::from("big"),
-    }
 }
 
 impl Component for Button {
