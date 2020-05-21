@@ -27,7 +27,6 @@ pub enum InputType {
     Range,
     Reset,
     Search,
-    Submit,
     Tel,
     Text,
     Time,
@@ -60,11 +59,37 @@ pub struct Props {
     #[prop_or_default]
     pub id: String,
     #[prop_or_default]
-    pub input_id: String,
-    #[prop_or_default]
-    pub label: String,
-    #[prop_or_default]
     pub name: String,
+    #[prop_or_default]
+    pub accept: String,
+    #[prop_or_default]
+    pub alt: String,
+    #[prop_or_default]
+    pub autofocus: bool,
+    #[prop_or_default]
+    pub autocomplete: bool,
+    #[prop_or_default]
+    pub list: String,
+    #[prop_or_default]
+    pub min: u16,
+    #[prop_or_default]
+    pub max: u16,
+    #[prop_or_default]
+    pub min_length: u16,
+    #[prop_or_default]
+    pub max_length: u16,
+    #[prop_or_default]
+    pub pattern: String,
+    #[prop_or_default]
+    pub readonly: bool,
+    #[prop_or_default]
+    pub required: bool,
+    #[prop_or_default]
+    pub multiple: bool,
+    #[prop_or_default]
+    pub capture: String,
+    #[prop_or_default]
+    pub step: i16,
     #[prop_or_default]
     pub error_state: bool,
     #[prop_or_default]
@@ -113,15 +138,15 @@ impl Component for FormInput {
 
     fn view(&self) -> Html {
         html! {
-            <div class=format!(
-                "form-input {} {} {}",
-                self.props.class_name,
-                get_pallete(self.props.input_style.clone()),
-                get_size(self.props.input_size.clone())) id=self.props.id>
-                {get_label(self.props.label.clone())}
+            <>
                 <input
-                    id=self.props.input_id
-                    class=if self.props.error_state { "error" } else { "" }
+                    id=self.props.id
+                    class=format!(
+                        "form-input {} {} {} {}",
+                        self.props.class_name,
+                        get_pallete(self.props.input_style.clone()),
+                        get_size(self.props.input_size.clone()),
+                        if self.props.error_state { "error" } else { "" })
                     type=get_type(self.props.input_type.clone())
                     oninput=self.link.callback(|input_data| Msg::Input(input_data))
                     checked=self.props.checked
@@ -129,9 +154,24 @@ impl Component for FormInput {
                     onkeypress=self.link.callback(|keyboard_event| Msg::KeyPressed(keyboard_event))
                     onchange=self.link.callback(|change_data| Msg::Changed(change_data))
                     value=self.props.value
+                    name=self.props.name
+                    required=self.props.required
+                    multiple=self.props.multiple
+                    pattern=self.props.pattern
+                    min=self.props.min
+                    minlength=self.props.min_length
+                    max=self.props.max
+                    maxlength=self.props.max_length
+                    alt=self.props.alt
+                    accept=self.props.accept
+                    capture=self.props.capture
+                    autofocus=self.props.autofocus
+                    autocomplete=self.props.autocomplete
+                    step=self.props.step
+                    list=self.props.list
                 />
                 {get_error_message(self.props.error_state, self.props.error_message.clone())}
-            </div>
+            </>
         }
     }
 }
@@ -155,22 +195,11 @@ fn get_type(input_type: InputType) -> String {
         InputType::Range => "range".to_string(),
         InputType::Reset => "reset".to_string(),
         InputType::Search => "search".to_string(),
-        InputType::Submit => "submit".to_string(),
         InputType::Tel => "tel".to_string(),
         InputType::Text => "text".to_string(),
         InputType::Time => "time".to_string(),
         InputType::Url => "url".to_string(),
         InputType::Week => "week".to_string(),
-    }
-}
-
-fn get_label(label: String) -> Html {
-    if !label.is_empty() {
-        html! {
-            <label>{label}</label>
-        }
-    } else {
-        html! {}
     }
 }
 
@@ -183,7 +212,7 @@ fn get_error_message(error_state: bool, error_message: String) -> Html {
 }
 
 #[wasm_bindgen_test]
-fn should_create_form_input_with_label() {
+fn should_create_form_input() {
     let props = Props {
         id: "form-input-id-test".to_string(),
         class_name: "form-input-class-test".to_string(),
@@ -196,12 +225,25 @@ fn should_create_form_input_with_label() {
         checked: false,
         error_message: "invalid input".to_string(),
         error_state: false,
-        input_id: "input-test".to_string(),
-        label: "Input label".to_string(),
         name: "input-test".to_string(),
         input_style: Palette::Standard,
         input_size: Size::Medium,
         placeholder: "test input".to_string(),
+        required: false,
+        autocomplete: false,
+        autofocus: false,
+        multiple: false,
+        alt: "input test".to_string(),
+        pattern: "".to_string(),
+        min: 0,
+        max: 0,
+        max_length: 100,
+        min_length: 0,
+        readonly: false,
+        step: 1,
+        accept: "".to_string(),
+        capture: "".to_string(),
+        list: "".to_string(),
     };
 
     let form_input: App<FormInput> = App::new();
@@ -215,51 +257,5 @@ fn should_create_form_input_with_label() {
         .get_element_by_id("form-input-id-test")
         .unwrap();
 
-    let label_element = form_input_element.query_selector("label").unwrap().unwrap();
-
-    let input_element = form_input_element.query_selector("input").unwrap().unwrap();
-
-    assert_eq!(label_element.tag_name(), "LABEL");
-    assert_eq!(input_element.id(), "input-test");
-}
-
-#[wasm_bindgen_test]
-fn should_create_form_input_without_label() {
-    let props = Props {
-        id: "form-input-id-test".to_string(),
-        class_name: "form-input-class-test".to_string(),
-        value: "".to_string(),
-        input_type: InputType::Text,
-        oninput_signal: Callback::noop(),
-        onblur_signal: Callback::noop(),
-        onchange_signal: Callback::noop(),
-        onkeypress_signal: Callback::noop(),
-        checked: false,
-        error_message: "invalid input".to_string(),
-        error_state: false,
-        input_id: "input-test".to_string(),
-        label: "".to_string(),
-        name: "input-test".to_string(),
-        input_style: Palette::Standard,
-        input_size: Size::Medium,
-        placeholder: "test input".to_string(),
-    };
-
-    let form_input: App<FormInput> = App::new();
-
-    form_input.mount_with_props(
-        utils::document().get_element_by_id("output").unwrap(),
-        props,
-    );
-
-    let form_input_element = utils::document()
-        .get_element_by_id("form-input-id-test")
-        .unwrap();
-
-    let label_element = form_input_element.query_selector("label").unwrap();
-
-    let input_element = form_input_element.query_selector("input").unwrap().unwrap();
-
-    assert_eq!(label_element, None);
-    assert_eq!(input_element.id(), "input-test");
+    assert_eq!(form_input_element.tag_name(), "INPUT");
 }
