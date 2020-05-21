@@ -1,3 +1,4 @@
+use crate::styles::{get_pallete, get_size, Palette, Size};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App, ChangeData, FocusEvent, InputData, KeyboardEvent};
@@ -38,14 +39,20 @@ pub enum InputType {
 pub struct Props {
     pub value: String,
     pub input_type: InputType,
-    #[prop_or_default(Callback::noop())]
+    #[prop_or(Palette::Standard)]
+    pub input_style: Palette,
+    #[prop_or(Size::Medium)]
+    pub input_size: Size,
+    #[prop_or(Callback::noop())]
     pub oninput_signal: Callback<InputData>,
-    #[prop_or_default(Callback::noop())]
+    #[prop_or(Callback::noop())]
     pub onblur_signal: Callback<FocusEvent>,
-    #[prop_or_default(Callback::noop())]
+    #[prop_or(Callback::noop())]
     pub onkeypress_signal: Callback<KeyboardEvent>,
-    #[prop_or_default(Callback::noop())]
+    #[prop_or(Callback::noop())]
     pub onchange_signal: Callback<ChangeData>,
+    #[prop_or_default]
+    pub placeholder: String,
     #[prop_or_default]
     pub checked: bool,
     #[prop_or_default]
@@ -106,7 +113,11 @@ impl Component for FormInput {
 
     fn view(&self) -> Html {
         html! {
-            <div class=format!("form-input {}", self.props.class_name) id=self.props.id>
+            <div class=format!(
+                "form-input {} {} {}",
+                self.props.class_name,
+                get_pallete(self.props.input_style.clone()),
+                get_size(self.props.input_size.clone())) id=self.props.id>
                 {get_label(self.props.label.clone())}
                 <input
                     id=self.props.input_id
@@ -188,6 +199,9 @@ fn should_create_form_input_with_label() {
         input_id: "input-test".to_string(),
         label: "Input label".to_string(),
         name: "input-test".to_string(),
+        input_style: Palette::Standard,
+        input_size: Size::Medium,
+        placeholder: "test input".to_string(),
     };
 
     let form_input: App<FormInput> = App::new();
@@ -226,6 +240,9 @@ fn should_create_form_input_without_label() {
         input_id: "input-test".to_string(),
         label: "".to_string(),
         name: "input-test".to_string(),
+        input_style: Palette::Standard,
+        input_size: Size::Medium,
+        placeholder: "test input".to_string(),
     };
 
     let form_input: App<FormInput> = App::new();
