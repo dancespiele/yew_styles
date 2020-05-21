@@ -17,9 +17,7 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 wasm-bindgen = "0.2"
 yew = { version="0.16", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"] }
-web-sys = {version = "0.3.36", features = ["HtmlDocument", "HtmlCollection", "CssStyleDeclaration", "HtmlElement", "Node"]}
+web-sys = {version = "0.3.36", features = ["HtmlDocument", "HtmlCollection", "CssStyleDeclaration", "HtmlElement", "HtmlInputElement", "Event", "Node"]}
 rand = {version="0.7", features = ["getrandom"]}
 getrandom = {version = "0.1", features= ["wasm-bindgen"]}
 wasm-bindgen-test = "0.3"
-validator="0.10"
-validator_derive="0.10"
