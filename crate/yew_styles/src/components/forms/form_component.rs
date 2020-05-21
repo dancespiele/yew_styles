@@ -10,8 +10,15 @@ pub struct Form {
 #[derive(Clone, Properties)]
 pub struct Props {
     // get all the values from the form
+    #[prop_or(Callback::noop())]
     pub onsignal: Callback<()>,
     pub children: Children,
+    #[prop_or_default]
+    pub action: String,
+    #[prop_or_default]
+    pub method: String,
+    #[prop_or_default]
+    pub name: String,
     #[prop_or_default]
     pub class_name: String,
     #[prop_or_default]
@@ -48,6 +55,9 @@ impl Component for Form {
         html! {
             <form
                 onsubmit=self.link.callback(|_| Msg::Submitted)
+                action=self.props.action
+                method=self.props.method
+                name=self.props.name
                 class=format!("form {}", self.props.class_name)
                 id=format!("{}", self.props.id)
             >
@@ -63,6 +73,9 @@ fn should_create_form_component() {
         class_name: "form-test".to_string(),
         id: "form-test-id".to_string(),
         onsignal: Callback::noop(),
+        method: "".to_string(),
+        action: "".to_string(),
+        name: "form-test".to_string(),
         children: Children::new(vec![html! {<input id="result"/>}]),
     };
 
@@ -98,6 +111,9 @@ fn should_submit_the_form() {
         class_name: "form-test".to_string(),
         id: "form-test-id".to_string(),
         onsignal: onsubmit,
+        method: "".to_string(),
+        action: "".to_string(),
+        name: "form-test".to_string(),
         children: Children::new(vec![html! {<input/>}]),
     };
 
