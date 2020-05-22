@@ -3,7 +3,7 @@ use yew::prelude::*;
 use yew::{utils, App};
 
 pub struct FormLabel {
-    pub props: Props,
+    props: Props,
 }
 
 #[derive(Clone, Properties)]
