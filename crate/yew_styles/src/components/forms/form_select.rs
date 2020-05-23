@@ -1,3 +1,4 @@
+use crate::styles::{get_size, Size};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App, ChangeData};
@@ -14,16 +15,18 @@ pub struct Props {
     /// Whether or not the selector should be disabled.
     #[prop_or_default]
     pub disabled: bool,
+    #[prop_or(Size::Medium)]
+    pub select_size: Size,
     #[prop_or_default]
     pub name: String,
     #[prop_or_default]
-    required: bool,
+    pub required: bool,
     #[prop_or_default]
-    multiple: bool,
+    pub multiple: bool,
     #[prop_or_default]
-    size: u16,
+    pub size: u16,
     #[prop_or_default]
-    autofocus: bool,
+    pub autofocus: bool,
     #[prop_or_default]
     pub class_name: String,
     #[prop_or_default]
@@ -59,11 +62,12 @@ impl Component for FormSelect {
     fn view(&self) -> Html {
         html! {
             <select
+                class=format!("form-select {} {}", get_size(self.props.select_size.clone()), self.props.class_name)
                 disabled=self.props.disabled,
                 name=self.props.name,
                 autofocus=self.props.autofocus,
                 required=self.props.required,
-                multiple=self.props.required,
+                multiple=self.props.multiple,
                 size=self.props.size,
                 onchange=self.link.callback(|change_data| Msg::Selected(change_data))
             >
@@ -83,6 +87,7 @@ fn should_create_form_select() {
         disabled: false,
         autofocus: false,
         required: false,
+        select_size: Size::Medium,
         size: 0,
         name: "options".to_string(),
         multiple: false,

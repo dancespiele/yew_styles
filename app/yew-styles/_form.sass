@@ -4,6 +4,7 @@
 $underline: false
 
 .form-group
+    margin: 10px
     &.vertical
         label, input
             display: block
@@ -27,3 +28,11 @@ $underline: false
 
     &.underline
             @include form-style($outline-style, true)
+
+.form-select
+    padding: 3px
+    &.small
+        padding: 0
+
+    &.big
+        padding: 5px
