@@ -76,7 +76,7 @@ pub struct Props {
     pub max: u16,
     #[prop_or_default]
     pub min_length: u16,
-    #[prop_or_default]
+    #[prop_or(1000)]
     pub max_length: u16,
     #[prop_or_default]
     pub pattern: String,
@@ -86,6 +86,8 @@ pub struct Props {
     pub required: bool,
     #[prop_or_default]
     pub multiple: bool,
+    #[prop_or_default]
+    pub underline: bool,
     #[prop_or_default]
     pub capture: String,
     #[prop_or_default]
@@ -142,11 +144,13 @@ impl Component for FormInput {
                 <input
                     id=self.props.id
                     class=format!(
-                        "form-input {} {} {} {}",
+                        "form-input {} {} {} {} {}",
                         self.props.class_name,
                         get_pallete(self.props.input_style.clone()),
                         get_size(self.props.input_size.clone()),
-                        if self.props.error_state { "error" } else { "" })
+                        if self.props.error_state { "error" } else { "" },
+                        if self.props.underline { "underline" } else { "" }
+                    )
                     type=get_type(self.props.input_type.clone())
                     oninput=self.link.callback(|input_data| Msg::Input(input_data))
                     checked=self.props.checked
@@ -157,6 +161,7 @@ impl Component for FormInput {
                     name=self.props.name
                     required=self.props.required
                     multiple=self.props.multiple
+                    placeholder=self.props.placeholder
                     pattern=self.props.pattern
                     min=self.props.min
                     minlength=self.props.min_length
@@ -240,6 +245,7 @@ fn should_create_form_input() {
         max_length: 100,
         min_length: 0,
         readonly: false,
+        underline: false,
         step: 1,
         accept: "".to_string(),
         capture: "".to_string(),

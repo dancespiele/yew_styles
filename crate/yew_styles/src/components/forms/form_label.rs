@@ -8,14 +8,13 @@ pub struct FormLabel {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    pub text: String,
     #[prop_or_default]
     pub class_name: String,
     #[prop_or_default]
     pub id: String,
     #[prop_or_default]
     pub label_for: String,
-    #[prop_or_default]
-    pub text: String,
 }
 
 impl Component for FormLabel {

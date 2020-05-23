@@ -1,0 +1,29 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+
+$underline: false
+
+.form-group
+    &.vertical
+        label, input
+            display: block
+    &.horizontal
+        label, input
+            display: inline
+
+.form-label
+    margin-right: 5px
+
+.form-input
+    @include form-style($outline-style, false)
+    padding: 5px
+    border-radius: 5px
+
+    &.small
+        padding: 2px
+
+    &.big
+        padding: 10px
+
+    &.underline
+            @include form-style($outline-style, true)

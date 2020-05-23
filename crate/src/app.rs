@@ -1,4 +1,4 @@
-use page::{ButtonPage, HomePage, LayoutsPage, NavbarPage, WriteInput};
+use page::{ButtonPage, FormPage, HomePage, LayoutsPage, NavbarPage};
 use yew::prelude::*;
 use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
 use yew_styles::layouts::{
@@ -77,7 +77,7 @@ impl Component for App {
                                 AppRouter::ButtonPath => html!{<ButtonPage/>},
                                 AppRouter::LayoutsPath => html!{<LayoutsPage/>},
                                 AppRouter::NavbarPath => html!{<NavbarPage/>},
-                                AppRouter::FormPath => html!{<WriteInput/>},
+                                AppRouter::FormPath => html!{<FormPage/>},
                                 AppRouter::PageNotFound(Permissive(None)) => html!{"Page not found"},
                                 AppRouter::PageNotFound(Permissive(Some(missed_route))) => html!{format!("Page '{}' not found", missed_route)}
                             }

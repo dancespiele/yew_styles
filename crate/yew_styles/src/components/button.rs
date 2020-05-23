@@ -139,7 +139,7 @@ impl Component for Button {
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         self.props = ButtonProps::from(props);
-        false
+        true
     }
 
     fn view(&self) -> Html {
