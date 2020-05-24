@@ -85,6 +85,8 @@ pub struct Props {
     #[prop_or_default]
     pub required: bool,
     #[prop_or_default]
+    pub disabled: bool,
+    #[prop_or_default]
     pub multiple: bool,
     #[prop_or_default]
     pub underline: bool,
@@ -160,6 +162,8 @@ impl Component for FormInput {
                     value=self.props.value
                     name=self.props.name
                     required=self.props.required
+                    readonly=self.props.readonly
+                    disabled=self.props.disabled
                     multiple=self.props.multiple
                     placeholder=self.props.placeholder
                     pattern=self.props.pattern
@@ -246,6 +250,7 @@ fn should_create_form_input() {
         min_length: 0,
         readonly: false,
         underline: false,
+        disabled: false,
         step: 1,
         accept: "".to_string(),
         capture: "".to_string(),
