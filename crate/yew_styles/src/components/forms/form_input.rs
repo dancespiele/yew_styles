@@ -75,9 +75,9 @@ pub struct Props {
     #[prop_or_default]
     pub max: u16,
     #[prop_or_default]
-    pub min_length: u16,
+    pub minlength: u16,
     #[prop_or(1000)]
-    pub max_length: u16,
+    pub maxlength: u16,
     #[prop_or_default]
     pub pattern: String,
     #[prop_or_default]
@@ -168,9 +168,9 @@ impl Component for FormInput {
                     placeholder=self.props.placeholder
                     pattern=self.props.pattern
                     min=self.props.min
-                    minlength=self.props.min_length
+                    minlength=self.props.minlength
                     max=self.props.max
-                    maxlength=self.props.max_length
+                    maxlength=self.props.maxlength
                     alt=self.props.alt
                     accept=self.props.accept
                     capture=self.props.capture
@@ -246,8 +246,8 @@ fn should_create_form_input() {
         pattern: "".to_string(),
         min: 0,
         max: 0,
-        max_length: 100,
-        min_length: 0,
+        maxlength: 100,
+        minlength: 0,
         readonly: false,
         underline: false,
         disabled: false,
