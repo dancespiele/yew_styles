@@ -1,3 +1,4 @@
+mod basic_form;
 pub mod button_page;
 pub mod form_pages;
 mod highlighters;

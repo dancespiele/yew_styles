@@ -104,11 +104,11 @@ impl Component for FormTextArea {
             <>
                 <textarea
                     id=self.props.id
-                    class=format!("form-input {} {} {} {}",
+                    class=format!("form-textarea {} {} {} {}",
                     self.props.class_name,
                     get_pallete(self.props.textarea_style.clone()),
                     get_size(self.props.textarea_size.clone()),
-                    if self.props.error_state { "error" } else { "" })
+                    if self.props.error_state { "form-error" } else { "" })
                     oninput=self.link.callback(|input_data| Msg::Input(input_data))
                     onblur=self.link.callback(|focus_event| Msg::Blur(focus_event))
                     onkeypress=self.link.callback(|keyboard_event| Msg::KeyPressed(keyboard_event))

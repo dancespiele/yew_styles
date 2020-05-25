@@ -36,3 +36,16 @@ $underline: false
 
     &.big
         padding: 5px
+
+.form-textarea
+    @include form-style($outline-style, false)
+    height: 100px
+    width: 100%
+    padding: 5px
+    border-radius: 5px
+
+    &.small
+        height: 50px
+
+    &.big
+        height: 250px

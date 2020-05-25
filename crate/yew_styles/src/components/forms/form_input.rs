@@ -150,7 +150,7 @@ impl Component for FormInput {
                         self.props.class_name,
                         get_pallete(self.props.input_style.clone()),
                         get_size(self.props.input_size.clone()),
-                        if self.props.error_state { "error" } else { "" },
+                        if self.props.error_state { "form-error" } else { "" },
                         if self.props.underline { "underline" } else { "" }
                     )
                     type=get_type(self.props.input_type.clone())

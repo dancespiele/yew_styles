@@ -1,3 +1,4 @@
+use super::basic_form::BasicForm;
 use wasm_bindgen::JsCast;
 use web_sys::HtmlOptionElement;
 use yew::prelude::*;
@@ -6,6 +7,7 @@ use yew_styles::forms::{
     form_input::{FormInput, InputType},
     form_label::FormLabel,
     form_select::FormSelect,
+    form_textarea::FormTextArea,
 };
 use yew_styles::layouts::{
     container::{Container, Direction, Wrap},
@@ -31,7 +33,7 @@ impl Component for FormPage {
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         FormPage {
             link,
-            value: vec!["".to_string(); 50],
+            value: vec!["".to_string(); 6],
             multiple_values: vec![],
         }
     }
@@ -61,10 +63,22 @@ impl Component for FormPage {
 
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Form input types"}</h2>
+                    {get_form_inputs(self)}
                 </Item>
 
-                {get_form_inputs(self)}
-                {get_select_form(self)}
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Form select types"}</h2>
+                    {get_select_form(self)}
+                </Item>
+
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Form textarea types"}</h2>
+                    {get_textarea(self)}
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Basic form"}</h2>
+                    <BasicForm/>
+                </Item>
             </>
         }
     }
@@ -135,9 +149,12 @@ fn get_select_form(form_page: &FormPage) -> Html {
         <Container wrap = Wrap::Wrap direction = Direction::Row>
             <Item layouts=vec!(ItemLayout::ItM(6), ItemLayout::ItXs(12))>
                 <FormGroup>
+                    <FormLabel
+                        text="Standard select"
+                    />
                     <FormSelect
                         select_size=Size::Medium
-                        on_change_signal = form_page.link.callback(|e: ChangeData|
+                        onchange_signal = form_page.link.callback(|e: ChangeData|
                             match e {
                                 ChangeData::Select(element) => {
                                     let value = element.value();
@@ -160,10 +177,13 @@ fn get_select_form(form_page: &FormPage) -> Html {
             </Item>
             <Item layouts=vec!(ItemLayout::ItM(6), ItemLayout::ItXs(12))>
                 <FormGroup>
+                    <FormLabel
+                        text="Multiple select"
+                    />
                     <FormSelect
                         select_size=Size::Medium
                         multiple=true
-                        on_change_signal = form_page.link.callback(|e: ChangeData| {
+                        onchange_signal = form_page.link.callback(|e: ChangeData| {
                             match e {
                                 ChangeData::Select(element) => {
                                     let mut values = vec![];
@@ -196,7 +216,40 @@ fn get_select_form(form_page: &FormPage) -> Html {
                     <div>{format!("Value: {:#?}", form_page.multiple_values.clone())}</div>
                 </FormGroup>
             </Item>
+        </Container>
+    }
+}
 
+fn get_textarea(form_page: &FormPage) -> Html {
+    html! {
+        <Container wrap = Wrap::Wrap direction = Direction::Row>
+            <Item layouts=vec!(ItemLayout::ItL(6), ItemLayout::ItXs(12))>
+                <FormGroup orientation=Orientation::Vertical>
+                        <FormLabel
+                            text="Standard textarea"
+                        />
+                        <FormTextArea placeholder="write here"
+                            textarea_size=Size::Medium
+                            oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value, 4))
+                        />
+
+                    <div>{format!("Value: {}", form_page.value[4].clone())}</div>
+                </FormGroup>
+            </Item>
+            <Item layouts=vec!(ItemLayout::ItL(6), ItemLayout::ItXs(12))>
+                <FormGroup orientation=Orientation::Vertical>
+                        <FormLabel
+                            text="Info small textarea"
+                        />
+                        <FormTextArea placeholder="write here"
+                            textarea_size=Size::Small
+                            textarea_style=Palette::Info
+                            oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value, 5))
+                        />
+
+                    <div>{format!("Value: {}", form_page.value[5].clone())}</div>
+                </FormGroup>
+            </Item>
         </Container>
     }
 }

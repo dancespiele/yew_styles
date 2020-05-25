@@ -11,7 +11,7 @@ pub struct FormSelect {
 #[derive(Clone, Properties)]
 pub struct Props {
     pub options: Html,
-    pub on_change_signal: Callback<ChangeData>,
+    pub onchange_signal: Callback<ChangeData>,
     /// Whether or not the selector should be disabled.
     #[prop_or_default]
     pub disabled: bool,
@@ -29,6 +29,10 @@ pub struct Props {
     pub autofocus: bool,
     #[prop_or_default]
     pub class_name: String,
+    #[prop_or_default]
+    pub error_state: bool,
+    #[prop_or_default]
+    pub error_message: String,
     #[prop_or_default]
     pub id: String,
 }
@@ -48,7 +52,7 @@ impl Component for FormSelect {
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Selected(value) => {
-                self.props.on_change_signal.emit(value);
+                self.props.onchange_signal.emit(value);
             }
         }
         true
@@ -61,27 +65,42 @@ impl Component for FormSelect {
 
     fn view(&self) -> Html {
         html! {
-            <select
-                class=format!("form-select {} {}", get_size(self.props.select_size.clone()), self.props.class_name)
-                disabled=self.props.disabled,
-                name=self.props.name,
-                autofocus=self.props.autofocus,
-                required=self.props.required,
-                multiple=self.props.multiple,
-                size=self.props.size,
-                onchange=self.link.callback(|change_data| Msg::Selected(change_data))
-            >
+            <>
+                <select
+                    class=format!("form-select {} {} {}",
+                        get_size(self.props.select_size.clone()),
+                        self.props.class_name,
+                        if self.props.error_state { "form-error" } else { "" },
+                    )
+                    disabled=self.props.disabled,
+                    name=self.props.name,
+                    autofocus=self.props.autofocus,
+                    required=self.props.required,
+                    multiple=self.props.multiple,
+                    size=self.props.size,
+                    onchange=self.link.callback(|change_data| Msg::Selected(change_data))
+                >
 
-            {self.props.options.clone()}
-            </select>
+                    {self.props.options.clone()}
+                </select>
+                {get_error_message(self.props.error_state, self.props.error_message.clone())}
+            </>
         }
+    }
+}
+
+fn get_error_message(error_state: bool, error_message: String) -> Html {
+    if error_state {
+        html! {<span class="form-input-error">{error_message}</span>}
+    } else {
+        html! {}
     }
 }
 
 #[wasm_bindgen_test]
 fn should_create_form_select() {
     let props = Props {
-        on_change_signal: Callback::noop(),
+        onchange_signal: Callback::noop(),
         id: "form-select-id-test".to_string(),
         class_name: "form-select-class-test".to_string(),
         disabled: false,
@@ -90,6 +109,8 @@ fn should_create_form_select() {
         select_size: Size::Medium,
         size: 0,
         name: "options".to_string(),
+        error_message: "".to_string(),
+        error_state: false,
         multiple: false,
         options: html! {
             <>
