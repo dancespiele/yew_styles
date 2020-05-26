@@ -1,4 +1,3 @@
-use super::basic_form::BasicForm;
 use wasm_bindgen::JsCast;
 use web_sys::HtmlOptionElement;
 use yew::prelude::*;
@@ -74,10 +73,6 @@ impl Component for FormPage {
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Form textarea types"}</h2>
                     {get_textarea(self)}
-                </Item>
-                <Item layouts=vec!(ItemLayout::ItXs(12))>
-                    <h2>{"Basic form"}</h2>
-                    <BasicForm/>
                 </Item>
             </>
         }
@@ -229,6 +224,7 @@ fn get_textarea(form_page: &FormPage) -> Html {
                             text="Standard textarea"
                         />
                         <FormTextArea placeholder="write here"
+                            value=form_page.value[4].clone()
                             textarea_size=Size::Medium
                             oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value, 4))
                         />
@@ -242,6 +238,7 @@ fn get_textarea(form_page: &FormPage) -> Html {
                             text="Info small textarea"
                         />
                         <FormTextArea placeholder="write here"
+                            value=form_page.value[5].clone()
                             textarea_size=Size::Small
                             textarea_style=Palette::Info
                             oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value, 5))

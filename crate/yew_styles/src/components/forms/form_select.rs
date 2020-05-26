@@ -67,11 +67,11 @@ impl Component for FormSelect {
         html! {
             <>
                 <select
-                    class=format!("form-select {} {} {}",
+                    class=format!("form-select {} {}",
                         get_size(self.props.select_size.clone()),
                         self.props.class_name,
-                        if self.props.error_state { "form-error" } else { "" },
                     )
+                    id=self.props.id
                     disabled=self.props.disabled,
                     name=self.props.name,
                     autofocus=self.props.autofocus,
@@ -91,7 +91,7 @@ impl Component for FormSelect {
 
 fn get_error_message(error_state: bool, error_message: String) -> Html {
     if error_state {
-        html! {<span class="form-input-error">{error_message}</span>}
+        html! {<span class="form-error">{error_message}</span>}
     } else {
         html! {}
     }

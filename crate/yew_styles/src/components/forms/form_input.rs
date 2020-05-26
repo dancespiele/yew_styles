@@ -146,11 +146,10 @@ impl Component for FormInput {
                 <input
                     id=self.props.id
                     class=format!(
-                        "form-input {} {} {} {} {}",
+                        "form-input {} {} {} {}",
                         self.props.class_name,
                         get_pallete(self.props.input_style.clone()),
                         get_size(self.props.input_size.clone()),
-                        if self.props.error_state { "form-error" } else { "" },
                         if self.props.underline { "underline" } else { "" }
                     )
                     type=get_type(self.props.input_type.clone())
@@ -214,7 +213,7 @@ fn get_type(input_type: InputType) -> String {
 
 fn get_error_message(error_state: bool, error_message: String) -> Html {
     if error_state {
-        html! {<span class="form-input-error">{error_message}</span>}
+        html! {<span class="form-error">{error_message}</span>}
     } else {
         html! {}
     }
