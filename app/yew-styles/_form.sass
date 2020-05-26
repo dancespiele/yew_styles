@@ -15,10 +15,30 @@ $underline: false
 .form-label
     margin-right: 5px
 
+.form-submit
+    padding: 5px 10px
+    border: none
+    border-radius: 4px
+    cursor: pointer
+    font-family: Rosario
+
+    @each $name, $size in $sizes
+        &.#{$name}
+            font-size: $size
+
+    &.regular
+        @include pallete-style($regular-style)
+
+    &.outline
+        @include pallete-style($outline-style)
+    &.light
+        @include pallete-style($light-style)
+
 .form-input
     @include form-style($outline-style, false)
     padding: 5px
     border-radius: 5px
+    width: 100%
 
     &.small
         padding: 2px
@@ -31,6 +51,7 @@ $underline: false
 
 .form-select
     padding: 3px
+    width: 100%
     &.small
         padding: 0
 

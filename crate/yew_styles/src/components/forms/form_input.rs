@@ -78,7 +78,7 @@ pub struct Props {
     pub minlength: u16,
     #[prop_or(1000)]
     pub maxlength: u16,
-    #[prop_or_default]
+    #[prop_or("[\\s\\S]*".to_string())]
     pub pattern: String,
     #[prop_or_default]
     pub readonly: bool,
