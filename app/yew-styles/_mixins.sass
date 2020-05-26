@@ -61,8 +61,7 @@
         align-self: center
         margin-left: 5px
         img
-            width: $size
-    
+            width: $size    
 
 @function get-border($border-color)
     $border: none
@@ -70,3 +69,35 @@
         $border: 1px solid $border-color
     
     @return $border
+
+@mixin form-style($style, $underline)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            @if $underline
+                border-radius: 2px
+                border-top: 0
+                border-left: 0
+                border-right: 0
+                border-bottom: 2px solid $border-color
+            @else
+                border: 1px solid $border-color
+            
+            @include placeholder
+                color: $color
+
+            &:focus
+                border-color: darken($border-color, 10%)
+            &:hover
+                border-color: darken($border-color, 20%)
+            &:active
+                border-color: darken($border-color, 30%)
+
+@mixin placeholder
+  &::-webkit-input-placeholder
+    @content
+  &:-moz-placeholder
+    @content
+  &::-moz-placeholder
+    @content
+  &:-ms-input-placeholder
+    @content

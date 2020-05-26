@@ -11,7 +11,7 @@ pub struct Form {
 pub struct Props {
     // get all the values from the form
     #[prop_or(Callback::noop())]
-    pub onsignal: Callback<()>,
+    pub onsubmit_signal: Callback<Event>,
     pub children: Children,
     #[prop_or_default]
     pub action: String,
@@ -26,7 +26,7 @@ pub struct Props {
 }
 
 pub enum Msg {
-    Submitted,
+    Submitted(Event),
 }
 
 impl Component for Form {
@@ -39,8 +39,9 @@ impl Component for Form {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::Submitted => {
-                self.props.onsignal.emit(());
+            Msg::Submitted(value) => {
+                value.prevent_default();
+                self.props.onsubmit_signal.emit(value);
             }
         };
         true
@@ -54,7 +55,7 @@ impl Component for Form {
     fn view(&self) -> Html {
         html! {
             <form
-                onsubmit=self.link.callback(|_| Msg::Submitted)
+                onsubmit=self.link.callback(|e: Event| Msg::Submitted(e))
                 action=self.props.action
                 method=self.props.method
                 name=self.props.name
@@ -72,7 +73,7 @@ fn should_create_form_component() {
     let props = Props {
         class_name: "form-test".to_string(),
         id: "form-test-id".to_string(),
-        onsignal: Callback::noop(),
+        onsubmit_signal: Callback::noop(),
         method: "".to_string(),
         action: "".to_string(),
         name: "form-test".to_string(),
@@ -110,14 +111,16 @@ fn should_submit_the_form() {
     let props = Props {
         class_name: "form-test".to_string(),
         id: "form-test-id".to_string(),
-        onsignal: onsubmit,
+        onsubmit_signal: onsubmit,
         method: "".to_string(),
         action: "".to_string(),
         name: "form-test".to_string(),
         children: Children::new(vec![html! {<input/>}]),
     };
 
-    props.onsignal.emit(());
+    let event = Event::new("Submit").unwrap();
+
+    props.onsubmit_signal.emit(event);
 
     let form_element = utils::document().get_element_by_id("form").unwrap();
 

@@ -1,4 +1,4 @@
-use page::{ButtonPage, HomePage, LayoutsPage, NavbarPage, WriteInput};
+use page::{BasicFormPage, ButtonPage, FormPage, HomePage, LayoutsPage, NavbarPage};
 use yew::prelude::*;
 use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
 use yew_styles::layouts::{
@@ -20,6 +20,8 @@ pub enum AppRouter {
     NavbarPath,
     #[to = "/forms!"]
     FormPath,
+    #[to = "/basic-form!"]
+    BasicFormPath,
     #[to = "/page-not-found"]
     PageNotFound(Permissive<String>),
 }
@@ -67,6 +69,9 @@ impl Component for App {
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
                             <RouterAnchor<AppRouter> route=AppRouter::FormPath>{"Forms"}</RouterAnchor<AppRouter>>
                         </Item>
+                        <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
+                            <RouterAnchor<AppRouter> route=AppRouter::BasicFormPath>{"Basic Form"}</RouterAnchor<AppRouter>>
+                        </Item>
                     </Container>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItL(10) )>
@@ -77,7 +82,8 @@ impl Component for App {
                                 AppRouter::ButtonPath => html!{<ButtonPage/>},
                                 AppRouter::LayoutsPath => html!{<LayoutsPage/>},
                                 AppRouter::NavbarPath => html!{<NavbarPage/>},
-                                AppRouter::FormPath => html!{<WriteInput/>},
+                                AppRouter::FormPath => html!{<FormPage/>},
+                                AppRouter::BasicFormPath => html!{<BasicFormPage/>},
                                 AppRouter::PageNotFound(Permissive(None)) => html!{"Page not found"},
                                 AppRouter::PageNotFound(Permissive(Some(missed_route))) => html!{format!("Page '{}' not found", missed_route)}
                             }

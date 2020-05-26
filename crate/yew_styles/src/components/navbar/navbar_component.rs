@@ -190,7 +190,7 @@ impl Component for Navbar {
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         NavbarModel.init(self.props.clone());
         self.props = NavbarProps::from(props);
-        false
+        true
     }
 
     fn view(&self) -> Html {

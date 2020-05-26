@@ -75,10 +75,10 @@ pub struct Props {
     #[prop_or_default]
     pub max: u16,
     #[prop_or_default]
-    pub min_length: u16,
-    #[prop_or_default]
-    pub max_length: u16,
-    #[prop_or_default]
+    pub minlength: u16,
+    #[prop_or(1000)]
+    pub maxlength: u16,
+    #[prop_or("[\\s\\S]*".to_string())]
     pub pattern: String,
     #[prop_or_default]
     pub readonly: bool,
@@ -88,6 +88,8 @@ pub struct Props {
     pub disabled: bool,
     #[prop_or_default]
     pub multiple: bool,
+    #[prop_or_default]
+    pub underline: bool,
     #[prop_or_default]
     pub capture: String,
     #[prop_or_default]
@@ -148,7 +150,8 @@ impl Component for FormInput {
                         self.props.class_name,
                         get_pallete(self.props.input_style.clone()),
                         get_size(self.props.input_size.clone()),
-                        if self.props.error_state { "error" } else { "" })
+                        if self.props.underline { "underline" } else { "" }
+                    )
                     type=get_type(self.props.input_type.clone())
                     oninput=self.link.callback(|input_data| Msg::Input(input_data))
                     checked=self.props.checked
@@ -161,11 +164,12 @@ impl Component for FormInput {
                     readonly=self.props.readonly
                     disabled=self.props.disabled
                     multiple=self.props.multiple
+                    placeholder=self.props.placeholder
                     pattern=self.props.pattern
                     min=self.props.min
-                    minlength=self.props.min_length
+                    minlength=self.props.minlength
                     max=self.props.max
-                    maxlength=self.props.max_length
+                    maxlength=self.props.maxlength
                     alt=self.props.alt
                     accept=self.props.accept
                     capture=self.props.capture
@@ -209,7 +213,7 @@ fn get_type(input_type: InputType) -> String {
 
 fn get_error_message(error_state: bool, error_message: String) -> Html {
     if error_state {
-        html! {<span class="form-input-error">{error_message}</span>}
+        html! {<span class="form-error">{error_message}</span>}
     } else {
         html! {}
     }
@@ -241,9 +245,10 @@ fn should_create_form_input() {
         pattern: "".to_string(),
         min: 0,
         max: 0,
-        max_length: 100,
-        min_length: 0,
+        maxlength: 100,
+        minlength: 0,
         readonly: false,
+        underline: false,
         disabled: false,
         step: 1,
         accept: "".to_string(),

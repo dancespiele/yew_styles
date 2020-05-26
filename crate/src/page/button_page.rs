@@ -2,9 +2,9 @@ use super::highlighters::button_code;
 use yew::prelude::*;
 use yew_prism::Prism;
 use yew_styles::{
-    button::{get_size, Button, Size},
+    button::Button,
     layouts::item::{Item, ItemLayout},
-    styles::{get_pallete, get_style, Palette, Style},
+    styles::{get_pallete, get_size, get_style, Palette, Size, Style},
 };
 
 pub struct ButtonPage {

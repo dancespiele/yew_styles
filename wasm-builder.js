@@ -20,7 +20,7 @@ const options = {
 (async () => {
     const bundler = new Bundler(entryFiles, options);
 
-    chokidar.watch(['./crate/src', './crate/Cargo.toml']).on('change', async (event, path) => {
+    chokidar.watch(['./crate/src', './crate/Cargo.toml', './crate/yew_styles/src', './crate/yew_styles/Cargo.toml']).on('change', async (event, path) => {
         console.log(`there are new changes in '${path}'. Start to rebuild rustwasm sources`);
 
         bundler.bundle();

@@ -17,6 +17,7 @@ pub enum WrapText {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    pub value: String,
     #[prop_or_default]
     pub class_name: String,
     #[prop_or_default]
@@ -103,12 +104,12 @@ impl Component for FormTextArea {
         html! {
             <>
                 <textarea
+                    value=self.props.value
                     id=self.props.id
-                    class=format!("form-input {} {} {} {}",
+                    class=format!("form-textarea {} {} {}",
                     self.props.class_name,
                     get_pallete(self.props.textarea_style.clone()),
-                    get_size(self.props.textarea_size.clone()),
-                    if self.props.error_state { "error" } else { "" })
+                    get_size(self.props.textarea_size.clone()))
                     oninput=self.link.callback(|input_data| Msg::Input(input_data))
                     onblur=self.link.callback(|focus_event| Msg::Blur(focus_event))
                     onkeypress=self.link.callback(|keyboard_event| Msg::KeyPressed(keyboard_event))
@@ -134,7 +135,7 @@ impl Component for FormTextArea {
 
 fn get_error_message(error_state: bool, error_message: String) -> Html {
     if error_state {
-        html! {<span class="form-input-error">{error_message}</span>}
+        html! {<span class="form-error">{error_message}</span>}
     } else {
         html! {}
     }
@@ -151,6 +152,7 @@ fn get_wrap(wrap_text: WrapText) -> String {
 #[wasm_bindgen_test]
 fn should_create_form_textarea() {
     let props = Props {
+        value: "".to_string(),
         id: "form-input-id-test".to_string(),
         class_name: "form-input-class-test".to_string(),
         oninput_signal: Callback::noop(),
