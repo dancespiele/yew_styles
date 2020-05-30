@@ -104,7 +104,7 @@ struct ItemModel;
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    /// Percent of the layout that will take the item.
+    /// Percent of the layout that will take the item. Required
     pub layouts: Vec<ItemLayout>,
     #[prop_or(AlignSelf::Auto)]
     /// Align the item itself

@@ -14,8 +14,8 @@ pub struct Props {
     #[prop_or(Direction::Row)]
     pub direction: Direction,
     pub children: Children,
-    #[prop_or_default]
     /// General property to add custom class styles
+    #[prop_or_default]
     pub class_name: String,
     /// General property to add custom id
     #[prop_or_default]

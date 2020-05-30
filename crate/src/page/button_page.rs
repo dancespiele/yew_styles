@@ -9,11 +9,11 @@ use yew_styles::{
 
 pub struct ButtonPage {
     link: ComponentLink<Self>,
-    button_type: String,
+    button_types: Vec<Vec<String>>,
 }
 
 pub enum Msg {
-    ChangeType(String),
+    ChangeType(String, usize, usize),
 }
 
 #[derive(Clone, Properties)]
@@ -26,14 +26,14 @@ impl Component for ButtonPage {
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         ButtonPage {
             link,
-            button_type: String::from("standard"),
+            button_types: vec![vec!["".to_string(); 3]; 3],
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::ChangeType(type_button) => {
-                self.button_type = type_button;
+            Msg::ChangeType(button_type, index_style, index_size) => {
+                self.button_types[index_style][index_size] = button_type;
             }
         }
         true
@@ -73,10 +73,7 @@ impl Component for ButtonPage {
                 <h2>{"Visual examples"}</h2>
                 <div class="container-button">
                     <div class="buttons-example">
-                        {get_button_styles(self.link.clone())}
-                    </div>
-                    <div class="action">
-                        {self.button_type.clone()}
+                        {get_button_styles(self.link.clone(), self.button_types.clone())}
                     </div>
                 </div>
             </>
@@ -93,32 +90,54 @@ fn to_first_upercase(word: &str) -> String {
     }
 }
 
-fn get_button_styles(link: ComponentLink<ButtonPage>) -> Html {
+fn get_button_styles(link: ComponentLink<ButtonPage>, value: Vec<Vec<String>>) -> Html {
     let styles: Vec<Style> = vec![Style::Regular, Style::Light, Style::Outline];
 
     styles
         .into_iter()
-        .map(move |style| {
+        .enumerate()
+        .map(move |(index_style, style)| {
             html! {
                 <>
                     <h3>{get_style(style.clone()).to_uppercase()}</h3>
-                    {get_sizes(style, link.clone())}
+                    {get_sizes(style, link.clone(), value.clone(), index_style)}
                 </>
             }
         })
         .collect::<Html>()
 }
 
-fn get_sizes(button_style: Style, link: ComponentLink<ButtonPage>) -> Html {
+fn get_sizes(
+    button_style: Style,
+    link: ComponentLink<ButtonPage>,
+    value: Vec<Vec<String>>,
+    index_style: usize,
+) -> Html {
     let sizes: Vec<Size> = vec![Size::Small, Size::Medium, Size::Big];
 
     sizes
         .into_iter()
-        .map(move |size| get_buttons(size, button_style.clone(), link.clone()))
+        .enumerate()
+        .map(move |(index_size, size)| {
+            html! {
+                <>
+                    {get_buttons(size, button_style.clone(), link.clone(), index_style, index_size)}
+                    <div>
+                        {format!("Value: {}", value[index_style][index_size])}
+                    </div>
+                </>
+            }
+        })
         .collect::<Html>()
 }
 
-fn get_buttons(size: Size, button_style: Style, link: ComponentLink<ButtonPage>) -> Html {
+fn get_buttons(
+    size: Size,
+    button_style: Style,
+    link: ComponentLink<ButtonPage>,
+    index_style: usize,
+    index_size: usize,
+) -> Html {
     let button_types: Vec<&str> = vec![
         "Standard",
         "Primary",
@@ -145,11 +164,11 @@ fn get_buttons(size: Size, button_style: Style, link: ComponentLink<ButtonPage>)
         <div class="show-size">
             <h4>{get_size(size.clone()).to_uppercase()}</h4>
             {
-                button_types.into_iter().map(|button_type| {
+                button_types.into_iter().map(|bt| {
                     let button = html! {
                         <>
                             <Button
-                                onclick_signal=link.callback(move |_| Msg::ChangeType(button_type.to_string().clone()))
+                                onclick_signal=link.callback(move |_| Msg::ChangeType(bt.to_string().clone(), index_style,index_size))
                                 class_name="button-page"
                                 button_type=button_types_enum[index].clone()
                                 button_style=button_style.clone()

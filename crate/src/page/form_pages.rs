@@ -83,7 +83,7 @@ impl Component for FormPage {
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Form group"}</h2>
                     <ul>
-                        <li><b>{"method: "}</b>{"in which orientation will show the inputs, select and labels. Options included in "}
+                        <li><b>{"orientation: "}</b>{"in which orientation will show the inputs, select and labels. Options included in "}
                             <code>{"Orientation"}</code>{". Default "}<code>{"Vertical"}</code>{"."}</li>
                         <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                         <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
@@ -93,7 +93,37 @@ impl Component for FormPage {
                 </Item>
 
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Form label"}</h2>
+                    <ul>
+                        <li><b>{"text: "}</b>{"text of the label. Required"}</li>
+                        <li><b>{"label_for: "}</b>{"the id of a labelable form-related element in the same document as the "}
+                        <code>{"<label>"}</code>{" element"}</li>
+                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                    </ul>
+
+                    <p>{"The code example is in "}<RouterAnchor<AppRouter> route=AppRouter::BasicFormPath>{"Basic Form page"}</RouterAnchor<AppRouter>></p>
+                </Item>
+
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Form Submit"}</h2>
+                    <ul>
+                        <li><b>{"value: "}</b>{"text of submit. Required"}</li>
+                        <li><b>{"submit_type: "}</b>{"type submit style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                        <li><b>{"submit_style: "}</b>{"the submit style according with the purpose. Options included in "}<code>{"Palette"}</code>
+                            {". Default "}<code>{"Standard"}</code>{"."}</li>
+                        <li><b>{"size: "}</b>{"the size of the submit. Options included in "}<code>{"Size"}</code>
+                            {". Default "}<code>{"Medium"}</code>{"."}</li>
+                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                    </ul>
+
+                    <p>{"The code example is in "}<RouterAnchor<AppRouter> route=AppRouter::BasicFormPath>{"Basic Form page"}</RouterAnchor<AppRouter>></p>
+                </Item>
+
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Form input types"}</h2>
+                    <h3>{"Code example"}</h3>
                     <Prism
                         code=input_code()
                         language="rust"
@@ -123,10 +153,10 @@ impl Component for FormPage {
                         <li><b>{"minlength: "}</b>{"minimum length (number of characters) of value"}</li>
                         <li><b>{"maxlength: "}</b>{"maximum length (number of characters) of value. Default 1000"}</li>
                         <li><b>{"pattern: "}</b>{"pattern the value must match to be valid."}</li>
-                        <li><b>{"readonly: "}</b>{"boolean. The value is not editable."}</li>
-                        <li><b>{"required: "}</b>{"boolean. A value is required or must be check for the form to be submittable."}</li>
+                        <li><b>{"readonly: "}</b>{"the value is not editable."}</li>
+                        <li><b>{"required: "}</b>{"a value is required or must be check for the form to be submittable."}</li>
                         <li><b>{"disabled: "}</b>{"whether the form control is disabled."}</li>
-                        <li><b>{"multiple: "}</b>{"boolean. Whether to allow multiple values."}</li>
+                        <li><b>{"multiple: "}</b>{"whether to allow multiple values."}</li>
                         <li><b>{"underline: "}</b>{"underline style instead of box, like Material."}</li>
                         <li><b>{"capture: "}</b>{"media capture input method in file upload controls."}</li>
                         <li><b>{"step: "}</b>{"incremental values that are valid."}</li>
@@ -135,12 +165,13 @@ impl Component for FormPage {
                         <li><b>{"id: "}</b>{"general property to add custom id."}</li>
                         <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
                     </ul>
-
+                    <h3>{"Visual examples"}</h3>
                     {get_form_inputs(self)}
                 </Item>
 
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Form select types"}</h2>
+                    <h3>{"Code example"}</h3>
                     <Prism
                         code=select_code()
                         language="rust"
@@ -152,21 +183,23 @@ impl Component for FormPage {
                         <li><b>{"options: "}</b>{"different options to select. Required."}</li>
                         <li><b>{"onchange_signal: "}</b>{"signal to emit the event change. Required."}</li>
                         <li><b>{"autofocus: "}</b>{"automatically focus the form control when the page is loaded."}</li>
-                        <li><b>{"required: "}</b>{"boolean. A value is required or must be check for the form to be submittable."}</li>
+                        <li><b>{"required: "}</b>{"a value is required or must be check for the form to be submittable."}</li>
                         <li><b>{"disabled: "}</b>{"whether the form control is disabled."}</li>
-                        <li><b>{"multiple: "}</b>{"boolean. Whether to allow multiple values."}</li>
-                        <li><b>{"size: "}</b>{"If the control is presented as a scrolling list box,
+                        <li><b>{"multiple: "}</b>{"Whether to allow multiple values."}</li>
+                        <li><b>{"size: "}</b>{"if the control is presented as a scrolling list box,
                             this attribute represents the number of rows in the list that should be visible at one time."}</li>
                         <li><b>{"error_state: "}</b>{"error state for validation."}</li>
                         <li><b>{"error_message: "}</b>{"show error message when error_state is true."}</li>
                         <li><b>{"id: "}</b>{"general property to add custom id."}</li>
                         <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
                     </ul>
+                    <h3>{"Visual examples"}</h3>
                     {get_select_form(self)}
                 </Item>
 
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Form textarea types"}</h2>
+                    <h3>{"Code example"}</h3>
                     <Prism
                         code=textarea_code()
                         language="rust"
@@ -177,9 +210,9 @@ impl Component for FormPage {
                         <li><b>{"textarea_type: "}</b>{"the textarea type. Options included in "}<code>{"InputType"}</code>
                             {". Default "}<code>{"Text"}</code>{"."}</li>
                         <li><b>{"name: "}</b>{"the name of the textarea."}</li>
-                        <li><b>{"textarea_style: "}</b>{"the input style according with the purpose. Options included in "}<code>{"Palette"}</code>
+                        <li><b>{"textarea_style: "}</b>{"the textarea style according with the purpose. Options included in "}<code>{"Palette"}</code>
                             {". Default "}<code>{"Standard"}</code>{"."}</li>
-                        <li><b>{"textarea_size: "}</b>{"the size of the input. Options included in "}<code>{"Size"}</code>
+                        <li><b>{"textarea_size: "}</b>{"the size of the textarea. Options included in "}<code>{"Size"}</code>
                             {". Default "}<code>{"Medium"}</code>{"."}</li>
                         <li><b>{"oninput_signal: "}</b>{"signal to emit the event input."}</li>
                         <li><b>{"onblur_signal: "}</b>{"signal to emit the event blur."}</li>
@@ -189,8 +222,8 @@ impl Component for FormPage {
                         <li><b>{"autocomplete: "}</b>{"hint for form autofill feature."}</li>
                         <li><b>{"minlength: "}</b>{"minimum length (number of characters) of value"}</li>
                         <li><b>{"maxlength: "}</b>{"maximum length (number of characters) of value. Default 1000"}</li>
-                        <li><b>{"readonly: "}</b>{"boolean. The value is not editable."}</li>
-                        <li><b>{"required: "}</b>{"boolean. A value is required or must be check for the form to be submittable."}</li>
+                        <li><b>{"readonly: "}</b>{"the value is not editable."}</li>
+                        <li><b>{"required: "}</b>{"a value is required or must be check for the form to be submittable."}</li>
                         <li><b>{"disabled: "}</b>{"whether the form control is disabled."}</li>
                         <li><b>{"wrap: "}</b>{"indicates how the control wraps text. Options included in "}<code>{"WrapText"}</code>
                             {". Default "}<code>{"Soft"}</code>{"."}</li>
@@ -203,6 +236,7 @@ impl Component for FormPage {
                         <li><b>{"id: "}</b>{"general property to add custom id."}</li>
                         <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
                     </ul>
+                    <h3>{"Visual examples"}</h3>
                     {get_textarea(self)}
                 </Item>
             </>

@@ -3,6 +3,70 @@ use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App, ChangeData};
 
+/// # Form Select
+///
+/// ## Example
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew_styles::forms::form_select::FormSelect;
+/// use yew_styles::styles::{Size};
+///
+/// pub struct FormSelectExample {
+///     pub link: ComponentLink<Self>,
+///     pub value: String,
+/// }
+///
+/// pub enum Msg {
+///     Select(String),
+/// }
+///
+/// impl Component for FormSelectExample {
+///     type Message = Msg;
+///     type Properties = ();
+///     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         FormSelectExample {
+///             link,
+///             value: "".to_string(),
+///         }
+///     }
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::Select(value) => {
+///                 self.value = value;
+///             }
+///         }
+///         true
+///     }
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///         html!{
+///             <FormSelect
+///                 select_size=Size::Medium
+///                 onchange_signal = form_page.link.callback(|e: ChangeData|
+///                     match e {
+///                         ChangeData::Select(element) => {
+///                             let value = element.value();
+///                             Msg::Select(value)
+///                         },
+///                         _ => unreachable!(),
+///                     }
+///                 )
+///                 options=html!{
+///                     <>
+///                         <option value="" disabled=true>{"Select library"}</option>
+///                         <option value="yew">{"Yew"}</option>
+///                         <option value="yew_styles">{"Yew Styles"}</option>
+///                         <option value="yew_prism">{"Yew prism"}</option>
+///                     </>
+///                 }
+///             />
+///         }
+///     }
+/// ```
 pub struct FormSelect {
     link: ComponentLink<Self>,
     props: Props,
@@ -10,29 +74,42 @@ pub struct FormSelect {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// Different options to select. Required
     pub options: Html,
     pub onchange_signal: Callback<ChangeData>,
     /// Whether or not the selector should be disabled.
     #[prop_or_default]
     pub disabled: bool,
+    /// The size of the select
     #[prop_or(Size::Medium)]
     pub select_size: Size,
+    /// The name of the input
     #[prop_or_default]
     pub name: String,
+    /// A value is required or must be check for the form to be submittable
     #[prop_or_default]
     pub required: bool,
+    /// Whether to allow multiple values
     #[prop_or_default]
     pub multiple: bool,
+    /// If the control is presented as a scrolling list box,
+    /// this attribute represents the number of rows in the
+    /// list that should be visible at one time
     #[prop_or_default]
     pub size: u16,
+    /// Automatically focus the form control when the page is loaded
     #[prop_or_default]
     pub autofocus: bool,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// Error state for validation
     #[prop_or_default]
     pub error_state: bool,
+    /// show error message when error_state is true.
     #[prop_or_default]
     pub error_message: String,
+    /// general property to add custom id
     #[prop_or_default]
     pub id: String,
 }

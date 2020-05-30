@@ -2,10 +2,70 @@ use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
 
+/// # Form Group
+///
+/// ## Example
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew_styles::forms::{
+///     form_label::FormLabel,
+///     form_group::{FormGroup, Orientation},
+///     form_textarea::FormTextArea,
+/// };
+/// use yew_styles::styles::{Palette, Size};
+///
+/// pub struct FormGroupExample {
+///     pub link: ComponentLink<Self>,
+///     pub value: String,
+/// }
+///
+/// pub enum Msg {
+///     Input(String),
+/// }
+///
+/// impl Component for FormGroupExample {
+///     type Message = Msg;
+///     type Properties = ();
+///     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         FormGroupExample {
+///             link,
+///             value: "".to_string(),
+///         }
+///     }
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::Input(value) => {
+///                 self.value = value;
+///             }
+///         }
+///         true
+///     }
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///         html!{
+///             <FormGroup orientation=Orientation::Vertical>
+///                 <FormLabel
+///                 text="Info small textarea"
+///                 />
+///                 <FormTextArea placeholder="write here"
+///                     value=form_page.value.clone()
+///                     textarea_size=Size::Small
+///                     textarea_style=Palette::Info
+///                     oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value))
+///                 />
+///             </FormGroup>
+///         }
+///     }
+/// ```
 pub struct FormGroup {
     props: Props,
 }
 
+/// Orientation type
 #[derive(Clone)]
 pub enum Orientation {
     Horizontal,
@@ -14,10 +74,13 @@ pub enum Orientation {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// In which orientation will show the inputs, select and labels
     #[prop_or(Orientation::Vertical)]
     pub orientation: Orientation,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
     #[prop_or_default]
     pub id: String,
     pub children: Children,

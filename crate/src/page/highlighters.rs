@@ -65,8 +65,9 @@ pub fn input_code() -> String {
     id=\"form-input-test\"
     oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value))
     placeholder=\"test\"
-    underline=false/>"
-        .to_string()
+    underline=false
+/>"
+    .to_string()
 }
 
 pub fn select_code() -> String {
@@ -100,4 +101,147 @@ pub fn textarea_code() -> String {
     oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value))
 />"
     .to_string()
+}
+
+pub fn basic_form_code() -> String {
+    "<Container wrap=Wrap::Wrap direction=Direction::Row>
+    <Item layouts=vec!(ItemLayout::ItXs(12))>
+        <h1>{\"Basic Form\"}</h1>
+    </Item>
+    <Item layouts=vec!(ItemLayout::ItXs(12))>
+        <Form onsubmit_signal=self.link.callback(|e| Msg::Submit)>
+            <Container wrap=Wrap::Wrap direction=Direction::Row>
+                <Item layouts=vec!(ItemLayout::ItM(6), ItemLayout::ItXs(12))>
+                    <FormGroup orientation=Orientation::Horizontal>
+                        <FormLabel text=\"First name: \"/>
+                        <FormInput
+                            value=match self.fields.get(\"first_name\") {
+                                Some(value) => value,
+                                None => \"\"
+                            }
+                            error_state=self.empty_fields.iter().any(|field| field == \"first_name\")
+                            error_message=\"First name field is required\"
+                            input_type=InputType::Text
+                            oninput_signal=self.link.callback(|e: InputData| Msg::FirstName(e.value))
+                        />
+                    </FormGroup>
+                    <FormGroup orientation=Orientation::Horizontal>
+                        <FormLabel text=\"Last name: \"/>
+                        <FormInput
+                            value=match self.fields.get(\"last_name\") {
+                                Some(value) => value,
+                                None => \"\"
+                            }
+                            error_state=self.empty_fields.iter().any(|field| field == \"last_name\")
+                            error_message=\"Last name field is required\"
+                            input_type=InputType::Text
+                            oninput_signal=self.link.callback(|e: InputData| Msg::LastName(e.value))
+                        />
+                    </FormGroup>
+                    <FormGroup orientation=Orientation::Horizontal>
+                        <FormLabel text=\"Email: \"/>
+                        <FormInput
+                            value=match self.fields.get(\"email\") {
+                                Some(value) => value,
+                                None => \"\"
+                            }
+                            error_state=self.empty_fields.iter().any(|field| field == \"email\")
+                            error_message=\"Email field is required\"
+                            input_type=InputType::Email
+                            oninput_signal=self.link.callback(|e: InputData| Msg::Email(e.value))
+                        />
+                    </FormGroup>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItM(6), ItemLayout::ItXs(12))>
+                    <FormGroup orientation=Orientation::Vertical>
+                        <FormLabel text=\"Specialty:\"/>
+                        <FormSelect
+                            id=\"specialty\"
+                            error_state=self.empty_fields.iter().any(|field| field == \"specialty\")
+                            error_message=\"Select specialty is required\"
+                            onchange_signal=self.link.callback(|e: ChangeData| {
+                                match e {
+                                    ChangeData::Select(element) => {
+                                        let value = element.value();
+                                        Msg::Specialty(value)
+                                    },
+                                    _ => unreachable!()
+                                }
+                            })
+                            options=html!{
+                                <>
+                                <option value=\"\" disabled=true>{\"Choose specialty\"}</option>
+                                    <option value=\"frontend\">{\"Frontend\"}</option>
+                                    <option value=\"backend\">{\"Backend\"}</option>
+                                </>
+                            }
+                        />
+                    </FormGroup>
+                    <FormGroup orientation=Orientation::Vertical>
+                        <FormLabel text=\"Skills:\"/>
+                        <FormSelect
+                            id=\"skills\"
+                            multiple=true
+                            onchange_signal=self.link.callback(|e: ChangeData| {
+                                match e {
+                                    ChangeData::Select(element) => {
+                                        let mut values = vec![];
+                                        let options = element.options();
+
+                                        for i in 0..options.length() {
+                                            let option = options
+                                                .get_with_index(i)
+                                                .unwrap()
+                                                .dyn_into::<HtmlOptionElement>()
+                                                .unwrap();
+                                            if option.selected() {
+                                                values.push(option.value());
+                                            }
+                                        }
+                                        Msg::Skills(values)
+                                    },
+                                    _ => unreachable!()
+                                }
+                            })
+                            options=html!{
+                                <>
+                                    <option value=\"yew\">{\"Yew.rs\"}</option>
+                                    <option value=\"rustwasm\">{\"Rustwasm\"}</option>
+                                    <option value=\"rust\">{\"Rust\"}</option>
+                                    <option value=\"warp\">{\"Warp\"}</option>
+                                    <option value=\"tokio\">{\"Tokio\"}</option>
+                                </>
+                            }
+                        />
+                    </FormGroup>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <FormGroup orientation=Orientation::Vertical>
+                        <FormLabel text=\"Cover letter:\"/>
+                        <FormTextArea
+                            value=match self.fields.get(\"cover_letter\") {
+                                Some(value) => value,
+                                None => \"\"
+                            }
+                            error_state=self.empty_fields.iter().any(|field| field == \"cover_letter\")
+                            error_message=\"cover letter is required\"
+                            oninput_signal=self.link.callback(|e: InputData| Msg::CoverLetter(e.value))/>
+                    </FormGroup>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItM(3))>
+                    <FormGroup>
+                    <FormSubmit
+                        value=\"Submit application\"
+                        submit_type=Palette::Success
+                        submit_style=Style::Outline
+                    />
+                    </FormGroup>
+                </Item>
+            </Container>
+        </Form>
+    </Item>
+    <Item layouts=vec!(ItemLayout::ItXs(12))>
+        {get_result(self.result.clone())}
+    </Item>
+</Container>".to_string()
 }

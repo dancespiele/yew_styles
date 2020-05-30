@@ -1,5 +1,6 @@
 use yew::prelude::*;
 
+/// List of icons
 #[derive(Clone)]
 pub enum Icon {
     Menu,
@@ -7,15 +8,23 @@ pub enum Icon {
 
 pub enum Msg {}
 
+/// # Assets
+///
+/// Add a svg Icon
 pub struct Assets {
     pub props: Props,
 }
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// List of Icons
     pub asset: Icon,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
 }
 
 impl Component for Assets {
@@ -35,19 +44,24 @@ impl Component for Assets {
     }
 
     fn view(&self) -> Html {
-        get_icon(self.props.asset.clone(), self.props.class_name.clone())
+        get_icon(
+            self.props.asset.clone(),
+            self.props.class_name.clone(),
+            self.props.id.clone(),
+        )
     }
 }
 
-fn get_icon(icon: Icon, class_name: String) -> Html {
+fn get_icon(icon: Icon, class_name: String, id: String) -> Html {
     match icon {
-        Icon::Menu => get_menu(class_name),
+        Icon::Menu => get_menu(class_name, id),
     }
 }
 
-fn get_menu(class_name: String) -> Html {
+fn get_menu(class_name: String, id: String) -> Html {
     html! {
         <svg class=class_name
+            id=id
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512">
             <path id="Selección"

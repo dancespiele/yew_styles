@@ -107,7 +107,7 @@ pub struct Props {
     /// Button styles. Options included in `Style`
     #[prop_or(Style::Regular)]
     pub button_style: Style,
-    /// Click event for button
+    /// Click event for button. Required
     pub onclick_signal: Callback<()>,
     pub children: Children,
 }

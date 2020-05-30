@@ -3,21 +3,30 @@ use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
 
+/// # Form Submit
+///
+/// see example in Form
 pub struct FormSubmit {
     props: Props,
 }
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// Text of submit. Required
     pub value: String,
+    /// Type submit style
     #[prop_or(Palette::Standard)]
     pub submit_type: Palette,
+    /// the submit style according with the purpose
     #[prop_or(Style::Regular)]
     pub submit_style: Style,
+    /// the size of the submit
     #[prop_or(Size::Medium)]
     pub size: Size,
+    /// general property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// general property to add custom id
     #[prop_or_default]
     pub id: String,
 }
