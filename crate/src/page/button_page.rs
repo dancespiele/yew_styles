@@ -64,7 +64,9 @@ impl Component for ButtonPage {
                         <li><b>{"button_type: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                         <li><b>{"size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
                         <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
-                        <li><b>{"onsignal: "}</b>{"click event for button. Required."}</li>
+                        <li><b>{"onclick_signal: "}</b>{"click event for button. Required."}</li>
+                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                     </ul>
                 </Item>
 
@@ -147,7 +149,7 @@ fn get_buttons(size: Size, button_style: Style, link: ComponentLink<ButtonPage>)
                     let button = html! {
                         <>
                             <Button
-                                onsignal=link.callback(move |_| Msg::ChangeType(button_type.to_string().clone()))
+                                onclick_signal=link.callback(move |_| Msg::ChangeType(button_type.to_string().clone()))
                                 class_name="button-page"
                                 button_type=button_types_enum[index].clone()
                                 button_style=button_style.clone()

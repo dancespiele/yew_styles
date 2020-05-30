@@ -9,20 +9,27 @@ pub struct Form {
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    // get all the values from the form
+    /// signal to emit the event submit.
     #[prop_or(Callback::noop())]
     pub onsubmit_signal: Callback<Event>,
     pub children: Children,
     #[prop_or_default]
     pub action: String,
-    #[prop_or_default]
-    pub method: String,
+    #[prop_or(Method::Post)]
+    pub method: Method,
     #[prop_or_default]
     pub name: String,
     #[prop_or_default]
     pub class_name: String,
     #[prop_or_default]
     pub id: String,
+}
+
+#[derive(Clone)]
+pub enum Method {
+    Post,
+    Get,
+    Dialog,
 }
 
 pub enum Msg {
@@ -57,7 +64,7 @@ impl Component for Form {
             <form
                 onsubmit=self.link.callback(|e: Event| Msg::Submitted(e))
                 action=self.props.action
-                method=self.props.method
+                method=get_method(self.props.method.clone())
                 name=self.props.name
                 class=format!("form {}", self.props.class_name)
                 id=format!("{}", self.props.id)
@@ -68,13 +75,21 @@ impl Component for Form {
     }
 }
 
+fn get_method(method: Method) -> String {
+    match method {
+        Method::Get => "get".to_string(),
+        Method::Post => "post".to_string(),
+        Method::Dialog => "dialog".to_string(),
+    }
+}
+
 #[wasm_bindgen_test]
 fn should_create_form_component() {
     let props = Props {
         class_name: "form-test".to_string(),
         id: "form-test-id".to_string(),
         onsubmit_signal: Callback::noop(),
-        method: "".to_string(),
+        method: Method::Post,
         action: "".to_string(),
         name: "form-test".to_string(),
         children: Children::new(vec![html! {<input id="result"/>}]),
@@ -112,7 +127,7 @@ fn should_submit_the_form() {
         class_name: "form-test".to_string(),
         id: "form-test-id".to_string(),
         onsubmit_signal: onsubmit,
-        method: "".to_string(),
+        method: Method::Post,
         action: "".to_string(),
         name: "form-test".to_string(),
         children: Children::new(vec![html! {<input/>}]),

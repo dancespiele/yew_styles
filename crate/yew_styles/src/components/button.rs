@@ -53,7 +53,7 @@ use yew::{utils, App};
 ///     fn view(&self) -> Html {
 ///        html! {
 ///          <Button
-///             onsignal=link.callback(move |_| Msg::Clicked("Hello world"))
+///             onclick_signal=link.callback(move |_| Msg::Clicked("Hello world"))
 ///             class_name="hello-world"
 ///             button_type=Pallete::Standard
 ///             button_style=Style::Light
@@ -73,7 +73,7 @@ struct ButtonProps {
     size: String,
     button_style: String,
     class_name: String,
-    onsignal: Callback<()>,
+    onclick_signal: Callback<()>,
     children: Children,
 }
 
@@ -84,7 +84,7 @@ impl From<Props> for ButtonProps {
             size: get_size(props.size),
             button_style: get_style(props.button_style),
             class_name: props.class_name,
-            onsignal: props.onsignal,
+            onclick_signal: props.onclick_signal,
             children: props.children,
         }
     }
@@ -108,7 +108,7 @@ pub struct Props {
     #[prop_or(Style::Regular)]
     pub button_style: Style,
     /// Click event for button
-    pub onsignal: Callback<()>,
+    pub onclick_signal: Callback<()>,
     pub children: Children,
 }
 
@@ -130,7 +130,7 @@ impl Component for Button {
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked => {
-                self.props.onsignal.emit(());
+                self.props.onclick_signal.emit(());
             }
         };
 
@@ -190,12 +190,12 @@ fn should_trigger_action_when_button_clicked() {
         id: String::from("button-id-test"),
         size: Size::Medium,
         button_style: Style::Regular,
-        onsignal: onchange_name,
+        onclick_signal: onchange_name,
         button_type: Palette::Standard,
         children: Children::new(vec![html! {<div id="submenu">{"another menu"}</div>}]),
     };
 
-    props.onsignal.emit(());
+    props.onclick_signal.emit(());
 
     let updated_content = window()
         .unwrap()
@@ -216,7 +216,7 @@ fn should_create_button_component() {
         id: String::from("button-id-test"),
         size: Size::Medium,
         button_style: Style::Regular,
-        onsignal: Callback::noop(),
+        onclick_signal: Callback::noop(),
         button_type: Palette::Standard,
         children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
     };

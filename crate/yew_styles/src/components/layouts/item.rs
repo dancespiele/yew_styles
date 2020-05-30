@@ -117,7 +117,7 @@ pub struct Props {
     pub id: String,
     /// Click event for the item
     #[prop_or(Callback::noop())]
-    pub onsignal: Callback<()>,
+    pub onclick_signal: Callback<()>,
     pub children: Children,
 }
 
@@ -134,7 +134,7 @@ impl Component for Item {
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked => {
-                self.props.onsignal.emit(());
+                self.props.onclick_signal.emit(());
             }
         };
 
@@ -224,7 +224,7 @@ fn should_create_item() {
         align_self: AlignSelf::Center,
         class_name: "item-test".to_string(),
         id: "item-id-test".to_string(),
-        onsignal: Callback::noop(),
+        onclick_signal: Callback::noop(),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),
@@ -264,13 +264,13 @@ fn should_create_clickable_item() {
         align_self: AlignSelf::Center,
         class_name: "item-test".to_string(),
         id: "item-id-test".to_string(),
-        onsignal: on_add_item_div,
+        onclick_signal: on_add_item_div,
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),
     };
 
-    props_item.onsignal.emit(());
+    props_item.onclick_signal.emit(());
 
     let updated_content = window()
         .unwrap()
