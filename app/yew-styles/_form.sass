@@ -1,0 +1,78 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+
+$underline: false
+
+.form-group
+    margin: 10px
+    &.vertical
+        label, input
+            display: block
+    &.horizontal
+        label, input
+            display: inline
+
+.form-label
+    margin-right: 5px
+
+.form-submit
+    padding: 5px 10px
+    border: none
+    border-radius: 4px
+    cursor: pointer
+    font-family: Rosario
+
+    @each $name, $size in $sizes
+        &.#{$name}
+            font-size: $size
+
+    &.regular
+        @include pallete-style($regular-style)
+
+    &.outline
+        @include pallete-style($outline-style)
+    &.light
+        @include pallete-style($light-style)
+
+.form-input
+    @include form-style($outline-style, false)
+    padding: 5px
+    box-sizing: border-box
+    border-radius: 5px
+    width: 100%
+
+    &.small
+        padding: 2px
+
+    &.big
+        padding: 10px
+
+    &.underline
+            @include form-style($outline-style, true)
+
+.form-select
+    padding: 3px
+    width: 100%
+    &.small
+        padding: 0
+
+    &.big
+        padding: 5px
+
+.form-textarea
+    @include form-style($outline-style, false)
+    height: 100px
+    width: 100%
+    padding: 5px
+    box-sizing: border-box
+    border-radius: 5px
+
+    &.small
+        height: 50px
+
+    &.big
+        height: 250px
+
+.form-error
+    color: $error-color
+    font-size: 12px

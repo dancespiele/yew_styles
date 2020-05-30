@@ -104,7 +104,7 @@ struct ItemModel;
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    /// Percent of the layout that will take the item.
+    /// Percent of the layout that will take the item. Required
     pub layouts: Vec<ItemLayout>,
     #[prop_or(AlignSelf::Auto)]
     /// Align the item itself
@@ -112,9 +112,12 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
     /// Click event for the item
     #[prop_or(Callback::noop())]
-    pub onsignal: Callback<()>,
+    pub onclick_signal: Callback<()>,
     pub children: Children,
 }
 
@@ -131,7 +134,7 @@ impl Component for Item {
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked => {
-                self.props.onsignal.emit(());
+                self.props.onclick_signal.emit(());
             }
         };
 
@@ -144,8 +147,9 @@ impl Component for Item {
         }
     }
 
-    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
-        false
+    fn change(&mut self, props: Self::Properties) -> ShouldRender {
+        self.props = props;
+        true
     }
 
     fn view(&self) -> Html {
@@ -219,7 +223,8 @@ fn should_create_item() {
         layouts: vec![ItemLayout::ItXs(12)],
         align_self: AlignSelf::Center,
         class_name: "item-test".to_string(),
-        onsignal: Callback::noop(),
+        id: "item-id-test".to_string(),
+        onclick_signal: Callback::noop(),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),
@@ -258,13 +263,14 @@ fn should_create_clickable_item() {
         layouts: vec![ItemLayout::ItXs(12)],
         align_self: AlignSelf::Center,
         class_name: "item-test".to_string(),
-        onsignal: on_add_item_div,
+        id: "item-id-test".to_string(),
+        onclick_signal: on_add_item_div,
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),
     };
 
-    props_item.onsignal.emit(());
+    props_item.onclick_signal.emit(());
 
     let updated_content = window()
         .unwrap()

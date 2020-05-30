@@ -44,12 +44,14 @@ impl Component for LayoutsPage {
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Container properties"}</h2>
                     <ul>
-                        <li><b>{"direction: "}</b>{"which direction are placing the items. Options include in "}<code>{"Direction"}</code>{". Required."}</li>
+                        <li><b>{"direction: "}</b>{"which direction are placing the items. Options included in "}<code>{"Direction"}</code>{". Required."}</li>
                         <li><b>{"wrap: "}</b>{"set a wrap for the items. Options included in "}<code>{"Wrap"}</code>{". Default "}<code>{"Wrap"}</code>{"."}</li>
                         <li><b>{"justify_content: "}</b>{"set how will be justified the content. Options included in "}<code>{"JustifyContent"}</code>{". Default "}<code>{"FlexStart(No Mode)"}</code>{"."}</li>
                         <li><b>{"align_content: "}</b>{"set how will be aligned the content. Options included in "}<code>{"AlignContent"}</code>{". Default "}<code>{"Stretch(NoMode)"}</code>{"."}</li>
                         <li><b>{"align_items: "}</b>{"set how will be aligned the items. Options included in "}<code>{"AlignItems"}</code>{". Default "}<code>{"Stretch(NoMode)"}</code>{"."}</li>
                         <li><b>{"mode: "}</b>{"safe postion handler which is additional option for justify_content, align_content and align_items. Options included in "}<code>{"Mode"}</code>{". Default "}<code>{"NoMode"}</code>{"."}</li>
+                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                     </ul>
                 </Item>
 
@@ -58,7 +60,9 @@ impl Component for LayoutsPage {
                     <ul>
                         <li><b>{"layouts: "}</b>{"percent of the layout that will take the item. The value is a vector "}<code>{"Vec<ItemLayout>"}</code>{". Required"}</li>
                         <li><b>{"align_self: "}</b>{"align the item itself. Options include in "}<code>{"AlignSelf"}</code>{". Default "}<code>{"Auto"}</code></li>
-                        <li><b>{"onsignal: "}</b>{"click event for the item. Default "}<code>{"noop()"}</code></li>
+                        <li><b>{"onclick_signal: "}</b>{"click event for the item. Default "}<code>{"noop()"}</code></li>
+                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                     </ul>
                 </Item>
 

@@ -1,0 +1,267 @@
+use crate::styles::{get_pallete, get_size, Palette, Size};
+use wasm_bindgen_test::*;
+use yew::prelude::*;
+use yew::{utils, App};
+
+/// # Form Textearea
+///
+/// ## Example
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew_styles::forms::form_textarea::FormTextArea;
+/// use yew_styles::styles::{Palette, Size};
+///
+/// pub struct FormTextAreaExample {
+///     pub link: ComponentLink<Self>,
+///     pub value: String,
+/// }
+///
+/// pub enum Msg {
+///     Input(String),
+/// }
+///
+/// impl Component for FormTextAreaExample {
+///     type Message = Msg;
+///     type Properties = ();
+///     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         FormTextAreaExample {
+///             link,
+///             value: "".to_string(),
+///         }
+///     }
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::Input(value) => {
+///                 self.value = value;
+///             }
+///         }
+///         true
+///     }
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///         html!{
+///             <FormTextArea placeholder="write here"
+///                 value=form_page.value.clone()
+///                 textarea_size=Size::Small
+///                 textarea_style=Palette::Info
+///                 oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value))
+///             />
+///         }
+///     }
+/// ```
+pub struct FormTextArea {
+    link: ComponentLink<Self>,
+    props: Props,
+}
+
+/// Type of wraps. You can find more information [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea)
+#[derive(Clone)]
+pub enum WrapText {
+    Hard,
+    Soft,
+    Off,
+}
+
+#[derive(Clone, Properties)]
+pub struct Props {
+    /// Current value of the form control. Required
+    pub value: String,
+    /// General property to add custom class styles
+    #[prop_or_default]
+    pub class_name: String,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
+    /// Content to be appear in the form control when the form control is empty
+    #[prop_or_default]
+    pub placeholder: String,
+    /// The input style according with the purpose
+    #[prop_or(Palette::Standard)]
+    pub textarea_style: Palette,
+    /// The size of the input
+    #[prop_or(Size::Medium)]
+    pub textarea_size: Size,
+    /// Maximum length (number of characters) of value
+    #[prop_or(1000)]
+    pub maxlength: u32,
+    /// Minimum length (number of characters) of value
+    #[prop_or_default]
+    pub minlength: u16,
+    /// Whether the form control is disabled
+    #[prop_or_default]
+    pub disabled: bool,
+    /// The name of the textarea
+    #[prop_or_default]
+    pub name: String,
+    /// The value is not editable
+    #[prop_or_default]
+    pub readonly: bool,
+    /// A value is required or must be check for the form to be submittable
+    #[prop_or_default]
+    pub required: bool,
+    /// Automatically focus the form control when the page is loaded
+    #[prop_or_default]
+    pub autofocus: bool,
+    /// Hint for form autofill feature
+    #[prop_or_default]
+    pub autocomplete: bool,
+    /// The visible width of the text control
+    #[prop_or_default]
+    pub cols: u16,
+    /// The number of visible text lines for the control
+    #[prop_or_default]
+    pub rows: u16,
+    /// Specifies whether the <textarea>
+    /// is subject to spell checking by the underlying browser/OS
+    #[prop_or_default]
+    pub spellcheck: bool,
+    /// Signal to emit the event input
+    #[prop_or(Callback::noop())]
+    pub oninput_signal: Callback<InputData>,
+    /// Signal to emit the event blur
+    #[prop_or(Callback::noop())]
+    pub onblur_signal: Callback<FocusEvent>,
+    /// Signal to emit the event keypress
+    #[prop_or(Callback::noop())]
+    pub onkeypress_signal: Callback<KeyboardEvent>,
+    /// Error state for validation
+    #[prop_or_default]
+    pub error_state: bool,
+    /// Show error message when error_state is true
+    #[prop_or_default]
+    pub error_message: String,
+    /// Indicates how the control wraps text
+    #[prop_or(WrapText::Soft)]
+    pub wrap: WrapText,
+}
+
+#[derive(Debug)]
+pub enum Msg {
+    Input(InputData),
+    Blur(FocusEvent),
+    KeyPressed(KeyboardEvent),
+}
+
+impl Component for FormTextArea {
+    type Message = Msg;
+    type Properties = Props;
+
+    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+        Self { link, props }
+    }
+
+    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+        match msg {
+            Msg::Input(input_data) => {
+                self.props.oninput_signal.emit(input_data);
+            }
+            Msg::Blur(focus_event) => {
+                self.props.onblur_signal.emit(focus_event);
+            }
+            Msg::KeyPressed(keyboard_event) => {
+                self.props.onkeypress_signal.emit(keyboard_event);
+            }
+        };
+
+        true
+    }
+
+    fn change(&mut self, props: Self::Properties) -> ShouldRender {
+        self.props = props;
+        true
+    }
+
+    fn view(&self) -> Html {
+        html! {
+            <>
+                <textarea
+                    value=self.props.value
+                    id=self.props.id
+                    class=format!("form-textarea {} {} {}",
+                    self.props.class_name,
+                    get_pallete(self.props.textarea_style.clone()),
+                    get_size(self.props.textarea_size.clone()))
+                    oninput=self.link.callback(|input_data| Msg::Input(input_data))
+                    onblur=self.link.callback(|focus_event| Msg::Blur(focus_event))
+                    onkeypress=self.link.callback(|keyboard_event| Msg::KeyPressed(keyboard_event))
+                    name=self.props.name
+                    autocomplete=self.props.autocomplete
+                    autofocus=self.props.autofocus
+                    required=self.props.required
+                    readonly=self.props.readonly
+                    disabled=self.props.disabled
+                    rows=self.props.rows
+                    placeholder=self.props.placeholder
+                    cols=self.props.cols
+                    spellcheck=self.props.spellcheck
+                    minlength=self.props.minlength
+                    maxlength=self.props.maxlength
+                    warp=get_wrap(self.props.wrap.clone())
+                />
+                {get_error_message(self.props.error_state, self.props.error_message.clone())}
+            </>
+        }
+    }
+}
+
+fn get_error_message(error_state: bool, error_message: String) -> Html {
+    if error_state {
+        html! {<span class="form-error">{error_message}</span>}
+    } else {
+        html! {}
+    }
+}
+
+fn get_wrap(wrap_text: WrapText) -> String {
+    match wrap_text {
+        WrapText::Hard => "hard".to_string(),
+        WrapText::Off => "soft".to_string(),
+        WrapText::Soft => "off".to_string(),
+    }
+}
+
+#[wasm_bindgen_test]
+fn should_create_form_textarea() {
+    let props = Props {
+        value: "".to_string(),
+        id: "form-input-id-test".to_string(),
+        class_name: "form-input-class-test".to_string(),
+        oninput_signal: Callback::noop(),
+        onblur_signal: Callback::noop(),
+        onkeypress_signal: Callback::noop(),
+        error_message: "invalid input".to_string(),
+        error_state: false,
+        name: "input-test".to_string(),
+        textarea_style: Palette::Standard,
+        textarea_size: Size::Medium,
+        placeholder: "test input".to_string(),
+        required: false,
+        autocomplete: false,
+        autofocus: false,
+        maxlength: 100,
+        minlength: 0,
+        readonly: false,
+        disabled: false,
+        cols: 20,
+        rows: 10,
+        spellcheck: true,
+        wrap: WrapText::Hard,
+    };
+
+    let form_textarea: App<FormTextArea> = App::new();
+
+    form_textarea.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        props,
+    );
+
+    let form_textarea_element = utils::document()
+        .get_element_by_id("form-input-id-test")
+        .unwrap();
+
+    assert_eq!(form_textarea_element.tag_name(), "TEXTAREA");
+}

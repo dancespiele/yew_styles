@@ -24,12 +24,28 @@ pub fn get_pallete(palette: Palette) -> String {
     }
 }
 
+/// The standard sizes of the element
+#[derive(Clone)]
+pub enum Size {
+    Small,
+    Medium,
+    Big,
+}
+
 /// Standars button styles
 #[derive(Clone)]
 pub enum Style {
     Regular,
     Outline,
     Light,
+}
+
+pub fn get_size(size: Size) -> String {
+    match size {
+        Size::Small => String::from("small"),
+        Size::Medium => String::from("medium"),
+        Size::Big => String::from("big"),
+    }
 }
 
 pub fn get_style(style: Style) -> String {

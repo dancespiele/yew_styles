@@ -1,16 +1,8 @@
-use crate::styles::{get_pallete, get_style, Palette, Style};
+use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
 use yew::{utils, App};
-
-/// The standard sizes for button
-#[derive(Clone)]
-pub enum Size {
-    Small,
-    Medium,
-    Big,
-}
 
 /// # Button component
 ///
@@ -61,7 +53,7 @@ pub enum Size {
 ///     fn view(&self) -> Html {
 ///        html! {
 ///          <Button
-///             onsignal=link.callback(move |_| Msg::Clicked("Hello world"))
+///             onclick_signal=link.callback(move |_| Msg::Clicked("Hello world"))
 ///             class_name="hello-world"
 ///             button_type=Pallete::Standard
 ///             button_style=Style::Light
@@ -81,7 +73,7 @@ struct ButtonProps {
     size: String,
     button_style: String,
     class_name: String,
-    onsignal: Callback<()>,
+    onclick_signal: Callback<()>,
     children: Children,
 }
 
@@ -92,7 +84,7 @@ impl From<Props> for ButtonProps {
             size: get_size(props.size),
             button_style: get_style(props.button_style),
             class_name: props.class_name,
-            onsignal: props.onsignal,
+            onclick_signal: props.onclick_signal,
             children: props.children,
         }
     }
@@ -106,27 +98,22 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
     /// Three diffent button standard sizes. Options included in `Size`
     #[prop_or(Size::Medium)]
     pub size: Size,
     /// Button styles. Options included in `Style`
     #[prop_or(Style::Regular)]
     pub button_style: Style,
-    /// Click event for button
-    pub onsignal: Callback<()>,
+    /// Click event for button. Required
+    pub onclick_signal: Callback<()>,
     pub children: Children,
 }
 
 pub enum Msg {
     Clicked,
-}
-
-pub fn get_size(size: Size) -> String {
-    match size {
-        Size::Small => String::from("small"),
-        Size::Medium => String::from("medium"),
-        Size::Big => String::from("big"),
-    }
 }
 
 impl Component for Button {
@@ -143,7 +130,7 @@ impl Component for Button {
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked => {
-                self.props.onsignal.emit(());
+                self.props.onclick_signal.emit(());
             }
         };
 
@@ -152,7 +139,7 @@ impl Component for Button {
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         self.props = ButtonProps::from(props);
-        false
+        true
     }
 
     fn view(&self) -> Html {
@@ -200,14 +187,15 @@ fn should_trigger_action_when_button_clicked() {
 
     let props = Props {
         class_name: String::from("test-button"),
+        id: String::from("button-id-test"),
         size: Size::Medium,
         button_style: Style::Regular,
-        onsignal: onchange_name,
+        onclick_signal: onchange_name,
         button_type: Palette::Standard,
         children: Children::new(vec![html! {<div id="submenu">{"another menu"}</div>}]),
     };
 
-    props.onsignal.emit(());
+    props.onclick_signal.emit(());
 
     let updated_content = window()
         .unwrap()
@@ -225,9 +213,10 @@ fn should_trigger_action_when_button_clicked() {
 fn should_create_button_component() {
     let props = Props {
         class_name: String::from("test-button"),
+        id: String::from("button-id-test"),
         size: Size::Medium,
         button_style: Style::Regular,
-        onsignal: Callback::noop(),
+        onclick_signal: Callback::noop(),
         button_type: Palette::Standard,
         children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
     };

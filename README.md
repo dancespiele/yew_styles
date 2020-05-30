@@ -23,7 +23,7 @@ Each component is splited in two parts, the logical yew component and its sass m
 however, it is not necessary to worry about the sass module only it needs to be include in the project
 ### How install it
 1. Install the sass module: `npm install yew-styles`
-2. Add the yew_style crate in Cargo.toml file: `yew_styles = "0.3.1"`
+2. Add the yew_style crate in Cargo.toml file: `yew_styles = "0.4.0"`
 3. Import the main.css file in you main javascript/typescript file project: 
 ```typescript
     import 'node_modules/yew-styles/main.css';
@@ -38,6 +38,11 @@ however, it is not necessary to worry about the sass module only it needs to be 
 In the left side there is a list of links where each one access to a correspondent component documentation,
 there, shows how to use it.
 
+## Rust Docs
+
+You can also see all the yewstyle documentation in rust docs [here](https://docs.rs/crate/yew_styles).
+It include description and examples for each component
+
 ## Run the tests
 Inside of the project run:
 
@@ -46,6 +51,24 @@ Inside of the project run:
 ## Development phase
 Yew style is in early phase, currently doesn't have enough components to cover all the requirements that could need a website/web application.
 All contributions are appreciated.
+
+## Roadmap
+
+- [x] Button 
+- [x] Layout
+- [x] Navbar
+- [x] Form
+- [ ] Card
+- [ ] Message
+- [ ] Table
+- [ ] Pagination
+- [ ] Modal
+- [ ] Sidebar
+- [ ] Tab
+- [ ] Tooltips
+- [ ] Calendar
+- [ ] Assets
+
 
 ## License
 
