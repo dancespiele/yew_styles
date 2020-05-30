@@ -1,8 +1,8 @@
 [package]
 name = "yew_styles"
-version = "0.3.1"
+version = "0.4.0"
 description = "Framework styles for yew"
-documentation = "https://docs.rs/crate/yew_styles/0.3.1"
+documentation = "https://docs.rs/crate/yew_styles"
 authors = ["Francisco Jesus Navarro Cortes <spieljs@gmail.com>"]
 edition = "2018"
 license = "MIT"

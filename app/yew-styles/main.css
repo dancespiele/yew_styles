@@ -1733,5 +1733,1022 @@
     width: 40px;
   }
 }
+.form-group {
+  margin: 10px;
+}
+.form-group.vertical label, .form-group.vertical input {
+  display: block;
+}
+.form-group.horizontal label, .form-group.horizontal input {
+  display: inline;
+}
+
+.form-label {
+  margin-right: 5px;
+}
+
+.form-submit {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Rosario;
+}
+.form-submit.small {
+  font-size: 12px;
+}
+.form-submit.medium {
+  font-size: 18px;
+}
+.form-submit.big {
+  font-size: 26px;
+}
+.form-submit.regular.standard {
+  background-color: #918d94;
+  color: #fff;
+  border: none;
+}
+.form-submit.regular.standard:focus {
+  background-color: #848088;
+}
+.form-submit.regular.standard:hover {
+  background-color: #78737b;
+}
+.form-submit.regular.standard:active {
+  background-color: #6b676e;
+}
+.form-submit.regular.primary {
+  background-color: #654016;
+  color: #fff;
+  border: none;
+}
+.form-submit.regular.primary:focus {
+  background-color: #503311;
+}
+.form-submit.regular.primary:hover {
+  background-color: #3b250d;
+}
+.form-submit.regular.primary:active {
+  background-color: #261808;
+}
+.form-submit.regular.secondary {
+  background-color: #c77b21;
+  color: #fff;
+  border: none;
+}
+.form-submit.regular.secondary:focus {
+  background-color: #b16d1d;
+}
+.form-submit.regular.secondary:hover {
+  background-color: #9b601a;
+}
+.form-submit.regular.secondary:active {
+  background-color: #855216;
+}
+.form-submit.regular.success {
+  background-color: #40C600;
+  color: #fff;
+  border: none;
+}
+.form-submit.regular.success:focus {
+  background-color: #38ad00;
+}
+.form-submit.regular.success:hover {
+  background-color: #309300;
+}
+.form-submit.regular.success:active {
+  background-color: #277a00;
+}
+.form-submit.regular.info {
+  background-color: #008FD5;
+  color: #fff;
+  border: none;
+}
+.form-submit.regular.info:focus {
+  background-color: #007ebc;
+}
+.form-submit.regular.info:hover {
+  background-color: #006da2;
+}
+.form-submit.regular.info:active {
+  background-color: #005c89;
+}
+.form-submit.regular.link {
+  background-color: #034DA1;
+  color: #fff;
+  border: none;
+}
+.form-submit.regular.link:focus {
+  background-color: #034188;
+}
+.form-submit.regular.link:hover {
+  background-color: #02356f;
+}
+.form-submit.regular.link:active {
+  background-color: #022956;
+}
+.form-submit.regular.warning {
+  background-color: #FFF200;
+  color: #000;
+  border: none;
+}
+.form-submit.regular.warning:focus {
+  background-color: #e6da00;
+}
+.form-submit.regular.warning:hover {
+  background-color: #ccc200;
+}
+.form-submit.regular.warning:active {
+  background-color: #b3a900;
+}
+.form-submit.regular.danger {
+  background-color: #ed1c24;
+  color: #fff;
+  border: none;
+}
+.form-submit.regular.danger:focus {
+  background-color: #de1219;
+}
+.form-submit.regular.danger:hover {
+  background-color: #c61017;
+}
+.form-submit.regular.danger:active {
+  background-color: #af0e14;
+}
+.form-submit.outline.standard {
+  background-color: #fff;
+  color: #918d94;
+  border: 1px solid #918d94;
+}
+.form-submit.outline.standard:focus {
+  background-color: #f2f2f2;
+}
+.form-submit.outline.standard:hover {
+  background-color: #e6e6e6;
+}
+.form-submit.outline.standard:active {
+  background-color: #d9d9d9;
+}
+.form-submit.outline.primary {
+  background-color: #fff;
+  color: #654016;
+  border: 1px solid #654016;
+}
+.form-submit.outline.primary:focus {
+  background-color: #f2f2f2;
+}
+.form-submit.outline.primary:hover {
+  background-color: #e6e6e6;
+}
+.form-submit.outline.primary:active {
+  background-color: #d9d9d9;
+}
+.form-submit.outline.secondary {
+  background-color: #fff;
+  color: #c77b21;
+  border: 1px solid #c77b21;
+}
+.form-submit.outline.secondary:focus {
+  background-color: #f2f2f2;
+}
+.form-submit.outline.secondary:hover {
+  background-color: #e6e6e6;
+}
+.form-submit.outline.secondary:active {
+  background-color: #d9d9d9;
+}
+.form-submit.outline.success {
+  background-color: #fff;
+  color: #40C600;
+  border: 1px solid #40C600;
+}
+.form-submit.outline.success:focus {
+  background-color: #f2f2f2;
+}
+.form-submit.outline.success:hover {
+  background-color: #e6e6e6;
+}
+.form-submit.outline.success:active {
+  background-color: #d9d9d9;
+}
+.form-submit.outline.info {
+  background-color: #fff;
+  color: #008FD5;
+  border: 1px solid #008FD5;
+}
+.form-submit.outline.info:focus {
+  background-color: #f2f2f2;
+}
+.form-submit.outline.info:hover {
+  background-color: #e6e6e6;
+}
+.form-submit.outline.info:active {
+  background-color: #d9d9d9;
+}
+.form-submit.outline.link {
+  background-color: #fff;
+  color: #034DA1;
+  border: 1px solid #034DA1;
+}
+.form-submit.outline.link:focus {
+  background-color: #f2f2f2;
+}
+.form-submit.outline.link:hover {
+  background-color: #e6e6e6;
+}
+.form-submit.outline.link:active {
+  background-color: #d9d9d9;
+}
+.form-submit.outline.warning {
+  background-color: #fff;
+  color: #e6bd44;
+  border: 1px solid #e6bd44;
+}
+.form-submit.outline.warning:focus {
+  background-color: #f2f2f2;
+}
+.form-submit.outline.warning:hover {
+  background-color: #e6e6e6;
+}
+.form-submit.outline.warning:active {
+  background-color: #d9d9d9;
+}
+.form-submit.outline.danger {
+  background-color: #fff;
+  color: #ed1c24;
+  border: 1px solid #ed1c24;
+}
+.form-submit.outline.danger:focus {
+  background-color: #f2f2f2;
+}
+.form-submit.outline.danger:hover {
+  background-color: #e6e6e6;
+}
+.form-submit.outline.danger:active {
+  background-color: #d9d9d9;
+}
+.form-submit.light.standard {
+  background-color: #faf3f3;
+  color: #918d94;
+  border: none;
+}
+.form-submit.light.standard:focus {
+  background-color: #f3e1e1;
+}
+.form-submit.light.standard:hover {
+  background-color: #ebcfcf;
+}
+.form-submit.light.standard:active {
+  background-color: #e4bdbd;
+}
+.form-submit.light.primary {
+  background-color: #e9d7c4;
+  color: #654016;
+  border: none;
+}
+.form-submit.light.primary:focus {
+  background-color: #e2cab1;
+}
+.form-submit.light.primary:hover {
+  background-color: #dbbe9f;
+}
+.form-submit.light.primary:active {
+  background-color: #d4b18c;
+}
+.form-submit.light.secondary {
+  background-color: #ffd9ac;
+  color: #c77b21;
+  border: none;
+}
+.form-submit.light.secondary:focus {
+  background-color: #ffcd93;
+}
+.form-submit.light.secondary:hover {
+  background-color: #ffc279;
+}
+.form-submit.light.secondary:active {
+  background-color: #ffb660;
+}
+.form-submit.light.success {
+  background-color: #b6f5c6;
+  color: #1ca53e;
+  border: none;
+}
+.form-submit.light.success:focus {
+  background-color: #a0f2b4;
+}
+.form-submit.light.success:hover {
+  background-color: #89efa3;
+}
+.form-submit.light.success:active {
+  background-color: #73ec91;
+}
+.form-submit.light.info {
+  background-color: #cedaff;
+  color: #008FD5;
+  border: none;
+}
+.form-submit.light.info:focus {
+  background-color: #b5c7ff;
+}
+.form-submit.light.info:hover {
+  background-color: #9bb3ff;
+}
+.form-submit.light.info:active {
+  background-color: #82a0ff;
+}
+.form-submit.light.link {
+  background-color: #4fb0ff;
+  color: #034DA1;
+  border: none;
+}
+.form-submit.light.link:focus {
+  background-color: #36a5ff;
+}
+.form-submit.light.link:hover {
+  background-color: #1c99ff;
+}
+.form-submit.light.link:active {
+  background-color: #038eff;
+}
+.form-submit.light.warning {
+  background-color: #fdffa8;
+  color: #99a034;
+  border: none;
+}
+.form-submit.light.warning:focus {
+  background-color: #fcff8f;
+}
+.form-submit.light.warning:hover {
+  background-color: #fcff75;
+}
+.form-submit.light.warning:active {
+  background-color: #fbff5c;
+}
+.form-submit.light.danger {
+  background-color: #fdc5c5;
+  color: #ed1c24;
+  border: none;
+}
+.form-submit.light.danger:focus {
+  background-color: #fcacac;
+}
+.form-submit.light.danger:hover {
+  background-color: #fb9494;
+}
+.form-submit.light.danger:active {
+  background-color: #fa7b7b;
+}
+
+.form-input {
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 100%;
+}
+.form-input.standard {
+  border: 1px solid #918d94;
+}
+.form-input.standard::-webkit-input-placeholder {
+  color: #918d94;
+}
+.form-input.standard:-moz-placeholder {
+  color: #918d94;
+}
+.form-input.standard::-moz-placeholder {
+  color: #918d94;
+}
+.form-input.standard:-ms-input-placeholder {
+  color: #918d94;
+}
+.form-input.standard:focus {
+  border-color: #78737b;
+}
+.form-input.standard:hover {
+  border-color: #5e5b60;
+}
+.form-input.standard:active {
+  border-color: #444246;
+}
+.form-input.primary {
+  border: 1px solid #654016;
+}
+.form-input.primary::-webkit-input-placeholder {
+  color: #654016;
+}
+.form-input.primary:-moz-placeholder {
+  color: #654016;
+}
+.form-input.primary::-moz-placeholder {
+  color: #654016;
+}
+.form-input.primary:-ms-input-placeholder {
+  color: #654016;
+}
+.form-input.primary:focus {
+  border-color: #3b250d;
+}
+.form-input.primary:hover {
+  border-color: #110b04;
+}
+.form-input.primary:active {
+  border-color: black;
+}
+.form-input.secondary {
+  border: 1px solid #c77b21;
+}
+.form-input.secondary::-webkit-input-placeholder {
+  color: #c77b21;
+}
+.form-input.secondary:-moz-placeholder {
+  color: #c77b21;
+}
+.form-input.secondary::-moz-placeholder {
+  color: #c77b21;
+}
+.form-input.secondary:-ms-input-placeholder {
+  color: #c77b21;
+}
+.form-input.secondary:focus {
+  border-color: #9b601a;
+}
+.form-input.secondary:hover {
+  border-color: #704512;
+}
+.form-input.secondary:active {
+  border-color: #442a0b;
+}
+.form-input.success {
+  border: 1px solid #40C600;
+}
+.form-input.success::-webkit-input-placeholder {
+  color: #40C600;
+}
+.form-input.success:-moz-placeholder {
+  color: #40C600;
+}
+.form-input.success::-moz-placeholder {
+  color: #40C600;
+}
+.form-input.success:-ms-input-placeholder {
+  color: #40C600;
+}
+.form-input.success:focus {
+  border-color: #309300;
+}
+.form-input.success:hover {
+  border-color: #1f6000;
+}
+.form-input.success:active {
+  border-color: #0f2d00;
+}
+.form-input.info {
+  border: 1px solid #008FD5;
+}
+.form-input.info::-webkit-input-placeholder {
+  color: #008FD5;
+}
+.form-input.info:-moz-placeholder {
+  color: #008FD5;
+}
+.form-input.info::-moz-placeholder {
+  color: #008FD5;
+}
+.form-input.info:-ms-input-placeholder {
+  color: #008FD5;
+}
+.form-input.info:focus {
+  border-color: #006da2;
+}
+.form-input.info:hover {
+  border-color: #004b6f;
+}
+.form-input.info:active {
+  border-color: #00283c;
+}
+.form-input.link {
+  border: 1px solid #034DA1;
+}
+.form-input.link::-webkit-input-placeholder {
+  color: #034DA1;
+}
+.form-input.link:-moz-placeholder {
+  color: #034DA1;
+}
+.form-input.link::-moz-placeholder {
+  color: #034DA1;
+}
+.form-input.link:-ms-input-placeholder {
+  color: #034DA1;
+}
+.form-input.link:focus {
+  border-color: #02356f;
+}
+.form-input.link:hover {
+  border-color: #011d3d;
+}
+.form-input.link:active {
+  border-color: #00050b;
+}
+.form-input.warning {
+  border: 1px solid #e6bd44;
+}
+.form-input.warning::-webkit-input-placeholder {
+  color: #e6bd44;
+}
+.form-input.warning:-moz-placeholder {
+  color: #e6bd44;
+}
+.form-input.warning::-moz-placeholder {
+  color: #e6bd44;
+}
+.form-input.warning:-ms-input-placeholder {
+  color: #e6bd44;
+}
+.form-input.warning:focus {
+  border-color: #daaa1d;
+}
+.form-input.warning:hover {
+  border-color: #ad8717;
+}
+.form-input.warning:active {
+  border-color: #806411;
+}
+.form-input.danger {
+  border: 1px solid #ed1c24;
+}
+.form-input.danger::-webkit-input-placeholder {
+  color: #ed1c24;
+}
+.form-input.danger:-moz-placeholder {
+  color: #ed1c24;
+}
+.form-input.danger::-moz-placeholder {
+  color: #ed1c24;
+}
+.form-input.danger:-ms-input-placeholder {
+  color: #ed1c24;
+}
+.form-input.danger:focus {
+  border-color: #c61017;
+}
+.form-input.danger:hover {
+  border-color: #970c11;
+}
+.form-input.danger:active {
+  border-color: #68080c;
+}
+.form-input.small {
+  padding: 2px;
+}
+.form-input.big {
+  padding: 10px;
+}
+.form-input.underline.standard {
+  border-radius: 2px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #918d94;
+}
+.form-input.underline.standard::-webkit-input-placeholder {
+  color: #918d94;
+}
+.form-input.underline.standard:-moz-placeholder {
+  color: #918d94;
+}
+.form-input.underline.standard::-moz-placeholder {
+  color: #918d94;
+}
+.form-input.underline.standard:-ms-input-placeholder {
+  color: #918d94;
+}
+.form-input.underline.standard:focus {
+  border-color: #78737b;
+}
+.form-input.underline.standard:hover {
+  border-color: #5e5b60;
+}
+.form-input.underline.standard:active {
+  border-color: #444246;
+}
+.form-input.underline.primary {
+  border-radius: 2px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #654016;
+}
+.form-input.underline.primary::-webkit-input-placeholder {
+  color: #654016;
+}
+.form-input.underline.primary:-moz-placeholder {
+  color: #654016;
+}
+.form-input.underline.primary::-moz-placeholder {
+  color: #654016;
+}
+.form-input.underline.primary:-ms-input-placeholder {
+  color: #654016;
+}
+.form-input.underline.primary:focus {
+  border-color: #3b250d;
+}
+.form-input.underline.primary:hover {
+  border-color: #110b04;
+}
+.form-input.underline.primary:active {
+  border-color: black;
+}
+.form-input.underline.secondary {
+  border-radius: 2px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #c77b21;
+}
+.form-input.underline.secondary::-webkit-input-placeholder {
+  color: #c77b21;
+}
+.form-input.underline.secondary:-moz-placeholder {
+  color: #c77b21;
+}
+.form-input.underline.secondary::-moz-placeholder {
+  color: #c77b21;
+}
+.form-input.underline.secondary:-ms-input-placeholder {
+  color: #c77b21;
+}
+.form-input.underline.secondary:focus {
+  border-color: #9b601a;
+}
+.form-input.underline.secondary:hover {
+  border-color: #704512;
+}
+.form-input.underline.secondary:active {
+  border-color: #442a0b;
+}
+.form-input.underline.success {
+  border-radius: 2px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #40C600;
+}
+.form-input.underline.success::-webkit-input-placeholder {
+  color: #40C600;
+}
+.form-input.underline.success:-moz-placeholder {
+  color: #40C600;
+}
+.form-input.underline.success::-moz-placeholder {
+  color: #40C600;
+}
+.form-input.underline.success:-ms-input-placeholder {
+  color: #40C600;
+}
+.form-input.underline.success:focus {
+  border-color: #309300;
+}
+.form-input.underline.success:hover {
+  border-color: #1f6000;
+}
+.form-input.underline.success:active {
+  border-color: #0f2d00;
+}
+.form-input.underline.info {
+  border-radius: 2px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #008FD5;
+}
+.form-input.underline.info::-webkit-input-placeholder {
+  color: #008FD5;
+}
+.form-input.underline.info:-moz-placeholder {
+  color: #008FD5;
+}
+.form-input.underline.info::-moz-placeholder {
+  color: #008FD5;
+}
+.form-input.underline.info:-ms-input-placeholder {
+  color: #008FD5;
+}
+.form-input.underline.info:focus {
+  border-color: #006da2;
+}
+.form-input.underline.info:hover {
+  border-color: #004b6f;
+}
+.form-input.underline.info:active {
+  border-color: #00283c;
+}
+.form-input.underline.link {
+  border-radius: 2px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #034DA1;
+}
+.form-input.underline.link::-webkit-input-placeholder {
+  color: #034DA1;
+}
+.form-input.underline.link:-moz-placeholder {
+  color: #034DA1;
+}
+.form-input.underline.link::-moz-placeholder {
+  color: #034DA1;
+}
+.form-input.underline.link:-ms-input-placeholder {
+  color: #034DA1;
+}
+.form-input.underline.link:focus {
+  border-color: #02356f;
+}
+.form-input.underline.link:hover {
+  border-color: #011d3d;
+}
+.form-input.underline.link:active {
+  border-color: #00050b;
+}
+.form-input.underline.warning {
+  border-radius: 2px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #e6bd44;
+}
+.form-input.underline.warning::-webkit-input-placeholder {
+  color: #e6bd44;
+}
+.form-input.underline.warning:-moz-placeholder {
+  color: #e6bd44;
+}
+.form-input.underline.warning::-moz-placeholder {
+  color: #e6bd44;
+}
+.form-input.underline.warning:-ms-input-placeholder {
+  color: #e6bd44;
+}
+.form-input.underline.warning:focus {
+  border-color: #daaa1d;
+}
+.form-input.underline.warning:hover {
+  border-color: #ad8717;
+}
+.form-input.underline.warning:active {
+  border-color: #806411;
+}
+.form-input.underline.danger {
+  border-radius: 2px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #ed1c24;
+}
+.form-input.underline.danger::-webkit-input-placeholder {
+  color: #ed1c24;
+}
+.form-input.underline.danger:-moz-placeholder {
+  color: #ed1c24;
+}
+.form-input.underline.danger::-moz-placeholder {
+  color: #ed1c24;
+}
+.form-input.underline.danger:-ms-input-placeholder {
+  color: #ed1c24;
+}
+.form-input.underline.danger:focus {
+  border-color: #c61017;
+}
+.form-input.underline.danger:hover {
+  border-color: #970c11;
+}
+.form-input.underline.danger:active {
+  border-color: #68080c;
+}
+
+.form-select {
+  padding: 3px;
+  width: 100%;
+}
+.form-select.small {
+  padding: 0;
+}
+.form-select.big {
+  padding: 5px;
+}
+
+.form-textarea {
+  height: 100px;
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.form-textarea.standard {
+  border: 1px solid #918d94;
+}
+.form-textarea.standard::-webkit-input-placeholder {
+  color: #918d94;
+}
+.form-textarea.standard:-moz-placeholder {
+  color: #918d94;
+}
+.form-textarea.standard::-moz-placeholder {
+  color: #918d94;
+}
+.form-textarea.standard:-ms-input-placeholder {
+  color: #918d94;
+}
+.form-textarea.standard:focus {
+  border-color: #78737b;
+}
+.form-textarea.standard:hover {
+  border-color: #5e5b60;
+}
+.form-textarea.standard:active {
+  border-color: #444246;
+}
+.form-textarea.primary {
+  border: 1px solid #654016;
+}
+.form-textarea.primary::-webkit-input-placeholder {
+  color: #654016;
+}
+.form-textarea.primary:-moz-placeholder {
+  color: #654016;
+}
+.form-textarea.primary::-moz-placeholder {
+  color: #654016;
+}
+.form-textarea.primary:-ms-input-placeholder {
+  color: #654016;
+}
+.form-textarea.primary:focus {
+  border-color: #3b250d;
+}
+.form-textarea.primary:hover {
+  border-color: #110b04;
+}
+.form-textarea.primary:active {
+  border-color: black;
+}
+.form-textarea.secondary {
+  border: 1px solid #c77b21;
+}
+.form-textarea.secondary::-webkit-input-placeholder {
+  color: #c77b21;
+}
+.form-textarea.secondary:-moz-placeholder {
+  color: #c77b21;
+}
+.form-textarea.secondary::-moz-placeholder {
+  color: #c77b21;
+}
+.form-textarea.secondary:-ms-input-placeholder {
+  color: #c77b21;
+}
+.form-textarea.secondary:focus {
+  border-color: #9b601a;
+}
+.form-textarea.secondary:hover {
+  border-color: #704512;
+}
+.form-textarea.secondary:active {
+  border-color: #442a0b;
+}
+.form-textarea.success {
+  border: 1px solid #40C600;
+}
+.form-textarea.success::-webkit-input-placeholder {
+  color: #40C600;
+}
+.form-textarea.success:-moz-placeholder {
+  color: #40C600;
+}
+.form-textarea.success::-moz-placeholder {
+  color: #40C600;
+}
+.form-textarea.success:-ms-input-placeholder {
+  color: #40C600;
+}
+.form-textarea.success:focus {
+  border-color: #309300;
+}
+.form-textarea.success:hover {
+  border-color: #1f6000;
+}
+.form-textarea.success:active {
+  border-color: #0f2d00;
+}
+.form-textarea.info {
+  border: 1px solid #008FD5;
+}
+.form-textarea.info::-webkit-input-placeholder {
+  color: #008FD5;
+}
+.form-textarea.info:-moz-placeholder {
+  color: #008FD5;
+}
+.form-textarea.info::-moz-placeholder {
+  color: #008FD5;
+}
+.form-textarea.info:-ms-input-placeholder {
+  color: #008FD5;
+}
+.form-textarea.info:focus {
+  border-color: #006da2;
+}
+.form-textarea.info:hover {
+  border-color: #004b6f;
+}
+.form-textarea.info:active {
+  border-color: #00283c;
+}
+.form-textarea.link {
+  border: 1px solid #034DA1;
+}
+.form-textarea.link::-webkit-input-placeholder {
+  color: #034DA1;
+}
+.form-textarea.link:-moz-placeholder {
+  color: #034DA1;
+}
+.form-textarea.link::-moz-placeholder {
+  color: #034DA1;
+}
+.form-textarea.link:-ms-input-placeholder {
+  color: #034DA1;
+}
+.form-textarea.link:focus {
+  border-color: #02356f;
+}
+.form-textarea.link:hover {
+  border-color: #011d3d;
+}
+.form-textarea.link:active {
+  border-color: #00050b;
+}
+.form-textarea.warning {
+  border: 1px solid #e6bd44;
+}
+.form-textarea.warning::-webkit-input-placeholder {
+  color: #e6bd44;
+}
+.form-textarea.warning:-moz-placeholder {
+  color: #e6bd44;
+}
+.form-textarea.warning::-moz-placeholder {
+  color: #e6bd44;
+}
+.form-textarea.warning:-ms-input-placeholder {
+  color: #e6bd44;
+}
+.form-textarea.warning:focus {
+  border-color: #daaa1d;
+}
+.form-textarea.warning:hover {
+  border-color: #ad8717;
+}
+.form-textarea.warning:active {
+  border-color: #806411;
+}
+.form-textarea.danger {
+  border: 1px solid #ed1c24;
+}
+.form-textarea.danger::-webkit-input-placeholder {
+  color: #ed1c24;
+}
+.form-textarea.danger:-moz-placeholder {
+  color: #ed1c24;
+}
+.form-textarea.danger::-moz-placeholder {
+  color: #ed1c24;
+}
+.form-textarea.danger:-ms-input-placeholder {
+  color: #ed1c24;
+}
+.form-textarea.danger:focus {
+  border-color: #c61017;
+}
+.form-textarea.danger:hover {
+  border-color: #970c11;
+}
+.form-textarea.danger:active {
+  border-color: #68080c;
+}
+.form-textarea.small {
+  height: 50px;
+}
+.form-textarea.big {
+  height: 250px;
+}
+
+.form-error {
+  color: #ed1c24;
+  font-size: 12px;
+}
 
 /*# sourceMappingURL=main.css.map */

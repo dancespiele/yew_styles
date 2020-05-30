@@ -3,11 +3,66 @@ use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App, ChangeData, FocusEvent, InputData, KeyboardEvent};
 
+/// # Form Input
+///
+/// ## Example
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew_styles::forms::form_input::{FormInput, InputType};
+/// use yew_styles::styles::{Palette, Size};
+///
+/// pub struct FormInputExample {
+///     pub link: ComponentLink<Self>,
+///     pub value: String,
+/// }
+///
+/// pub enum Msg {
+///     Input(String),
+/// }
+///
+/// impl Component for FormInputExample {
+///     type Message = Msg;
+///     type Properties = ();
+///     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         FormInputExample {
+///             link,
+///             value: "".to_string(),
+///         }
+///     }
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::Input(value) => {
+///                 self.value = value;
+///             }
+///         }
+///         true
+///     }
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///         html!{
+///             <FormInput
+///                 input_type=InputType::Text
+///                 value=form_page.value.clone()
+///                 input_style=Palette::Standard
+///                 input_size=Size::Medium
+///                 id="form-input-example"
+///                 oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value))
+///                 placeholder="example"
+///                 underline=false
+///             />
+///         }
+///     }
+/// ```
 pub struct FormInput {
     link: ComponentLink<Self>,
     props: Props,
 }
 
+/// Different type inputs supported. You can find more information [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
 #[derive(Clone)]
 pub enum InputType {
     Button,
@@ -36,66 +91,99 @@ pub enum InputType {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// Current value of the form control. Required
     pub value: String,
+    /// The input type
+    #[prop_or(InputType::Text)]
     pub input_type: InputType,
+    /// The input style according with the purpose
     #[prop_or(Palette::Standard)]
     pub input_style: Palette,
+    /// The size of the input
     #[prop_or(Size::Medium)]
     pub input_size: Size,
+    /// Signal to emit the event input
     #[prop_or(Callback::noop())]
     pub oninput_signal: Callback<InputData>,
+    /// Signal to emit the event blur
     #[prop_or(Callback::noop())]
     pub onblur_signal: Callback<FocusEvent>,
+    /// Signal to emit the event keypress
     #[prop_or(Callback::noop())]
     pub onkeypress_signal: Callback<KeyboardEvent>,
+    /// Signal to emit the event change
     #[prop_or(Callback::noop())]
     pub onchange_signal: Callback<ChangeData>,
+    /// Content to be appear in the form control when the form control is empty
     #[prop_or_default]
     pub placeholder: String,
+    /// Whether the command or control is checked
     #[prop_or_default]
     pub checked: bool,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// The name of the input
     #[prop_or_default]
     pub name: String,
+    /// Hint for expected file type in file upload controls
     #[prop_or_default]
     pub accept: String,
+    /// Alt attribute for the image type
     #[prop_or_default]
     pub alt: String,
+    /// Automatically focus the form control when the page is loaded
     #[prop_or_default]
     pub autofocus: bool,
+    /// Hint for form autofill feature
     #[prop_or_default]
     pub autocomplete: bool,
+    /// Value of the id attribute of the "<datalist>" of autocomplete options
     #[prop_or_default]
     pub list: String,
+    /// Minimum value
     #[prop_or_default]
     pub min: u16,
+    /// Maximum value
     #[prop_or_default]
     pub max: u16,
+    /// Minimum length (number of characters) of value
     #[prop_or_default]
     pub minlength: u16,
+    /// Maximum length (number of characters) of value
     #[prop_or(1000)]
     pub maxlength: u16,
+    /// Pattern the value must match to be valid
     #[prop_or("[\\s\\S]*".to_string())]
     pub pattern: String,
+    /// The value is not editable
     #[prop_or_default]
     pub readonly: bool,
+    /// A value is required or must be check for the form to be submittable
     #[prop_or_default]
     pub required: bool,
+    /// Whether the form control is disabled
     #[prop_or_default]
     pub disabled: bool,
+    /// Whether to allow multiple values
     #[prop_or_default]
     pub multiple: bool,
+    /// Underline style instead of box, like Material
     #[prop_or_default]
     pub underline: bool,
+    /// Media capture input method in file upload controls
     #[prop_or_default]
     pub capture: String,
+    /// Incremental values that are valid
     #[prop_or_default]
     pub step: i16,
+    /// Error state for validation
     #[prop_or_default]
     pub error_state: bool,
+    /// Show error message when error_state is true
     #[prop_or_default]
     pub error_message: String,
 }

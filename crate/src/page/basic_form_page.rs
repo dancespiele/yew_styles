@@ -1,8 +1,10 @@
+use super::highlighters::basic_form_code;
 use std::collections::HashMap;
 use wasm_bindgen::JsCast;
 use web_sys::{HtmlOptionElement, HtmlSelectElement};
 use yew::prelude::*;
 use yew::utils;
+use yew_prism::Prism;
 use yew_styles::forms::{
     form_component::Form,
     form_group::{FormGroup, Orientation},
@@ -116,6 +118,14 @@ impl Component for BasicFormPage {
                     <h1>{"Basic Form"}</h1>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Code example"}</h2>
+                    <Prism
+                        code=basic_form_code()
+                        language="rust"
+                    />
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXs(12))>
+                    <h2>{"Visual example"}</h2>
                     <Form onsubmit_signal=self.link.callback(|e| Msg::Submit)>
                         <Container wrap=Wrap::Wrap direction=Direction::Row>
                             <Item layouts=vec!(ItemLayout::ItM(6), ItemLayout::ItXs(12))>

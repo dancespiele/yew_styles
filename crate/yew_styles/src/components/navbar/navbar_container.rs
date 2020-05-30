@@ -14,8 +14,8 @@ pub struct Props {
     #[prop_or(Direction::Row)]
     pub direction: Direction,
     pub children: Children,
-    #[prop_or_default]
     /// General property to add custom class styles
+    #[prop_or_default]
     pub class_name: String,
     /// General property to add custom id
     #[prop_or_default]
@@ -84,23 +84,23 @@ pub struct Props {
 ///                branch=html!{<img src="/assets/spielrs_logo.png"></img>}>
 ///                    <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
 ///                        <NavbarItem
-///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Home")))>
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Home")))>
 ///                            <span>{"Home"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarItem
-///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
 ///                            <span>{"Shop"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarItem
-///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
 ///                            <span>{"Shop"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarItem
-///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>   
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>   
 ///                            <span>{"About us"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarItem
-///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
 ///                            <span>{"Contact"}</span>
 ///                        </NavbarItem>
 ///                    </NavbarContainer>

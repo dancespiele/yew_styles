@@ -80,23 +80,23 @@ pub enum Msg {
 ///                branch=html!{<img src="/assets/spielrs_logo.png"></img>}>
 ///                    <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
 ///                        <NavbarItem
-///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Home")))>
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Home")))>
 ///                            <span>{"Home"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarItem
-///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
 ///                            <span>{"Shop"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarItem
-///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
 ///                            <span>{"Shop"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarItem
-///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>   
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>   
 ///                            <span>{"About us"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarItem
-///                            onsignal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
 ///                            <span>{"Contact"}</span>
 ///                        </NavbarItem>
 ///                    </NavbarContainer>
@@ -209,7 +209,7 @@ impl Component for Navbar {
                             direction=Direction::Row
                             class_name="navbar-container-mobile">
                             <NavbarItem
-                                onsignal=self.link.callback(move |_| Msg::TroggleMenu)
+                                onclick_signal=self.link.callback(move |_| Msg::TroggleMenu)
                             >
                              <Assets
                                 asset=Icon::Menu

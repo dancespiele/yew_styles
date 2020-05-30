@@ -145,9 +145,9 @@ pub enum Msg {}
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    /// Which direction are placing the items
+    /// Which direction are placing the items. Required
     pub direction: Direction,
-    /// Set a wrap for the items
+    /// Set a wrap for the items. Required
     pub wrap: Wrap,
     /// Set how will be justified the content
     #[prop_or(JustifyContent::FlexStart(Mode::NoMode))]

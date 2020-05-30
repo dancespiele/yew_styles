@@ -3,11 +3,62 @@ use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
 
+/// # Form Textearea
+///
+/// ## Example
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew_styles::forms::form_textarea::FormTextArea;
+/// use yew_styles::styles::{Palette, Size};
+///
+/// pub struct FormTextAreaExample {
+///     pub link: ComponentLink<Self>,
+///     pub value: String,
+/// }
+///
+/// pub enum Msg {
+///     Input(String),
+/// }
+///
+/// impl Component for FormTextAreaExample {
+///     type Message = Msg;
+///     type Properties = ();
+///     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         FormTextAreaExample {
+///             link,
+///             value: "".to_string(),
+///         }
+///     }
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::Input(value) => {
+///                 self.value = value;
+///             }
+///         }
+///         true
+///     }
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///         html!{
+///             <FormTextArea placeholder="write here"
+///                 value=form_page.value.clone()
+///                 textarea_size=Size::Small
+///                 textarea_style=Palette::Info
+///                 oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value))
+///             />
+///         }
+///     }
+/// ```
 pub struct FormTextArea {
     link: ComponentLink<Self>,
     props: Props,
 }
 
+/// Type of wraps. You can find more information [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea)
 #[derive(Clone)]
 pub enum WrapText {
     Hard,
@@ -17,49 +68,73 @@ pub enum WrapText {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// Current value of the form control. Required
     pub value: String,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Content to be appear in the form control when the form control is empty
     #[prop_or_default]
     pub placeholder: String,
+    /// The input style according with the purpose
     #[prop_or(Palette::Standard)]
     pub textarea_style: Palette,
+    /// The size of the input
     #[prop_or(Size::Medium)]
     pub textarea_size: Size,
+    /// Maximum length (number of characters) of value
     #[prop_or(1000)]
     pub maxlength: u32,
+    /// Minimum length (number of characters) of value
     #[prop_or_default]
     pub minlength: u16,
+    /// Whether the form control is disabled
     #[prop_or_default]
     pub disabled: bool,
+    /// The name of the textarea
     #[prop_or_default]
     pub name: String,
+    /// The value is not editable
     #[prop_or_default]
     pub readonly: bool,
+    /// A value is required or must be check for the form to be submittable
     #[prop_or_default]
     pub required: bool,
+    /// Automatically focus the form control when the page is loaded
     #[prop_or_default]
     pub autofocus: bool,
+    /// Hint for form autofill feature
     #[prop_or_default]
     pub autocomplete: bool,
+    /// The visible width of the text control
     #[prop_or_default]
     pub cols: u16,
+    /// The number of visible text lines for the control
     #[prop_or_default]
     pub rows: u16,
+    /// Specifies whether the <textarea>
+    /// is subject to spell checking by the underlying browser/OS
     #[prop_or_default]
     pub spellcheck: bool,
+    /// Signal to emit the event input
     #[prop_or(Callback::noop())]
     pub oninput_signal: Callback<InputData>,
+    /// Signal to emit the event blur
     #[prop_or(Callback::noop())]
     pub onblur_signal: Callback<FocusEvent>,
+    /// Signal to emit the event keypress
     #[prop_or(Callback::noop())]
     pub onkeypress_signal: Callback<KeyboardEvent>,
+    /// Error state for validation
     #[prop_or_default]
     pub error_state: bool,
+    /// Show error message when error_state is true
     #[prop_or_default]
     pub error_message: String,
+    /// Indicates how the control wraps text
     #[prop_or(WrapText::Soft)]
     pub wrap: WrapText,
 }

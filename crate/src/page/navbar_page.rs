@@ -89,6 +89,8 @@ impl Component for NavbarPage {
                         <li><b>{"button_style: "}</b>{"navbar styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                         <li><b>{"fixed: "}</b>{"the location of the navbar which is fixed .Options included in "}<code>{"Fixed"}</code>{". Default "}<code>{"Top"}</code>{"."}</li>
                         <li><b>{"branch: "}</b>{"vnode embedded in the beginning of the navbar, useful to include a branch logo. Optional"}</li>
+                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                     </ul>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
@@ -97,12 +99,16 @@ impl Component for NavbarPage {
                         <li><b>{"justify_content: "}</b>{"set how will be justified the navbar items. Options included in "}<code>{"JustifyContent"}</code>{". Default "}<code>{"FlexStart(No Mode)"}</code>{"."}</li>
                         <li><b>{"direction: "}</b>{"which direction are placing the navbar items. Options include in "}<code>{"Direction"}</code>{". Default "}<code>{"Row"}</code>{"."}</li>
                         <li><b>{"mode: "}</b>{"safe postion handler which is additional option for justify_content. Options included in "}<code>{"Mode"}</code>{". Default "}<code>{"NoMode"}</code>{"."}</li>
+                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                     </ul>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Navbar Item properties"}</h2>
                     <ul>
-                        <li><b>{"onsignal: "}</b>{"click event for navbar item. Default "}<code>{"noop()"}</code></li>
+                        <li><b>{"onclick_signal: "}</b>{"click event for navbar item. Default "}<code>{"noop()"}</code></li>
+                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                     </ul>
                 </Item>
 
@@ -225,7 +231,7 @@ fn get_menus(link: ComponentLink<NavbarPage>, index: usize) -> Html {
             html! {
                 <>
                     <NavbarItem
-                        onsignal=link.callback(move |_| Msg::ChangeType(index, String::from(menu))
+                        onclick_signal=link.callback(move |_| Msg::ChangeType(index, String::from(menu))
                     )
                     >
                         <span>{menu}</span>
