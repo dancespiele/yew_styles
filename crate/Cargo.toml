@@ -20,8 +20,8 @@ serde = "1.0"
 serde_derive = "1.0"
 dotenv = "0.15"
 failure = "0.1"
-yew = { version="0.16", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"]}
-yew-router = {version="0.13", features = ["web_sys"] }
+yew = { git="https://github.com/yewstack/yew", features = ["toml", "yaml", "msgpack", "cbor", "web_sys"]}
+yew-router = {git="https://github.com/yewstack/yew", features = ["web_sys"] }
 web-sys = "0.3"
-yew_prism = {version="0.3"}
+yew_prism = {git="https://github.com/spielrs/yew_prism", branch="experimental"}
 yew_styles= {path= "./yew_styles"}

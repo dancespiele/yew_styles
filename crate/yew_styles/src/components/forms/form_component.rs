@@ -350,7 +350,7 @@ pub struct Form {
 pub struct Props {
     /// Signal to emit the event submit.
     #[prop_or(Callback::noop())]
-    pub onsubmit_signal: Callback<Event>,
+    pub onsubmit_signal: Callback<FocusEvent>,
     pub children: Children,
     /// The URL that processes the form submission
     #[prop_or_default]
@@ -377,7 +377,7 @@ pub enum Method {
 }
 
 pub enum Msg {
-    Submitted(Event),
+    Submitted(FocusEvent),
 }
 
 impl Component for Form {
@@ -406,7 +406,7 @@ impl Component for Form {
     fn view(&self) -> Html {
         html! {
             <form
-                onsubmit=self.link.callback(|e: Event| Msg::Submitted(e))
+                onsubmit=self.link.callback(|e: FocusEvent| Msg::Submitted(e))
                 action=self.props.action
                 method=get_method(self.props.method.clone())
                 name=self.props.name
@@ -477,9 +477,9 @@ fn should_submit_the_form() {
         children: Children::new(vec![html! {<input/>}]),
     };
 
-    let event = Event::new("Submit").unwrap();
+    let focus_event = FocusEvent::new("Submit").unwrap();
 
-    props.onsubmit_signal.emit(event);
+    props.onsubmit_signal.emit(focus_event);
 
     let form_element = utils::document().get_element_by_id("form").unwrap();
 
