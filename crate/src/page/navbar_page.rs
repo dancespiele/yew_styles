@@ -69,52 +69,44 @@ impl Component for NavbarPage {
 
     fn view(&self) -> Html {
         html! {
-            <div class="root">
-                <Item layouts=vec!(ItemLayout::ItXs(12))>
-                    <h1>{"Navbar Components"}</h1>
-                </Item>
+            <>
+                <h1>{"Navbar Components"}</h1>
 
-                <Item layouts=vec!(ItemLayout::ItXs(12))>
-                    <h2>{"Code example"}</h2>
-                    <Prism
-                        code=navbar_code()
-                        language="rust"
-                    />
-                </Item>
+                <h2>{"Code example"}</h2>
+                <Prism
+                    code=navbar_code()
+                    language="rust"
+                />
 
-                <Item layouts=vec!(ItemLayout::ItXs(12))>
-                    <h2>{"Navbar properties"}</h2>
-                    <ul>
-                        <li><b>{"navbar_type: "}</b>{"type navbar style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
-                        <li><b>{"button_style: "}</b>{"navbar styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
-                        <li><b>{"fixed: "}</b>{"the location of the navbar which is fixed .Options included in "}<code>{"Fixed"}</code>{". Default "}<code>{"Top"}</code>{"."}</li>
-                        <li><b>{"branch: "}</b>{"vnode embedded in the beginning of the navbar, useful to include a branch logo. Optional"}</li>
-                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
-                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
-                    </ul>
-                </Item>
-                <Item layouts=vec!(ItemLayout::ItXs(12))>
-                    <h2>{"Navbar Container properties"}</h2>
-                    <ul>
-                        <li><b>{"justify_content: "}</b>{"set how will be justified the navbar items. Options included in "}<code>{"JustifyContent"}</code>{". Default "}<code>{"FlexStart(No Mode)"}</code>{"."}</li>
-                        <li><b>{"direction: "}</b>{"which direction are placing the navbar items. Options include in "}<code>{"Direction"}</code>{". Default "}<code>{"Row"}</code>{"."}</li>
-                        <li><b>{"mode: "}</b>{"safe postion handler which is additional option for justify_content. Options included in "}<code>{"Mode"}</code>{". Default "}<code>{"NoMode"}</code>{"."}</li>
-                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
-                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
-                    </ul>
-                </Item>
-                <Item layouts=vec!(ItemLayout::ItXs(12))>
-                    <h2>{"Navbar Item properties"}</h2>
-                    <ul>
-                        <li><b>{"onclick_signal: "}</b>{"click event for navbar item. Default "}<code>{"noop()"}</code></li>
-                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
-                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
-                    </ul>
-                </Item>
+                <h2>{"Navbar properties"}</h2>
+                <ul>
+                    <li><b>{"navbar_type: "}</b>{"type navbar style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
+                    <li><b>{"button_style: "}</b>{"navbar styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
+                    <li><b>{"fixed: "}</b>{"the location of the navbar which is fixed .Options included in "}<code>{"Fixed"}</code>{". Default "}<code>{"Top"}</code>{"."}</li>
+                    <li><b>{"branch: "}</b>{"vnode embedded in the beginning of the navbar, useful to include a branch logo. Optional"}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
+
+                <h2>{"Navbar Container properties"}</h2>
+                <ul>
+                    <li><b>{"justify_content: "}</b>{"set how will be justified the navbar items. Options included in "}<code>{"JustifyContent"}</code>{". Default "}<code>{"FlexStart(No Mode)"}</code>{"."}</li>
+                    <li><b>{"direction: "}</b>{"which direction are placing the navbar items. Options include in "}<code>{"Direction"}</code>{". Default "}<code>{"Row"}</code>{"."}</li>
+                    <li><b>{"mode: "}</b>{"safe postion handler which is additional option for justify_content. Options included in "}<code>{"Mode"}</code>{". Default "}<code>{"NoMode"}</code>{"."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
+
+                <h2>{"Navbar Item properties"}</h2>
+                <ul>
+                    <li><b>{"onclick_signal: "}</b>{"click event for navbar item. Default "}<code>{"noop()"}</code></li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
 
                 <h2>{"Visual examples"}</h2>
                 {get_style(self.link.clone(), self.navbar_menu.clone())}
-            </div>
+            </>
         }
     }
 }

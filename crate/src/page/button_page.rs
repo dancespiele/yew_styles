@@ -46,29 +46,23 @@ impl Component for ButtonPage {
     fn view(&self) -> Html {
         html! {
             <>
-                <Item layouts=vec!(ItemLayout::ItXs(12))>
-                    <h1>{"Button Component"}</h1>
-                </Item>
+                <h1>{"Button Component"}</h1>
 
-                <Item layouts=vec!(ItemLayout::ItXs(12))>
-                    <h2>{"Code example"}</h2>
-                    <Prism
-                        code=button_code()
-                        language="rust"
-                    />
-                </Item>
+                <h2>{"Code example"}</h2>
+                <Prism
+                    code=button_code()
+                    language="rust"
+                />
 
-                <Item layouts=vec!(ItemLayout::ItXs(12))>
-                    <h2>{"Propeties"}</h2>
-                    <ul>
-                        <li><b>{"button_type: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
-                        <li><b>{"size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
-                        <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
-                        <li><b>{"onclick_signal: "}</b>{"click event for button. Required."}</li>
-                        <li><b>{"id: "}</b>{"general property to add custom id"}</li>
-                        <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
-                    </ul>
-                </Item>
+                <h2>{"Propeties"}</h2>
+                <ul>
+                    <li><b>{"button_type: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
+                    <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
+                    <li><b>{"onclick_signal: "}</b>{"click event for button. Required."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
 
                 <h2>{"Visual examples"}</h2>
                 <div class="container-button">

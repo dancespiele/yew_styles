@@ -1,10 +1,9 @@
 use crate::layouts::{
-    container::{Container, Direction, JustifyContent, Mode, Wrap},
-    item::{AlignSelf, Item, ItemLayout},
+    container::{AlignContent, Container, Direction, Mode, Wrap},
+    item::{Item, ItemLayout},
 };
 use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen_test::*;
-use web_sys::window;
 use yew::prelude::*;
 use yew::{utils, App};
 
@@ -35,10 +34,16 @@ pub struct Props {
     pub draggable: bool,
     #[prop_or(None)]
     pub header: Option<Html>,
+    #[prop_or(4)]
+    pub header_size: i8,
     #[prop_or(None)]
     pub body: Option<Html>,
+    #[prop_or(6)]
+    pub body_size: i8,
     #[prop_or(None)]
     pub footer: Option<Html>,
+    #[prop_or(2)]
+    pub footer_size: i8,
     #[prop_or(None)]
     pub single_content: Option<Html>,
     #[prop_or(Palette::Standard)]
@@ -47,6 +52,8 @@ pub struct Props {
     pub card_style: Style,
     #[prop_or(Size::Medium)]
     pub card_size: Size,
+    #[prop_or(true)]
+    pub interaction_effect: bool,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -115,8 +122,13 @@ impl Component for Card {
             <div
                 id=self.props.id
                 class=format!(
-                    "card {} {} {} {}",
+                    "card {} {} {} {} {}",
                     get_pallete(self.props.card_type.clone()),
+                    if self.props.interaction_effect {
+                        "interaction"
+                    } else {
+                        ""
+                    },
                     get_size(self.props.card_size.clone()),
                     get_style(self.props.card_style.clone()),
                     self.props.class_name.clone(),
@@ -133,8 +145,12 @@ impl Component for Card {
             >
                 {get_content(
                     self.props.single_content.clone(),
-                    self.props.header.clone(), self.props.body.clone(),
-                    self.props.footer.clone()
+                    self.props.header.clone(),
+                    self.props.header_size,
+                    self.props.body.clone(),
+                    self.props.body_size,
+                    self.props.footer.clone(),
+                    self.props.footer_size,
                 )}
             </div>
         }
@@ -144,8 +160,11 @@ impl Component for Card {
 fn get_content(
     single_content: Option<Html>,
     header: Option<Html>,
+    header_size: i8,
     body: Option<Html>,
+    body_size: i8,
     footer: Option<Html>,
+    footer_size: i8,
 ) -> Html {
     if let Some(single_content_node) = single_content {
         html! {
@@ -155,14 +174,14 @@ fn get_content(
         }
     } else {
         html! {
-            <Container wrap = Wrap::Wrap direction=Direction::Column justify_content=JustifyContent::Center(Mode::NoMode)>
-                <Item layouts=vec!(ItemLayout::ItXs(12)) align_self=AlignSelf::FlexStart>
+            <Container class_name="card-container" wrap = Wrap::Wrap direction=Direction::Column align_content=AlignContent::Center(Mode::NoMode)>
+                <Item layouts=vec!(ItemLayout::ItXs(header_size))>
                     {get_content_part(header, "card-header")}
                 </Item>
-                <Item layouts=vec!(ItemLayout::ItXs(12)) align_self=AlignSelf::Center>
+                <Item layouts=vec!(ItemLayout::ItXs(body_size))>
                     {get_content_part(body, "card-body")}
                 </Item>
-                <Item layouts=vec!(ItemLayout::ItXs(12)) align_self=AlignSelf::FlexEnd>
+                <Item layouts=vec!(ItemLayout::ItXs(footer_size))>
                     {get_content_part(footer, "card-footer")}
                 </Item>
             </Container>
@@ -180,4 +199,158 @@ fn get_content_part(content: Option<Html>, class_content: &str) -> Html {
     } else {
         html! {}
     }
+}
+
+wasm_bindgen_test_configure!(run_in_browser);
+
+#[wasm_bindgen_test]
+fn should_create_card_with_three_parts() {
+    let props = Props {
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        draggable: false,
+        header: Some(html! {
+            <div id="header">{"header"}</div>
+        }),
+        header_size: 4,
+        body: Some(html! {
+            <div id="body">{"body"}</div>
+        }),
+        body_size: 6,
+        footer: Some(html! {
+            <div id="footer">{"footer"}</div>
+        }),
+        footer_size: 2,
+        single_content: None,
+        card_type: Palette::Primary,
+        card_style: Style::Regular,
+        card_size: Size::Medium,
+        interaction_effect: false,
+        class_name: "class-card-test".to_string(),
+        id: "id-card-rest".to_string(),
+    };
+
+    let card: App<Card> = App::new();
+    card.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        props,
+    );
+
+    let header_element = utils::document().get_element_by_id("header").unwrap();
+
+    let body_element = utils::document().get_element_by_id("body").unwrap();
+
+    let footer_element = utils::document().get_element_by_id("footer").unwrap();
+
+    assert_eq!(header_element.text_content().unwrap(), "header".to_string());
+
+    assert_eq!(body_element.text_content().unwrap(), "body".to_string());
+
+    assert_eq!(footer_element.text_content().unwrap(), "footer".to_string());
+}
+
+#[wasm_bindgen_test]
+fn should_create_card_with_single_content() {
+    let props = Props {
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        draggable: false,
+        header: None,
+        header_size: 4,
+        body: None,
+        body_size: 6,
+        footer: None,
+        footer_size: 2,
+        single_content: Some(html! {
+            <div id="single-content">{"single content"}</div>
+        }),
+        card_type: Palette::Primary,
+        card_style: Style::Regular,
+        card_size: Size::Medium,
+        interaction_effect: false,
+        class_name: "class-card-test".to_string(),
+        id: "id-card-rest".to_string(),
+    };
+
+    let card: App<Card> = App::new();
+    card.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        props,
+    );
+
+    let single_content_element = utils::document()
+        .get_element_by_id("single-content")
+        .unwrap();
+
+    assert_eq!(
+        single_content_element.text_content().unwrap(),
+        "single content".to_string()
+    );
+}
+
+#[wasm_bindgen_test]
+fn should_ignore_parts_when_single_content_exist() {
+    let props = Props {
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        draggable: false,
+        header: Some(html! {
+            <div id="header">{"header"}</div>
+        }),
+        header_size: 4,
+        body: Some(html! {
+            <div id="body">{"body"}</div>
+        }),
+        body_size: 6,
+        footer: Some(html! {
+            <div id="footer">{"footer"}</div>
+        }),
+        footer_size: 2,
+        single_content: Some(html! {
+            <div id="single-content">{"single content"}</div>
+        }),
+        card_type: Palette::Primary,
+        card_style: Style::Regular,
+        card_size: Size::Medium,
+        interaction_effect: false,
+        class_name: "class-card-test".to_string(),
+        id: "id-card-rest".to_string(),
+    };
+
+    let card: App<Card> = App::new();
+    card.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        props,
+    );
+
+    let header_element = utils::document().get_element_by_id("header");
+
+    assert_eq!(header_element, None);
+
+    let single_content_element = utils::document()
+        .get_element_by_id("single-content")
+        .unwrap();
+
+    assert_eq!(
+        single_content_element.text_content().unwrap(),
+        "single content".to_string()
+    );
 }
