@@ -24,4 +24,7 @@ jobs:
       - name: uncompress geckodriver
         run: tar -xzf geckodriver-v0.26.0-linux64.tar.gz
       - name: execute CI
-        run: GECKODRIVER=$(pwd)/geckodriver CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER=wasm-bindgen-test-runner ./ci/run_checks.sh
+        run: ./ci/run_checks.sh
+        env:
+          GECKODRIVER: $(pwd)/geckodriver
+          CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER: wasm-bindgen-test-runner
