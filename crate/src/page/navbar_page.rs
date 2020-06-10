@@ -2,10 +2,7 @@ use super::highlighters::navbar_code;
 use yew::prelude::*;
 use yew_prism::Prism;
 use yew_styles::{
-    layouts::{
-        container::{JustifyContent, Mode},
-        item::{Item, ItemLayout},
-    },
+    layouts::container::{JustifyContent, Mode},
     navbar::{
         navbar_component::{Fixed, Navbar},
         navbar_container::NavbarContainer,

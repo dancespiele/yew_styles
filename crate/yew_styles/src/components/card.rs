@@ -7,6 +7,129 @@ use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
 
+/// # Card
+///
+/// ## Example
+///
+/// ```rust
+/// use inflector::Inflector;
+/// use lipsum::lipsum;
+/// use wasm_bindgen::JsCast;
+/// use web_sys::Element;
+/// use yew::prelude::*;
+/// use yew::utils;
+/// use yew_prism::Prism;
+/// use yew_styles::card::Card;
+/// use yew_styles::styles::{Palette, Size, Style};
+/// use yew_styles::layouts::{
+///     container::{Container, Direction, Wrap},
+///     item::{Item, ItemLayout},
+/// };
+///
+/// pub enum Msg {
+///   Dragged(DragEvent),
+///   DraggedOver(DragEvent),
+///   Dropped(DragEvent),
+/// }
+///
+/// pub struct CardExample {
+///  link: ComponentLink<Self>,
+/// }
+///
+/// impl Component for CardPage {
+///     type Message = Msg;
+///     type Properties = ();
+///
+///     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         CardPage { link }
+///     }
+///
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::Dragged(drag_event) => {
+///                 let target_id = drag_event
+///                     .target()
+///                     .unwrap()
+///                     .dyn_into::<Element>()
+///                     .unwrap()
+///                     .id();
+///
+///                 drag_event
+///                     .data_transfer()
+///                     .unwrap()
+///                     .set_data("application/card-component", &target_id)
+///                     .unwrap();
+///
+///                 drag_event.data_transfer().unwrap().set_drop_effect("move");
+///             }
+///             Msg::DraggedOver(drag_event) => {
+///                 drag_event.prevent_default();
+///
+///                 drag_event.data_transfer().unwrap().set_drop_effect("move");
+///             }
+///
+///             Msg::Dropped(drag_event) => {
+///                 drag_event.prevent_default();
+///
+///                 let data = drag_event
+///                     .data_transfer()
+///                     .unwrap()
+///                     .get_data("application/card-component")
+///                     .unwrap();
+///
+///                 let target_element = drag_event.target().unwrap().dyn_into::<Element>().unwrap();
+///
+///                 target_element
+///                     .append_child(&utils::document().get_element_by_id(&data).unwrap())
+///                     .unwrap();
+///             }
+///         };
+///         true
+///     }
+///
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///         html! {
+///             <Container direction=Direction::Row wrap=Wrap::Wrap>
+///                 <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
+///                 <div ondrop=self.link.callback(|e| Msg::Dropped(e))
+///                     ondragover=self.link.callback(|e| Msg::DraggedOver(e))
+///                     class="box">
+///                     {"Box 1"}
+///                     <Card
+///                         card_style=Style::Light
+///                         card_type=Palette::Success
+///                         card_size=Size::Medium
+///                         draggable=true
+///                         ondragstart_signal=self.link.callback(Msg::Dragged)
+///                         id="card-draggable"
+///                         header=Some(html!{<div class="image">
+///                             {"Image"}
+///                         </div>})
+///                         body=Some(html!{
+///                             <div class="content">{lipsum(10)}</div>
+///                         })
+///                         footer=Some(html!{
+///                             <div>{lipsum(3)}</div>
+///                         })
+///                     />
+///                 </div>
+///                 </Item>
+///                 <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
+///                     <div ondrop=self.link.callback(Msg::Dropped)
+///                         ondragover=self.link.callback(Msg::DraggedOver)
+///                     class="box">
+///                         {"Box 2"}
+///                     </div>
+///                 </Item>
+///             </Container>
+///         }
+///     }
+/// }
+/// ```
 pub struct Card {
     link: ComponentLink<Self>,
     props: Props,
@@ -14,46 +137,68 @@ pub struct Card {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// A dragged item (element or text selection) is dragged
     #[prop_or(Callback::noop())]
     pub ondrag_signal: Callback<DragEvent>,
+    /// A drag operation ends
     #[prop_or(Callback::noop())]
     pub ondragend_signal: Callback<DragEvent>,
+    /// A dragged item enters a valid drop target.
     #[prop_or(Callback::noop())]
     pub ondragenter_signal: Callback<DragEvent>,
+    /// An element is no longer the drag operation's immediate selection target
     #[prop_or(Callback::noop())]
     pub ondragexit_signal: Callback<DragEvent>,
+    /// A dragged item leaves a valid drop target
     #[prop_or(Callback::noop())]
     pub ondragleave_signal: Callback<DragEvent>,
+    /// A dragged item is being dragged over a valid drop target
+    /// Every few hundred milliseconds
     #[prop_or(Callback::noop())]
     pub ondragover_signal: Callback<DragEvent>,
+    /// The user starts dragging an item
     #[prop_or(Callback::noop())]
     pub ondragstart_signal: Callback<DragEvent>,
+    /// An item is dropped on a valid drop target
     #[prop_or(Callback::noop())]
     pub ondrop_signal: Callback<DragEvent>,
+    /// Click event for card
     #[prop_or(Callback::noop())]
     pub onclick_signal: Callback<MouseEvent>,
+    /// If the item is draggable
     #[prop_or(false)]
     pub draggable: bool,
+    /// Header content of the card
     #[prop_or(None)]
     pub header: Option<Html>,
+    /// The size of the header card based in Flexbox
     #[prop_or(4)]
     pub header_size: i8,
+    /// Body content of the card
     #[prop_or(None)]
     pub body: Option<Html>,
+    /// The size of the body card based in Flexbox
     #[prop_or(6)]
     pub body_size: i8,
+    /// Footer content of the card
     #[prop_or(None)]
     pub footer: Option<Html>,
+    /// The size of the footer card based in Flexbox
     #[prop_or(2)]
     pub footer_size: i8,
+    /// Without split in parts, only a single content
     #[prop_or(None)]
     pub single_content: Option<Html>,
+    /// Type card purpose style
     #[prop_or(Palette::Standard)]
     pub card_type: Palette,
+    /// Card styles
     #[prop_or(Style::Regular)]
     pub card_style: Style,
+    /// three diffent card standard sizes
     #[prop_or(Size::Medium)]
     pub card_size: Size,
+    /// if hove, focus, active effects are enable
     #[prop_or(true)]
     pub interaction_effect: bool,
     /// General property to add custom class styles
@@ -138,15 +283,15 @@ impl Component for Card {
                     self.props.class_name.clone(),
                 )
                 draggable = self.props.draggable
-                ondrag = self.link.callback(|e| Msg::Draged(e))
-                ondragend = self.link.callback(|e| Msg::DragedEnd(e))
-                ondragenter = self.link.callback(|e| Msg::DragedEnter(e))
-                ondragexit = self.link.callback(|e| Msg::DragedExit(e))
-                ondragleave = self.link.callback(|e| Msg::DragedLeave(e))
-                ondragover = self.link.callback(|e| Msg::DragedOver(e))
-                ondragstart = self.link.callback(|e| Msg::DragedStart(e))
-                ondrop = self.link.callback(|e| Msg::Dropped(e))
-                onclick = self.link.callback(|e| Msg::Clicked(e))
+                ondrag = self.link.callback(Msg::Draged)
+                ondragend = self.link.callback(Msg::DragedEnd)
+                ondragenter = self.link.callback(Msg::DragedEnter)
+                ondragexit = self.link.callback(Msg::DragedExit)
+                ondragleave = self.link.callback(Msg::DragedLeave)
+                ondragover = self.link.callback(Msg::DragedOver)
+                ondragstart = self.link.callback(Msg::DragedStart)
+                ondrop = self.link.callback(Msg::Dropped)
+                onclick = self.link.callback(Msg::Clicked)
             >
                 {get_content(
                     self.props.single_content.clone(),

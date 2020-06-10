@@ -155,7 +155,7 @@ impl Component for FormSelect {
                     required=self.props.required,
                     multiple=self.props.multiple,
                     size=self.props.size,
-                    onchange=self.link.callback(|change_data| Msg::Selected(change_data))
+                    onchange=self.link.callback(Msg::Selected)
                 >
 
                     {self.props.options.clone()}

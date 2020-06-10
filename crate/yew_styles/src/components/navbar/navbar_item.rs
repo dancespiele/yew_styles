@@ -140,7 +140,7 @@ impl Component for NavbarItem {
         html! {
             <div
                 class=format!("navbar-item {}", self.props.class_name)
-                onclick=self.link.callback(|e| Msg::Clicked(e))
+                onclick=self.link.callback(Msg::Clicked)
             >
                 {self.props.children.render()}
             </div>

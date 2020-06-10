@@ -3,7 +3,6 @@ use yew::prelude::*;
 use yew_prism::Prism;
 use yew_styles::{
     button::Button,
-    layouts::item::{Item, ItemLayout},
     styles::{get_pallete, get_size, get_style, Palette, Size, Style},
 };
 
@@ -57,7 +56,7 @@ impl Component for ButtonPage {
                 <h2>{"Propeties"}</h2>
                 <ul>
                     <li><b>{"button_type: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
-                    <li><b>{"size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
+                    <li><b>{"button_size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"onclick_signal: "}</b>{"click event for button. Required."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
@@ -166,7 +165,7 @@ fn get_buttons(
                                 class_name="button-page"
                                 button_type=button_types_enum[index].clone()
                                 button_style=button_style.clone()
-                                size=size.clone()
+                                button_size=size.clone()
                             >{to_first_upercase(&get_pallete(button_types_enum[index].clone()))}
                             </Button>
                         </>

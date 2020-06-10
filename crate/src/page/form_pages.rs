@@ -120,10 +120,10 @@ impl Component for FormPage {
                 />
                 <ul>
                     <li><b>{"value: "}</b>{"current value of the form control. Required."}</li>
-                    <li><b>{"input_type: "}</b>{"the input type. Options included in "}<code>{"InputType"}</code>
+                    <li><b>{"input_content_type: "}</b>{"the input type. Options included in "}<code>{"InputType"}</code>
                         {". Default "}<code>{"Text"}</code>{"."}</li>
                     <li><b>{"name: "}</b>{"the name of the input."}</li>
-                    <li><b>{"input_style: "}</b>{"the input style according with the purpose. Options included in "}<code>{"Palette"}</code>
+                    <li><b>{"input_type: "}</b>{"the input style according with the purpose. Options included in "}<code>{"Palette"}</code>
                         {". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"input_size: "}</b>{"the size of the input. Options included in "}<code>{"Size"}</code>
                         {". Default "}<code>{"Medium"}</code>{"."}</li>
@@ -238,9 +238,9 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                         text="standard input"
                     />
                     <FormInput
-                        input_type=InputType::Text
+                        input_content_type=InputType::Text
                         value=form_page.value[0].clone()
-                        input_style=Palette::Standard
+                        input_type=Palette::Standard
                         input_size=Size::Medium
                         id="form-input-test"
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 0))
@@ -256,10 +256,10 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                         text="underline input"
                     />
                     <FormInput
-                        input_type=InputType::Text
+                        input_content_type=InputType::Text
                         value=form_page.value[1].clone()
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 1))
-                        input_style=Palette::Standard
+                        input_type=Palette::Standard
                         id="form-input-test"
                         placeholder="test"
                         underline=true
@@ -273,9 +273,9 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                         text="Success input type"
                     />
                     <FormInput
-                        input_type=InputType::Text
+                        input_content_type=InputType::Text
                         value=form_page.value[2].clone()
-                        input_style=Palette::Success
+                        input_type=Palette::Success
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 2))
                         input_size=Size::Medium
                         id="form-input-test"

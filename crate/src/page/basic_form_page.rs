@@ -126,7 +126,7 @@ impl Component for BasicFormPage {
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXs(12))>
                     <h2>{"Visual example"}</h2>
-                    <Form onsubmit_signal=self.link.callback(|e| Msg::Submit)>
+                    <Form onsubmit_signal=self.link.callback(|_| Msg::Submit)>
                         <Container wrap=Wrap::Wrap direction=Direction::Row>
                             <Item layouts=vec!(ItemLayout::ItM(6), ItemLayout::ItXs(12))>
                                 <FormGroup orientation=Orientation::Horizontal>
@@ -138,7 +138,7 @@ impl Component for BasicFormPage {
                                         }
                                         error_state=self.empty_fields.iter().any(|field| field == "first_name")
                                         error_message="First name field is required"
-                                        input_type=InputType::Text
+                                        input_content_type=InputType::Text
                                         oninput_signal=self.link.callback(|e: InputData| Msg::FirstName(e.value))
                                     />
                                 </FormGroup>
@@ -151,7 +151,7 @@ impl Component for BasicFormPage {
                                         }
                                         error_state=self.empty_fields.iter().any(|field| field == "last_name")
                                         error_message="Last name field is required"
-                                        input_type=InputType::Text
+                                        input_content_type=InputType::Text
                                         oninput_signal=self.link.callback(|e: InputData| Msg::LastName(e.value))
                                     />
                                 </FormGroup>
@@ -164,7 +164,7 @@ impl Component for BasicFormPage {
                                         }
                                         error_state=self.empty_fields.iter().any(|field| field == "email")
                                         error_message="Email field is required"
-                                        input_type=InputType::Email
+                                        input_content_type=InputType::Email
                                         oninput_signal=self.link.callback(|e: InputData| Msg::Email(e.value))
                                     />
                                 </FormGroup>

@@ -159,7 +159,7 @@ impl Component for Item {
             <div
                 class=format!("item item-{} {} {}", self.key, item_props.layouts_classes, item_props.class_name)
 
-                onclick=self.link.callback(|e| Msg::Clicked(e))
+                onclick=self.link.callback(Msg::Clicked)
             >
                 {self.props.children.render()}
             </div>

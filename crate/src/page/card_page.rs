@@ -82,12 +82,39 @@ impl Component for CardPage {
         html! {
             <>
                 <h1>{"Card Component"}</h1>
-                <h2>{"Code example"}</h2>
 
-                <Prism
-                    code=get_card()
-                    language="rust"
-                />
+                <h2>{"Code example"}</h2>
+                    <Prism
+                        code=get_card()
+                        language="rust"
+                    />
+
+                <h2>{"Propeties"}</h2>
+                <ul>
+                    <li><b>{"card_type: "}</b>{"type card purpose style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"card_size: "}</b>{"three diffent card standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
+                    <li><b>{"card_style: "}</b>{"card styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
+                    <li><b>{"onclick_signal: "}</b>{"click event for card."}</li>
+                    <li><b>{"ondrag_signal: "}</b>{"a dragged item (element or text selection) is dragged."}</li>
+                    <li><b>{"ondragend_signal: "}</b>{"a drag operation ends."}</li>
+                    <li><b>{"ondragenter_signal: "}</b>{"a dragged item enters a valid drop target."}</li>
+                    <li><b>{"ondragexit_signal: "}</b>{"an element is no longer the drag operation's immediate selection target."}</li>
+                    <li><b>{"ondragleave_signal: "}</b>{"a dragged item leaves a valid drop target."}</li>
+                    <li><b>{"ondragover_signal: "}</b>{"a dragged item is being dragged over a valid drop target, every few hundred milliseconds."}</li>
+                    <li><b>{"ondragstart_signal: "}</b>{"the user starts dragging an item."}</li>
+                    <li><b>{"ondrop_signal: "}</b>{"an item is dropped on a valid drop target."}</li>
+                    <li><b>{"draggable: "}</b>{"if the item is draggable. Default "}<code>{"false"}</code>{"."}</li>
+                    <li><b>{"header: "}</b>{"header content of the card. Default "}<code>{"None"}</code>{"."}</li>
+                    <li><b>{"header_size: "}</b>{"the size of the header card based in Flexbox. Default "}<code>{"4"}</code>{"."}</li>
+                    <li><b>{"body: "}</b>{"body content of the card. Default "}<code>{"None"}</code>{"."}</li>
+                    <li><b>{"body_size: "}</b>{"the size of the body card based in Flexbox. Default "}<code>{"6"}</code>{"."}</li>
+                    <li><b>{"footer: "}</b>{"footer content of the card. Default "}<code>{"None"}</code>{"."}</li>
+                    <li><b>{"footer_size: "}</b>{"the size of the footer card based in Flexbox. Default "}<code>{"2"}</code>{"."}</li>
+                    <li><b>{"single_content"}</b>{"Without split in parts, only a single content. Default"}<code>{"None"}</code>{"."}</li>
+                    <li><b>{"interaction_effect: "}</b>{"if hove, focus, active effects are enable. Default "}<code>{"true"}</code>{"."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
 
                 <h2>{"Visual examples"}</h2>
                 <h3>{"Sizes"}</h3>
@@ -146,7 +173,7 @@ impl Component for CardPage {
                                 card_style=Style::Light
                                 card_type=Palette::Success
                                 draggable=true
-                                ondragstart_signal=self.link.callback(|e| Msg::Dragged(e))
+                                ondragstart_signal=self.link.callback(Msg::Dragged)
                                 id="card-draggable"
                                 header=Some(html!{<div class="image">
                                     {"Image"}
@@ -161,8 +188,8 @@ impl Component for CardPage {
                         </div>
                         </Item>
                         <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
-                            <div ondrop=self.link.callback(|e| Msg::Dropped(e))
-                                ondragover=self.link.callback(|e| Msg::DraggedOver(e))
+                            <div ondrop=self.link.callback(Msg::Dropped)
+                                ondragover=self.link.callback(Msg::DraggedOver)
                             class="box">
                                 {"Box 2"}
                             </div>
