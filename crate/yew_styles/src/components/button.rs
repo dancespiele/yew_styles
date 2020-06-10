@@ -73,7 +73,7 @@ struct ButtonProps {
     size: String,
     button_style: String,
     class_name: String,
-    onclick_signal: Callback<()>,
+    onclick_signal: Callback<MouseEvent>,
     children: Children,
 }
 
@@ -108,12 +108,12 @@ pub struct Props {
     #[prop_or(Style::Regular)]
     pub button_style: Style,
     /// Click event for button. Required
-    pub onclick_signal: Callback<()>,
+    pub onclick_signal: Callback<MouseEvent>,
     pub children: Children,
 }
 
 pub enum Msg {
-    Clicked,
+    Clicked(MouseEvent),
 }
 
 impl Component for Button {
@@ -129,8 +129,8 @@ impl Component for Button {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::Clicked => {
-                self.props.onclick_signal.emit(());
+            Msg::Clicked(mouse_event) => {
+                self.props.onclick_signal.emit(mouse_event);
             }
         };
 
@@ -145,7 +145,7 @@ impl Component for Button {
     fn view(&self) -> Html {
         html! {
             <button
-                onclick=self.link.callback(|_| Msg::Clicked)
+                onclick=self.link.callback(|e| Msg::Clicked(e))
                 class=format!("button {} {} {} {}",
                     self.props.button_type.clone(),
                     self.props.size.clone(),
@@ -195,7 +195,9 @@ fn should_trigger_action_when_button_clicked() {
         children: Children::new(vec![html! {<div id="submenu">{"another menu"}</div>}]),
     };
 
-    props.onclick_signal.emit(());
+    let mouse_event = MouseEvent::new("click").unwrap();
+
+    props.onclick_signal.emit(mouse_event);
 
     let updated_content = window()
         .unwrap()

@@ -30,6 +30,8 @@ pub struct Props {
     pub ondragstart_signal: Callback<DragEvent>,
     #[prop_or(Callback::noop())]
     pub ondrop_signal: Callback<DragEvent>,
+    #[prop_or(Callback::noop())]
+    pub onclick_signal: Callback<MouseEvent>,
     #[prop_or(false)]
     pub draggable: bool,
     #[prop_or(None)]
@@ -71,6 +73,7 @@ pub enum Msg {
     DragedOver(DragEvent),
     DragedStart(DragEvent),
     Dropped(DragEvent),
+    Clicked(MouseEvent),
 }
 
 impl Component for Card {
@@ -107,6 +110,7 @@ impl Component for Card {
             Msg::Dropped(drag_event) => {
                 self.props.ondrop_signal.emit(drag_event);
             }
+            Msg::Clicked(mouse_event) => self.props.onclick_signal.emit(mouse_event),
         };
 
         true
@@ -135,13 +139,14 @@ impl Component for Card {
                 )
                 draggable = self.props.draggable
                 ondrag = self.link.callback(|e| Msg::Draged(e))
-                ondragend = self.link.callback(|e| Msg::Draged(e))
-                ondragenter = self.link.callback(|e| Msg::Draged(e))
-                ondragexit = self.link.callback(|e| Msg::Draged(e))
-                ondragleave = self.link.callback(|e| Msg::Draged(e))
-                ondragover = self.link.callback(|e| Msg::Draged(e))
-                ondragstart = self.link.callback(|e| Msg::Draged(e))
-                ondrop = self.link.callback(|e| Msg::Draged(e))
+                ondragend = self.link.callback(|e| Msg::DragedEnd(e))
+                ondragenter = self.link.callback(|e| Msg::DragedEnter(e))
+                ondragexit = self.link.callback(|e| Msg::DragedExit(e))
+                ondragleave = self.link.callback(|e| Msg::DragedLeave(e))
+                ondragover = self.link.callback(|e| Msg::DragedOver(e))
+                ondragstart = self.link.callback(|e| Msg::DragedStart(e))
+                ondrop = self.link.callback(|e| Msg::Dropped(e))
+                onclick = self.link.callback(|e| Msg::Clicked(e))
             >
                 {get_content(
                     self.props.single_content.clone(),
@@ -175,26 +180,20 @@ fn get_content(
     } else {
         html! {
             <Container class_name="card-container" wrap = Wrap::Wrap direction=Direction::Column align_content=AlignContent::Center(Mode::NoMode)>
-                <Item layouts=vec!(ItemLayout::ItXs(header_size))>
-                    {get_content_part(header, "card-header")}
-                </Item>
-                <Item layouts=vec!(ItemLayout::ItXs(body_size))>
-                    {get_content_part(body, "card-body")}
-                </Item>
-                <Item layouts=vec!(ItemLayout::ItXs(footer_size))>
-                    {get_content_part(footer, "card-footer")}
-                </Item>
+                {get_content_part(header, header_size, "card-header")}
+                {get_content_part(body, body_size, "card-body")}
+                {get_content_part(footer, footer_size, "card-footer")}
             </Container>
         }
     }
 }
 
-fn get_content_part(content: Option<Html>, class_content: &str) -> Html {
+fn get_content_part(content: Option<Html>, size: i8, class_content: &str) -> Html {
     if let Some(content_node) = content {
         html! {
-            <div class=class_content>
+            <Item layouts=vec!(ItemLayout::ItXs(size)) class_name=class_content>
                 {content_node}
-            </div>
+            </Item>
         }
     } else {
         html! {}
@@ -214,6 +213,7 @@ fn should_create_card_with_three_parts() {
         ondragover_signal: Callback::noop(),
         ondragstart_signal: Callback::noop(),
         ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
         draggable: false,
         header: Some(html! {
             <div id="header">{"header"}</div>
@@ -266,6 +266,7 @@ fn should_create_card_with_single_content() {
         ondragover_signal: Callback::noop(),
         ondragstart_signal: Callback::noop(),
         ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
         draggable: false,
         header: None,
         header_size: 4,
@@ -311,6 +312,7 @@ fn should_ignore_parts_when_single_content_exist() {
         ondragover_signal: Callback::noop(),
         ondragstart_signal: Callback::noop(),
         ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
         draggable: false,
         header: Some(html! {
             <div id="header">{"header"}</div>

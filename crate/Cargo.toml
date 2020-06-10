@@ -26,3 +26,4 @@ web-sys = "0.3"
 yew_prism = {version="0.3"}
 yew_styles= {path= "./yew_styles"}
 lipsum={git="https://github.com/mgeisler/lipsum"}
+Inflector="0.11"

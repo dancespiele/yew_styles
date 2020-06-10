@@ -26,7 +26,7 @@ pub enum AlignSelf {
 }
 
 pub enum Msg {
-    Clicked,
+    Clicked(MouseEvent),
 }
 
 /// # Item component
@@ -117,7 +117,7 @@ pub struct Props {
     pub id: String,
     /// Click event for the item
     #[prop_or(Callback::noop())]
-    pub onclick_signal: Callback<()>,
+    pub onclick_signal: Callback<MouseEvent>,
     pub children: Children,
 }
 
@@ -133,8 +133,8 @@ impl Component for Item {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::Clicked => {
-                self.props.onclick_signal.emit(());
+            Msg::Clicked(mouse_event) => {
+                self.props.onclick_signal.emit(mouse_event);
             }
         };
 
@@ -159,7 +159,7 @@ impl Component for Item {
             <div
                 class=format!("item item-{} {} {}", self.key, item_props.layouts_classes, item_props.class_name)
 
-                onclick=self.link.callback(|_| Msg::Clicked)
+                onclick=self.link.callback(|e| Msg::Clicked(e))
             >
                 {self.props.children.render()}
             </div>
@@ -270,7 +270,9 @@ fn should_create_clickable_item() {
         }]),
     };
 
-    props_item.onclick_signal.emit(());
+    let mouse_event = MouseEvent::new("click").unwrap();
+
+    props_item.onclick_signal.emit(mouse_event);
 
     let updated_content = window()
         .unwrap()

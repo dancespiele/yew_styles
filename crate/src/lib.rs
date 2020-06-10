@@ -2,6 +2,7 @@
 
 #[macro_use]
 extern crate cfg_if;
+extern crate inflector;
 extern crate lipsum;
 extern crate wasm_bindgen;
 extern crate web_sys;

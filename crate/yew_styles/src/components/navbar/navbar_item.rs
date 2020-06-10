@@ -4,7 +4,7 @@ use yew::prelude::*;
 use yew::{utils, App};
 
 pub enum Msg {
-    Clicked,
+    Clicked(MouseEvent),
 }
 
 /// # Navbar Item component
@@ -109,7 +109,7 @@ pub struct Props {
     pub id: String,
     /// click event for navbar item
     #[prop_or(Callback::noop())]
-    pub onclick_signal: Callback<()>,
+    pub onclick_signal: Callback<MouseEvent>,
     pub children: Children,
 }
 
@@ -123,8 +123,8 @@ impl Component for NavbarItem {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::Clicked => {
-                self.props.onclick_signal.emit(());
+            Msg::Clicked(mouse_event) => {
+                self.props.onclick_signal.emit(mouse_event);
             }
         }
 
@@ -140,7 +140,7 @@ impl Component for NavbarItem {
         html! {
             <div
                 class=format!("navbar-item {}", self.props.class_name)
-                onclick=self.link.callback(|_| Msg::Clicked)
+                onclick=self.link.callback(|e| Msg::Clicked(e))
             >
                 {self.props.children.render()}
             </div>
@@ -199,7 +199,9 @@ fn should_create_clickable_navbar_item() {
         }]),
     };
 
-    navbar_item_props.onclick_signal.emit(());
+    let mouse_event = MouseEvent::new("click").unwrap();
+
+    navbar_item_props.onclick_signal.emit(mouse_event);
 
     let updated_content = window()
         .unwrap()
