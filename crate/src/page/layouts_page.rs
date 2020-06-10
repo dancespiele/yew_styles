@@ -31,6 +31,9 @@ impl Component for LayoutsPage {
             <>
                 <h1>{"Layouts Components"}</h1>
 
+                <h2>{"Features required"}</h2>
+                <span><code>{"layouts"}</code></span>
+
                 <h2>{"Code example"}</h2>
                 <Prism
                     code=container_code()

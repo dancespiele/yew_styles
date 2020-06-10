@@ -5,6 +5,10 @@ use yew::{utils, App};
 
 /// # Container component
 ///
+/// ## Features required
+///
+/// layouts
+///
 /// ## Example
 ///
 /// The layouts in yew styles is base in flexbox

@@ -9,6 +9,10 @@ pub enum Msg {
 
 /// # Navbar Item component
 ///
+/// ## Features required
+///
+/// navbar, layouts
+///
 /// ## Example
 ///
 /// ```rust

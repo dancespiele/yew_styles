@@ -5,6 +5,10 @@ use yew::{utils, App, ChangeData, FocusEvent, InputData, KeyboardEvent};
 
 /// # Form Input
 ///
+/// ## Features required
+///
+/// forms
+///
 /// ## Example
 ///
 /// ```rust

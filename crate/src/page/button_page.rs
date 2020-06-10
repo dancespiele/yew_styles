@@ -47,6 +47,9 @@ impl Component for ButtonPage {
             <>
                 <h1>{"Button Component"}</h1>
 
+                <h2>{"Features required"}</h2>
+                <span><code>{"button"}</code></span>
+
                 <h2>{"Code example"}</h2>
                 <Prism
                     code=button_code()

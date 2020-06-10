@@ -35,6 +35,10 @@ pub enum Msg {
 /// you can fine more information about the properties options
 /// [here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
 ///
+/// ## Features required
+///
+/// layouts
+///
 /// ## Example
 ///
 /// ```rust

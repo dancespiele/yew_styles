@@ -4,6 +4,10 @@ use yew::{utils, App};
 
 /// # Form
 ///
+/// ## Features required
+///
+/// forms
+///
 /// ## Example
 ///
 /// ```rust

@@ -6,6 +6,10 @@ use yew::{utils, App};
 
 /// # Button component
 ///
+/// ## Features required
+///
+/// button
+///
 /// ## Example
 ///
 /// ```rust
