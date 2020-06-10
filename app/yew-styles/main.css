@@ -2751,4 +2751,491 @@
   font-size: 12px;
 }
 
+.card {
+  padding: 10px;
+  height: 250px;
+  border-radius: 5px;
+}
+.card.small {
+  height: 150px;
+}
+.card.big {
+  height: 350px;
+}
+.card.regular.standard {
+  background-color: #918d94;
+  color: #fff;
+  border: none;
+}
+.card.regular.primary {
+  background-color: #654016;
+  color: #fff;
+  border: none;
+}
+.card.regular.secondary {
+  background-color: #c77b21;
+  color: #fff;
+  border: none;
+}
+.card.regular.success {
+  background-color: #40C600;
+  color: #fff;
+  border: none;
+}
+.card.regular.info {
+  background-color: #008FD5;
+  color: #fff;
+  border: none;
+}
+.card.regular.link {
+  background-color: #034DA1;
+  color: #fff;
+  border: none;
+}
+.card.regular.warning {
+  background-color: #FFF200;
+  color: #000;
+  border: none;
+}
+.card.regular.danger {
+  background-color: #ed1c24;
+  color: #fff;
+  border: none;
+}
+.card.interaction.regular.standard {
+  background-color: #918d94;
+  color: #fff;
+  border: none;
+}
+.card.interaction.regular.standard:focus {
+  background-color: #848088;
+}
+.card.interaction.regular.standard:hover {
+  background-color: #78737b;
+}
+.card.interaction.regular.standard:active {
+  background-color: #6b676e;
+}
+.card.interaction.regular.primary {
+  background-color: #654016;
+  color: #fff;
+  border: none;
+}
+.card.interaction.regular.primary:focus {
+  background-color: #503311;
+}
+.card.interaction.regular.primary:hover {
+  background-color: #3b250d;
+}
+.card.interaction.regular.primary:active {
+  background-color: #261808;
+}
+.card.interaction.regular.secondary {
+  background-color: #c77b21;
+  color: #fff;
+  border: none;
+}
+.card.interaction.regular.secondary:focus {
+  background-color: #b16d1d;
+}
+.card.interaction.regular.secondary:hover {
+  background-color: #9b601a;
+}
+.card.interaction.regular.secondary:active {
+  background-color: #855216;
+}
+.card.interaction.regular.success {
+  background-color: #40C600;
+  color: #fff;
+  border: none;
+}
+.card.interaction.regular.success:focus {
+  background-color: #38ad00;
+}
+.card.interaction.regular.success:hover {
+  background-color: #309300;
+}
+.card.interaction.regular.success:active {
+  background-color: #277a00;
+}
+.card.interaction.regular.info {
+  background-color: #008FD5;
+  color: #fff;
+  border: none;
+}
+.card.interaction.regular.info:focus {
+  background-color: #007ebc;
+}
+.card.interaction.regular.info:hover {
+  background-color: #006da2;
+}
+.card.interaction.regular.info:active {
+  background-color: #005c89;
+}
+.card.interaction.regular.link {
+  background-color: #034DA1;
+  color: #fff;
+  border: none;
+}
+.card.interaction.regular.link:focus {
+  background-color: #034188;
+}
+.card.interaction.regular.link:hover {
+  background-color: #02356f;
+}
+.card.interaction.regular.link:active {
+  background-color: #022956;
+}
+.card.interaction.regular.warning {
+  background-color: #FFF200;
+  color: #000;
+  border: none;
+}
+.card.interaction.regular.warning:focus {
+  background-color: #e6da00;
+}
+.card.interaction.regular.warning:hover {
+  background-color: #ccc200;
+}
+.card.interaction.regular.warning:active {
+  background-color: #b3a900;
+}
+.card.interaction.regular.danger {
+  background-color: #ed1c24;
+  color: #fff;
+  border: none;
+}
+.card.interaction.regular.danger:focus {
+  background-color: #de1219;
+}
+.card.interaction.regular.danger:hover {
+  background-color: #c61017;
+}
+.card.interaction.regular.danger:active {
+  background-color: #af0e14;
+}
+.card.outline.standard {
+  background-color: #fff;
+  color: #918d94;
+  border: 1px solid #918d94;
+}
+.card.outline.primary {
+  background-color: #fff;
+  color: #654016;
+  border: 1px solid #654016;
+}
+.card.outline.secondary {
+  background-color: #fff;
+  color: #c77b21;
+  border: 1px solid #c77b21;
+}
+.card.outline.success {
+  background-color: #fff;
+  color: #40C600;
+  border: 1px solid #40C600;
+}
+.card.outline.info {
+  background-color: #fff;
+  color: #008FD5;
+  border: 1px solid #008FD5;
+}
+.card.outline.link {
+  background-color: #fff;
+  color: #034DA1;
+  border: 1px solid #034DA1;
+}
+.card.outline.warning {
+  background-color: #fff;
+  color: #e6bd44;
+  border: 1px solid #e6bd44;
+}
+.card.outline.danger {
+  background-color: #fff;
+  color: #ed1c24;
+  border: 1px solid #ed1c24;
+}
+.card.interaction.outline.standard {
+  background-color: #fff;
+  color: #918d94;
+  border: 1px solid #918d94;
+}
+.card.interaction.outline.standard:focus {
+  background-color: #f2f2f2;
+}
+.card.interaction.outline.standard:hover {
+  background-color: #e6e6e6;
+}
+.card.interaction.outline.standard:active {
+  background-color: #d9d9d9;
+}
+.card.interaction.outline.primary {
+  background-color: #fff;
+  color: #654016;
+  border: 1px solid #654016;
+}
+.card.interaction.outline.primary:focus {
+  background-color: #f2f2f2;
+}
+.card.interaction.outline.primary:hover {
+  background-color: #e6e6e6;
+}
+.card.interaction.outline.primary:active {
+  background-color: #d9d9d9;
+}
+.card.interaction.outline.secondary {
+  background-color: #fff;
+  color: #c77b21;
+  border: 1px solid #c77b21;
+}
+.card.interaction.outline.secondary:focus {
+  background-color: #f2f2f2;
+}
+.card.interaction.outline.secondary:hover {
+  background-color: #e6e6e6;
+}
+.card.interaction.outline.secondary:active {
+  background-color: #d9d9d9;
+}
+.card.interaction.outline.success {
+  background-color: #fff;
+  color: #40C600;
+  border: 1px solid #40C600;
+}
+.card.interaction.outline.success:focus {
+  background-color: #f2f2f2;
+}
+.card.interaction.outline.success:hover {
+  background-color: #e6e6e6;
+}
+.card.interaction.outline.success:active {
+  background-color: #d9d9d9;
+}
+.card.interaction.outline.info {
+  background-color: #fff;
+  color: #008FD5;
+  border: 1px solid #008FD5;
+}
+.card.interaction.outline.info:focus {
+  background-color: #f2f2f2;
+}
+.card.interaction.outline.info:hover {
+  background-color: #e6e6e6;
+}
+.card.interaction.outline.info:active {
+  background-color: #d9d9d9;
+}
+.card.interaction.outline.link {
+  background-color: #fff;
+  color: #034DA1;
+  border: 1px solid #034DA1;
+}
+.card.interaction.outline.link:focus {
+  background-color: #f2f2f2;
+}
+.card.interaction.outline.link:hover {
+  background-color: #e6e6e6;
+}
+.card.interaction.outline.link:active {
+  background-color: #d9d9d9;
+}
+.card.interaction.outline.warning {
+  background-color: #fff;
+  color: #e6bd44;
+  border: 1px solid #e6bd44;
+}
+.card.interaction.outline.warning:focus {
+  background-color: #f2f2f2;
+}
+.card.interaction.outline.warning:hover {
+  background-color: #e6e6e6;
+}
+.card.interaction.outline.warning:active {
+  background-color: #d9d9d9;
+}
+.card.interaction.outline.danger {
+  background-color: #fff;
+  color: #ed1c24;
+  border: 1px solid #ed1c24;
+}
+.card.interaction.outline.danger:focus {
+  background-color: #f2f2f2;
+}
+.card.interaction.outline.danger:hover {
+  background-color: #e6e6e6;
+}
+.card.interaction.outline.danger:active {
+  background-color: #d9d9d9;
+}
+.card.light.standard {
+  background-color: #faf3f3;
+  color: #918d94;
+  border: none;
+}
+.card.light.primary {
+  background-color: #e9d7c4;
+  color: #654016;
+  border: none;
+}
+.card.light.secondary {
+  background-color: #ffd9ac;
+  color: #c77b21;
+  border: none;
+}
+.card.light.success {
+  background-color: #b6f5c6;
+  color: #1ca53e;
+  border: none;
+}
+.card.light.info {
+  background-color: #cedaff;
+  color: #008FD5;
+  border: none;
+}
+.card.light.link {
+  background-color: #4fb0ff;
+  color: #034DA1;
+  border: none;
+}
+.card.light.warning {
+  background-color: #fdffa8;
+  color: #99a034;
+  border: none;
+}
+.card.light.danger {
+  background-color: #fdc5c5;
+  color: #ed1c24;
+  border: none;
+}
+.card.interaction.light.standard {
+  background-color: #faf3f3;
+  color: #918d94;
+  border: none;
+}
+.card.interaction.light.standard:focus {
+  background-color: #f3e1e1;
+}
+.card.interaction.light.standard:hover {
+  background-color: #ebcfcf;
+}
+.card.interaction.light.standard:active {
+  background-color: #e4bdbd;
+}
+.card.interaction.light.primary {
+  background-color: #e9d7c4;
+  color: #654016;
+  border: none;
+}
+.card.interaction.light.primary:focus {
+  background-color: #e2cab1;
+}
+.card.interaction.light.primary:hover {
+  background-color: #dbbe9f;
+}
+.card.interaction.light.primary:active {
+  background-color: #d4b18c;
+}
+.card.interaction.light.secondary {
+  background-color: #ffd9ac;
+  color: #c77b21;
+  border: none;
+}
+.card.interaction.light.secondary:focus {
+  background-color: #ffcd93;
+}
+.card.interaction.light.secondary:hover {
+  background-color: #ffc279;
+}
+.card.interaction.light.secondary:active {
+  background-color: #ffb660;
+}
+.card.interaction.light.success {
+  background-color: #b6f5c6;
+  color: #1ca53e;
+  border: none;
+}
+.card.interaction.light.success:focus {
+  background-color: #a0f2b4;
+}
+.card.interaction.light.success:hover {
+  background-color: #89efa3;
+}
+.card.interaction.light.success:active {
+  background-color: #73ec91;
+}
+.card.interaction.light.info {
+  background-color: #cedaff;
+  color: #008FD5;
+  border: none;
+}
+.card.interaction.light.info:focus {
+  background-color: #b5c7ff;
+}
+.card.interaction.light.info:hover {
+  background-color: #9bb3ff;
+}
+.card.interaction.light.info:active {
+  background-color: #82a0ff;
+}
+.card.interaction.light.link {
+  background-color: #4fb0ff;
+  color: #034DA1;
+  border: none;
+}
+.card.interaction.light.link:focus {
+  background-color: #36a5ff;
+}
+.card.interaction.light.link:hover {
+  background-color: #1c99ff;
+}
+.card.interaction.light.link:active {
+  background-color: #038eff;
+}
+.card.interaction.light.warning {
+  background-color: #fdffa8;
+  color: #99a034;
+  border: none;
+}
+.card.interaction.light.warning:focus {
+  background-color: #fcff8f;
+}
+.card.interaction.light.warning:hover {
+  background-color: #fcff75;
+}
+.card.interaction.light.warning:active {
+  background-color: #fbff5c;
+}
+.card.interaction.light.danger {
+  background-color: #fdc5c5;
+  color: #ed1c24;
+  border: none;
+}
+.card.interaction.light.danger:focus {
+  background-color: #fcacac;
+}
+.card.interaction.light.danger:hover {
+  background-color: #fb9494;
+}
+.card.interaction.light.danger:active {
+  background-color: #fa7b7b;
+}
+.card .card-container {
+  height: 100%;
+}
+.card .card-header {
+  height: 100%;
+  width: 100%;
+}
+.card .card-body {
+  height: 100%;
+  width: 100%;
+}
+.card .card-footer {
+  height: 100%;
+  width: 100%;
+}
+.card .card-single-content {
+  height: 100%;
+  width: 100%;
+}
+
 /*# sourceMappingURL=main.css.map */

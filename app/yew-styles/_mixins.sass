@@ -1,16 +1,17 @@
-@mixin pallete-style($style)
+@mixin pallete-style($style, $interaction)
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
             background-color: $background
             color: $color
             border: get-border($border-color)
 
-            &:focus
-                background-color: darken($background, 5%)
-            &:hover
-                background-color: darken($background, 10%)
-            &:active
-                background-color: darken($background, 15%)
+            @if $interaction == true
+                &:focus
+                    background-color: darken($background, 5%)
+                &:hover
+                    background-color: darken($background, 10%)
+                &:active
+                    background-color: darken($background, 15%)
 
 @mixin layout-screen($screen)
     @for $size from 1 through 12

@@ -115,7 +115,7 @@ pub struct Props {
     /// The number of visible text lines for the control
     #[prop_or_default]
     pub rows: u16,
-    /// Specifies whether the <textarea>
+    /// Specifies whether the "textarea"
     /// is subject to spell checking by the underlying browser/OS
     #[prop_or_default]
     pub spellcheck: bool,

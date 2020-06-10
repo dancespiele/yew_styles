@@ -12,13 +12,13 @@
 //!
 //! ## How it works
 //!
-//! Each component is splited in two parts, the logical yew component and its sass module,
+//! Each component is split in two parts, the logical yew component and its sass module,
 //! however, it is not necessary to worry about the sass module only it needs to be include in the project
 //!
 //! ### How install it
 //!
 //! 1. Install the sass module: `npm install yew-styles`
-//! 2. Add the yew_style crate in Cargo.toml file: `yew_styles = "0.4.0"`
+//! 2. Add the yew_style crate in Cargo.toml file: `yew_styles = "0.5.0"`
 //! 3. Import the main.css file in you main javascript/typescript file project:
 //! ```typescript
 //!    import 'node_modules/yew-styles/main.css';
@@ -35,4 +35,4 @@ mod components;
 pub mod styles;
 mod utils;
 
-pub use components::{button, forms, layouts, navbar};
+pub use components::{button, card, forms, layouts, navbar};

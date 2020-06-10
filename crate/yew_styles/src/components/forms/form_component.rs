@@ -406,7 +406,7 @@ impl Component for Form {
     fn view(&self) -> Html {
         html! {
             <form
-                onsubmit=self.link.callback(|e: Event| Msg::Submitted(e))
+                onsubmit=self.link.callback(Msg::Submitted)
                 action=self.props.action
                 method=get_method(self.props.method.clone())
                 name=self.props.name
