@@ -30,9 +30,20 @@
 //! Yew style is in early phase, currently doesn't have enough components to cover all the requirements that could need a website/web application.
 //! All contributions are appreciated.
 #![recursion_limit = "512"]
-pub mod assets;
+mod assets;
 mod components;
 pub mod styles;
 mod utils;
 
-pub use components::{button, card, forms, layouts, navbar};
+#[cfg(feature = "assets")]
+pub use assets::Assets;
+#[cfg(feature = "button")]
+pub use components::button;
+#[cfg(all(feature = "card", feature = "layouts"))]
+pub use components::card;
+#[cfg(feature = "forms")]
+pub use components::forms;
+#[cfg(feature = "layouts")]
+pub use components::layouts;
+#[cfg(all(feature = "navbar", feature = "layouts"))]
+pub use components::navbar;

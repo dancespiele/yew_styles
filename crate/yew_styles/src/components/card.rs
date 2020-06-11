@@ -9,6 +9,10 @@ use yew::{utils, App};
 
 /// # Card
 ///
+/// ## Features required
+///
+/// card, layouts
+///
 /// ## Example
 ///
 /// ```rust

@@ -5,6 +5,10 @@ use yew::{utils, App};
 
 /// # Form Textearea
 ///
+/// ## Features required
+///
+/// forms
+///
 /// ## Example
 ///
 /// ```rust

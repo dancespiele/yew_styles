@@ -62,6 +62,9 @@ impl Component for FormPage {
             <>
                 <h1>{"Form Component"}</h1>
 
+                <h2>{"Features required"}</h2>
+                <span><code>{"forms"}</code></span>
+
                 <h2>{"Form"}</h2>
                 <ul>
                     <li><b>{"onsubmit_signal: "}</b>{"signal to emit the event submit."}</li>

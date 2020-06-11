@@ -5,6 +5,10 @@ use yew::{utils, App, ChangeData};
 
 /// # Form Select
 ///
+/// ## Features required
+///
+/// forms
+///
 /// ## Example
 ///
 /// ```rust

@@ -83,6 +83,9 @@ impl Component for CardPage {
             <>
                 <h1>{"Card Component"}</h1>
 
+                <h2>{"Features required"}</h2>
+                <span><code>{"card"}</code>{", "}<code>{"layouts"}</code></span>
+
                 <h2>{"Code example"}</h2>
                     <Prism
                         code=get_card()

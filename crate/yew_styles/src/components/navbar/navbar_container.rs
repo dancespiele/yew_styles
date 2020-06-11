@@ -24,6 +24,10 @@ pub struct Props {
 
 /// # Navbar Container component
 ///
+/// ## Features required
+///
+/// navbar, layouts
+///
 /// ## Example
 ///
 /// ```rust
