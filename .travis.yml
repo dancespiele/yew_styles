@@ -1,0 +1,36 @@
+branches:
+  only:
+    - development
+    - master
+
+dist: trusty
+language: rust
+sudo: false
+addons:
+  firefox: latest
+
+cache: cargo
+before_cache:
+  - ./ci/clear_cache.sh
+
+rust:
+  - 1.44.0
+  - beta
+
+matrix:
+  allow_failures:
+    - rust: beta
+  fast_finish: true
+
+install:
+  - rustup component add rustfmt
+  - rustup component add clippy
+  - rustup install stable
+  - rustup target add wasm32-unknown-unknown
+  - cargo +stable install wasm-bindgen-cli
+  - curl --retry 5 -LO https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+  - tar -xzf geckodriver-v0.26.0-linux64.tar.gz
+
+script:
+  - ./ci/run_stable_checks.sh
+  - GECKODRIVER=$(pwd)/geckodriver ./ci/run_checks.sh
