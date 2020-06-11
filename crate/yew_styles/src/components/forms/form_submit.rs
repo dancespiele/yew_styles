@@ -5,6 +5,10 @@ use yew::{utils, App};
 
 /// # Form Submit
 ///
+/// ## Features required
+///
+/// forms
+///
 /// see example in Form
 pub struct FormSubmit {
     props: Props,

@@ -245,3 +245,21 @@ pub fn basic_form_code() -> String {
     </Item>
 </Container>".to_string()
 }
+
+pub fn get_card() -> String {
+    "<Card
+    card_size=Size::Medium
+    card_type=Palette::Info
+    card_style=Style::Outline
+    header=Some(html!{<div>
+        {\"Header\"}
+    </div>})
+    body=Some(html!{
+        <div>{\"Content\"}</div>
+    })
+    footer=Some(html!{
+        <div>{\"Footer\"}</div>
+    })
+/>"
+    .to_string()
+}

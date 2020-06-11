@@ -5,6 +5,10 @@ use yew::{utils, App, ChangeData, FocusEvent, InputData, KeyboardEvent};
 
 /// # Form Input
 ///
+/// ## Features required
+///
+/// forms
+///
 /// ## Example
 ///
 /// ```rust
@@ -45,9 +49,9 @@ use yew::{utils, App, ChangeData, FocusEvent, InputData, KeyboardEvent};
 ///     fn view(&self) -> Html {
 ///         html!{
 ///             <FormInput
-///                 input_type=InputType::Text
+///                 input_content_type=InputType::Text
 ///                 value=form_page.value.clone()
-///                 input_style=Palette::Standard
+///                 input_type=Palette::Standard
 ///                 input_size=Size::Medium
 ///                 id="form-input-example"
 ///                 oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value))
@@ -95,10 +99,10 @@ pub struct Props {
     pub value: String,
     /// The input type
     #[prop_or(InputType::Text)]
-    pub input_type: InputType,
+    pub input_content_type: InputType,
     /// The input style according with the purpose
     #[prop_or(Palette::Standard)]
-    pub input_style: Palette,
+    pub input_type: Palette,
     /// The size of the input
     #[prop_or(Size::Medium)]
     pub input_size: Size,
@@ -141,7 +145,7 @@ pub struct Props {
     /// Hint for form autofill feature
     #[prop_or_default]
     pub autocomplete: bool,
-    /// Value of the id attribute of the "<datalist>" of autocomplete options
+    /// Value of the id attribute of the "datalist" of autocomplete options
     #[prop_or_default]
     pub list: String,
     /// Minimum value
@@ -236,16 +240,16 @@ impl Component for FormInput {
                     class=format!(
                         "form-input {} {} {} {}",
                         self.props.class_name,
-                        get_pallete(self.props.input_style.clone()),
+                        get_pallete(self.props.input_type.clone()),
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" }
                     )
-                    type=get_type(self.props.input_type.clone())
-                    oninput=self.link.callback(|input_data| Msg::Input(input_data))
+                    type=get_type(self.props.input_content_type.clone())
+                    oninput=self.link.callback(Msg::Input)
                     checked=self.props.checked
-                    onblur=self.link.callback(|focus_event| Msg::Blur(focus_event))
-                    onkeypress=self.link.callback(|keyboard_event| Msg::KeyPressed(keyboard_event))
-                    onchange=self.link.callback(|change_data| Msg::Changed(change_data))
+                    onblur=self.link.callback(Msg::Blur)
+                    onkeypress=self.link.callback(Msg::KeyPressed)
+                    onchange=self.link.callback(Msg::Changed)
                     value=self.props.value
                     name=self.props.name
                     required=self.props.required
@@ -272,8 +276,8 @@ impl Component for FormInput {
     }
 }
 
-fn get_type(input_type: InputType) -> String {
-    match input_type {
+fn get_type(input_content_type: InputType) -> String {
+    match input_content_type {
         InputType::Button => "button".to_string(),
         InputType::Checkbox => "checkbox".to_string(),
         InputType::Color => "color".to_string(),
@@ -313,7 +317,7 @@ fn should_create_form_input() {
         id: "form-input-id-test".to_string(),
         class_name: "form-input-class-test".to_string(),
         value: "".to_string(),
-        input_type: InputType::Text,
+        input_content_type: InputType::Text,
         oninput_signal: Callback::noop(),
         onblur_signal: Callback::noop(),
         onchange_signal: Callback::noop(),
@@ -322,7 +326,7 @@ fn should_create_form_input() {
         error_message: "invalid input".to_string(),
         error_state: false,
         name: "input-test".to_string(),
-        input_style: Palette::Standard,
+        input_type: Palette::Standard,
         input_size: Size::Medium,
         placeholder: "test input".to_string(),
         required: false,

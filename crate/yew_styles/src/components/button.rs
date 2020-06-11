@@ -6,6 +6,10 @@ use yew::{utils, App};
 
 /// # Button component
 ///
+/// ## Features required
+///
+/// button
+///
 /// ## Example
 ///
 /// ```rust
@@ -57,7 +61,7 @@ use yew::{utils, App};
 ///             class_name="hello-world"
 ///             button_type=Pallete::Standard
 ///             button_style=Style::Light
-///             size=Size::Medium
+///             button_size=Size::Medium
 ///          >{"Greeting"}</Button>
 ///        }
 ///     }
@@ -70,10 +74,10 @@ pub struct Button {
 
 struct ButtonProps {
     button_type: String,
-    size: String,
+    button_size: String,
     button_style: String,
     class_name: String,
-    onclick_signal: Callback<()>,
+    onclick_signal: Callback<MouseEvent>,
     children: Children,
 }
 
@@ -81,7 +85,7 @@ impl From<Props> for ButtonProps {
     fn from(props: Props) -> Self {
         ButtonProps {
             button_type: get_pallete(props.button_type),
-            size: get_size(props.size),
+            button_size: get_size(props.button_size),
             button_style: get_style(props.button_style),
             class_name: props.class_name,
             onclick_signal: props.onclick_signal,
@@ -103,17 +107,17 @@ pub struct Props {
     pub id: String,
     /// Three diffent button standard sizes. Options included in `Size`
     #[prop_or(Size::Medium)]
-    pub size: Size,
+    pub button_size: Size,
     /// Button styles. Options included in `Style`
     #[prop_or(Style::Regular)]
     pub button_style: Style,
     /// Click event for button. Required
-    pub onclick_signal: Callback<()>,
+    pub onclick_signal: Callback<MouseEvent>,
     pub children: Children,
 }
 
 pub enum Msg {
-    Clicked,
+    Clicked(MouseEvent),
 }
 
 impl Component for Button {
@@ -129,8 +133,8 @@ impl Component for Button {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::Clicked => {
-                self.props.onclick_signal.emit(());
+            Msg::Clicked(mouse_event) => {
+                self.props.onclick_signal.emit(mouse_event);
             }
         };
 
@@ -145,10 +149,10 @@ impl Component for Button {
     fn view(&self) -> Html {
         html! {
             <button
-                onclick=self.link.callback(|_| Msg::Clicked)
+                onclick=self.link.callback(Msg::Clicked)
                 class=format!("button {} {} {} {}",
                     self.props.button_type.clone(),
-                    self.props.size.clone(),
+                    self.props.button_size.clone(),
                     self.props.button_style.clone(),
                     self.props.class_name.clone())
             > { self.props.children.render() }
@@ -188,14 +192,16 @@ fn should_trigger_action_when_button_clicked() {
     let props = Props {
         class_name: String::from("test-button"),
         id: String::from("button-id-test"),
-        size: Size::Medium,
+        button_size: Size::Medium,
         button_style: Style::Regular,
         onclick_signal: onchange_name,
         button_type: Palette::Standard,
         children: Children::new(vec![html! {<div id="submenu">{"another menu"}</div>}]),
     };
 
-    props.onclick_signal.emit(());
+    let mouse_event = MouseEvent::new("click").unwrap();
+
+    props.onclick_signal.emit(mouse_event);
 
     let updated_content = window()
         .unwrap()
@@ -214,7 +220,7 @@ fn should_create_button_component() {
     let props = Props {
         class_name: String::from("test-button"),
         id: String::from("button-id-test"),
-        size: Size::Medium,
+        button_size: Size::Medium,
         button_style: Style::Regular,
         onclick_signal: Callback::noop(),
         button_type: Palette::Standard,
