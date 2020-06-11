@@ -19,7 +19,7 @@ to take the rust benefits and implement a properties selected by enumeration
 in the most of the cases which makes fast for developing applications and avoids the practice try and error
 
 ## How it works
-Each component is splited in two parts, the logical yew component and its sass module,
+Each component is split in two parts, the logical yew component and its sass module,
 however, it is not necessary to worry about the sass module only it needs to be include in the project
 ### How install it
 1. Install the sass module: `npm install yew-styles`
