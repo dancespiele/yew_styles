@@ -141,7 +141,7 @@ impl Component for NavbarContainer {
                 direction=self.props.direction.clone()
                 wrap=Wrap::Wrap
                 justify_content=self.props.justify_content.clone()>
-                    {self.props.children.render()}
+                    {self.props.children.clone()}
             </Container>
         }
     }

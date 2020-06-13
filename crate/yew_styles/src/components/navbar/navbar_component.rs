@@ -5,6 +5,7 @@ use crate::layouts::container::{Direction, JustifyContent, Mode};
 use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;
+use yew::Children;
 
 /// the location of the navbar which is fixed
 #[derive(Clone, PartialEq)]
@@ -223,9 +224,9 @@ impl Component for Navbar {
                         </NavbarContainer>
                     </div>
                     {if self.display_menu {
-                        self.props.children.render()
+                        self.props.children.clone()
                     } else {
-                        html!{}
+                        Children::new(vec![])
                     }}
                 </div>
 
@@ -237,7 +238,7 @@ impl Component for Navbar {
                     class_name="navbar-container-mobile">
                     {get_branch(self.props.branch.clone())}
                 </NavbarContainer>
-                    {self.props.children.render()}
+                    {self.props.children.clone()}
                 </div>
             </>
         }

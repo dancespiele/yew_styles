@@ -155,7 +155,7 @@ impl Component for Button {
                     self.props.button_size.clone(),
                     self.props.button_style.clone(),
                     self.props.class_name.clone())
-            > { self.props.children.render() }
+            > { self.props.children.clone() }
             </button>
         }
     }

@@ -192,7 +192,7 @@ fn get_navbar_type(
                         fixed=Fixed::None
                         navbar_style=style.style.clone()
                         navbar_type=navbar_type.navbar_type
-                        branch=html!{<img src="/spielrs_logo.png"></img>}
+                        branch=html!{<img src="/spielrs_logo.png"/>}
                     >
                         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
                             {get_menus(link.clone(), navbar_type_rendered)}

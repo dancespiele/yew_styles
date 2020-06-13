@@ -146,7 +146,7 @@ impl Component for NavbarItem {
                 class=format!("navbar-item {}", self.props.class_name)
                 onclick=self.link.callback(Msg::Clicked)
             >
-                {self.props.children.render()}
+                {self.props.children.clone()}
             </div>
         }
     }
