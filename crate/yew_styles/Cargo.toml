@@ -1,6 +1,6 @@
 [package]
 name = "yew_styles"
-version = "0.5.0"
+version = "0.5.1"
 description = "Framework styles for yew"
 documentation = "https://docs.rs/crate/yew_styles"
 authors = ["Francisco Jesus Navarro Cortes <spieljs@gmail.com>"]
@@ -10,6 +10,10 @@ repository = "https://github.com/spielrs/yew-styles-page/tree/master/crate/yew_s
 readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[package.metadata.docs.rs]
+all-features = true
+default-target = "wasm32-unknown-unknown"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
