@@ -16,7 +16,7 @@ however, it is not necessary to worry about the sass module only it needs to be 
 1. Install the sass module: `npm install yew-styles`
 2. Add the yew_style crate with the features needed for your project in Cargo.toml file: 
 ```toml
-yew_styles = { version="0.5.0", features=["button", "navbar", "layouts"] }
+yew_styles = { version="0.5.1", features=["button", "navbar", "layouts"] }
 ```
 3. Import the main.css file in you main javascript/typescript file project: 
 ```typescript

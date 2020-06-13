@@ -42,14 +42,14 @@ impl Component for HomePage {
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"How it works"}</h2>
-                    <p>{"Each component is splited in two parts, the logical yew component and its sass module, however,
+                    <p>{"Each component is split in two parts, the logical yew component and its sass module, however,
                     it is not necessary to worry about the sass module only it needs to be include in the project"}</p>
 
                     <h3>{"How install it"}</h3>
                     <ol>
                         <li>{"Install the sass module: "}<code>{"npm install yew-styles"}</code></li>
-                        <li>{"Add the yew_style crate in Cargo.toml file: "}
-                            <code>{"yew_styles = \"0.3.0\""}</code>
+                        <li>{"Add the yew_style crate with the features needed for your project in Cargo.toml file: "}<br/>
+                            <code>{"yew_styles = {version=\"0.5.1\", features=[\"layouts\",\"button\"]}"}</code>
                         </li>
                         <li>{"Import the main.css file in you main javascript/typescript file project: "}
                             <code>{"import 'node_modules/yew-styles/main.css';"}</code>
