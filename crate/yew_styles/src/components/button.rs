@@ -44,7 +44,7 @@ use yew::{utils, App};
 ///         match msg {
 ///             Msg::Clicked(greeting) => {
 ///                 let mut console = ConsoleService::new();
-///                 console.log(format!("{}", greeting).as_str())
+///                 console.log(&format!("{}", greeting))
 ///             }
 ///         }
 ///         false
