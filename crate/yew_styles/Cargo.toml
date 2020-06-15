@@ -25,6 +25,7 @@ navbar = []
 forms = []
 card = []
 assets = []
+modal = []
 
 
 [dependencies]

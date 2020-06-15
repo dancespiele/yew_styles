@@ -48,5 +48,7 @@ pub use components::card;
 pub use components::forms;
 #[cfg(feature = "layouts")]
 pub use components::layouts;
+#[cfg(feature = "modal")]
+pub use components::modal;
 #[cfg(all(feature = "navbar", feature = "layouts"))]
 pub use components::navbar;

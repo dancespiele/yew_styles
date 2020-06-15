@@ -3,4 +3,4 @@ pub mod button;
 pub mod card;
 pub mod forms;
 pub mod layouts;
-pub mod navbar;
+pub mod modal;pub mod navbar;

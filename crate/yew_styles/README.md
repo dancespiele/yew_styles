@@ -38,7 +38,7 @@ All contributions are appreciated.
 - [ ] Text
 - [ ] Table
 - [ ] Pagination
-- [ ] Modal
+- [x] Modal
 - [ ] Sidebar
 - [ ] Tab
 - [ ] Tooltips
