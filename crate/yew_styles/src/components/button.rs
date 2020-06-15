@@ -16,8 +16,8 @@ use yew::{utils, App};
 /// use yew::prelude::*;
 /// use yew::services::ConsoleService;
 /// use yew_styles::{
-///     button::{Button, Size},
-///     styles::{Palette, Style},
+///     button::{Button},
+///     styles::{Palette, Style, Size},
 /// };
 ///
 /// pub struct App {
@@ -44,7 +44,7 @@ use yew::{utils, App};
 ///         match msg {
 ///             Msg::Clicked(greeting) => {
 ///                 let mut console = ConsoleService::new();
-///                 console.log(format!("{}", greeting))
+///                 console.log(&format!("{}", greeting))
 ///             }
 ///         }
 ///         false
@@ -57,7 +57,7 @@ use yew::{utils, App};
 ///     fn view(&self) -> Html {
 ///        html! {
 ///          <Button
-///             onclick_signal=link.callback(move |_| Msg::Clicked("Hello world"))
+///             onclick_signal=link.callback(move |_| Msg::Clicked(String::from("Hello world")))
 ///             class_name="hello-world"
 ///             button_type=Pallete::Standard
 ///             button_style=Style::Light
