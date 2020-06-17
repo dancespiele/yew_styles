@@ -263,3 +263,27 @@ pub fn get_card() -> String {
 />"
     .to_string()
 }
+
+pub fn get_modal_code() -> String {
+    "<Modal
+    header=html!{
+        <b>{\"Standard modal\"}</b>
+    }
+    header_type=Palette::Link
+    body=html!{
+        <div class=\"body-content\">
+            <p>{\"this is a modal example\"}</p>
+            <Button
+                button_type= Palette::Info
+                onclick_signal= self.link.callback(|_| Msg::CloseModal)
+            >{\"Accept\"}</Button>
+        </div>
+    }
+    body_style=Style::Outline
+    body_type=Palette::Link
+    is_open=self.show_modal
+    onclick_signal= self.link.callback(|_| Msg::CloseModal)
+    onkeydown_signal= self.link.callback(Msg::CloseModalByKb)
+/>"
+    .to_string()
+}

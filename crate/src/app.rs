@@ -1,4 +1,6 @@
-use page::{BasicFormPage, ButtonPage, CardPage, FormPage, HomePage, LayoutsPage, NavbarPage};
+use page::{
+    BasicFormPage, ButtonPage, CardPage, FormPage, HomePage, LayoutsPage, ModalPage, NavbarPage,
+};
 use yew::prelude::*;
 use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
 use yew_styles::layouts::{
@@ -24,6 +26,8 @@ pub enum AppRouter {
     BasicFormPath,
     #[to = "/card!"]
     CardPagePath,
+    #[to = "/modal!"]
+    ModalPagePath,
     #[to = "/page-not-found"]
     PageNotFound(Permissive<String>),
 }
@@ -77,6 +81,9 @@ impl Component for App {
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
                             <RouterAnchor<AppRouter> route=AppRouter::CardPagePath>{"Cards"}</RouterAnchor<AppRouter>>
                         </Item>
+                        <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
+                            <RouterAnchor<AppRouter> route=AppRouter::ModalPagePath>{"Modal"}</RouterAnchor<AppRouter>>
+                        </Item>
                     </Container>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItL(10) )>
@@ -90,6 +97,7 @@ impl Component for App {
                                 AppRouter::FormPath => html!{<FormPage/>},
                                 AppRouter::BasicFormPath => html!{<BasicFormPage/>},
                                 AppRouter::CardPagePath => html!{<CardPage/>},
+                                AppRouter::ModalPagePath => html!{<ModalPage/>},
                                 AppRouter::PageNotFound(Permissive(None)) => html!{"Page not found"},
                                 AppRouter::PageNotFound(Permissive(Some(missed_route))) => html!{format!("Page '{}' not found", missed_route)}
                             }
