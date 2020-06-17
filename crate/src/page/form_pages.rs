@@ -132,7 +132,7 @@ impl Component for FormPage {
                         {". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"oninput_signal: "}</b>{"signal to emit the event input."}</li>
                     <li><b>{"onblur_signal: "}</b>{"signal to emit the event blur."}</li>
-                    <li><b>{"onkeypress_signal: "}</b>{"signal to emit the event keypress."}</li>
+                    <li><b>{"onkeydown_signal: "}</b>{"signal to emit the event keypress."}</li>
                     <li><b>{"onchange_signal: "}</b>{"signal to emit the event change."}</li>
                     <li><b>{"placeholder: "}</b>{"content to be appear in the form control when the form control is empty."}</li>
                     <li><b>{"checked: "}</b>{"whether the command or control is checked."}</li>
@@ -205,7 +205,7 @@ impl Component for FormPage {
                         {". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"oninput_signal: "}</b>{"signal to emit the event input."}</li>
                     <li><b>{"onblur_signal: "}</b>{"signal to emit the event blur."}</li>
-                    <li><b>{"onkeypress_signal: "}</b>{"signal to emit the event keypress."}</li>
+                    <li><b>{"onkeydown_signal: "}</b>{"signal to emit the event keypress."}</li>
                     <li><b>{"placeholder: "}</b>{"content to be appear in the form control when the form control is empty."}</li>
                     <li><b>{"autofocus: "}</b>{"automatically focus the form control when the page is loaded."}</li>
                     <li><b>{"autocomplete: "}</b>{"hint for form autofill feature."}</li>

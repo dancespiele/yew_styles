@@ -2,11 +2,11 @@
 authors = ["Francisco Jesus Navarro Cortes"]
 categories = ["wasm"]
 description = "My awesome Yew with Yew-Router and Parcel application!"
-license = "MIT"
+license = "MIT/Apache-2.0"
 name = "yew_style_page"
 readme = "./README.md"
 repository = "https://github.com/spielrs/yew-styles-page.git"
-version = "0.5.1"
+version = "0.6.0"
 
 [lib]
 crate-type = ["cdylib"]
@@ -24,6 +24,6 @@ yew = { version="0.16", features = ["web_sys"]}
 yew-router = {version="0.13", features = ["web_sys"] }
 web-sys = "0.3"
 yew_prism = {version="0.3"}
-yew_styles= {path= "./yew_styles", features=["layouts", "button", "navbar", "forms", "card", "assets"]}
+yew_styles= {path= "./yew_styles", features=["layouts", "button", "navbar", "forms", "card", "assets", "modal"]}
 lipsum={git="https://github.com/mgeisler/lipsum"}
 Inflector="0.11"

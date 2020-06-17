@@ -15,12 +15,9 @@ pub enum Msg {
     ChangeType(String, usize, usize),
 }
 
-#[derive(Clone, Properties)]
-pub struct Props {}
-
 impl Component for ButtonPage {
     type Message = Msg;
-    type Properties = Props;
+    type Properties = ();
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         ButtonPage {

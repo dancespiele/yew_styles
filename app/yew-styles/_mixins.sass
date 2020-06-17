@@ -13,6 +13,11 @@
                 &:active
                     background-color: darken($background, 15%)
 
+@mixin modal-bg($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            background-color: transparentize($background, 0.4)
+
 @mixin layout-screen($screen)
     @for $size from 1 through 12
         @if $screen == s
