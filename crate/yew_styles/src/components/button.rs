@@ -125,7 +125,7 @@ impl Component for Button {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Button {
+        Self {
             link,
             props: ButtonProps::from(props),
         }
@@ -138,7 +138,7 @@ impl Component for Button {
             }
         };
 
-        false
+        true
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {

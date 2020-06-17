@@ -114,7 +114,7 @@ pub struct Props {
     pub onblur_signal: Callback<FocusEvent>,
     /// Signal to emit the event keypress
     #[prop_or(Callback::noop())]
-    pub onkeypress_signal: Callback<KeyboardEvent>,
+    pub onkeydown_signal: Callback<KeyboardEvent>,
     /// Signal to emit the event change
     #[prop_or(Callback::noop())]
     pub onchange_signal: Callback<ChangeData>,
@@ -217,7 +217,7 @@ impl Component for FormInput {
                 self.props.onblur_signal.emit(focus_event);
             }
             Msg::KeyPressed(keyboard_event) => {
-                self.props.onkeypress_signal.emit(keyboard_event);
+                self.props.onkeydown_signal.emit(keyboard_event);
             }
             Msg::Changed(change_data) => {
                 self.props.onchange_signal.emit(change_data);
@@ -248,7 +248,7 @@ impl Component for FormInput {
                     oninput=self.link.callback(Msg::Input)
                     checked=self.props.checked
                     onblur=self.link.callback(Msg::Blur)
-                    onkeypress=self.link.callback(Msg::KeyPressed)
+                    onkeydown=self.link.callback(Msg::KeyPressed)
                     onchange=self.link.callback(Msg::Changed)
                     value=self.props.value
                     name=self.props.name
@@ -321,7 +321,7 @@ fn should_create_form_input() {
         oninput_signal: Callback::noop(),
         onblur_signal: Callback::noop(),
         onchange_signal: Callback::noop(),
-        onkeypress_signal: Callback::noop(),
+        onkeydown_signal: Callback::noop(),
         checked: false,
         error_message: "invalid input".to_string(),
         error_state: false,
