@@ -5,7 +5,7 @@ description = "Framework styles for yew"
 documentation = "https://docs.rs/crate/yew_styles"
 authors = ["Francisco Jesus Navarro Cortes <spieljs@gmail.com>"]
 edition = "2018"
-license = "MIT"
+license = "MIT/Apache-2.0"
 repository = "https://github.com/spielrs/yew-styles-page/tree/master/crate/yew_styles"
 readme = "README.md"
 
