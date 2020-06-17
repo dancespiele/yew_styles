@@ -554,7 +554,7 @@ dependencies = [
 
 [[package]]
 name = "yew_styles"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "getrandom 0.1.14 (registry+https://github.com/rust-lang/crates.io-index)",
  "rand 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",

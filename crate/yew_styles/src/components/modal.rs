@@ -1,11 +1,115 @@
 use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
-use web_sys::Element;
+use web_sys::{Element, HtmlElement};
 use yew::prelude::*;
 use yew::services::ConsoleService;
 use yew::{utils, App};
 
+/// # Modal component
+///
+/// ## Features required
+///
+/// modal
+///
+/// ## Example
+///
+/// ```rust
+/// use wasm_bindgen::JsCast;
+/// use web_sys::HtmlElement;
+/// use yew::prelude::*;
+/// use yew::utils::document;
+/// use yew_prism::Prism;
+/// use yew_styles::button::Button;
+/// use yew_styles::modal::Modal;
+/// use yew_styles::styles::{get_size, Palette, Size, Style};
+///
+/// pub struct ModalExample {
+///     link: ComponentLink<Self>,
+///     show_modal: bool,
+/// }
+///
+/// pub enum Msg {
+///     CloseModal,
+///     OpenModal,
+///     CloseModalByKb(KeyboardEvent),
+/// }
+///
+/// impl Component for ModalExample {
+///     type Message = Msg;
+///     type Properties = ();
+///
+///     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         Self {
+///             link,
+///             show_modal: false,
+///         }
+///     }
+///
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         let body_style = document()
+///             .body()
+///             .unwrap()
+///             .dyn_into::<HtmlElement>()
+///             .unwrap()
+///             .style();
+///
+///         match msg {
+///             Msg::CloseModal(index) => {
+///                 body_style.set_property("overflow", "auto").unwrap();
+///                 self.show_modal = false;
+///             }
+///             Msg::CloseModalByKb(keyboard_event, index) => {
+///                 if keyboard_event.key_code() == 27 {
+///                     body_style.set_property("overflow", "auto").unwrap();
+///                     self.show_modal = false;
+///                 }
+///             }
+///             Msg::OpenModal(index) => {
+///                 body_style.set_property("overflow", "hidden").unwrap();
+///
+///                 self.show_modal = true;
+///             }
+///         };
+///         true
+///     }
+///
+///     fn change(&mut self, _: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///         html! {
+///             <>
+///                 <Modal
+///                     header=html!{
+///                         <b>{"Standard modal"}</b>
+///                     }
+///                     header_type=Palette::Link
+///                     body=html!{
+///                         <div class="body-content">
+///                             <p>{"This is a example modal"}</p>
+///                             <Button
+///                                 button_type= Palette::Info
+///                                 onclick_signal= self.link.callback(|_| Msg::CloseModal)
+///                             >{"Accept"}</Button>
+///                         </div>
+///                     }
+///                     body_style=Style::Outline
+///                     body_type=Palette::Link
+///                     is_open=self.show_modal
+///                     onclick_signal= self.link.callback(|_| Msg::CloseModal)
+///                     onkeydown_signal= self.link.callback(Msg::CloseModalByKb)
+///                 />
+///                 <Button
+///                     button_type= Palette::Primary
+///                     onclick_signal= self.link.callback(Msg::OpenModal)
+///                 >{"Standard modal"}</Button>
+///             </>
+///         }
+///     }
+/// }
+/// ```    
 pub struct Modal {
     link: ComponentLink<Self>,
     props: Props,
@@ -13,28 +117,40 @@ pub struct Modal {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// Header of the modal
     pub header: Html,
+    /// body of the modal
     pub body: Html,
+    /// if it is true, shows the modal otherwise is hidden
+    pub is_open: bool,
+    /// click event for modal (usually to close the modal)
     #[prop_or(Callback::noop())]
     pub onclick_signal: Callback<MouseEvent>,
+    /// keyboard event for modal (usually to close the modal)
     #[prop_or(Callback::noop())]
-    pub onkeypress_signal: Callback<KeyboardEvent>,
+    pub onkeydown_signal: Callback<KeyboardEvent>,
+    /// Type modal background style
     #[prop_or(Palette::Standard)]
     pub modal_type: Palette,
+    /// Three diffent modal standard sizes
     #[prop_or(Size::Medium)]
     pub modal_size: Size,
-    #[prop_or(false)]
-    pub is_open: bool,
+    /// Type modal header style
     #[prop_or(Palette::Standard)]
     pub header_type: Palette,
+    /// Modal header styles
     #[prop_or(Style::Regular)]
     pub header_style: Style,
+    /// If hove, focus, active effects are enable in the header
     #[prop_or(false)]
     pub header_interaction: bool,
+    /// Type modal body style
     #[prop_or(Palette::Standard)]
     pub body_type: Palette,
+    /// modal body styles
     #[prop_or(Style::Regular)]
     pub body_style: Style,
+    /// If hove, focus, active effects are enable in the body
     #[prop_or(false)]
     pub body_interaction: bool,
     /// General property to add custom class styles
@@ -61,7 +177,6 @@ impl Component for Modal {
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::Clicked(mouse_event) => {
-                let mut console = ConsoleService::new();
                 let target_event = mouse_event
                     .target()
                     .unwrap()
@@ -69,14 +184,14 @@ impl Component for Modal {
                     .unwrap()
                     .class_name();
 
-                console.log(&target_event);
-
                 if target_event.starts_with("modal container") {
                     self.props.onclick_signal.emit(mouse_event);
                 }
             }
             Msg::Pressed(keyboard_event) => {
-                self.props.onkeypress_signal.emit(keyboard_event);
+                let mut console = ConsoleService::new();
+                console.log("Pressed");
+                self.props.onkeydown_signal.emit(keyboard_event);
             }
         };
         true
@@ -85,6 +200,19 @@ impl Component for Modal {
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         self.props = props;
         true
+    }
+
+    fn rendered(&mut self, _first_render: bool) {
+        if self.props.is_open {
+            utils::document()
+                .get_elements_by_class_name("modal")
+                .get_with_index(0)
+                .unwrap()
+                .dyn_into::<HtmlElement>()
+                .unwrap()
+                .focus()
+                .unwrap();
+        }
     }
 
     fn view(&self) -> Html {
@@ -97,9 +225,10 @@ fn get_modal(props: Props, link: ComponentLink<Modal>) -> Html {
         html! {
             <div
                 class=format!("modal container {} {}", get_pallete(props.modal_type), props.class_name)
+                tabindex="0"
                 id=props.id
                 onclick=link.callback(Msg::Clicked)
-                onkeypress=link.callback(Msg::Pressed)
+                onkeydown=link.callback(Msg::Pressed)
             >
                 <div class=format!("modal-content {}", get_size(props.modal_size))>
                     <div class=format!(
@@ -134,7 +263,7 @@ fn should_create_modal_component() {
         class_name: "test-modal".to_string(),
         id: "modal-id-test".to_string(),
         onclick_signal: Callback::noop(),
-        onkeypress_signal: Callback::noop(),
+        onkeydown_signal: Callback::noop(),
         modal_type: Palette::Standard,
         modal_size: Size::Medium,
         header: html! {<div id="header">{"Modal Test"}</div>},
@@ -169,7 +298,7 @@ fn should_hide_modal_component_from_doom() {
         class_name: "test-modal".to_string(),
         id: "modal-id-test".to_string(),
         onclick_signal: Callback::noop(),
-        onkeypress_signal: Callback::noop(),
+        onkeydown_signal: Callback::noop(),
         modal_type: Palette::Standard,
         modal_size: Size::Medium,
         header: html! {<div id="header">{"Modal Test"}</div>},

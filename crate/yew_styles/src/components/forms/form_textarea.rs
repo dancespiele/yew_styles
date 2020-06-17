@@ -131,7 +131,7 @@ pub struct Props {
     pub onblur_signal: Callback<FocusEvent>,
     /// Signal to emit the event keypress
     #[prop_or(Callback::noop())]
-    pub onkeypress_signal: Callback<KeyboardEvent>,
+    pub onkeydown_signal: Callback<KeyboardEvent>,
     /// Error state for validation
     #[prop_or_default]
     pub error_state: bool,
@@ -167,7 +167,7 @@ impl Component for FormTextArea {
                 self.props.onblur_signal.emit(focus_event);
             }
             Msg::KeyPressed(keyboard_event) => {
-                self.props.onkeypress_signal.emit(keyboard_event);
+                self.props.onkeydown_signal.emit(keyboard_event);
             }
         };
 
@@ -191,7 +191,7 @@ impl Component for FormTextArea {
                     get_size(self.props.textarea_size.clone()))
                     oninput=self.link.callback(|input_data| Msg::Input(input_data))
                     onblur=self.link.callback(|focus_event| Msg::Blur(focus_event))
-                    onkeypress=self.link.callback(|keyboard_event| Msg::KeyPressed(keyboard_event))
+                    onkeydown=self.link.callback(|keyboard_event| Msg::KeyPressed(keyboard_event))
                     name=self.props.name
                     autocomplete=self.props.autocomplete
                     autofocus=self.props.autofocus
@@ -236,7 +236,7 @@ fn should_create_form_textarea() {
         class_name: "form-input-class-test".to_string(),
         oninput_signal: Callback::noop(),
         onblur_signal: Callback::noop(),
-        onkeypress_signal: Callback::noop(),
+        onkeydown_signal: Callback::noop(),
         error_message: "invalid input".to_string(),
         error_state: false,
         name: "input-test".to_string(),

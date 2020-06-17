@@ -3238,4 +3238,972 @@
   width: 100%;
 }
 
+.modal {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+.modal.standard {
+  background-color: rgba(145, 141, 148, 0.6);
+}
+.modal.primary {
+  background-color: rgba(101, 64, 22, 0.6);
+}
+.modal.secondary {
+  background-color: rgba(199, 123, 33, 0.6);
+}
+.modal.success {
+  background-color: rgba(64, 198, 0, 0.6);
+}
+.modal.info {
+  background-color: rgba(0, 143, 213, 0.6);
+}
+.modal.link {
+  background-color: rgba(3, 77, 161, 0.6);
+}
+.modal.warning {
+  background-color: rgba(255, 242, 0, 0.6);
+}
+.modal.danger {
+  background-color: rgba(237, 28, 36, 0.6);
+}
+.modal .modal-content {
+  width: 50%;
+  top: 20vh;
+  position: fixed;
+  z-index: 2;
+}
+.modal .modal-content.small {
+  width: 30%;
+}
+.modal .modal-content.big {
+  width: 75%;
+}
+.modal .modal-header {
+  padding: 3px 15px;
+  border-radius: 8px 8px 0 0;
+}
+.modal .modal-header.interaction.regular.standard {
+  background-color: #918d94;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.interaction.regular.standard:focus {
+  background-color: #848088;
+}
+.modal .modal-header.interaction.regular.standard:hover {
+  background-color: #78737b;
+}
+.modal .modal-header.interaction.regular.standard:active {
+  background-color: #6b676e;
+}
+.modal .modal-header.interaction.regular.primary {
+  background-color: #654016;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.interaction.regular.primary:focus {
+  background-color: #503311;
+}
+.modal .modal-header.interaction.regular.primary:hover {
+  background-color: #3b250d;
+}
+.modal .modal-header.interaction.regular.primary:active {
+  background-color: #261808;
+}
+.modal .modal-header.interaction.regular.secondary {
+  background-color: #c77b21;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.interaction.regular.secondary:focus {
+  background-color: #b16d1d;
+}
+.modal .modal-header.interaction.regular.secondary:hover {
+  background-color: #9b601a;
+}
+.modal .modal-header.interaction.regular.secondary:active {
+  background-color: #855216;
+}
+.modal .modal-header.interaction.regular.success {
+  background-color: #40C600;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.interaction.regular.success:focus {
+  background-color: #38ad00;
+}
+.modal .modal-header.interaction.regular.success:hover {
+  background-color: #309300;
+}
+.modal .modal-header.interaction.regular.success:active {
+  background-color: #277a00;
+}
+.modal .modal-header.interaction.regular.info {
+  background-color: #008FD5;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.interaction.regular.info:focus {
+  background-color: #007ebc;
+}
+.modal .modal-header.interaction.regular.info:hover {
+  background-color: #006da2;
+}
+.modal .modal-header.interaction.regular.info:active {
+  background-color: #005c89;
+}
+.modal .modal-header.interaction.regular.link {
+  background-color: #034DA1;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.interaction.regular.link:focus {
+  background-color: #034188;
+}
+.modal .modal-header.interaction.regular.link:hover {
+  background-color: #02356f;
+}
+.modal .modal-header.interaction.regular.link:active {
+  background-color: #022956;
+}
+.modal .modal-header.interaction.regular.warning {
+  background-color: #FFF200;
+  color: #000;
+  border: none;
+}
+.modal .modal-header.interaction.regular.warning:focus {
+  background-color: #e6da00;
+}
+.modal .modal-header.interaction.regular.warning:hover {
+  background-color: #ccc200;
+}
+.modal .modal-header.interaction.regular.warning:active {
+  background-color: #b3a900;
+}
+.modal .modal-header.interaction.regular.danger {
+  background-color: #ed1c24;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.interaction.regular.danger:focus {
+  background-color: #de1219;
+}
+.modal .modal-header.interaction.regular.danger:hover {
+  background-color: #c61017;
+}
+.modal .modal-header.interaction.regular.danger:active {
+  background-color: #af0e14;
+}
+.modal .modal-header.regular.standard {
+  background-color: #918d94;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.regular.primary {
+  background-color: #654016;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.regular.secondary {
+  background-color: #c77b21;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.regular.success {
+  background-color: #40C600;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.regular.info {
+  background-color: #008FD5;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.regular.link {
+  background-color: #034DA1;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.regular.warning {
+  background-color: #FFF200;
+  color: #000;
+  border: none;
+}
+.modal .modal-header.regular.danger {
+  background-color: #ed1c24;
+  color: #fff;
+  border: none;
+}
+.modal .modal-header.interaction.outline.standard {
+  background-color: #fff;
+  color: #918d94;
+  border: 1px solid #918d94;
+}
+.modal .modal-header.interaction.outline.standard:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-header.interaction.outline.standard:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-header.interaction.outline.standard:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-header.interaction.outline.primary {
+  background-color: #fff;
+  color: #654016;
+  border: 1px solid #654016;
+}
+.modal .modal-header.interaction.outline.primary:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-header.interaction.outline.primary:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-header.interaction.outline.primary:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-header.interaction.outline.secondary {
+  background-color: #fff;
+  color: #c77b21;
+  border: 1px solid #c77b21;
+}
+.modal .modal-header.interaction.outline.secondary:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-header.interaction.outline.secondary:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-header.interaction.outline.secondary:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-header.interaction.outline.success {
+  background-color: #fff;
+  color: #40C600;
+  border: 1px solid #40C600;
+}
+.modal .modal-header.interaction.outline.success:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-header.interaction.outline.success:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-header.interaction.outline.success:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-header.interaction.outline.info {
+  background-color: #fff;
+  color: #008FD5;
+  border: 1px solid #008FD5;
+}
+.modal .modal-header.interaction.outline.info:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-header.interaction.outline.info:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-header.interaction.outline.info:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-header.interaction.outline.link {
+  background-color: #fff;
+  color: #034DA1;
+  border: 1px solid #034DA1;
+}
+.modal .modal-header.interaction.outline.link:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-header.interaction.outline.link:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-header.interaction.outline.link:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-header.interaction.outline.warning {
+  background-color: #fff;
+  color: #e6bd44;
+  border: 1px solid #e6bd44;
+}
+.modal .modal-header.interaction.outline.warning:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-header.interaction.outline.warning:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-header.interaction.outline.warning:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-header.interaction.outline.danger {
+  background-color: #fff;
+  color: #ed1c24;
+  border: 1px solid #ed1c24;
+}
+.modal .modal-header.interaction.outline.danger:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-header.interaction.outline.danger:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-header.interaction.outline.danger:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-header.outline.standard {
+  background-color: #fff;
+  color: #918d94;
+  border: 1px solid #918d94;
+}
+.modal .modal-header.outline.primary {
+  background-color: #fff;
+  color: #654016;
+  border: 1px solid #654016;
+}
+.modal .modal-header.outline.secondary {
+  background-color: #fff;
+  color: #c77b21;
+  border: 1px solid #c77b21;
+}
+.modal .modal-header.outline.success {
+  background-color: #fff;
+  color: #40C600;
+  border: 1px solid #40C600;
+}
+.modal .modal-header.outline.info {
+  background-color: #fff;
+  color: #008FD5;
+  border: 1px solid #008FD5;
+}
+.modal .modal-header.outline.link {
+  background-color: #fff;
+  color: #034DA1;
+  border: 1px solid #034DA1;
+}
+.modal .modal-header.outline.warning {
+  background-color: #fff;
+  color: #e6bd44;
+  border: 1px solid #e6bd44;
+}
+.modal .modal-header.outline.danger {
+  background-color: #fff;
+  color: #ed1c24;
+  border: 1px solid #ed1c24;
+}
+.modal .modal-header.interaction.light.standard {
+  background-color: #faf3f3;
+  color: #918d94;
+  border: none;
+}
+.modal .modal-header.interaction.light.standard:focus {
+  background-color: #f3e1e1;
+}
+.modal .modal-header.interaction.light.standard:hover {
+  background-color: #ebcfcf;
+}
+.modal .modal-header.interaction.light.standard:active {
+  background-color: #e4bdbd;
+}
+.modal .modal-header.interaction.light.primary {
+  background-color: #e9d7c4;
+  color: #654016;
+  border: none;
+}
+.modal .modal-header.interaction.light.primary:focus {
+  background-color: #e2cab1;
+}
+.modal .modal-header.interaction.light.primary:hover {
+  background-color: #dbbe9f;
+}
+.modal .modal-header.interaction.light.primary:active {
+  background-color: #d4b18c;
+}
+.modal .modal-header.interaction.light.secondary {
+  background-color: #ffd9ac;
+  color: #c77b21;
+  border: none;
+}
+.modal .modal-header.interaction.light.secondary:focus {
+  background-color: #ffcd93;
+}
+.modal .modal-header.interaction.light.secondary:hover {
+  background-color: #ffc279;
+}
+.modal .modal-header.interaction.light.secondary:active {
+  background-color: #ffb660;
+}
+.modal .modal-header.interaction.light.success {
+  background-color: #b6f5c6;
+  color: #1ca53e;
+  border: none;
+}
+.modal .modal-header.interaction.light.success:focus {
+  background-color: #a0f2b4;
+}
+.modal .modal-header.interaction.light.success:hover {
+  background-color: #89efa3;
+}
+.modal .modal-header.interaction.light.success:active {
+  background-color: #73ec91;
+}
+.modal .modal-header.interaction.light.info {
+  background-color: #cedaff;
+  color: #008FD5;
+  border: none;
+}
+.modal .modal-header.interaction.light.info:focus {
+  background-color: #b5c7ff;
+}
+.modal .modal-header.interaction.light.info:hover {
+  background-color: #9bb3ff;
+}
+.modal .modal-header.interaction.light.info:active {
+  background-color: #82a0ff;
+}
+.modal .modal-header.interaction.light.link {
+  background-color: #4fb0ff;
+  color: #034DA1;
+  border: none;
+}
+.modal .modal-header.interaction.light.link:focus {
+  background-color: #36a5ff;
+}
+.modal .modal-header.interaction.light.link:hover {
+  background-color: #1c99ff;
+}
+.modal .modal-header.interaction.light.link:active {
+  background-color: #038eff;
+}
+.modal .modal-header.interaction.light.warning {
+  background-color: #fdffa8;
+  color: #99a034;
+  border: none;
+}
+.modal .modal-header.interaction.light.warning:focus {
+  background-color: #fcff8f;
+}
+.modal .modal-header.interaction.light.warning:hover {
+  background-color: #fcff75;
+}
+.modal .modal-header.interaction.light.warning:active {
+  background-color: #fbff5c;
+}
+.modal .modal-header.interaction.light.danger {
+  background-color: #fdc5c5;
+  color: #ed1c24;
+  border: none;
+}
+.modal .modal-header.interaction.light.danger:focus {
+  background-color: #fcacac;
+}
+.modal .modal-header.interaction.light.danger:hover {
+  background-color: #fb9494;
+}
+.modal .modal-header.interaction.light.danger:active {
+  background-color: #fa7b7b;
+}
+.modal .modal-header.light.standard {
+  background-color: #faf3f3;
+  color: #918d94;
+  border: none;
+}
+.modal .modal-header.light.primary {
+  background-color: #e9d7c4;
+  color: #654016;
+  border: none;
+}
+.modal .modal-header.light.secondary {
+  background-color: #ffd9ac;
+  color: #c77b21;
+  border: none;
+}
+.modal .modal-header.light.success {
+  background-color: #b6f5c6;
+  color: #1ca53e;
+  border: none;
+}
+.modal .modal-header.light.info {
+  background-color: #cedaff;
+  color: #008FD5;
+  border: none;
+}
+.modal .modal-header.light.link {
+  background-color: #4fb0ff;
+  color: #034DA1;
+  border: none;
+}
+.modal .modal-header.light.warning {
+  background-color: #fdffa8;
+  color: #99a034;
+  border: none;
+}
+.modal .modal-header.light.danger {
+  background-color: #fdc5c5;
+  color: #ed1c24;
+  border: none;
+}
+.modal .modal-body {
+  padding: 10px 15px;
+  border-radius: 0 0 5px 5px;
+}
+.modal .modal-body.interaction.regular.standard {
+  background-color: #918d94;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.interaction.regular.standard:focus {
+  background-color: #848088;
+}
+.modal .modal-body.interaction.regular.standard:hover {
+  background-color: #78737b;
+}
+.modal .modal-body.interaction.regular.standard:active {
+  background-color: #6b676e;
+}
+.modal .modal-body.interaction.regular.primary {
+  background-color: #654016;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.interaction.regular.primary:focus {
+  background-color: #503311;
+}
+.modal .modal-body.interaction.regular.primary:hover {
+  background-color: #3b250d;
+}
+.modal .modal-body.interaction.regular.primary:active {
+  background-color: #261808;
+}
+.modal .modal-body.interaction.regular.secondary {
+  background-color: #c77b21;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.interaction.regular.secondary:focus {
+  background-color: #b16d1d;
+}
+.modal .modal-body.interaction.regular.secondary:hover {
+  background-color: #9b601a;
+}
+.modal .modal-body.interaction.regular.secondary:active {
+  background-color: #855216;
+}
+.modal .modal-body.interaction.regular.success {
+  background-color: #40C600;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.interaction.regular.success:focus {
+  background-color: #38ad00;
+}
+.modal .modal-body.interaction.regular.success:hover {
+  background-color: #309300;
+}
+.modal .modal-body.interaction.regular.success:active {
+  background-color: #277a00;
+}
+.modal .modal-body.interaction.regular.info {
+  background-color: #008FD5;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.interaction.regular.info:focus {
+  background-color: #007ebc;
+}
+.modal .modal-body.interaction.regular.info:hover {
+  background-color: #006da2;
+}
+.modal .modal-body.interaction.regular.info:active {
+  background-color: #005c89;
+}
+.modal .modal-body.interaction.regular.link {
+  background-color: #034DA1;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.interaction.regular.link:focus {
+  background-color: #034188;
+}
+.modal .modal-body.interaction.regular.link:hover {
+  background-color: #02356f;
+}
+.modal .modal-body.interaction.regular.link:active {
+  background-color: #022956;
+}
+.modal .modal-body.interaction.regular.warning {
+  background-color: #FFF200;
+  color: #000;
+  border: none;
+}
+.modal .modal-body.interaction.regular.warning:focus {
+  background-color: #e6da00;
+}
+.modal .modal-body.interaction.regular.warning:hover {
+  background-color: #ccc200;
+}
+.modal .modal-body.interaction.regular.warning:active {
+  background-color: #b3a900;
+}
+.modal .modal-body.interaction.regular.danger {
+  background-color: #ed1c24;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.interaction.regular.danger:focus {
+  background-color: #de1219;
+}
+.modal .modal-body.interaction.regular.danger:hover {
+  background-color: #c61017;
+}
+.modal .modal-body.interaction.regular.danger:active {
+  background-color: #af0e14;
+}
+.modal .modal-body.regular.standard {
+  background-color: #918d94;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.regular.primary {
+  background-color: #654016;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.regular.secondary {
+  background-color: #c77b21;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.regular.success {
+  background-color: #40C600;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.regular.info {
+  background-color: #008FD5;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.regular.link {
+  background-color: #034DA1;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.regular.warning {
+  background-color: #FFF200;
+  color: #000;
+  border: none;
+}
+.modal .modal-body.regular.danger {
+  background-color: #ed1c24;
+  color: #fff;
+  border: none;
+}
+.modal .modal-body.interaction.outline.standard {
+  background-color: #fff;
+  color: #918d94;
+  border: 1px solid #918d94;
+}
+.modal .modal-body.interaction.outline.standard:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-body.interaction.outline.standard:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-body.interaction.outline.standard:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-body.interaction.outline.primary {
+  background-color: #fff;
+  color: #654016;
+  border: 1px solid #654016;
+}
+.modal .modal-body.interaction.outline.primary:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-body.interaction.outline.primary:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-body.interaction.outline.primary:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-body.interaction.outline.secondary {
+  background-color: #fff;
+  color: #c77b21;
+  border: 1px solid #c77b21;
+}
+.modal .modal-body.interaction.outline.secondary:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-body.interaction.outline.secondary:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-body.interaction.outline.secondary:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-body.interaction.outline.success {
+  background-color: #fff;
+  color: #40C600;
+  border: 1px solid #40C600;
+}
+.modal .modal-body.interaction.outline.success:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-body.interaction.outline.success:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-body.interaction.outline.success:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-body.interaction.outline.info {
+  background-color: #fff;
+  color: #008FD5;
+  border: 1px solid #008FD5;
+}
+.modal .modal-body.interaction.outline.info:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-body.interaction.outline.info:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-body.interaction.outline.info:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-body.interaction.outline.link {
+  background-color: #fff;
+  color: #034DA1;
+  border: 1px solid #034DA1;
+}
+.modal .modal-body.interaction.outline.link:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-body.interaction.outline.link:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-body.interaction.outline.link:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-body.interaction.outline.warning {
+  background-color: #fff;
+  color: #e6bd44;
+  border: 1px solid #e6bd44;
+}
+.modal .modal-body.interaction.outline.warning:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-body.interaction.outline.warning:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-body.interaction.outline.warning:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-body.interaction.outline.danger {
+  background-color: #fff;
+  color: #ed1c24;
+  border: 1px solid #ed1c24;
+}
+.modal .modal-body.interaction.outline.danger:focus {
+  background-color: #f2f2f2;
+}
+.modal .modal-body.interaction.outline.danger:hover {
+  background-color: #e6e6e6;
+}
+.modal .modal-body.interaction.outline.danger:active {
+  background-color: #d9d9d9;
+}
+.modal .modal-body.outline.standard {
+  background-color: #fff;
+  color: #918d94;
+  border: 1px solid #918d94;
+}
+.modal .modal-body.outline.primary {
+  background-color: #fff;
+  color: #654016;
+  border: 1px solid #654016;
+}
+.modal .modal-body.outline.secondary {
+  background-color: #fff;
+  color: #c77b21;
+  border: 1px solid #c77b21;
+}
+.modal .modal-body.outline.success {
+  background-color: #fff;
+  color: #40C600;
+  border: 1px solid #40C600;
+}
+.modal .modal-body.outline.info {
+  background-color: #fff;
+  color: #008FD5;
+  border: 1px solid #008FD5;
+}
+.modal .modal-body.outline.link {
+  background-color: #fff;
+  color: #034DA1;
+  border: 1px solid #034DA1;
+}
+.modal .modal-body.outline.warning {
+  background-color: #fff;
+  color: #e6bd44;
+  border: 1px solid #e6bd44;
+}
+.modal .modal-body.outline.danger {
+  background-color: #fff;
+  color: #ed1c24;
+  border: 1px solid #ed1c24;
+}
+.modal .modal-body.interaction.light.standard {
+  background-color: #faf3f3;
+  color: #918d94;
+  border: none;
+}
+.modal .modal-body.interaction.light.standard:focus {
+  background-color: #f3e1e1;
+}
+.modal .modal-body.interaction.light.standard:hover {
+  background-color: #ebcfcf;
+}
+.modal .modal-body.interaction.light.standard:active {
+  background-color: #e4bdbd;
+}
+.modal .modal-body.interaction.light.primary {
+  background-color: #e9d7c4;
+  color: #654016;
+  border: none;
+}
+.modal .modal-body.interaction.light.primary:focus {
+  background-color: #e2cab1;
+}
+.modal .modal-body.interaction.light.primary:hover {
+  background-color: #dbbe9f;
+}
+.modal .modal-body.interaction.light.primary:active {
+  background-color: #d4b18c;
+}
+.modal .modal-body.interaction.light.secondary {
+  background-color: #ffd9ac;
+  color: #c77b21;
+  border: none;
+}
+.modal .modal-body.interaction.light.secondary:focus {
+  background-color: #ffcd93;
+}
+.modal .modal-body.interaction.light.secondary:hover {
+  background-color: #ffc279;
+}
+.modal .modal-body.interaction.light.secondary:active {
+  background-color: #ffb660;
+}
+.modal .modal-body.interaction.light.success {
+  background-color: #b6f5c6;
+  color: #1ca53e;
+  border: none;
+}
+.modal .modal-body.interaction.light.success:focus {
+  background-color: #a0f2b4;
+}
+.modal .modal-body.interaction.light.success:hover {
+  background-color: #89efa3;
+}
+.modal .modal-body.interaction.light.success:active {
+  background-color: #73ec91;
+}
+.modal .modal-body.interaction.light.info {
+  background-color: #cedaff;
+  color: #008FD5;
+  border: none;
+}
+.modal .modal-body.interaction.light.info:focus {
+  background-color: #b5c7ff;
+}
+.modal .modal-body.interaction.light.info:hover {
+  background-color: #9bb3ff;
+}
+.modal .modal-body.interaction.light.info:active {
+  background-color: #82a0ff;
+}
+.modal .modal-body.interaction.light.link {
+  background-color: #4fb0ff;
+  color: #034DA1;
+  border: none;
+}
+.modal .modal-body.interaction.light.link:focus {
+  background-color: #36a5ff;
+}
+.modal .modal-body.interaction.light.link:hover {
+  background-color: #1c99ff;
+}
+.modal .modal-body.interaction.light.link:active {
+  background-color: #038eff;
+}
+.modal .modal-body.interaction.light.warning {
+  background-color: #fdffa8;
+  color: #99a034;
+  border: none;
+}
+.modal .modal-body.interaction.light.warning:focus {
+  background-color: #fcff8f;
+}
+.modal .modal-body.interaction.light.warning:hover {
+  background-color: #fcff75;
+}
+.modal .modal-body.interaction.light.warning:active {
+  background-color: #fbff5c;
+}
+.modal .modal-body.interaction.light.danger {
+  background-color: #fdc5c5;
+  color: #ed1c24;
+  border: none;
+}
+.modal .modal-body.interaction.light.danger:focus {
+  background-color: #fcacac;
+}
+.modal .modal-body.interaction.light.danger:hover {
+  background-color: #fb9494;
+}
+.modal .modal-body.interaction.light.danger:active {
+  background-color: #fa7b7b;
+}
+.modal .modal-body.light.standard {
+  background-color: #faf3f3;
+  color: #918d94;
+  border: none;
+}
+.modal .modal-body.light.primary {
+  background-color: #e9d7c4;
+  color: #654016;
+  border: none;
+}
+.modal .modal-body.light.secondary {
+  background-color: #ffd9ac;
+  color: #c77b21;
+  border: none;
+}
+.modal .modal-body.light.success {
+  background-color: #b6f5c6;
+  color: #1ca53e;
+  border: none;
+}
+.modal .modal-body.light.info {
+  background-color: #cedaff;
+  color: #008FD5;
+  border: none;
+}
+.modal .modal-body.light.link {
+  background-color: #4fb0ff;
+  color: #034DA1;
+  border: none;
+}
+.modal .modal-body.light.warning {
+  background-color: #fdffa8;
+  color: #99a034;
+  border: none;
+}
+.modal .modal-body.light.danger {
+  background-color: #fdc5c5;
+  color: #ed1c24;
+  border: none;
+}
+
 /*# sourceMappingURL=main.css.map */
