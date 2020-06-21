@@ -25,7 +25,7 @@ however, it is not necessary to worry about the sass module only it needs to be 
 1. Install the sass module: `npm install yew-styles`
 2. Add the yew_style crate with the features needed for your project in Cargo.toml file: 
 ```toml
-yew_styles = { version="0.5.0", features=["button", "navbar", "layouts"] }
+yew_styles = { version="0.6.0", features=["button", "navbar", "layouts"] }
 ```
 3. Import the main.css file in you main javascript/typescript file project: 
 ```typescript
@@ -55,6 +55,21 @@ Inside of the project run:
 Yew style is in early phase, currently doesn't have enough components to cover all the requirements that could need a website/web application.
 All contributions are appreciated.
 
+## How contribute
+First, open an issue describing about the fix, improvement or implementation and as suggestion, don't start to work in it until that is discussed.
+If the contribution is a fix or small improvement in a component, only a pull request to master explaining what resolve or improve that, is required.
+If it is an implementation, please follow the next requirements:
+
+* Firstable open and issue describing about the component 
+* Unit tests, which checks that the component is created and
+its logic works, in the same file where it is implemented (test events is not needed for now)
+* One component per file, if multiple components have connections between them, it is possible create subfolder
+* Documentation in the component showing an example of using it and small description of each prop
+* Create a component page in `/crate/src/page` with the same structure than the rest of the components
+
+## Code of Conduct
+Please check our [code of conduct](CODE_OF_CONDUCT.md)
+
 ## Roadmap
 
 - [x] Button 
@@ -65,7 +80,7 @@ All contributions are appreciated.
 - [ ] Text
 - [ ] Table
 - [ ] Pagination
-- [ ] Modal
+- [x] Modal
 - [ ] Sidebar
 - [ ] Tab
 - [ ] Tooltips
@@ -75,4 +90,4 @@ All contributions are appreciated.
 
 ## License
 
-Yew Style is MIT licensed. See [license](LICENSE)
+Yew Style is [MIT](LICENSE-MIT.md) and [Apache-2.0](LICENSE-APACHE.md) licensed

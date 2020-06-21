@@ -49,7 +49,7 @@ impl Component for HomePage {
                     <ol>
                         <li>{"Install the sass module: "}<code>{"npm install yew-styles"}</code></li>
                         <li>{"Add the yew_style crate with the features needed for your project in Cargo.toml file: "}<br/>
-                            <code>{"yew_styles = {version=\"0.5.0\", features=[\"layouts\",\"button\"]}"}</code>
+                            <code>{"yew_styles = {version=\"0.6.0\", features=[\"layouts\",\"button\"]}"}</code>
                         </li>
                         <li>{"Import the main.css file in you main javascript/typescript file project: "}
                             <code>{"import 'node_modules/yew-styles/main.css';"}</code>
@@ -64,6 +64,20 @@ impl Component for HomePage {
                     <h2>{"Development phase"}</h2>
                     <p>{"Yew style is in early phase, currently doesn't have enough components to cover all the requirements
                     that could need a website/web application. All contributions are appreciated."}</p>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <h2>{"How contribute"}</h2>
+                    <p>{"First, open an issue describing about the fix, improvement or implementation and as suggestion, don't start to work in it until that is discussed.
+                    If the contribution is a fix or small improvement in a component, only a pull request to master explaining what resolve or improve that, is required.
+                    If it is an implementation, please follow the next requirements:"}</p>
+                    <ol>
+                        <li>{"Firstable open and issue describing about the component"}</li>
+                        <li>{"Unit tests, which checks that the component is created and
+                        its logic works, in the same file where it is implemented (test events is not needed for now)"}</li>
+                        <li>{"One component per file, if multiple components have connections between them, it is possible create subfolder"}</li>
+                        <li>{"Documentation in the component showing an example of using it and small description of each prop"}</li>
+                        <li>{"Create a component page in "}<code>{"/crate/src/page"}</code>{" with the same structure than the rest of the components"}</li>
+                    </ol>
                 </Item>
             </Container>
         }

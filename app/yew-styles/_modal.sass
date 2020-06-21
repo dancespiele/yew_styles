@@ -1,0 +1,61 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+
+.modal
+    position: fixed
+    z-index: 1
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    display: flex
+    justify-content: center
+    overflow: hidden
+
+    @include modal-bg($regular-style)
+
+    .modal-content
+        width: 50%
+        top: 20vh
+        position: fixed
+        z-index: 2
+
+        &.small
+            width: 30%
+
+        &.big
+            width: 75%
+
+    .modal-header
+        padding: 3px 15px
+        border-radius: 8px 8px 0 0
+
+        &.interaction.regular
+            @include pallete-style($regular-style, true)
+        &.regular
+            @include pallete-style($regular-style, false)
+        &.interaction.outline
+            @include pallete-style($outline-style, true)
+        &.outline
+            @include pallete-style($outline-style, false)
+        &.interaction.light
+            @include pallete-style($light-style, true)
+        &.light
+            @include pallete-style($light-style, false)
+
+    .modal-body
+        padding: 10px 15px
+        border-radius: 0 0 5px 5px
+
+        &.interaction.regular
+            @include pallete-style($regular-style, true)
+        &.regular
+            @include pallete-style($regular-style, false)
+        &.interaction.outline
+            @include pallete-style($outline-style, true)
+        &.outline
+            @include pallete-style($outline-style, false)
+        &.interaction.light
+            @include pallete-style($light-style, true)
+        &.light
+            @include pallete-style($light-style, false)
