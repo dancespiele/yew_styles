@@ -1,6 +1,6 @@
 [package]
 name = "yew_styles"
-version = "0.6.0"
+version = "0.6.1"
 description = "Framework styles for yew"
 documentation = "https://docs.rs/crate/yew_styles"
 authors = ["Francisco Jesus Navarro Cortes <spieljs@gmail.com>"]
