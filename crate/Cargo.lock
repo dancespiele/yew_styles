@@ -1012,7 +1012,7 @@ dependencies = [
 
 [[package]]
 name = "yew_style_page"
-version = "0.6.0"
+version = "0.6.1"
 dependencies = [
  "Inflector",
  "cfg-if",
@@ -1033,7 +1033,7 @@ dependencies = [
 
 [[package]]
 name = "yew_styles"
-version = "0.6.0"
+version = "0.6.1"
 dependencies = [
  "getrandom",
  "rand",
