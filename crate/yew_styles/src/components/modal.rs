@@ -3,7 +3,6 @@ use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use web_sys::{Element, HtmlElement};
 use yew::prelude::*;
-use yew::services::ConsoleService;
 use yew::{utils, App};
 
 /// # Modal component
@@ -59,13 +58,13 @@ use yew::{utils, App};
 ///                 body_style.set_property("overflow", "auto").unwrap();
 ///                 self.show_modal = false;
 ///             }
-///             Msg::CloseModalByKb(keyboard_event, index) => {
+///             Msg::CloseModalByKb(keyboard_event) => {
 ///                 if keyboard_event.key_code() == 27 {
 ///                     body_style.set_property("overflow", "auto").unwrap();
 ///                     self.show_modal = false;
 ///                 }
 ///             }
-///             Msg::OpenModal(index) => {
+///             Msg::OpenModal => {
 ///                 body_style.set_property("overflow", "hidden").unwrap();
 ///
 ///                 self.show_modal = true;
@@ -189,8 +188,6 @@ impl Component for Modal {
                 }
             }
             Msg::Pressed(keyboard_event) => {
-                let mut console = ConsoleService::new();
-                console.log("Pressed");
                 self.props.onkeydown_signal.emit(keyboard_event);
             }
         };
