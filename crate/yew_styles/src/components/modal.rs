@@ -188,7 +188,15 @@ impl Component for Modal {
                 }
             }
             Msg::Pressed(keyboard_event) => {
-                self.props.onkeydown_signal.emit(keyboard_event);
+                let target_event = keyboard_event
+                    .target()
+                    .unwrap()
+                    .dyn_into::<Element>()
+                    .unwrap()
+                    .class_name();
+                if target_event.starts_with("modal container") {
+                    self.props.onkeydown_signal.emit(keyboard_event);
+                }
             }
         };
         true
