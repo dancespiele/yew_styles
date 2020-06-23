@@ -146,12 +146,15 @@ pub struct Props {
     /// Type modal body style
     #[prop_or(Palette::Standard)]
     pub body_type: Palette,
-    /// modal body styles
+    /// Modal body styles
     #[prop_or(Style::Regular)]
     pub body_style: Style,
     /// If hove, focus, active effects are enable in the body
     #[prop_or(false)]
     pub body_interaction: bool,
+    /// If the modal content get the focus. Set to false if the modal includes input events
+    #[prop_or(true)]
+    pub auto_focus: bool,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -188,15 +191,7 @@ impl Component for Modal {
                 }
             }
             Msg::Pressed(keyboard_event) => {
-                let target_event = keyboard_event
-                    .target()
-                    .unwrap()
-                    .dyn_into::<Element>()
-                    .unwrap()
-                    .class_name();
-                if target_event.starts_with("modal container") {
-                    self.props.onkeydown_signal.emit(keyboard_event);
-                }
+                self.props.onkeydown_signal.emit(keyboard_event);
             }
         };
         true
@@ -208,7 +203,7 @@ impl Component for Modal {
     }
 
     fn rendered(&mut self, _first_render: bool) {
-        if self.props.is_open {
+        if self.props.is_open && self.props.auto_focus {
             utils::document()
                 .get_elements_by_class_name("modal")
                 .get_with_index(0)
@@ -280,6 +275,7 @@ fn should_create_modal_component() {
         body_type: Palette::Standard,
         body_interaction: false,
         is_open: true,
+        auto_focus: false,
     };
 
     let modal: App<Modal> = App::new();
@@ -315,6 +311,7 @@ fn should_hide_modal_component_from_doom() {
         body_type: Palette::Standard,
         body_interaction: false,
         is_open: false,
+        auto_focus: false,
     };
 
     let modal: App<Modal> = App::new();

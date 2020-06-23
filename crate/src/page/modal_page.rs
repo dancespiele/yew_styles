@@ -7,18 +7,25 @@ use yew::prelude::*;
 use yew::utils::document;
 use yew_prism::Prism;
 use yew_styles::button::Button;
+use yew_styles::forms::{
+    form_group::{FormGroup, Orientation},
+    form_input::{FormInput, InputType},
+    form_label::FormLabel,
+};
 use yew_styles::modal::Modal;
 use yew_styles::styles::{get_size, Palette, Size, Style};
 
 pub struct ModalPage {
     link: ComponentLink<Self>,
     show_modal: Vec<bool>,
+    input_text: String,
 }
 
 pub enum Msg {
     CloseModal(usize),
     OpenModal(usize),
     CloseModalByKb(KeyboardEvent, usize),
+    InputText(String),
 }
 
 impl Component for ModalPage {
@@ -28,7 +35,8 @@ impl Component for ModalPage {
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         Self {
             link,
-            show_modal: vec![false; 5],
+            show_modal: vec![false; 6],
+            input_text: "".to_string(),
         }
     }
 
@@ -55,6 +63,9 @@ impl Component for ModalPage {
                 body_style.set_property("overflow", "hidden").unwrap();
 
                 self.show_modal[index] = true;
+            }
+            Msg::InputText(value) => {
+                self.input_text = value;
             }
         };
         true
@@ -93,6 +104,9 @@ impl Component for ModalPage {
                     <li><b>{"is_open: "}</b>{"if it is true, shows the modal otherwise is hidden. Required"}</li>
                     <li><b>{"onclick_signal: "}</b>{"click event for modal (usually to close the modal)."}</li>
                     <li><b>{"onkeydown_signal: "}</b>{"keyboard event for modal (usually to close the modal)."}</li>
+                    <li><b>{"auto_focus: "}</b>{"if the modal content get the focus. Set to false if the modal includes input events. Default "}
+                        <code>{"true"}</code>{"."}
+                    </li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
@@ -153,6 +167,40 @@ impl Component for ModalPage {
                     button_type= Palette::Link
                     onclick_signal= self.link.callback(|_| Msg::OpenModal(1))
                 >{"Interactive modal"}</Button>
+                <h3>{"Form in modal"}</h3>
+                <Modal
+                    header=html!{
+                        <b>{"Form in modal"}</b>
+                    }
+                    auto_focus=false
+                    modal_type=Palette::Info
+                    header_type=Palette::Link
+                    body=html!{
+                        <div class="body-content">
+                            <FormGroup orientation=Orientation::Vertical>
+                                <FormLabel text={"Write here"}/>
+                                <FormInput
+                                    input_content_type=InputType::Text
+                                    value=self.input_text.clone()
+                                    oninput_signal=self.link.callback(|e: InputData| Msg::InputText(e.value))/>
+                                    <span>{format!("value: {}", self.input_text)}</span>
+                            </FormGroup>
+                            <Button
+                                button_type= Palette::Info
+                                onclick_signal= self.link.callback(|_| Msg::CloseModal(2))
+                            >{"Accept"}</Button>
+                        </div>
+                    }
+                    body_style=Style::Outline
+                    body_type=Palette::Link
+                    is_open=self.show_modal[2]
+                    onclick_signal= self.link.callback(|_| Msg::CloseModal(2))
+                    onkeydown_signal= self.link.callback(|e| Msg::CloseModalByKb(e, 2))
+                />
+                <Button
+                    button_type= Palette::Info
+                    onclick_signal= self.link.callback(|_| Msg::OpenModal(2))
+                >{"Form modal"}</Button>
                 {get_modal_sizes(self.show_modal.clone(), self.link.clone())}
             </>
         }
@@ -186,7 +234,7 @@ fn get_modal_sizes(show_modal: Vec<bool>, link: ComponentLink<ModalPage>) -> Htm
                         modal_size=size.clone()
                         body_style=Style::Outline
                         body_type=Palette::Link
-                        is_open=show_modal[index + 2]
+                        is_open=show_modal[index + 3]
                         onclick_signal= link.callback(move |_| Msg::CloseModal(index + 2))
                         onkeydown_signal= link.callback(move |e| Msg::CloseModalByKb(e, index + 2))
                     />
