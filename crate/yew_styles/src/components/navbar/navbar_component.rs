@@ -217,7 +217,7 @@ impl Component for Navbar {
                                 onclick_signal=self.link.callback(move |_| Msg::TroggleMenu)
                             >
                              <Asset
-                                asset=Icon::Menu
+                                icon=Icon::Menu
                                 class_name="navbar-menu"
                              />
                             </NavbarItem>

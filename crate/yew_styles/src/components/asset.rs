@@ -20,7 +20,7 @@ pub struct Asset {
 #[derive(Clone, Properties)]
 pub struct Props {
     /// List of Icons
-    pub asset: Icon,
+    pub icon: Icon,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -47,7 +47,7 @@ impl Component for Asset {
 
     fn view(&self) -> Html {
         get_icon(
-            self.props.asset.clone(),
+            self.props.icon.clone(),
             self.props.class_name.clone(),
             self.props.id.clone(),
         )
