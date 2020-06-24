@@ -45,13 +45,12 @@
 //! * Documentation in the component showing an example of using it and small description of each prop
 //! * Create a component page in `/crate/src/page` with the same structure than the rest of the components
 #![recursion_limit = "512"]
-mod assets;
 mod components;
 pub mod styles;
 mod utils;
 
 #[cfg(feature = "assets")]
-pub use assets::Assets;
+pub mod assets;
 #[cfg(feature = "button")]
 pub use components::button;
 #[cfg(all(feature = "card", feature = "layouts"))]

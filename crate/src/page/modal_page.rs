@@ -227,7 +227,7 @@ fn get_modal_sizes(show_modal: Vec<bool>, link: ComponentLink<ModalPage>) -> Htm
                                 <p>{lipsum(7)}</p>
                                 <Button
                                     button_type= Palette::Info
-                                    onclick_signal= link.callback(move |_| Msg::CloseModal(index + 2))
+                                    onclick_signal= link.callback(move |_| Msg::CloseModal(index + 3))
                                 >{"Accept"}</Button>
                             </div>
                         }
@@ -235,12 +235,12 @@ fn get_modal_sizes(show_modal: Vec<bool>, link: ComponentLink<ModalPage>) -> Htm
                         body_style=Style::Outline
                         body_type=Palette::Link
                         is_open=show_modal[index + 3]
-                        onclick_signal= link.callback(move |_| Msg::CloseModal(index + 2))
-                        onkeydown_signal= link.callback(move |e| Msg::CloseModalByKb(e, index + 2))
+                        onclick_signal= link.callback(move |_| Msg::CloseModal(index + 3))
+                        onkeydown_signal= link.callback(move |e| Msg::CloseModalByKb(e, index + 3))
                     />
                     <Button
                         button_type= Palette::Standard
-                        onclick_signal= link.callback(move |_| Msg::OpenModal(index + 2))
+                        onclick_signal= link.callback(move |_| Msg::OpenModal(index + 3))
                     >{{format!{"{} modal", get_size(size).to_pascal_case()}}}</Button>
                 </>
             }
