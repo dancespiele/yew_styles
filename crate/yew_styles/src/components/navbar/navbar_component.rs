@@ -1,6 +1,6 @@
 use super::navbar_container::NavbarContainer;
 use super::navbar_item::NavbarItem;
-use crate::assets::{Assets, Icon};
+use crate::asset::{Asset, Icon};
 use crate::layouts::container::{Direction, JustifyContent, Mode};
 use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
@@ -216,7 +216,7 @@ impl Component for Navbar {
                             <NavbarItem
                                 onclick_signal=self.link.callback(move |_| Msg::TroggleMenu)
                             >
-                             <Assets
+                             <Asset
                                 asset=Icon::Menu
                                 class_name="navbar-menu"
                              />

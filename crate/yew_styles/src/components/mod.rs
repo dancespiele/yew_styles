@@ -1,4 +1,5 @@
 extern crate getrandom;
+pub mod asset;
 pub mod button;
 pub mod card;
 pub mod forms;

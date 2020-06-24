@@ -10,10 +10,10 @@ pub enum Icon {
 
 pub enum Msg {}
 
-/// # Assets
+/// # Asset
 ///
 /// Add a svg Icon
-pub struct Assets {
+pub struct Asset {
     pub props: Props,
 }
 
@@ -29,12 +29,12 @@ pub struct Props {
     pub id: String,
 }
 
-impl Component for Assets {
+impl Component for Asset {
     type Properties = Props;
     type Message = Msg;
 
     fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        Assets { props }
+        Asset { props }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
