@@ -1743,10 +1743,10 @@
   display: flex;
 }
 .form-group.horizontal label {
-  flex-basis: 18%;
+  flex-basis: 6em;
 }
-.form-group.horizontal input {
-  flex-basis: fill;
+.form-group.horizontal .form-error {
+  margin-left: 4px;
 }
 
 .form-label {
