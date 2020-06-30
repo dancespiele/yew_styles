@@ -11,7 +11,7 @@ pub enum Msg {
 ///
 /// ## Features required
 ///
-/// navbar, layouts
+/// navbar, layouts, asset
 ///
 /// ## Example
 ///

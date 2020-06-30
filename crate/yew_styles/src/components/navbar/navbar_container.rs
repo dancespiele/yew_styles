@@ -26,7 +26,7 @@ pub struct Props {
 ///
 /// ## Features required
 ///
-/// navbar, layouts
+/// navbar, layouts, asset
 ///
 /// ## Example
 ///
