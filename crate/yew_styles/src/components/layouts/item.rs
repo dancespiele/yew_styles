@@ -165,7 +165,7 @@ impl Component for Item {
 
                 onclick=self.link.callback(Msg::Clicked)
             >
-                {self.props.children.render()}
+                {self.props.children.clone()}
             </div>
         }
     }

@@ -1,6 +1,6 @@
 [package]
 name = "yew_styles"
-version = "0.6.1"
+version = "0.6.2"
 description = "Framework styles for yew"
 documentation = "https://docs.rs/crate/yew_styles"
 authors = ["Francisco Jesus Navarro Cortes <spieljs@gmail.com>"]
@@ -24,13 +24,13 @@ button = []
 navbar = []
 forms = []
 card = []
-assets = []
+asset = []
 modal = []
 
 
 [dependencies]
 wasm-bindgen = "0.2"
-yew = { version="0.16", features = ["web_sys"] }
+yew = { version="0.17", features = ["web_sys"] }
 web-sys = {version = "0.3", features = ["HtmlDocument", "HtmlCollection", "CssStyleDeclaration", "Selection", "HtmlElement", "HtmlInputElement", "HtmlSelectElement", "Event", "Node","HtmlOptionsCollection","HtmlOptionElement", "DataTransfer"]}
 rand = {version="0.7", features = ["getrandom"]}
 getrandom = {version = "0.1", features= ["wasm-bindgen"]}
