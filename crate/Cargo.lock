@@ -995,36 +995,6 @@ dependencies = [
 
 [[package]]
 name = "yew"
-version = "0.16.2"
-source = "git+https://github.com/yewstack/yew#09ffbb9e91fe57adc61c9fcf584681d056bfa595"
-dependencies = [
- "anyhow",
- "anymap",
- "bincode",
- "cfg-if",
- "cfg-match",
- "console_error_panic_hook",
- "futures",
- "gloo",
- "http",
- "indexmap",
- "js-sys",
- "log",
- "proc-macro-hack",
- "proc-macro-nested",
- "ryu",
- "serde",
- "serde_json",
- "slab",
- "thiserror",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
- "yew-macro 0.16.1",
-]
-
-[[package]]
-name = "yew"
 version = "0.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "169c1645dd76856029d1e97f4ae8ef9f8171a63d592c1ada50d25f9f4c25dc0d"
@@ -1055,20 +1025,7 @@ dependencies = [
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
- "yew-macro 0.17.0",
-]
-
-[[package]]
-name = "yew-macro"
-version = "0.16.1"
-source = "git+https://github.com/yewstack/yew#09ffbb9e91fe57adc61c9fcf584681d056bfa595"
-dependencies = [
- "boolinator",
- "lazy_static",
- "proc-macro-hack",
- "proc-macro2",
- "quote",
- "syn",
+ "yew-macro",
 ]
 
 [[package]]
@@ -1087,8 +1044,9 @@ dependencies = [
 
 [[package]]
 name = "yew-router"
-version = "0.13.0"
-source = "git+https://github.com/yewstack/yew#09ffbb9e91fe57adc61c9fcf584681d056bfa595"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "20f46279cd28a50e0e9271352ce6d7be7f10e6ba449c76544985e64222f5e999"
 dependencies = [
  "cfg-if",
  "cfg-match",
@@ -1100,15 +1058,16 @@ dependencies = [
  "serde_json",
  "wasm-bindgen",
  "web-sys",
- "yew 0.16.2",
+ "yew",
  "yew-router-macro",
  "yew-router-route-parser",
 ]
 
 [[package]]
 name = "yew-router-macro"
-version = "0.13.0"
-source = "git+https://github.com/yewstack/yew#09ffbb9e91fe57adc61c9fcf584681d056bfa595"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "768693f16c930d8a8742c2e5f62f258d5a6f0392e8c9265a45c550fac4cbe5a7"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1118,8 +1077,9 @@ dependencies = [
 
 [[package]]
 name = "yew-router-route-parser"
-version = "0.13.0"
-source = "git+https://github.com/yewstack/yew#09ffbb9e91fe57adc61c9fcf584681d056bfa595"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "49bf2f66f0e61d65d1637523fa1faedd5aa291cf9cb8d8fb200678472279b672"
 dependencies = [
  "nom",
 ]
@@ -1132,7 +1092,7 @@ checksum = "93bd2cdfc29ca316367329a0160d86c5ce625ac33f242b98988b7d15067a6491"
 dependencies = [
  "wasm-bindgen",
  "web-sys",
- "yew 0.17.0",
+ "yew",
 ]
 
 [[package]]
@@ -1150,7 +1110,7 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "wee_alloc",
- "yew 0.17.0",
+ "yew",
  "yew-router",
  "yew_prism",
  "yew_styles",
@@ -1165,5 +1125,5 @@ dependencies = [
  "wasm-bindgen",
  "wasm-bindgen-test",
  "web-sys",
- "yew 0.17.0",
+ "yew",
 ]

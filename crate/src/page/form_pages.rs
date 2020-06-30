@@ -265,9 +265,9 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
     html! {
         <Container wrap=Wrap::Wrap direction=Direction::Row>
             <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
-                <FormGroup orientation=Orientation::Horizontal>
+                <FormGroup orientation=Orientation::Vertical>
                     <FormLabel
-                        text="standard input"
+                        text="standard input:"
                     />
                     <FormInput
                         input_content_type=InputType::Text
@@ -283,9 +283,9 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                 </FormGroup>
             </Item>
             <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
-                <FormGroup orientation=Orientation::Horizontal>
+                <FormGroup orientation=Orientation::Vertical>
                     <FormLabel
-                        text="underline input"
+                        text="underline input:"
                     />
                     <FormInput
                         input_content_type=InputType::Text
@@ -300,9 +300,9 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                 </FormGroup>
             </Item>
             <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
-                <FormGroup orientation=Orientation::Horizontal>
+                <FormGroup orientation=Orientation::Vertical>
                     <FormLabel
-                        text="Success input type"
+                        text="Success input type:"
                     />
                     <FormInput
                         input_content_type=InputType::Text
