@@ -6,6 +6,7 @@ use web_sys::HtmlElement;
 use yew::prelude::*;
 use yew::utils::document;
 use yew_prism::Prism;
+use yew_styles::asset::{Asset, Icon};
 use yew_styles::button::Button;
 use yew_styles::forms::{
     form_group::{FormGroup, Orientation},
@@ -19,11 +20,13 @@ pub struct ModalPage {
     link: ComponentLink<Self>,
     show_modal: Vec<bool>,
     input_text: String,
+    open_form: bool,
 }
 
 pub enum Msg {
     CloseModal(usize),
     OpenModal(usize),
+    OpenForm,
     CloseModalByKb(KeyboardEvent, usize),
     InputText(String),
 }
@@ -37,6 +40,7 @@ impl Component for ModalPage {
             link,
             show_modal: vec![false; 6],
             input_text: "".to_string(),
+            open_form: false,
         }
     }
 
@@ -66,6 +70,9 @@ impl Component for ModalPage {
             }
             Msg::InputText(value) => {
                 self.input_text = value;
+            }
+            Msg::OpenForm => {
+                self.open_form = !self.open_form;
             }
         };
         true
@@ -176,19 +183,33 @@ impl Component for ModalPage {
                     modal_type=Palette::Info
                     header_type=Palette::Link
                     body=html!{
-                        <div class="body-content">
-                            <FormGroup orientation=Orientation::Vertical>
-                                <FormLabel text={"Write here"}/>
-                                <FormInput
-                                    input_content_type=InputType::Text
-                                    value=self.input_text.clone()
-                                    oninput_signal=self.link.callback(|e: InputData| Msg::InputText(e.value))/>
-                                    <span>{format!("value: {}", self.input_text)}</span>
-                            </FormGroup>
-                            <Button
-                                button_type= Palette::Info
-                                onclick_signal= self.link.callback(|_| Msg::CloseModal(2))
-                            >{"Accept"}</Button>
+                        <div>
+                            <div onclick=self.link.callback(|_| Msg::OpenForm)>
+                                <Asset icon=Icon::Edit/>
+                            </div>
+                            <div onclick=self.link.callback(|_| Msg::OpenForm) style="cursor: pointer">
+                                {"Edit"}
+                            </div>
+                            {if self.open_form {
+                                html!{
+                                    <div class="body-content">
+                                        <FormGroup orientation=Orientation::Vertical>
+                                            <FormLabel text={"Write here"}/>
+                                            <FormInput
+                                                input_content_type=InputType::Text
+                                                value=self.input_text.clone()
+                                                oninput_signal=self.link.callback(|e: InputData| Msg::InputText(e.value))/>
+                                                <span>{format!("value: {}", self.input_text)}</span>
+                                        </FormGroup>
+                                        <Button
+                                            button_type= Palette::Info
+                                            onclick_signal= self.link.callback(|_| Msg::CloseModal(2))
+                                        >{"Accept"}</Button>
+                                    </div>
+                                }
+                            }else {
+                                html!{}
+                            }}
                         </div>
                     }
                     body_style=Style::Outline
