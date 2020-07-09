@@ -176,19 +176,21 @@ impl Component for ModalPage {
                     modal_type=Palette::Info
                     header_type=Palette::Link
                     body=html!{
-                        <div class="body-content">
-                            <FormGroup orientation=Orientation::Vertical>
-                                <FormLabel text={"Write here"}/>
-                                <FormInput
-                                    input_content_type=InputType::Text
-                                    value=self.input_text.clone()
-                                    oninput_signal=self.link.callback(|e: InputData| Msg::InputText(e.value))/>
-                                    <span>{format!("value: {}", self.input_text)}</span>
-                            </FormGroup>
-                            <Button
-                                button_type= Palette::Info
-                                onclick_signal= self.link.callback(|_| Msg::CloseModal(2))
-                            >{"Accept"}</Button>
+                        <div>
+                            <div class="body-content">
+                                <FormGroup orientation=Orientation::Vertical>
+                                    <FormLabel text={"Write here"}/>
+                                    <FormInput
+                                        input_content_type=InputType::Text
+                                        value=self.input_text.clone()
+                                        oninput_signal=self.link.callback(|e: InputData| Msg::InputText(e.value))/>
+                                        <span>{format!("value: {}", self.input_text)}</span>
+                                </FormGroup>
+                                <Button
+                                    button_type= Palette::Info
+                                    onclick_signal= self.link.callback(|_| Msg::CloseModal(2))
+                                >{"Accept"}</Button>
+                            </div>
                         </div>
                     }
                     body_style=Style::Outline
