@@ -995,8 +995,9 @@ dependencies = [
 
 [[package]]
 name = "yew"
-version = "0.16.2"
-source = "git+https://github.com/yewstack/yew#09ffbb9e91fe57adc61c9fcf584681d056bfa595"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "169c1645dd76856029d1e97f4ae8ef9f8171a63d592c1ada50d25f9f4c25dc0d"
 dependencies = [
  "anyhow",
  "anymap",
@@ -1029,8 +1030,9 @@ dependencies = [
 
 [[package]]
 name = "yew-macro"
-version = "0.16.1"
-source = "git+https://github.com/yewstack/yew#09ffbb9e91fe57adc61c9fcf584681d056bfa595"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "61a9a452e63b6222b28b426dafbc6b207192e0127cdb93324cc7407b8c7e1768"
 dependencies = [
  "boolinator",
  "lazy_static",
@@ -1042,8 +1044,9 @@ dependencies = [
 
 [[package]]
 name = "yew-router"
-version = "0.13.0"
-source = "git+https://github.com/yewstack/yew#09ffbb9e91fe57adc61c9fcf584681d056bfa595"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "20f46279cd28a50e0e9271352ce6d7be7f10e6ba449c76544985e64222f5e999"
 dependencies = [
  "cfg-if",
  "cfg-match",
@@ -1062,8 +1065,9 @@ dependencies = [
 
 [[package]]
 name = "yew-router-macro"
-version = "0.13.0"
-source = "git+https://github.com/yewstack/yew#09ffbb9e91fe57adc61c9fcf584681d056bfa595"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "768693f16c930d8a8742c2e5f62f258d5a6f0392e8c9265a45c550fac4cbe5a7"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1073,16 +1077,18 @@ dependencies = [
 
 [[package]]
 name = "yew-router-route-parser"
-version = "0.13.0"
-source = "git+https://github.com/yewstack/yew#09ffbb9e91fe57adc61c9fcf584681d056bfa595"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "49bf2f66f0e61d65d1637523fa1faedd5aa291cf9cb8d8fb200678472279b672"
 dependencies = [
  "nom",
 ]
 
 [[package]]
 name = "yew_prism"
-version = "0.3.0"
-source = "git+https://github.com/spielrs/yew_prism?branch=unstable#42b0e9e8d647122654e48eb9f972710f1c71c757"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "93bd2cdfc29ca316367329a0160d86c5ce625ac33f242b98988b7d15067a6491"
 dependencies = [
  "wasm-bindgen",
  "web-sys",
