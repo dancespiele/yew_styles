@@ -201,7 +201,7 @@ impl Component for Container {
             <div class=format!("container container-{} {}", self.key, self.props.class_name)
                 id=format!("{}", self.props.id)
             >
-                {self.props.children.render()}
+                {self.props.children.clone()}
             </div>
         }
     }

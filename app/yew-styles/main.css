@@ -1739,8 +1739,14 @@
 .form-group.vertical label, .form-group.vertical input {
   display: block;
 }
-.form-group.horizontal label, .form-group.horizontal input {
-  display: inline;
+.form-group.horizontal {
+  display: flex;
+}
+.form-group.horizontal label {
+  flex-basis: 6em;
+}
+.form-group.horizontal .form-error {
+  margin-left: 4px;
 }
 
 .form-label {

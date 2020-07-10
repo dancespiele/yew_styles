@@ -36,7 +36,7 @@ impl Component for FormPage {
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         FormPage {
             link,
-            value: vec!["".to_string(); 6],
+            value: vec!["".to_string(); 8],
             multiple_values: vec![],
         }
     }
@@ -88,7 +88,7 @@ impl Component for FormPage {
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
 
-                <p>{"The code example is in "}<RouterAnchor<AppRouter> route=AppRouter::BasicFormPath>{"Basic Form page"}</RouterAnchor<AppRouter>></p>
+                {get_form_group(self)}
 
                 <h2>{"Form label"}</h2>
                 <ul>
@@ -232,13 +232,42 @@ impl Component for FormPage {
     }
 }
 
+fn get_form_group(form_page: &FormPage) -> Html {
+    html! {
+        <Container wrap=Wrap::Wrap direction=Direction::Row>
+            <Item layouts=vec!(ItemLayout::ItM(6), ItemLayout::ItXs(12))>
+                <FormGroup orientation=Orientation::Horizontal>
+                    <FormLabel text="Horizontal: "/>
+                    <FormInput
+                        input_content_type=InputType::Text
+                        value=form_page.value[6].clone()
+                        placeholder="write here"
+                        oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 6))
+                    />
+                </FormGroup>
+            </Item>
+            <Item layouts=vec!(ItemLayout::ItM(6), ItemLayout::ItXs(12))>
+                <FormGroup orientation=Orientation::Vertical>
+                    <FormLabel text="Vertical: "/>
+                    <FormInput
+                        input_content_type=InputType::Text
+                        value=form_page.value[6].clone()
+                        placeholder="write here"
+                        oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 6))
+                    />
+                </FormGroup>
+            </Item>
+        </Container>
+    }
+}
+
 fn get_form_inputs(form_page: &FormPage) -> Html {
     html! {
         <Container wrap=Wrap::Wrap direction=Direction::Row>
             <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
-                <FormGroup orientation=Orientation::Horizontal>
+                <FormGroup orientation=Orientation::Vertical>
                     <FormLabel
-                        text="standard input"
+                        text="standard input:"
                     />
                     <FormInput
                         input_content_type=InputType::Text
@@ -254,9 +283,9 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                 </FormGroup>
             </Item>
             <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
-                <FormGroup orientation=Orientation::Horizontal>
+                <FormGroup orientation=Orientation::Vertical>
                     <FormLabel
-                        text="underline input"
+                        text="underline input:"
                     />
                     <FormInput
                         input_content_type=InputType::Text
@@ -271,9 +300,9 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                 </FormGroup>
             </Item>
             <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
-                <FormGroup orientation=Orientation::Horizontal>
+                <FormGroup orientation=Orientation::Vertical>
                     <FormLabel
-                        text="Success input type"
+                        text="Success input type:"
                     />
                     <FormInput
                         input_content_type=InputType::Text

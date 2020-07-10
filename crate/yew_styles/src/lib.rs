@@ -20,7 +20,7 @@
 //! 1. Install the sass module: `npm install yew-styles`
 //! 2. Add the yew_style crate with the features needed for your project in Cargo.toml file:
 //! ```toml
-//! yew_styles = { version="0.6.0", features=["button", "navbar", "layouts"]}
+//! yew_styles = { version="0.6.2", features=["button", "navbar", "layouts"]}
 //! ```
 //! 3. Import the main.css file in you main javascript/typescript file project:
 //! ```typescript
@@ -45,13 +45,12 @@
 //! * Documentation in the component showing an example of using it and small description of each prop
 //! * Create a component page in `/crate/src/page` with the same structure than the rest of the components
 #![recursion_limit = "512"]
-mod assets;
 mod components;
 pub mod styles;
 mod utils;
 
-#[cfg(feature = "assets")]
-pub use assets::Assets;
+#[cfg(feature = "asset")]
+pub use components::asset;
 #[cfg(feature = "button")]
 pub use components::button;
 #[cfg(all(feature = "card", feature = "layouts"))]
@@ -62,5 +61,5 @@ pub use components::forms;
 pub use components::layouts;
 #[cfg(feature = "modal")]
 pub use components::modal;
-#[cfg(all(feature = "navbar", feature = "layouts"))]
+#[cfg(all(feature = "navbar", feature = "layouts", feature = "asset"))]
 pub use components::navbar;

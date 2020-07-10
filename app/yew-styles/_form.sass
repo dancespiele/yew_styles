@@ -9,8 +9,13 @@ $underline: false
         label, input
             display: block
     &.horizontal
-        label, input
-            display: inline
+        display: flex
+
+        label
+            flex-basis: 6em
+
+        .form-error
+            margin-left: 4px
 
 .form-label
     margin-right: 5px

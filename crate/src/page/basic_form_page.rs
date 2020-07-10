@@ -136,6 +136,7 @@ impl Component for BasicFormPage {
                                             Some(value) => value,
                                             None => ""
                                         }
+                                        class_name="horizontal-input"
                                         error_state=self.empty_fields.iter().any(|field| field == "first_name")
                                         error_message="First name field is required"
                                         input_content_type=InputType::Text

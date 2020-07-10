@@ -113,7 +113,7 @@ impl Component for FormGroup {
                 class=format!("form-group {} {}", self.props.class_name, get_orientation(self.props.orientation.clone()))
                 id=self.props.id
                 >
-                {self.props.children.render()}
+                {self.props.children.clone()}
             </div>
         }
     }

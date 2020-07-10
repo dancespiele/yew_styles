@@ -3,7 +3,6 @@ use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use web_sys::{Element, HtmlElement};
 use yew::prelude::*;
-use yew::services::ConsoleService;
 use yew::{utils, App};
 
 /// # Modal component
@@ -59,13 +58,13 @@ use yew::{utils, App};
 ///                 body_style.set_property("overflow", "auto").unwrap();
 ///                 self.show_modal = false;
 ///             }
-///             Msg::CloseModalByKb(keyboard_event, index) => {
+///             Msg::CloseModalByKb(keyboard_event) => {
 ///                 if keyboard_event.key_code() == 27 {
 ///                     body_style.set_property("overflow", "auto").unwrap();
 ///                     self.show_modal = false;
 ///                 }
 ///             }
-///             Msg::OpenModal(index) => {
+///             Msg::OpenModal => {
 ///                 body_style.set_property("overflow", "hidden").unwrap();
 ///
 ///                 self.show_modal = true;
@@ -147,12 +146,15 @@ pub struct Props {
     /// Type modal body style
     #[prop_or(Palette::Standard)]
     pub body_type: Palette,
-    /// modal body styles
+    /// Modal body styles
     #[prop_or(Style::Regular)]
     pub body_style: Style,
     /// If hove, focus, active effects are enable in the body
     #[prop_or(false)]
     pub body_interaction: bool,
+    /// If the modal content get the focus. Set to false if the modal includes input events
+    #[prop_or(true)]
+    pub auto_focus: bool,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -189,8 +191,6 @@ impl Component for Modal {
                 }
             }
             Msg::Pressed(keyboard_event) => {
-                let mut console = ConsoleService::new();
-                console.log("Pressed");
                 self.props.onkeydown_signal.emit(keyboard_event);
             }
         };
@@ -203,7 +203,7 @@ impl Component for Modal {
     }
 
     fn rendered(&mut self, _first_render: bool) {
-        if self.props.is_open {
+        if self.props.is_open && self.props.auto_focus {
             utils::document()
                 .get_elements_by_class_name("modal")
                 .get_with_index(0)
@@ -275,6 +275,7 @@ fn should_create_modal_component() {
         body_type: Palette::Standard,
         body_interaction: false,
         is_open: true,
+        auto_focus: false,
     };
 
     let modal: App<Modal> = App::new();
@@ -310,6 +311,7 @@ fn should_hide_modal_component_from_doom() {
         body_type: Palette::Standard,
         body_interaction: false,
         is_open: false,
+        auto_focus: false,
     };
 
     let modal: App<Modal> = App::new();
