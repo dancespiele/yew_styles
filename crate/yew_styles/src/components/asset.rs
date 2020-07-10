@@ -7,6 +7,7 @@ pub enum Icon {
     Plus,
     Edit,
     X,
+    XCircle,
 }
 
 pub enum Msg {}
@@ -62,6 +63,7 @@ fn get_icon(icon: Icon, class_name: String, id: String) -> Html {
         Icon::Edit => get_edit(class_name, id),
         Icon::Plus => get_plus(class_name, id),
         Icon::X => get_x(class_name, id),
+        Icon::XCircle => get_x_circle(class_name, id),
     }
 }
 
@@ -145,6 +147,25 @@ fn get_x(class_name: String, id: String) -> Html {
         >
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    }
+}
+
+fn get_x_circle(class_name: String, id: String) -> Html {
+    html! {
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class=class_name
+            id=id>
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
         </svg>
     }
 }
