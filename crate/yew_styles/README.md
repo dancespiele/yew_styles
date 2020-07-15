@@ -55,4 +55,4 @@ its logic works, in the same file where it is implemented (test events is not ne
 - [ ] Tab
 - [ ] Tooltips
 - [ ] Calendar
-- [ ] Assets
+- [x] Assets

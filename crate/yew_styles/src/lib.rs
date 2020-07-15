@@ -49,8 +49,6 @@ mod components;
 pub mod styles;
 mod utils;
 
-#[cfg(feature = "asset")]
-pub use components::asset;
 #[cfg(feature = "button")]
 pub use components::button;
 #[cfg(all(feature = "card", feature = "layouts"))]
