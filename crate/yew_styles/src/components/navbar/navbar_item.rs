@@ -111,6 +111,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Active nav item style
+    #[prop_or(false)]
+    pub active: bool,
     /// click event for navbar item
     #[prop_or(Callback::noop())]
     pub onclick_signal: Callback<MouseEvent>,
@@ -143,7 +146,11 @@ impl Component for NavbarItem {
     fn view(&self) -> Html {
         html! {
             <div
-                class=format!("navbar-item {}", self.props.class_name)
+                class=format!("navbar-item {} {}", if self.props.active {
+                    "active"
+                } else {
+                    ""
+                }, self.props.class_name)
                 onclick=self.link.callback(Msg::Clicked)
             >
                 {self.props.children.clone()}
@@ -160,6 +167,7 @@ fn should_create_navbar_item() {
         class_name: "navbar-item-test".to_string(),
         id: "navbar-item-id-test".to_string(),
         onclick_signal: Callback::noop(),
+        active: false,
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),
@@ -197,6 +205,7 @@ fn should_create_clickable_navbar_item() {
     let navbar_item_props = Props {
         class_name: "navbar-item-test".to_string(),
         id: "navbar-item-id-test".to_string(),
+        active: false,
         onclick_signal: on_add_item_div,
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>

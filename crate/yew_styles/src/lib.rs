@@ -49,8 +49,6 @@ mod components;
 pub mod styles;
 mod utils;
 
-#[cfg(feature = "asset")]
-pub use components::asset;
 #[cfg(feature = "button")]
 pub use components::button;
 #[cfg(all(feature = "card", feature = "layouts"))]
@@ -61,5 +59,5 @@ pub use components::forms;
 pub use components::layouts;
 #[cfg(feature = "modal")]
 pub use components::modal;
-#[cfg(all(feature = "navbar", feature = "layouts", feature = "asset"))]
+#[cfg(all(feature = "navbar", feature = "layouts"))]
 pub use components::navbar;

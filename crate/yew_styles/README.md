@@ -47,7 +47,7 @@ its logic works, in the same file where it is implemented (test events is not ne
 - [x] Navbar
 - [x] Form
 - [x] Card
-- [ ] Text
+- [x] Text
 - [ ] Table
 - [ ] Pagination
 - [x] Modal
@@ -55,4 +55,4 @@ its logic works, in the same file where it is implemented (test events is not ne
 - [ ] Tab
 - [ ] Tooltips
 - [ ] Calendar
-- [ ] Assets
+- [x] Assets (implemented in the new library [yew_assets](https://github.com/spielrs/yew_assets))

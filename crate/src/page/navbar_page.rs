@@ -14,6 +14,7 @@ use yew_styles::{
 pub struct NavbarPage {
     link: ComponentLink<Self>,
     navbar_menu: Vec<String>,
+    item_menu: Vec<Vec<bool>>,
 }
 
 #[derive(Clone)]
@@ -33,7 +34,7 @@ struct ElementRender {
 }
 
 pub enum Msg {
-    ChangeType(usize, String),
+    ChangeType(usize, usize, String),
 }
 
 #[derive(Clone, Properties)]
@@ -47,6 +48,7 @@ impl Component for NavbarPage {
         NavbarPage {
             link,
             navbar_menu: vec![String::from("home"); 50],
+            item_menu: vec![vec![true, false, false, false]; 50],
         }
     }
 
@@ -56,8 +58,12 @@ impl Component for NavbarPage {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::ChangeType(index, navbar_menu) => {
+            Msg::ChangeType(index, item_index, navbar_menu) => {
                 self.navbar_menu[index] = navbar_menu;
+                for (i, _) in self.item_menu[index].clone().into_iter().enumerate() {
+                    self.item_menu[index][i] = false;
+                }
+                self.item_menu[index][item_index] = true;
             }
         };
 
@@ -99,19 +105,24 @@ impl Component for NavbarPage {
 
                 <h2>{"Navbar Item properties"}</h2>
                 <ul>
+                    <li><b>{"active: "}</b>{"active nav item style. Default "}<code>{"false"}</code></li>
                     <li><b>{"onclick_signal: "}</b>{"click event for navbar item. Default "}<code>{"noop()"}</code></li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
 
                 <h2>{"Visual examples"}</h2>
-                {get_style(self.link.clone(), self.navbar_menu.clone())}
+                {get_style(self.link.clone(), self.navbar_menu.clone(), self.item_menu.clone())}
             </>
         }
     }
 }
 
-fn get_style(link: ComponentLink<NavbarPage>, navbar_menu: Vec<String>) -> Html {
+fn get_style(
+    link: ComponentLink<NavbarPage>,
+    navbar_menu: Vec<String>,
+    item_menu: Vec<Vec<bool>>,
+) -> Html {
     let styles = vec![
         NavbarStyle {
             style: Style::Regular,
@@ -131,7 +142,13 @@ fn get_style(link: ComponentLink<NavbarPage>, navbar_menu: Vec<String>) -> Html 
     styles
         .into_iter()
         .map(|style| {
-            let navbar = get_navbar_type(link.clone(), style, navbar_menu.clone(), index);
+            let navbar = get_navbar_type(
+                link.clone(),
+                style,
+                navbar_menu.clone(),
+                item_menu.clone(),
+                index,
+            );
 
             index = navbar.index + 1;
 
@@ -144,6 +161,7 @@ fn get_navbar_type(
     link: ComponentLink<NavbarPage>,
     style: NavbarStyle,
     navbar_menu: Vec<String>,
+    item_menu: Vec<Vec<bool>>,
     index: usize,
 ) -> ElementRender {
     let mut navbar_type_rendered = index;
@@ -195,7 +213,7 @@ fn get_navbar_type(
                         branch=html!{<img src="/spielrs_logo.png"/>}
                     >
                         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
-                            {get_menus(link.clone(), navbar_type_rendered)}
+                            {get_menus(link.clone(), navbar_type_rendered, item_menu.clone())}
                         </NavbarContainer>
                     </Navbar>
                     <div>{navbar_menu[navbar_type_rendered].clone()}</div>
@@ -214,16 +232,18 @@ fn get_navbar_type(
     }
 }
 
-fn get_menus(link: ComponentLink<NavbarPage>, index: usize) -> Html {
+fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<bool>>) -> Html {
     let menus = vec!["home", "shop", "about us", "contact us"];
 
     menus
         .into_iter()
-        .map(|menu| {
+        .enumerate()
+        .map(|(item_index, menu)| {
             html! {
                 <>
                     <NavbarItem
-                        onclick_signal=link.callback(move |_| Msg::ChangeType(index, String::from(menu))
+                        active= item_menu[index][item_index]
+                        onclick_signal=link.callback(move |_| Msg::ChangeType(index, item_index, String::from(menu))
                     )
                     >
                         <span>{menu}</span>
