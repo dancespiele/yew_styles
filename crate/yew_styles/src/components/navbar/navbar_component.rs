@@ -1,11 +1,11 @@
 use super::navbar_container::NavbarContainer;
 use super::navbar_item::NavbarItem;
-use crate::asset::{Asset, Icon};
 use crate::layouts::container::{Direction, JustifyContent, Mode};
 use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;
 use yew::Children;
+use yew_assets::ux_assets::{UxAssets, UxIcon};
 
 /// the location of the navbar which is fixed
 #[derive(Clone, PartialEq)]
@@ -216,8 +216,9 @@ impl Component for Navbar {
                             <NavbarItem
                                 onclick_signal=self.link.callback(move |_| Msg::TroggleMenu)
                             >
-                             <Asset
-                                icon=Icon::Menu
+                             <UxAssets
+                                icon=UxIcon::Menu
+                                size=(String::from("30"), String::from("30"))
                                 class_name="navbar-menu"
                              />
                             </NavbarItem>

@@ -8,6 +8,7 @@ edition = "2018"
 license = "MIT/Apache-2.0"
 repository = "https://github.com/spielrs/yew-styles-page/tree/master/crate/yew_styles"
 readme = "README.md"
+categories = ["wasm", "graphics", "gui", "web-programming", "web-programming::http-client"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -35,3 +36,4 @@ web-sys = {version = "0.3", features = ["HtmlDocument", "HtmlCollection", "CssSt
 rand = {version="0.7", features = ["getrandom"]}
 getrandom = {version = "0.1", features= ["wasm-bindgen"]}
 wasm-bindgen-test = "0.3"
+yew_assets={version = "0.1", features = ["ux_assets"]}
