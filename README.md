@@ -77,7 +77,7 @@ Please check our [code of conduct](CODE_OF_CONDUCT.md)
 - [x] Navbar
 - [x] Form
 - [x] Card
-- [ ] Text
+- [x] Text
 - [ ] Table
 - [ ] Pagination
 - [x] Modal
@@ -85,7 +85,7 @@ Please check our [code of conduct](CODE_OF_CONDUCT.md)
 - [ ] Tab
 - [ ] Tooltips
 - [ ] Calendar
-- [ ] Assets
+- [x] Assets (implemented in the new library [yew_assets](https://github.com/spielrs/yew_assets))
 
 
 ## License

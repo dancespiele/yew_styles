@@ -39,7 +39,7 @@ $underline: false
     &.light
         @include pallete-style($light-style, true)
 
-.form-input
+.form-input, .form-file
     @include form-style($outline-style, false)
     padding: 5px
     box-sizing: border-box
@@ -54,6 +54,10 @@ $underline: false
 
     &.underline
             @include form-style($outline-style, true)
+
+.form-file
+    &.hidden
+        display: none
 
 .form-select
     padding: 3px
