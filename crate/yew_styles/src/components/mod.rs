@@ -11,3 +11,4 @@ pub mod layouts;
 pub mod modal;
 #[cfg(all(feature = "navbar", feature = "layouts"))]
 pub mod navbar;
+pub mod text;
