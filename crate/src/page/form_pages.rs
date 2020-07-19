@@ -1,11 +1,13 @@
 use super::highlighters::{input_code, select_code, textarea_code};
 use crate::app::AppRouter;
 use wasm_bindgen::JsCast;
-use web_sys::HtmlOptionElement;
+use web_sys::{File, HtmlOptionElement, Url};
 use yew::prelude::*;
+use yew::services::ConsoleService;
 use yew_prism::Prism;
 use yew_router::prelude::*;
 use yew_styles::forms::{
+    form_file::FormFile,
     form_group::{FormGroup, Orientation},
     form_input::{FormInput, InputType},
     form_label::FormLabel,
@@ -22,12 +24,15 @@ pub struct FormPage {
     pub link: ComponentLink<Self>,
     pub value: Vec<String>,
     pub multiple_values: Vec<String>,
+    pub file_path: String,
 }
 
 pub enum Msg {
     Input(String, usize),
     Select(String, usize),
     MultipleSelect(Vec<String>),
+    UploadFile(File),
+    ErrorUploadImage,
 }
 
 impl Component for FormPage {
@@ -38,6 +43,7 @@ impl Component for FormPage {
             link,
             value: vec!["".to_string(); 8],
             multiple_values: vec![],
+            file_path: "".to_string(),
         }
     }
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -50,6 +56,13 @@ impl Component for FormPage {
             }
             Msg::MultipleSelect(values) => {
                 self.multiple_values = values;
+            }
+            Msg::UploadFile(file) => {
+                let image_blob = &file.slice().unwrap();
+                self.file_path = Url::create_object_url_with_blob(&image_blob).unwrap();
+            }
+            Msg::ErrorUploadImage => {
+                ConsoleService::error("Error to upload image");
             }
         }
         true
@@ -160,6 +173,10 @@ impl Component for FormPage {
                 </ul>
                 <h3>{"Visual examples"}</h3>
                 {get_form_inputs(self)}
+
+                <h2>{"Form input types"}</h2>
+                <h3>{"Visual examples"}</h3>
+                {get_form_file(self)}
 
                 <h2>{"Form select types"}</h2>
                 <h3>{"Code example"}</h3>
@@ -315,6 +332,37 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                         underline=false
                     />
                     <div>{format!("Value: {}", form_page.value[2].clone())}</div>
+                </FormGroup>
+            </Item>
+        </Container>
+    }
+}
+
+fn get_form_file(form_page: &FormPage) -> Html {
+    html! {
+        <Container wrap=Wrap::Wrap direction=Direction::Row>
+            <Item layouts=vec!(ItemLayout::ItM(6), ItemLayout::ItXs(12))>
+                <FormGroup orientation=Orientation::Vertical>
+                    <FormLabel text="Upload file: "/>
+                    <FormFile
+                        accept=vec!["image/png".to_string(), "image/jpg".to_string()]
+                        underline=true
+                        onchange_signal = form_page.link.callback(|data: ChangeData | {
+                            if let ChangeData::Files(files) = data {
+                                let file = files.get(0).unwrap();
+                                Msg::UploadFile(file)
+                            } else {
+                                Msg::ErrorUploadImage
+                            }
+                        })
+                    />
+                    {if !form_page.file_path.is_empty() {
+                        html!{
+                            <img alt="example image" src=form_page.file_path/>
+                        }
+                    } else {
+                        html!{}
+                    }}
                 </FormGroup>
             </Item>
         </Container>
