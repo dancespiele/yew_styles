@@ -35,4 +35,4 @@ web-sys = {version = "0.3", features = ["HtmlDocument", "HtmlCollection", "CssSt
 rand = {version="0.7", features = ["getrandom"]}
 getrandom = {version = "0.1", features= ["wasm-bindgen"]}
 wasm-bindgen-test = "0.3"
-yew_assets={version = "0.1", features = ["ux_assets"]}
+yew_assets={version = "0.1", features = ["ux_assets", "editing_assets"]}

@@ -106,11 +106,11 @@ impl Component for FormFile {
                     id=self.props.id
                     class=format!(
                         "form-file {} {} {} {} {}",
-                        self.props.class_name,
                         get_pallete(self.props.input_type.clone()),
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" },
-                        if self.props.hidden { "hidden" } else { "" }
+                        if self.props.hidden { "hidden" } else { "" },
+                        self.props.class_name,
                     )
                     onchange=self.link.callback(Msg::Changed)
                     multiple=self.props.multiple

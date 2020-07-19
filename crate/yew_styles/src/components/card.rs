@@ -431,7 +431,7 @@ fn should_create_card_with_single_content() {
         card_size: Size::Medium,
         interaction_effect: false,
         class_name: "class-card-test".to_string(),
-        id: "id-card-rest".to_string(),
+        id: "id-card-test".to_string(),
     };
 
     let card: App<Card> = App::new();

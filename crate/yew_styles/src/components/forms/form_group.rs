@@ -110,7 +110,7 @@ impl Component for FormGroup {
     fn view(&self) -> Html {
         html! {
             <div
-                class=format!("form-group {} {}", self.props.class_name, get_orientation(self.props.orientation.clone()))
+                class=format!("form-group {} {}", get_orientation(self.props.orientation.clone()), self.props.class_name)
                 id=self.props.id
                 >
                 {self.props.children.clone()}

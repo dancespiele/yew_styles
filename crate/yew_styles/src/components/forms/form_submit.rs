@@ -59,10 +59,11 @@ impl Component for FormSubmit {
                 type="submit"
                 class=format!(
                     "form-submit {} {} {} {}",
-                    self.props.class_name,
                     get_style(self.props.submit_style.clone()),
                     get_pallete(self.props.submit_type.clone()),
-                    get_size(self.props.size.clone()))
+                    get_size(self.props.size.clone()),
+                    self.props.class_name,
+                ),
                 id=self.props.id
                 value=self.props.value
             />
