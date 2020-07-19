@@ -223,10 +223,10 @@ impl Component for FormInput {
                     id=self.props.id
                     class=format!(
                         "form-input {} {} {} {}",
-                        self.props.class_name,
                         get_pallete(self.props.input_type.clone()),
                         get_size(self.props.input_size.clone()),
-                        if self.props.underline { "underline" } else { "" }
+                        if self.props.underline { "underline" } else { "" },
+                        self.props.class_name,
                     )
                     type=get_type(self.props.input_content_type.clone())
                     oninput=self.link.callback(Msg::Input)
