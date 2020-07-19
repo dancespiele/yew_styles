@@ -61,3 +61,5 @@ pub use components::layouts;
 pub use components::modal;
 #[cfg(all(feature = "navbar", feature = "layouts"))]
 pub use components::navbar;
+#[cfg(feature = "text")]
+pub use components::text;
