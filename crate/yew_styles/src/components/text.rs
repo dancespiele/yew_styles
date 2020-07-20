@@ -22,9 +22,9 @@ pub struct Props {
     /// Text to show
     pub text: String,
     /// How is showing the text
-    pub text_content_type: TextType,
+    pub text_type: TextType,
     /// if hove, focus, active effects are enable, only for tag type
-    #[prop_or(true)]
+    #[prop_or(false)]
     pub interaction_effect: bool,
     /// A dragged item (element or text selection) is dragged, only for tag type
     #[prop_or(Callback::noop())]
@@ -65,7 +65,7 @@ pub struct Props {
     pub removable: bool,
     /// Type text purpose style, only for tag and alert type
     #[prop_or(Palette::Standard)]
-    pub text_type: Palette,
+    pub text_palette: Palette,
     /// Text styles, only for tag and alert type
     #[prop_or(Style::Regular)]
     pub text_style: Style,
@@ -141,15 +141,15 @@ impl Component for Text {
 
     fn view(&self) -> Html {
         get_text(
-            self.props.text_content_type.clone(),
+            self.props.text_type.clone(),
             self.props.clone(),
             self.link.clone(),
         )
     }
 }
 
-fn get_text(text_content_type: TextType, props: Props, link: ComponentLink<Text>) -> Html {
-    match text_content_type {
+fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Html {
+    match text_type {
         TextType::Plain => {
             html! {
                 <span
@@ -172,7 +172,7 @@ fn get_text(text_content_type: TextType, props: Props, link: ComponentLink<Text>
                     class=format!(
                         "alert-text {} {} {} {}",
                         get_style(props.text_style),
-                        get_pallete(props.text_type),
+                        get_pallete(props.text_palette),
                         get_size(props.text_size),
                         props.class_name,
                     )
@@ -193,8 +193,8 @@ fn get_text(text_content_type: TextType, props: Props, link: ComponentLink<Text>
                             ""
                         },
                         get_style(props.text_style),
-                        get_pallete(props.text_type),
-                        get_size(props.text_size),
+                        get_pallete(props.text_palette),
+                        get_size(props.text_size.clone()),
                         props.class_name,
                     )
                     id =props.id
@@ -218,6 +218,13 @@ fn get_text(text_content_type: TextType, props: Props, link: ComponentLink<Text>
                             >
                                 <EditingAssets
                                     icon=EditingIcon::X
+                                    size=if props.text_size == Size::Medium {
+                                        ("20".to_string(), "20".to_string())
+                                    } else if props.text_size == Size::Small {
+                                        ("13".to_string(), "13".to_string())
+                                    } else {
+                                        ("24".to_string(), "24".to_string())
+                                    }
                                 />
                             </div>
                         }
@@ -236,7 +243,7 @@ wasm_bindgen_test_configure!(run_in_browser);
 #[wasm_bindgen_test]
 fn should_create_plain_text() {
     let props = Props {
-        text_content_type: TextType::Plain,
+        text_type: TextType::Plain,
         ondrag_signal: Callback::noop(),
         ondragend_signal: Callback::noop(),
         ondragenter_signal: Callback::noop(),
@@ -250,7 +257,7 @@ fn should_create_plain_text() {
         draggable: false,
         removable: false,
         text: "hello test".to_string(),
-        text_type: Palette::Primary,
+        text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
@@ -275,7 +282,7 @@ fn should_create_plain_text() {
 #[wasm_bindgen_test]
 fn should_create_paragraph_text() {
     let props = Props {
-        text_content_type: TextType::Paragraph,
+        text_type: TextType::Paragraph,
         ondrag_signal: Callback::noop(),
         ondragend_signal: Callback::noop(),
         ondragenter_signal: Callback::noop(),
@@ -289,7 +296,7 @@ fn should_create_paragraph_text() {
         draggable: false,
         removable: false,
         text: "hello test".to_string(),
-        text_type: Palette::Primary,
+        text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
@@ -314,7 +321,7 @@ fn should_create_paragraph_text() {
 #[wasm_bindgen_test]
 fn should_create_alert_text() {
     let props = Props {
-        text_content_type: TextType::Alert,
+        text_type: TextType::Alert,
         ondrag_signal: Callback::noop(),
         ondragend_signal: Callback::noop(),
         ondragenter_signal: Callback::noop(),
@@ -328,7 +335,7 @@ fn should_create_alert_text() {
         draggable: false,
         removable: false,
         text: "hello test".to_string(),
-        text_type: Palette::Primary,
+        text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
@@ -353,7 +360,7 @@ fn should_create_alert_text() {
 #[wasm_bindgen_test]
 fn should_create_tag_text() {
     let props = Props {
-        text_content_type: TextType::Tag,
+        text_type: TextType::Tag,
         ondrag_signal: Callback::noop(),
         ondragend_signal: Callback::noop(),
         ondragenter_signal: Callback::noop(),
@@ -367,7 +374,7 @@ fn should_create_tag_text() {
         draggable: false,
         removable: false,
         text: "hello test".to_string(),
-        text_type: Palette::Primary,
+        text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
@@ -392,7 +399,7 @@ fn should_create_tag_text() {
 #[wasm_bindgen_test]
 fn should_add_delete_icon_tag_text() {
     let props = Props {
-        text_content_type: TextType::Tag,
+        text_type: TextType::Tag,
         ondrag_signal: Callback::noop(),
         ondragend_signal: Callback::noop(),
         ondragenter_signal: Callback::noop(),
@@ -406,7 +413,7 @@ fn should_add_delete_icon_tag_text() {
         draggable: false,
         removable: true,
         text: "hello test".to_string(),
-        text_type: Palette::Primary,
+        text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,

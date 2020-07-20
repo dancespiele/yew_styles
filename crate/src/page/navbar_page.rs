@@ -24,7 +24,7 @@ struct NavbarStyle {
 }
 
 struct NavbarType {
-    navbar_type: Palette,
+    navbar_palette: Palette,
     name: String,
 }
 
@@ -86,7 +86,7 @@ impl Component for NavbarPage {
 
                 <h2>{"Navbar properties"}</h2>
                 <ul>
-                    <li><b>{"navbar_type: "}</b>{"type navbar style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
+                    <li><b>{"navbar_palette: "}</b>{"type navbar style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
                     <li><b>{"button_style: "}</b>{"navbar styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"fixed: "}</b>{"the location of the navbar which is fixed .Options included in "}<code>{"Fixed"}</code>{". Default "}<code>{"Top"}</code>{"."}</li>
                     <li><b>{"branch: "}</b>{"vnode embedded in the beginning of the navbar, useful to include a branch logo. Optional"}</li>
@@ -142,7 +142,7 @@ fn get_style(
     styles
         .into_iter()
         .map(|style| {
-            let navbar = get_navbar_type(
+            let navbar = get_navbar_palette(
                 link.clone(),
                 style,
                 navbar_menu.clone(),
@@ -157,70 +157,70 @@ fn get_style(
         .collect::<Html>()
 }
 
-fn get_navbar_type(
+fn get_navbar_palette(
     link: ComponentLink<NavbarPage>,
     style: NavbarStyle,
     navbar_menu: Vec<String>,
     item_menu: Vec<Vec<bool>>,
     index: usize,
 ) -> ElementRender {
-    let mut navbar_type_rendered = index;
+    let mut navbar_palette_rendered = index;
     let types = vec![
         NavbarType {
-            navbar_type: Palette::Standard,
+            navbar_palette: Palette::Standard,
             name: String::from("Standard"),
         },
         NavbarType {
-            navbar_type: Palette::Primary,
+            navbar_palette: Palette::Primary,
             name: String::from("Primary"),
         },
         NavbarType {
-            navbar_type: Palette::Secondary,
+            navbar_palette: Palette::Secondary,
             name: String::from("Secondary"),
         },
         NavbarType {
-            navbar_type: Palette::Info,
+            navbar_palette: Palette::Info,
             name: String::from("Info"),
         },
         NavbarType {
-            navbar_type: Palette::Link,
+            navbar_palette: Palette::Link,
             name: String::from("Link"),
         },
         NavbarType {
-            navbar_type: Palette::Success,
+            navbar_palette: Palette::Success,
             name: String::from("Success"),
         },
         NavbarType {
-            navbar_type: Palette::Warning,
+            navbar_palette: Palette::Warning,
             name: String::from("Warning"),
         },
         NavbarType {
-            navbar_type: Palette::Danger,
+            navbar_palette: Palette::Danger,
             name: String::from("Danger"),
         },
     ];
 
     let navbar = types
         .into_iter()
-        .map(|navbar_type| {
+        .map(|navbar_palette| {
             let element = html! {
                 <div>
-                    <h3>{format!("{} {}",style.name.clone(), navbar_type.name)}</h3>
+                    <h3>{format!("{} {}",style.name.clone(), navbar_palette.name)}</h3>
                     <Navbar
                         fixed=Fixed::None
                         navbar_style=style.style.clone()
-                        navbar_type=navbar_type.navbar_type
+                        navbar_palette=navbar_palette.navbar_palette
                         branch=html!{<img src="/spielrs_logo.png"/>}
                     >
                         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
-                            {get_menus(link.clone(), navbar_type_rendered, item_menu.clone())}
+                            {get_menus(link.clone(), navbar_palette_rendered, item_menu.clone())}
                         </NavbarContainer>
                     </Navbar>
-                    <div>{navbar_menu[navbar_type_rendered].clone()}</div>
+                    <div>{navbar_menu[navbar_palette_rendered].clone()}</div>
                 </div>
             };
 
-            navbar_type_rendered += 1;
+            navbar_palette_rendered += 1;
 
             element
         })
@@ -228,7 +228,7 @@ fn get_navbar_type(
 
     ElementRender {
         element: navbar,
-        index: navbar_type_rendered,
+        index: navbar_palette_rendered,
     }
 }
 

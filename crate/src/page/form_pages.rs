@@ -1,4 +1,4 @@
-use super::highlighters::{input_code, select_code, textarea_code};
+use super::highlighters::{file_code, input_code, select_code, textarea_code};
 use crate::app::AppRouter;
 use wasm_bindgen::JsCast;
 use web_sys::{File, HtmlOptionElement, Url};
@@ -117,7 +117,7 @@ impl Component for FormPage {
                 <h2>{"Form Submit"}</h2>
                 <ul>
                     <li><b>{"value: "}</b>{"text of submit. Required"}</li>
-                    <li><b>{"submit_type: "}</b>{"type submit style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"submit_palette: "}</b>{"type submit style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"submit_style: "}</b>{"the submit style according with the purpose. Options included in "}<code>{"Palette"}</code>
                         {". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"size: "}</b>{"the size of the submit. Options included in "}<code>{"Size"}</code>
@@ -128,7 +128,7 @@ impl Component for FormPage {
 
                 <p>{"The code example is in "}<RouterAnchor<AppRouter> route=AppRouter::BasicFormPath>{"Basic Form page"}</RouterAnchor<AppRouter>></p>
 
-                <h2>{"Form input types"}</h2>
+                <h2>{"Form input"}</h2>
                 <h3>{"Code example"}</h3>
                 <Prism
                     code=input_code()
@@ -136,20 +136,18 @@ impl Component for FormPage {
                 />
                 <ul>
                     <li><b>{"value: "}</b>{"current value of the form control. Required."}</li>
-                    <li><b>{"input_content_type: "}</b>{"the input type. Options included in "}<code>{"InputType"}</code>
+                    <li><b>{"input_content_palette: "}</b>{"the input type. Options included in "}<code>{"InputType"}</code>
                         {". Default "}<code>{"Text"}</code>{"."}</li>
                     <li><b>{"name: "}</b>{"the name of the input."}</li>
-                    <li><b>{"input_type: "}</b>{"the input style according with the purpose. Options included in "}<code>{"Palette"}</code>
+                    <li><b>{"input_palette: "}</b>{"the input style according with the purpose. Options included in "}<code>{"Palette"}</code>
                         {". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"input_size: "}</b>{"the size of the input. Options included in "}<code>{"Size"}</code>
                         {". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"oninput_signal: "}</b>{"signal to emit the event input."}</li>
                     <li><b>{"onblur_signal: "}</b>{"signal to emit the event blur."}</li>
                     <li><b>{"onkeydown_signal: "}</b>{"signal to emit the event keypress."}</li>
-                    <li><b>{"onchange_signal: "}</b>{"signal to emit the event change."}</li>
                     <li><b>{"placeholder: "}</b>{"content to be appear in the form control when the form control is empty."}</li>
                     <li><b>{"checked: "}</b>{"whether the command or control is checked."}</li>
-                    <li><b>{"accept: "}</b>{"hint for expected file type in file upload controls."}</li>
                     <li><b>{"alt: "}</b>{"alt attribute for the image type. Required for accessibiltiy."}</li>
                     <li><b>{"autofocus: "}</b>{"automatically focus the form control when the page is loaded."}</li>
                     <li><b>{"autocomplete: "}</b>{"hint for form autofill feature."}</li>
@@ -162,23 +160,47 @@ impl Component for FormPage {
                     <li><b>{"readonly: "}</b>{"the value is not editable."}</li>
                     <li><b>{"required: "}</b>{"a value is required or must be check for the form to be submittable."}</li>
                     <li><b>{"disabled: "}</b>{"whether the form control is disabled."}</li>
-                    <li><b>{"multiple: "}</b>{"whether to allow multiple values."}</li>
                     <li><b>{"underline: "}</b>{"underline style instead of box, like Material."}</li>
-                    <li><b>{"capture: "}</b>{"media capture input method in file upload controls."}</li>
                     <li><b>{"step: "}</b>{"incremental values that are valid."}</li>
                     <li><b>{"error_state: "}</b>{"error state for validation."}</li>
                     <li><b>{"error_message: "}</b>{"show error message when error_state is true."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id."}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
                 </ul>
-                <h3>{"Visual examples"}</h3>
+                <h3>{"Visual example"}</h3>
                 {get_form_inputs(self)}
 
-                <h2>{"Form input types"}</h2>
+                <h2>{"Form file"}</h2>
+                <h3>{"Code example"}</h3>
+                <Prism
+                    code=file_code()
+                    language="rust"
+                />
+                <ul>
+                    <li><b>{"name: "}</b>{"the name of the input."}</li>
+                    <li><b>{"input_palette: "}</b>{"the input style according with the purpose. Options included in "}<code>{"Palette"}</code>
+                        {". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"input_size: "}</b>{"the size of the input. Options included in "}<code>{"Size"}</code>
+                        {". Default "}<code>{"Medium"}</code>{"."}</li>
+                    <li><b>{"onchange_signal: "}</b>{"signal to emit the event change."}</li>
+                    <li><b>{"accept: "}</b>{"hint for expected file type in file upload controls."}</li>
+                    <li><b>{"alt: "}</b>{"alt attribute for the image type. Required for accessibiltiy."}</li>
+                    <li><b>{"autofocus: "}</b>{"automatically focus the form control when the page is loaded."}</li>
+                    <li><b>{"readonly: "}</b>{"the value is not editable."}</li>
+                    <li><b>{"required: "}</b>{"a value is required or must be check for the form to be submittable."}</li>
+                    <li><b>{"disabled: "}</b>{"whether the form control is disabled."}</li>
+                    <li><b>{"multiple: "}</b>{"whether to allow multiple values."}</li>
+                    <li><b>{"underline: "}</b>{"underline style instead of box, like Material."}</li>
+                    <li><b>{"capture: "}</b>{"media capture input method in file upload controls."}</li>
+                    <li><b>{"error_state: "}</b>{"error state for validation."}</li>
+                    <li><b>{"error_message: "}</b>{"show error message when error_state is true."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id."}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
+                </ul>
                 <h3>{"Visual examples"}</h3>
                 {get_form_file(self)}
 
-                <h2>{"Form select types"}</h2>
+                <h2>{"Form select"}</h2>
                 <h3>{"Code example"}</h3>
                 <Prism
                     code=select_code()
@@ -204,7 +226,7 @@ impl Component for FormPage {
                 <h3>{"Visual examples"}</h3>
                 {get_select_form(self)}
 
-                <h2>{"Form textarea types"}</h2>
+                <h2>{"Form textarea"}</h2>
                 <h3>{"Code example"}</h3>
                 <Prism
                     code=textarea_code()
@@ -213,7 +235,7 @@ impl Component for FormPage {
 
                 <ul>
                     <li><b>{"value: "}</b>{"current value of the form control. Required."}</li>
-                    <li><b>{"textarea_type: "}</b>{"the textarea type. Options included in "}<code>{"InputType"}</code>
+                    <li><b>{"textarea_palette: "}</b>{"the textarea type. Options included in "}<code>{"InputType"}</code>
                         {". Default "}<code>{"Text"}</code>{"."}</li>
                     <li><b>{"name: "}</b>{"the name of the textarea."}</li>
                     <li><b>{"textarea_style: "}</b>{"the textarea style according with the purpose. Options included in "}<code>{"Palette"}</code>
@@ -256,7 +278,7 @@ fn get_form_group(form_page: &FormPage) -> Html {
                 <FormGroup orientation=Orientation::Horizontal>
                     <FormLabel text="Horizontal: "/>
                     <FormInput
-                        input_content_type=InputType::Text
+                        input_type=InputType::Text
                         value=form_page.value[6].clone()
                         placeholder="write here"
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 6))
@@ -267,7 +289,7 @@ fn get_form_group(form_page: &FormPage) -> Html {
                 <FormGroup orientation=Orientation::Vertical>
                     <FormLabel text="Vertical: "/>
                     <FormInput
-                        input_content_type=InputType::Text
+                        input_type=InputType::Text
                         value=form_page.value[6].clone()
                         placeholder="write here"
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 6))
@@ -287,9 +309,9 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                         text="standard input:"
                     />
                     <FormInput
-                        input_content_type=InputType::Text
+                        input_type=InputType::Text
                         value=form_page.value[0].clone()
-                        input_type=Palette::Standard
+                        input_palette=Palette::Standard
                         input_size=Size::Medium
                         id="form-input-test"
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 0))
@@ -305,10 +327,10 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                         text="underline input:"
                     />
                     <FormInput
-                        input_content_type=InputType::Text
+                        input_type=InputType::Text
                         value=form_page.value[1].clone()
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 1))
-                        input_type=Palette::Standard
+                        input_palette=Palette::Standard
                         id="form-input-test"
                         placeholder="test"
                         underline=true
@@ -322,9 +344,9 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                         text="Success input type:"
                     />
                     <FormInput
-                        input_content_type=InputType::Text
+                        input_type=InputType::Text
                         value=form_page.value[2].clone()
-                        input_type=Palette::Success
+                        input_palette=Palette::Success
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 2))
                         input_size=Size::Medium
                         id="form-input-test"

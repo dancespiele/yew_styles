@@ -59,7 +59,7 @@ use yew::{utils, App};
 ///          <Button
 ///             onclick_signal=link.callback(move |_| Msg::Clicked(String::from("Hello world")))
 ///             class_name="hello-world"
-///             button_type=Pallete::Standard
+///             button_palette=Pallete::Standard
 ///             button_style=Style::Light
 ///             button_size=Size::Medium
 ///          >{"Greeting"}</Button>
@@ -73,7 +73,7 @@ pub struct Button {
 }
 
 struct ButtonProps {
-    button_type: String,
+    button_palette: String,
     button_size: String,
     button_style: String,
     class_name: String,
@@ -84,7 +84,7 @@ struct ButtonProps {
 impl From<Props> for ButtonProps {
     fn from(props: Props) -> Self {
         ButtonProps {
-            button_type: get_pallete(props.button_type),
+            button_palette: get_pallete(props.button_palette),
             button_size: get_size(props.button_size),
             button_style: get_style(props.button_style),
             class_name: props.class_name,
@@ -98,7 +98,7 @@ impl From<Props> for ButtonProps {
 pub struct Props {
     /// Type botton style. Options included in `Pallete`
     #[prop_or(Palette::Standard)]
-    pub button_type: Palette,
+    pub button_palette: Palette,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -151,7 +151,7 @@ impl Component for Button {
             <button
                 onclick=self.link.callback(Msg::Clicked)
                 class=format!("button {} {} {} {}",
-                    self.props.button_type.clone(),
+                    self.props.button_palette.clone(),
                     self.props.button_size.clone(),
                     self.props.button_style.clone(),
                     self.props.class_name.clone())
@@ -195,7 +195,7 @@ fn should_trigger_action_when_button_clicked() {
         button_size: Size::Medium,
         button_style: Style::Regular,
         onclick_signal: onchange_name,
-        button_type: Palette::Standard,
+        button_palette: Palette::Standard,
         children: Children::new(vec![html! {<div id="submenu">{"another menu"}</div>}]),
     };
 
@@ -223,7 +223,7 @@ fn should_create_button_component() {
         button_size: Size::Medium,
         button_style: Style::Regular,
         onclick_signal: Callback::noop(),
-        button_type: Palette::Standard,
+        button_palette: Palette::Standard,
         children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
     };
 

@@ -25,7 +25,7 @@ pub fn get_pallete(palette: Palette) -> String {
 }
 
 /// The standard sizes of the element
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Size {
     Small,
     Medium,

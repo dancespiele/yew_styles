@@ -15,7 +15,7 @@ pub struct Props {
     pub accept: Vec<String>,
     /// The input style according with the purpose
     #[prop_or(Palette::Standard)]
-    pub input_type: Palette,
+    pub input_palette: Palette,
     /// The size of the input
     #[prop_or(Size::Medium)]
     pub input_size: Size,
@@ -101,7 +101,7 @@ impl Component for FormFile {
                     id=self.props.id
                     class=format!(
                         "form-file {} {} {} {} {}",
-                        get_pallete(self.props.input_type.clone()),
+                        get_pallete(self.props.input_palette.clone()),
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" },
                         if self.props.hidden { "hidden" } else { "" },
@@ -133,7 +133,7 @@ fn should_create_form_input() {
         error_message: "invalid input".to_string(),
         error_state: false,
         name: "input-test".to_string(),
-        input_type: Palette::Standard,
+        input_palette: Palette::Standard,
         input_size: Size::Medium,
         required: false,
         autofocus: false,

@@ -20,7 +20,7 @@ pub struct Props {
     pub value: String,
     /// Type submit style
     #[prop_or(Palette::Standard)]
-    pub submit_type: Palette,
+    pub submit_palette: Palette,
     /// the submit style according with the purpose
     #[prop_or(Style::Regular)]
     pub submit_style: Style,
@@ -60,7 +60,7 @@ impl Component for FormSubmit {
                 class=format!(
                     "form-submit {} {} {} {}",
                     get_style(self.props.submit_style.clone()),
-                    get_pallete(self.props.submit_type.clone()),
+                    get_pallete(self.props.submit_palette.clone()),
                     get_size(self.props.size.clone()),
                     self.props.class_name,
                 ),
@@ -78,7 +78,7 @@ fn should_create_form_submit() {
         id: "result".to_string(),
         class_name: "form-submit-test".to_string(),
         submit_style: Style::Regular,
-        submit_type: Palette::Standard,
+        submit_palette: Palette::Standard,
         size: Size::Medium,
     };
 

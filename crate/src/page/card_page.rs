@@ -4,6 +4,7 @@ use lipsum::lipsum;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 use yew::prelude::*;
+use yew::services::ConsoleService;
 use yew::utils;
 use yew_prism::Prism;
 use yew_styles::card::Card;
@@ -66,9 +67,14 @@ impl Component for CardPage {
 
                 let target_element = drag_event.target().unwrap().dyn_into::<Element>().unwrap();
 
-                target_element
+                if target_element
                     .append_child(&utils::document().get_element_by_id(&data).unwrap())
-                    .unwrap();
+                    .is_ok()
+                {
+                    target_element
+                        .append_child(&utils::document().get_element_by_id(&data).unwrap())
+                        .unwrap();
+                }
             }
         };
         true
@@ -94,7 +100,7 @@ impl Component for CardPage {
 
                 <h2>{"Propeties"}</h2>
                 <ul>
-                    <li><b>{"card_type: "}</b>{"type card purpose style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"card_palette: "}</b>{"type card purpose style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"card_size: "}</b>{"three diffent card standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"card_style: "}</b>{"card styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"onclick_signal: "}</b>{"click event for card."}</li>
@@ -173,8 +179,9 @@ impl Component for CardPage {
                             class="box">
                             {"Box 1"}
                             <Card
+                                class_name="card-example-draggable"
                                 card_style=Style::Light
-                                card_type=Palette::Success
+                                card_palette=Palette::Success
                                 draggable=true
                                 ondragstart_signal=self.link.callback(Msg::Dragged)
                                 id="card-draggable"
@@ -252,7 +259,7 @@ fn get_styles() -> Html {
 }
 
 fn get_types(style: Style) -> Html {
-    let types: Vec<Palette> = vec![
+    let palette: Vec<Palette> = vec![
         Palette::Standard,
         Palette::Primary,
         Palette::Secondary,
@@ -263,16 +270,16 @@ fn get_types(style: Style) -> Html {
         Palette::Danger,
     ];
 
-    types
+    palette
         .into_iter()
-        .map(|card_type| {
+        .map(|card_palette| {
             html! {
                 <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
                     <Card
                         card_style=style.clone()
-                        card_type=card_type.clone()
+                        card_palette=card_palette.clone()
                         header=Some(html!{<div class="image">
-                            {get_pallete(card_type.clone()).to_pascal_case()}
+                            {get_pallete(card_palette.clone()).to_pascal_case()}
                         </div>})
                         body=Some(html!{
                             <div class="content">{lipsum(10)}</div>
