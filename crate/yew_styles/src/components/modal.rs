@@ -84,24 +84,24 @@ use yew::{utils, App};
 ///                     header=html!{
 ///                         <b>{"Standard modal"}</b>
 ///                     }
-///                     header_type=Palette::Link
+///                     header_palette=Palette::Link
 ///                     body=html!{
 ///                         <div class="body-content">
 ///                             <p>{"This is a example modal"}</p>
 ///                             <Button
-///                                 button_type= Palette::Info
+///                                 button_palette= Palette::Info
 ///                                 onclick_signal= self.link.callback(|_| Msg::CloseModal)
 ///                             >{"Accept"}</Button>
 ///                         </div>
 ///                     }
 ///                     body_style=Style::Outline
-///                     body_type=Palette::Link
+///                     body_palette=Palette::Link
 ///                     is_open=self.show_modal
 ///                     onclick_signal= self.link.callback(|_| Msg::CloseModal)
 ///                     onkeydown_signal= self.link.callback(Msg::CloseModalByKb)
 ///                 />
 ///                 <Button
-///                     button_type= Palette::Primary
+///                     button_palette= Palette::Primary
 ///                     onclick_signal= self.link.callback(Msg::OpenModal)
 ///                 >{"Standard modal"}</Button>
 ///             </>
@@ -130,13 +130,13 @@ pub struct Props {
     pub onkeydown_signal: Callback<KeyboardEvent>,
     /// Type modal background style
     #[prop_or(Palette::Standard)]
-    pub modal_type: Palette,
+    pub modal_palette: Palette,
     /// Three diffent modal standard sizes
     #[prop_or(Size::Medium)]
     pub modal_size: Size,
     /// Type modal header style
     #[prop_or(Palette::Standard)]
-    pub header_type: Palette,
+    pub header_palette: Palette,
     /// Modal header styles
     #[prop_or(Style::Regular)]
     pub header_style: Style,
@@ -145,7 +145,7 @@ pub struct Props {
     pub header_interaction: bool,
     /// Type modal body style
     #[prop_or(Palette::Standard)]
-    pub body_type: Palette,
+    pub body_palette: Palette,
     /// Modal body styles
     #[prop_or(Style::Regular)]
     pub body_style: Style,
@@ -224,7 +224,7 @@ fn get_modal(props: Props, link: ComponentLink<Modal>) -> Html {
     if props.is_open {
         html! {
             <div
-                class=format!("modal container {} {}", get_pallete(props.modal_type), props.class_name)
+                class=format!("modal container {} {}", get_pallete(props.modal_palette), props.class_name)
                 tabindex="0"
                 id=props.id
                 onclick=link.callback(Msg::Clicked)
@@ -234,7 +234,7 @@ fn get_modal(props: Props, link: ComponentLink<Modal>) -> Html {
                     <div class=format!(
                         "modal-header {} {} {}",
                         get_style(props.header_style),
-                        get_pallete(props.header_type),
+                        get_pallete(props.header_palette),
                         if props.header_interaction { "interaction" } else { "" }
                     )>
                         {props.header}
@@ -242,7 +242,7 @@ fn get_modal(props: Props, link: ComponentLink<Modal>) -> Html {
                     <div class=format!(
                         "modal-body {} {} {}",
                         get_style(props.body_style),
-                        get_pallete(props.body_type),
+                        get_pallete(props.body_palette),
                         if props.body_interaction { "interaction" } else { "" }
                     )>
                         {props.body}
@@ -264,15 +264,15 @@ fn should_create_modal_component() {
         id: "modal-id-test".to_string(),
         onclick_signal: Callback::noop(),
         onkeydown_signal: Callback::noop(),
-        modal_type: Palette::Standard,
+        modal_palette: Palette::Standard,
         modal_size: Size::Medium,
         header: html! {<div id="header">{"Modal Test"}</div>},
         header_style: Style::Regular,
-        header_type: Palette::Standard,
+        header_palette: Palette::Standard,
         header_interaction: false,
         body: html! {<div id="body">{"Content Test"}</div>},
         body_style: Style::Regular,
-        body_type: Palette::Standard,
+        body_palette: Palette::Standard,
         body_interaction: false,
         is_open: true,
         auto_focus: false,
@@ -300,15 +300,15 @@ fn should_hide_modal_component_from_doom() {
         id: "modal-id-test".to_string(),
         onclick_signal: Callback::noop(),
         onkeydown_signal: Callback::noop(),
-        modal_type: Palette::Standard,
+        modal_palette: Palette::Standard,
         modal_size: Size::Medium,
         header: html! {<div id="header">{"Modal Test"}</div>},
         header_style: Style::Regular,
-        header_type: Palette::Standard,
+        header_palette: Palette::Standard,
         header_interaction: false,
         body: html! {<div id="body">{"Content Test"}</div>},
         body_style: Style::Regular,
-        body_type: Palette::Standard,
+        body_palette: Palette::Standard,
         body_interaction: false,
         is_open: false,
         auto_focus: false,

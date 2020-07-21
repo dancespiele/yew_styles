@@ -8,7 +8,7 @@ use yew_styles::{
 
 pub struct ButtonPage {
     link: ComponentLink<Self>,
-    button_types: Vec<Vec<String>>,
+    button_palette: Vec<Vec<String>>,
 }
 
 pub enum Msg {
@@ -22,14 +22,14 @@ impl Component for ButtonPage {
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         ButtonPage {
             link,
-            button_types: vec![vec!["".to_string(); 3]; 3],
+            button_palette: vec![vec!["".to_string(); 3]; 3],
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::ChangeType(button_type, index_style, index_size) => {
-                self.button_types[index_style][index_size] = button_type;
+                self.button_palette[index_style][index_size] = button_type;
             }
         }
         true
@@ -53,9 +53,9 @@ impl Component for ButtonPage {
                     language="rust"
                 />
 
-                <h2>{"Propeties"}</h2>
+                <h2>{"Properties"}</h2>
                 <ul>
-                    <li><b>{"button_type: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"button_palette: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"button_size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"onclick_signal: "}</b>{"click event for button. Required."}</li>
@@ -66,7 +66,7 @@ impl Component for ButtonPage {
                 <h2>{"Visual examples"}</h2>
                 <div class="container-button">
                     <div class="buttons-example">
-                        {get_button_styles(self.link.clone(), self.button_types.clone())}
+                        {get_button_styles(self.link.clone(), self.button_palette.clone())}
                     </div>
                 </div>
             </>
@@ -131,7 +131,7 @@ fn get_buttons(
     index_style: usize,
     index_size: usize,
 ) -> Html {
-    let button_types: Vec<&str> = vec![
+    let button_palette: Vec<&str> = vec![
         "Standard",
         "Primary",
         "Secondary",
@@ -141,7 +141,7 @@ fn get_buttons(
         "Warning",
         "Danger",
     ];
-    let button_types_enum: Vec<Palette> = vec![
+    let button_palette_enum: Vec<Palette> = vec![
         Palette::Standard,
         Palette::Primary,
         Palette::Secondary,
@@ -157,16 +157,16 @@ fn get_buttons(
         <div class="show-size">
             <h4>{get_size(size.clone()).to_uppercase()}</h4>
             {
-                button_types.into_iter().map(|bt| {
+                button_palette.into_iter().map(|bt| {
                     let button = html! {
                         <>
                             <Button
                                 onclick_signal=link.callback(move |_| Msg::ChangeType(bt.to_string().clone(), index_style,index_size))
                                 class_name="button-page"
-                                button_type=button_types_enum[index].clone()
+                                button_palette=button_palette_enum[index].clone()
                                 button_style=button_style.clone()
                                 button_size=size.clone()
-                            >{to_first_upercase(&get_pallete(button_types_enum[index].clone()))}
+                            >{to_first_upercase(&get_pallete(button_palette_enum[index].clone()))}
                             </Button>
                         </>
                     };

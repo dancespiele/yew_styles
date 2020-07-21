@@ -1,17 +1,17 @@
 @import "_global-variables.sass"
 @import "_mixins.sass"
 
-.text-plain, .text-paragraph, .text-alert, .text-tag
+.plain-text, .paragraph-text, .alert-text, .tag-text
     font-family: Rosario
 
     @each $name, $size in $sizes
         &.#{$name}
             font-size: $size
 
-.text-alert
-    padding: 5px 10px
+.alert-text
+    padding: 10px 10px
     border: none
-    border-radius: 1px
+    border-radius: 2px
     width: 100%
 
     &.regular
@@ -22,10 +22,11 @@
     &.light
         @include pallete-style($light-style, false)
 
-.text-tag
-    padding: 2px 5px
+.tag-text
+    padding: 5px 5px
     border: none
-    border-radius: 2px
+    border-radius: 4px
+    width: max-content
 
     &.interaction
         cursor: pointer
@@ -54,3 +55,6 @@
     span
         margin-right: 3px
     
+    .tag-delete
+        vertical-align: middle
+        cursor: pointer

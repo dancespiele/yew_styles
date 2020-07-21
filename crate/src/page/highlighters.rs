@@ -2,7 +2,7 @@ pub fn button_code() -> String {
     "<Button
     onclick_signal=link.callback(move |_| Msg::Clicked(\"Hello world\"))
     class_name=\"hello-world\"
-    button_type=Pallete::Standard
+    button_palette=Pallete::Standard
     button_style=Style::Light
     size=Size::Medium
 >{\"Greeting\"}</Button>"
@@ -28,7 +28,7 @@ pub fn navbar_code() -> String {
     "<Navbar
     fixed=Fixed::None
     navbar_style=Style::Light
-    navbar_type=Palette::Info
+    navbar_palette=Palette::Info
     branch=html!{<img src=\"/assets/spielrs_logo.png\"></img>}>
         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
             <NavbarItem
@@ -60,12 +60,28 @@ pub fn input_code() -> String {
     "<FormInput
     input_type=InputType::Text
     value=form_page.value.clone()
-    input_style=Palette::Standard
+    input_palette=Palette::Standard
     input_size=Size::Medium
     id=\"form-input-test\"
     oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value))
     placeholder=\"test\"
     underline=false
+/>"
+    .to_string()
+}
+
+pub fn file_code() -> String {
+    "<FormFile
+    accept=vec![\"image/png\".to_string(), \"image/jpg\".to_string()]
+    underline=true
+    onchange_signal = form_page.link.callback(|data: ChangeData | {
+        if let ChangeData::Files(files) = data {
+            let file = files.get(0).unwrap();
+            Msg::UploadFile(file)
+        } else {
+            Msg::ErrorUploadImage
+        }
+    })
 />"
     .to_string()
 }
@@ -232,7 +248,7 @@ pub fn basic_form_code() -> String {
                     <FormGroup>
                     <FormSubmit
                         value=\"Submit application\"
-                        submit_type=Palette::Success
+                        submit_palette=Palette::Success
                         submit_style=Style::Outline
                     />
                     </FormGroup>
@@ -249,7 +265,7 @@ pub fn basic_form_code() -> String {
 pub fn get_card() -> String {
     "<Card
     card_size=Size::Medium
-    card_type=Palette::Info
+    card_palette=Palette::Info
     card_style=Style::Outline
     header=Some(html!{<div>
         {\"Header\"}
@@ -269,21 +285,64 @@ pub fn get_modal_code() -> String {
     header=html!{
         <b>{\"Standard modal\"}</b>
     }
-    header_type=Palette::Link
+    header_palette=Palette::Link
     body=html!{
         <div class=\"body-content\">
             <p>{\"this is a modal example\"}</p>
             <Button
-                button_type= Palette::Info
+                button_palette= Palette::Info
                 onclick_signal= self.link.callback(|_| Msg::CloseModal)
             >{\"Accept\"}</Button>
         </div>
     }
     body_style=Style::Outline
-    body_type=Palette::Link
+    body_palette=Palette::Link
     is_open=self.show_modal
     onclick_signal= self.link.callback(|_| Msg::CloseModal)
     onkeydown_signal= self.link.callback(Msg::CloseModalByKb)
+/>"
+    .to_string()
+}
+
+pub fn get_plain_text() -> String {
+    "<Text
+    text_type=TextType::Plain
+    text_size=Size::Medium
+    text=\"plain text\"
+/>"
+    .to_string()
+}
+
+pub fn get_paragraph_text() -> String {
+    "<Text
+        text_type=TextType::Paragraph
+        text_size=Size::Small
+        text=\"paragraph text\"
+/>"
+    .to_string()
+}
+
+pub fn get_alert_text() -> String {
+    "<Text
+    text_type=TextType::Alert
+    text_size=Size::Medium
+    text=\"alert text\"
+    text_style=Style::Outline
+    text_palette=Palette::Success
+/>"
+    .to_string()
+}
+
+pub fn get_tag_text() -> String {
+    "<Text
+    id=\"tag\"
+    draggable=true
+    ondragstart_signal=link.callback(Msg::Dragged)
+    text_type=TextType::Tag
+    text_size=Size::Medium
+    text=\"tag text\"
+    text_style=Style::Regular
+    text_palette=Palette::Info
 />"
     .to_string()
 }

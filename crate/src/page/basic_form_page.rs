@@ -139,7 +139,7 @@ impl Component for BasicFormPage {
                                         class_name="horizontal-input"
                                         error_state=self.empty_fields.iter().any(|field| field == "first_name")
                                         error_message="First name field is required"
-                                        input_content_type=InputType::Text
+                                        input_type=InputType::Text
                                         oninput_signal=self.link.callback(|e: InputData| Msg::FirstName(e.value))
                                     />
                                 </FormGroup>
@@ -152,7 +152,7 @@ impl Component for BasicFormPage {
                                         }
                                         error_state=self.empty_fields.iter().any(|field| field == "last_name")
                                         error_message="Last name field is required"
-                                        input_content_type=InputType::Text
+                                        input_type=InputType::Text
                                         oninput_signal=self.link.callback(|e: InputData| Msg::LastName(e.value))
                                     />
                                 </FormGroup>
@@ -165,7 +165,7 @@ impl Component for BasicFormPage {
                                         }
                                         error_state=self.empty_fields.iter().any(|field| field == "email")
                                         error_message="Email field is required"
-                                        input_content_type=InputType::Email
+                                        input_type=InputType::Email
                                         oninput_signal=self.link.callback(|e: InputData| Msg::Email(e.value))
                                     />
                                 </FormGroup>
@@ -250,7 +250,7 @@ impl Component for BasicFormPage {
                                 <FormGroup>
                                 <FormSubmit
                                     value="Submit application"
-                                    submit_type=Palette::Success
+                                    submit_palette=Palette::Success
                                     submit_style=Style::Outline
                                 />
                                 </FormGroup>

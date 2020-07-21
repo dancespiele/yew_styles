@@ -89,16 +89,16 @@ impl Component for ModalPage {
                     language="rust"
                 />
 
-                <h2>{"Propeties"}</h2>
+                <h2>{"Properties"}</h2>
                 <ul>
                     <li><b>{"modal_size: "}</b>{"three diffent modal standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
-                    <li><b>{"modal_type: "}</b>{"type modal background style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"modal_palette: "}</b>{"type modal background style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"header: "}</b>{"header of the modal. Required"}</li>
-                    <li><b>{"header_type: "}</b>{"type modal header style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"header_palette: "}</b>{"type modal header style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"header_style: "}</b>{"modal header styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"header_interaction: "}</b>{"if hove, focus, active effects are enable in the header. Default "}<code>{"false"}</code>{"."}</li>
                     <li><b>{"body: "}</b>{"body of the modal. Required"}</li>
-                    <li><b>{"body_type: "}</b>{"type modal body style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"body_palette: "}</b>{"type modal body style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"body_style: "}</b>{"modal body styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"body_interaction: "}</b>{"if hove, focus, active effects are enable in the body. Default "}<code>{"false"}</code>{"."}</li>
                     <li><b>{"is_open: "}</b>{"if it is true, shows the modal otherwise is hidden. Required"}</li>
@@ -117,25 +117,25 @@ impl Component for ModalPage {
                     header=html!{
                         <b>{"Standard modal"}</b>
                     }
-                    header_type=Palette::Secondary
-                    modal_type=Palette::Secondary
+                    header_palette=Palette::Secondary
+                    modal_palette=Palette::Secondary
                     body=html!{
                         <div class="body-content">
                             <p>{lipsum(7)}</p>
                             <Button
-                                button_type= Palette::Info
+                                button_palette= Palette::Info
                                 onclick_signal= self.link.callback(|_| Msg::CloseModal(0))
                             >{"Accept"}</Button>
                         </div>
                     }
                     body_style=Style::Outline
-                    body_type=Palette::Secondary
+                    body_palette=Palette::Secondary
                     is_open=self.show_modal[0]
                     onclick_signal= self.link.callback(|_| Msg::CloseModal(0))
                     onkeydown_signal= self.link.callback(|e| Msg::CloseModalByKb(e, 0))
                 />
                 <Button
-                    button_type= Palette::Secondary
+                    button_palette= Palette::Secondary
                     onclick_signal= self.link.callback(|_| Msg::OpenModal(0))
                 >{"Standard modal"}</Button>
 
@@ -145,26 +145,26 @@ impl Component for ModalPage {
                         <b>{"Interactive modal"}</b>
                     }
                     header_interaction= true
-                    modal_type=Palette::Info
-                    header_type=Palette::Link
+                    modal_palette=Palette::Info
+                    header_palette=Palette::Link
                     body=html!{
                         <div class="body-content">
                             <p>{lipsum(7)}</p>
                             <Button
-                                button_type= Palette::Info
+                                button_palette= Palette::Info
                                 onclick_signal= self.link.callback(|_| Msg::CloseModal(1))
                             >{"Accept"}</Button>
                         </div>
                     }
                     body_interaction= true
                     body_style=Style::Outline
-                    body_type=Palette::Link
+                    body_palette=Palette::Link
                     is_open=self.show_modal[1]
                     onclick_signal= self.link.callback(|_| Msg::CloseModal(1))
                     onkeydown_signal= self.link.callback(|e| Msg::CloseModalByKb(e, 1))
                 />
                 <Button
-                    button_type= Palette::Link
+                    button_palette= Palette::Link
                     onclick_signal= self.link.callback(|_| Msg::OpenModal(1))
                 >{"Interactive modal"}</Button>
                 <h3>{"Form in modal"}</h3>
@@ -173,32 +173,32 @@ impl Component for ModalPage {
                         <b>{"Form in modal"}</b>
                     }
                     auto_focus=false
-                    modal_type=Palette::Info
-                    header_type=Palette::Link
+                    modal_palette=Palette::Info
+                    header_palette=Palette::Link
                     body=html!{
                         <div class="body-content">
                             <FormGroup orientation=Orientation::Vertical>
                                 <FormLabel text={"Write here"}/>
                                 <FormInput
-                                    input_content_type=InputType::Text
+                                    input_type=InputType::Text
                                     value=self.input_text.clone()
                                     oninput_signal=self.link.callback(|e: InputData| Msg::InputText(e.value))/>
                                     <span>{format!("value: {}", self.input_text)}</span>
                             </FormGroup>
                             <Button
-                                button_type= Palette::Info
+                                button_palette= Palette::Info
                                 onclick_signal= self.link.callback(|_| Msg::CloseModal(2))
                             >{"Accept"}</Button>
                         </div>
                     }
                     body_style=Style::Outline
-                    body_type=Palette::Link
+                    body_palette=Palette::Link
                     is_open=self.show_modal[2]
                     onclick_signal= self.link.callback(|_| Msg::CloseModal(2))
                     onkeydown_signal= self.link.callback(|e| Msg::CloseModalByKb(e, 2))
                 />
                 <Button
-                    button_type= Palette::Info
+                    button_palette= Palette::Info
                     onclick_signal= self.link.callback(|_| Msg::OpenModal(2))
                 >{"Form modal"}</Button>
                 {get_modal_sizes(self.show_modal.clone(), self.link.clone())}
@@ -221,25 +221,25 @@ fn get_modal_sizes(show_modal: Vec<bool>, link: ComponentLink<ModalPage>) -> Htm
                         header=html!{
                             <b>{format!{"{} modal", get_size(size.clone()).to_pascal_case()}}</b>
                         }
-                        header_type=Palette::Link
+                        header_palette=Palette::Link
                         body=html!{
                             <div class="body-content">
                                 <p>{lipsum(7)}</p>
                                 <Button
-                                    button_type= Palette::Info
+                                    button_palette= Palette::Info
                                     onclick_signal= link.callback(move |_| Msg::CloseModal(index + 3))
                                 >{"Accept"}</Button>
                             </div>
                         }
                         modal_size=size.clone()
                         body_style=Style::Outline
-                        body_type=Palette::Link
+                        body_palette=Palette::Link
                         is_open=show_modal[index + 3]
                         onclick_signal= link.callback(move |_| Msg::CloseModal(index + 3))
                         onkeydown_signal= link.callback(move |e| Msg::CloseModalByKb(e, index + 3))
                     />
                     <Button
-                        button_type= Palette::Standard
+                        button_palette= Palette::Standard
                         onclick_signal= link.callback(move |_| Msg::OpenModal(index + 3))
                     >{{format!{"{} modal", get_size(size).to_pascal_case()}}}</Button>
                 </>

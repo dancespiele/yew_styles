@@ -9,23 +9,27 @@
 </div>
 
 
-Yew Styles is a style framework for yew
+Yew Styles is a style framework for yew without Javascript dependencies
 
 ## Motivation
 The purpose of developing this project is first,
-provide a style framework for yew because there isn't not many options currently,
+provide a style framework for yew that doesn't require any Javascrit dependenciesm 
 also to create a layout system which is not far of the flexbox concept, and,
-to take the rust benefits and implement a properties selected by enumeration
+to take the rust benefits and implement properties selected by enumeration
 in the most of the cases which makes fast for developing applications and avoids the practice try and error
 
 ## How it works
 Each component is split in two parts, the logical yew component and its sass module,
 however, it is not necessary to worry about the sass module only it needs to be include in the project
+
+**Note:** One of the goals of yew_styles project is include css in the components without depending of any external css file.
+Possible candidates are [CssinRust](https://github.com/lukidoescode/css-in-rust) or [RUSS](https://github.com/siku2/russ)
+
 ### How install it
 1. Install the sass module: `npm install yew-styles`
 2. Add the yew_style crate with the features needed for your project in Cargo.toml file: 
 ```toml
-yew_styles = { version="0.6.2", features=["button", "assets", "navbar", "layouts"] }
+yew_styles = { version="0.7.0", features=["button", "assets", "navbar", "layouts"] }
 ```
 3. Import the main.css file in you main javascript/typescript file project: 
 ```typescript
@@ -43,8 +47,8 @@ there, shows how to use it.
 
 ## Rust Docs
 
-You can also see all the yewstyle documentation in rust docs [here](https://docs.rs/crate/yew_styles).
-It include description and examples for each component
+You can also see all the Yew Style documentation in rust docs [here](https://docs.rs/crate/yew_styles).
+It includes description and examples for each component
 
 ## Run the tests
 Inside of the project run:
@@ -52,7 +56,7 @@ Inside of the project run:
 `cargo test --target wasm32-unknown-unknown --manifest-path=crate/yew_styles/Cargo.toml`
 
 ## Development phase
-Yew style is in early phase, currently doesn't have enough components to cover all the requirements that could need a website/web application.
+Yew Styles cover all the common cases used in a web application however there are still a lot of work to do and components to implement
 All contributions are appreciated.
 
 ## How contribute
@@ -67,6 +71,9 @@ its logic works, in the same file where it is implemented (test events is not ne
 * Documentation in the component showing an example of using it and small description of each prop
 * Create a component page in `/crate/src/page` with the same structure than the rest of the components
 
+## Do you like Yew Styles?
+* If you like Yew Styles, help us supporting the project with [Github Sponsors](https://github.com/sponsors/dancespiele)!
+
 ## Code of Conduct
 Please check our [code of conduct](CODE_OF_CONDUCT.md)
 
@@ -78,15 +85,19 @@ Please check our [code of conduct](CODE_OF_CONDUCT.md)
 - [x] Form
 - [x] Card
 - [x] Text
+- [ ] Dropdown
+- [ ] Progress
+- [ ] Spinners
 - [ ] Table
 - [ ] Pagination
 - [x] Modal
 - [ ] Sidebar
 - [ ] Tab
 - [ ] Tooltips
+- [ ] Collapse
+- [ ] Carousel
 - [ ] Calendar
 - [x] Assets (implemented in the new library [yew_assets](https://github.com/spielrs/yew_assets))
-
 
 ## License
 

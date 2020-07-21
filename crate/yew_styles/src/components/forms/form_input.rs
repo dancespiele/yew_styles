@@ -50,7 +50,7 @@ use yew::{utils, App};
 ///     fn view(&self) -> Html {
 ///         html!{
 ///             <FormInput
-///                 input_content_type=InputType::Text
+///                 input_type=InputType::Text
 ///                 value=form_page.value.clone()
 ///                 input_type=Palette::Standard
 ///                 input_size=Size::Medium
@@ -99,10 +99,10 @@ pub struct Props {
     pub value: String,
     /// The input type
     #[prop_or(InputType::Text)]
-    pub input_content_type: InputType,
+    pub input_type: InputType,
     /// The input style according with the purpose
     #[prop_or(Palette::Standard)]
-    pub input_type: Palette,
+    pub input_palette: Palette,
     /// The size of the input
     #[prop_or(Size::Medium)]
     pub input_size: Size,
@@ -223,12 +223,12 @@ impl Component for FormInput {
                     id=self.props.id
                     class=format!(
                         "form-input {} {} {} {}",
-                        get_pallete(self.props.input_type.clone()),
+                        get_pallete(self.props.input_palette.clone()),
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" },
                         self.props.class_name,
                     )
-                    type=get_type(self.props.input_content_type.clone())
+                    type=get_type(self.props.input_type.clone())
                     oninput=self.link.callback(Msg::Input)
                     checked=self.props.checked
                     onblur=self.link.callback(Msg::Blur)
@@ -256,8 +256,8 @@ impl Component for FormInput {
     }
 }
 
-fn get_type(input_content_type: InputType) -> String {
-    match input_content_type {
+fn get_type(input_type: InputType) -> String {
+    match input_type {
         InputType::Button => "button".to_string(),
         InputType::Checkbox => "checkbox".to_string(),
         InputType::Color => "color".to_string(),
@@ -288,7 +288,7 @@ fn should_create_form_input() {
         id: "form-input-id-test".to_string(),
         class_name: "form-input-class-test".to_string(),
         value: "".to_string(),
-        input_content_type: InputType::Text,
+        input_type: InputType::Text,
         oninput_signal: Callback::noop(),
         onblur_signal: Callback::noop(),
         onkeydown_signal: Callback::noop(),
@@ -296,7 +296,7 @@ fn should_create_form_input() {
         error_message: "invalid input".to_string(),
         error_state: false,
         name: "input-test".to_string(),
-        input_type: Palette::Standard,
+        input_palette: Palette::Standard,
         input_size: Size::Medium,
         placeholder: "test input".to_string(),
         required: false,

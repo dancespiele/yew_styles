@@ -1,7 +1,7 @@
 extern crate getrandom;
 #[cfg(feature = "button")]
 pub mod button;
-#[cfg(all(feature = "card", feature = "layouts"))]
+#[cfg(feature = "card")]
 pub mod card;
 #[cfg(feature = "forms")]
 pub mod forms;
@@ -9,7 +9,7 @@ pub mod forms;
 pub mod layouts;
 #[cfg(feature = "modal")]
 pub mod modal;
-#[cfg(all(feature = "navbar", feature = "layouts"))]
+#[cfg(feature = "navbar")]
 pub mod navbar;
 #[cfg(feature = "text")]
 pub mod text;

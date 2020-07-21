@@ -1,5 +1,6 @@
 use page::{
     BasicFormPage, ButtonPage, CardPage, FormPage, HomePage, LayoutsPage, ModalPage, NavbarPage,
+    TextPage,
 };
 use yew::prelude::*;
 use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
@@ -14,7 +15,7 @@ pub struct App;
 pub enum AppRouter {
     #[to = "/!"]
     RootPath,
-    #[to = "/buttons!"]
+    #[to = "/button!"]
     ButtonPath,
     #[to = "/layouts!"]
     LayoutsPath,
@@ -28,6 +29,8 @@ pub enum AppRouter {
     CardPagePath,
     #[to = "/modal!"]
     ModalPagePath,
+    #[to = "/text!"]
+    TextPagePath,
     #[to = "/page-not-found"]
     PageNotFound(Permissive<String>),
 }
@@ -67,7 +70,7 @@ impl Component for App {
                             <RouterAnchor<AppRouter> route=AppRouter::LayoutsPath>{"Layouts"}</RouterAnchor<AppRouter>>
                         </Item>
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
-                            <RouterAnchor<AppRouter> route=AppRouter::ButtonPath>{"Buttons"}</RouterAnchor<AppRouter>>
+                            <RouterAnchor<AppRouter> route=AppRouter::ButtonPath>{"Button"}</RouterAnchor<AppRouter>>
                         </Item>
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
                             <RouterAnchor<AppRouter> route=AppRouter::NavbarPath>{"Navbars"}</RouterAnchor<AppRouter>>
@@ -84,6 +87,9 @@ impl Component for App {
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
                             <RouterAnchor<AppRouter> route=AppRouter::ModalPagePath>{"Modal"}</RouterAnchor<AppRouter>>
                         </Item>
+                        <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
+                            <RouterAnchor<AppRouter> route=AppRouter::TextPagePath>{"Text"}</RouterAnchor<AppRouter>>
+                        </Item>
                     </Container>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItL(10) )>
@@ -98,6 +104,7 @@ impl Component for App {
                                 AppRouter::BasicFormPath => html!{<BasicFormPage/>},
                                 AppRouter::CardPagePath => html!{<CardPage/>},
                                 AppRouter::ModalPagePath => html!{<ModalPage/>},
+                                AppRouter::TextPagePath => html!{<TextPage/>},
                                 AppRouter::PageNotFound(Permissive(None)) => html!{"Page not found"},
                                 AppRouter::PageNotFound(Permissive(Some(missed_route))) => html!{format!("Page '{}' not found", missed_route)}
                             }

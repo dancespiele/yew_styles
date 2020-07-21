@@ -11,7 +11,7 @@ use yew::{utils, App};
 ///
 /// ## Features required
 ///
-/// card, layouts
+/// card
 ///
 /// ## Example
 ///
@@ -105,7 +105,7 @@ use yew::{utils, App};
 ///                     {"Box 1"}
 ///                     <Card
 ///                         card_style=Style::Light
-///                         card_type=Palette::Success
+///                         card_palette=Palette::Success
 ///                         card_size=Size::Medium
 ///                         draggable=true
 ///                         ondragstart_signal=self.link.callback(Msg::Dragged)
@@ -195,7 +195,7 @@ pub struct Props {
     pub single_content: Option<Html>,
     /// Type card purpose style
     #[prop_or(Palette::Standard)]
-    pub card_type: Palette,
+    pub card_palette: Palette,
     /// Card styles
     #[prop_or(Style::Regular)]
     pub card_style: Style,
@@ -276,7 +276,7 @@ impl Component for Card {
                 id=self.props.id
                 class=format!(
                     "card {} {} {} {} {}",
-                    get_pallete(self.props.card_type.clone()),
+                    get_pallete(self.props.card_palette.clone()),
                     if self.props.interaction_effect {
                         "interaction"
                     } else {
@@ -377,7 +377,7 @@ fn should_create_card_with_three_parts() {
         }),
         footer_size: 2,
         single_content: None,
-        card_type: Palette::Primary,
+        card_palette: Palette::Primary,
         card_style: Style::Regular,
         card_size: Size::Medium,
         interaction_effect: false,
@@ -426,7 +426,7 @@ fn should_create_card_with_single_content() {
         single_content: Some(html! {
             <div id="single-content">{"single content"}</div>
         }),
-        card_type: Palette::Primary,
+        card_palette: Palette::Primary,
         card_style: Style::Regular,
         card_size: Size::Medium,
         interaction_effect: false,
@@ -478,7 +478,7 @@ fn should_ignore_parts_when_single_content_exist() {
         single_content: Some(html! {
             <div id="single-content">{"single content"}</div>
         }),
-        card_type: Palette::Primary,
+        card_palette: Palette::Primary,
         card_style: Style::Regular,
         card_size: Size::Medium,
         interaction_effect: false,

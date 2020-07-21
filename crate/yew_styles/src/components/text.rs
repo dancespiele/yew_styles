@@ -4,6 +4,152 @@ use yew::prelude::*;
 use yew::{utils, App};
 use yew_assets::editing_assets::{EditingAssets, EditingIcon};
 
+/// # Text
+///
+/// ## Features required
+///
+/// text
+///
+/// ## Example
+///
+/// ```rust
+/// use lipsum::lipsum;
+/// use wasm_bindgen::JsCast;
+/// use web_sys::Element;
+/// use yew::prelude::*;
+/// use yew::utils;
+/// use yew_styles::layouts::{
+///     container::{Container, Direction, Wrap},
+///     item::{Item, ItemLayout},
+/// };
+/// use yew_styles::styles::{Palette, Size, Style};
+/// use yew_styles::text::{Text, TextType};
+///
+/// pub enum Msg {
+///   Dragged(DragEvent),
+///   DraggedOver(DragEvent),
+///   Dropped(DragEvent),
+/// }
+///
+/// pub struct TextExample {
+///  link: ComponentLink<Self>,
+/// }
+///
+/// impl Component for TextPage {
+///     type Message = Msg;
+///     type Properties = ();
+///
+///     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         TextPage { link }
+///     }
+///
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::Dragged(drag_event) => {
+///                 let target_id = drag_event
+///                     .target()
+///                     .unwrap()
+///                     .dyn_into::<Element>()
+///                     .unwrap()
+///                     .id();
+///
+///                 drag_event
+///                     .data_transfer()
+///                     .unwrap()
+///                     .set_data("application/text-component", &target_id)
+///                     .unwrap();
+///
+///                 drag_event.data_transfer().unwrap().set_drop_effect("move");
+///             }
+///             Msg::DraggedOver(drag_event) => {
+///                 drag_event.prevent_default();
+///
+///                 drag_event.data_transfer().unwrap().set_drop_effect("move");
+///             }
+///
+///             Msg::Dropped(drag_event) => {
+///                 drag_event.prevent_default();
+///
+///                 let data = drag_event
+///                     .data_transfer()
+///                     .unwrap()
+///                     .get_data("application/text-component")
+///                     .unwrap();
+///
+///                 let target_element = drag_event.target().unwrap().dyn_into::<Element>().unwrap();
+///
+///                 target_element
+///                     .append_child(&utils::document().get_element_by_id(&data).unwrap())
+///                     .unwrap();
+///             }
+///         };
+///         true
+///     }
+///
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///         html! {
+///             <Container wrap = Wrap::Wrap direction = Direction::Row>
+///                 <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
+///                     <div
+///                         ondrop=self.link.callback(|e| Msg::Dropped(e))
+///                         ondragover=self.link.callback(|e| Msg::DraggedOver(e))
+///                         class="tag-box"
+///                     >
+///                         {get_draggable_tags(self.link.clone())}
+///                     </div>
+///                 </Item>
+///                 <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
+///                     <div ondrop=self.link.callback(Msg::Dropped)
+///                         ondragover=self.link.callback(Msg::DraggedOver)
+///                         class="tag-box">
+///                     </div>
+///                 </Item>
+///             </Container>
+///         }
+///     }
+/// }
+///
+/// fn get_draggable_tags(link: ComponentLink<TextPage>) -> Html {
+///     let styles = vec![Style::Regular, Style::Outline, Style::Light];
+///     let palette = vec![Palette::Success, Palette::Warning, Palette::Danger];
+///     let mut index = 0;
+///     
+///     styles
+///         .into_iter()
+///         .map(|style| {
+///             palette
+///                 .clone()
+///                 .into_iter()
+///                 .map(|item_palette| {
+///                     let text_view = html! {
+///                         <Text
+///                             class_name="draggable-tag"
+///                             id=format!("tag-{}", index)
+///                             draggable=true
+///                             ondragstart_signal=link.callback(Msg::Dragged)
+///                             text_type=TextType::Tag
+///                             text_size=Size::Medium
+///                             text=lipsum(1).replace(".", "")
+///                             text_style=style.clone()
+///                             text_palette=item_palette
+///                             interaction_effect= true
+///                         />
+///                     };
+///     
+///                     index += 1;
+///     
+///                     text_view
+///                 })
+///                 .collect::<Html>()
+///     })
+///     .collect::<Html>()
+/// }
+///
+/// ```
 pub struct Text {
     link: ComponentLink<Self>,
     props: Props,
@@ -22,9 +168,9 @@ pub struct Props {
     /// Text to show
     pub text: String,
     /// How is showing the text
-    pub text_content_type: TextType,
+    pub text_type: TextType,
     /// if hove, focus, active effects are enable, only for tag type
-    #[prop_or(true)]
+    #[prop_or(false)]
     pub interaction_effect: bool,
     /// A dragged item (element or text selection) is dragged, only for tag type
     #[prop_or(Callback::noop())]
@@ -60,12 +206,12 @@ pub struct Props {
     /// If the item is draggable, only for tag type
     #[prop_or(false)]
     pub draggable: bool,
-    /// If the tag can be seleted
+    /// If the tag can be deleted
     #[prop_or(false)]
     pub removable: bool,
     /// Type text purpose style, only for tag and alert type
     #[prop_or(Palette::Standard)]
-    pub text_type: Palette,
+    pub text_palette: Palette,
     /// Text styles, only for tag and alert type
     #[prop_or(Style::Regular)]
     pub text_style: Style,
@@ -141,15 +287,15 @@ impl Component for Text {
 
     fn view(&self) -> Html {
         get_text(
-            self.props.text_content_type.clone(),
+            self.props.text_type.clone(),
             self.props.clone(),
             self.link.clone(),
         )
     }
 }
 
-fn get_text(text_content_type: TextType, props: Props, link: ComponentLink<Text>) -> Html {
-    match text_content_type {
+fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Html {
+    match text_type {
         TextType::Plain => {
             html! {
                 <span
@@ -172,7 +318,7 @@ fn get_text(text_content_type: TextType, props: Props, link: ComponentLink<Text>
                     class=format!(
                         "alert-text {} {} {} {}",
                         get_style(props.text_style),
-                        get_pallete(props.text_type),
+                        get_pallete(props.text_palette),
                         get_size(props.text_size),
                         props.class_name,
                     )
@@ -193,8 +339,8 @@ fn get_text(text_content_type: TextType, props: Props, link: ComponentLink<Text>
                             ""
                         },
                         get_style(props.text_style),
-                        get_pallete(props.text_type),
-                        get_size(props.text_size),
+                        get_pallete(props.text_palette),
+                        get_size(props.text_size.clone()),
                         props.class_name,
                     )
                     id =props.id
@@ -218,6 +364,13 @@ fn get_text(text_content_type: TextType, props: Props, link: ComponentLink<Text>
                             >
                                 <EditingAssets
                                     icon=EditingIcon::X
+                                    size=if props.text_size == Size::Medium {
+                                        ("20".to_string(), "20".to_string())
+                                    } else if props.text_size == Size::Small {
+                                        ("13".to_string(), "13".to_string())
+                                    } else {
+                                        ("24".to_string(), "24".to_string())
+                                    }
                                 />
                             </div>
                         }
@@ -236,7 +389,7 @@ wasm_bindgen_test_configure!(run_in_browser);
 #[wasm_bindgen_test]
 fn should_create_plain_text() {
     let props = Props {
-        text_content_type: TextType::Plain,
+        text_type: TextType::Plain,
         ondrag_signal: Callback::noop(),
         ondragend_signal: Callback::noop(),
         ondragenter_signal: Callback::noop(),
@@ -250,7 +403,7 @@ fn should_create_plain_text() {
         draggable: false,
         removable: false,
         text: "hello test".to_string(),
-        text_type: Palette::Primary,
+        text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
@@ -275,7 +428,7 @@ fn should_create_plain_text() {
 #[wasm_bindgen_test]
 fn should_create_paragraph_text() {
     let props = Props {
-        text_content_type: TextType::Paragraph,
+        text_type: TextType::Paragraph,
         ondrag_signal: Callback::noop(),
         ondragend_signal: Callback::noop(),
         ondragenter_signal: Callback::noop(),
@@ -289,7 +442,7 @@ fn should_create_paragraph_text() {
         draggable: false,
         removable: false,
         text: "hello test".to_string(),
-        text_type: Palette::Primary,
+        text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
@@ -314,7 +467,7 @@ fn should_create_paragraph_text() {
 #[wasm_bindgen_test]
 fn should_create_alert_text() {
     let props = Props {
-        text_content_type: TextType::Alert,
+        text_type: TextType::Alert,
         ondrag_signal: Callback::noop(),
         ondragend_signal: Callback::noop(),
         ondragenter_signal: Callback::noop(),
@@ -328,7 +481,7 @@ fn should_create_alert_text() {
         draggable: false,
         removable: false,
         text: "hello test".to_string(),
-        text_type: Palette::Primary,
+        text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
@@ -353,7 +506,7 @@ fn should_create_alert_text() {
 #[wasm_bindgen_test]
 fn should_create_tag_text() {
     let props = Props {
-        text_content_type: TextType::Tag,
+        text_type: TextType::Tag,
         ondrag_signal: Callback::noop(),
         ondragend_signal: Callback::noop(),
         ondragenter_signal: Callback::noop(),
@@ -367,7 +520,7 @@ fn should_create_tag_text() {
         draggable: false,
         removable: false,
         text: "hello test".to_string(),
-        text_type: Palette::Primary,
+        text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
@@ -392,7 +545,7 @@ fn should_create_tag_text() {
 #[wasm_bindgen_test]
 fn should_add_delete_icon_tag_text() {
     let props = Props {
-        text_content_type: TextType::Tag,
+        text_type: TextType::Tag,
         ondrag_signal: Callback::noop(),
         ondragend_signal: Callback::noop(),
         ondragenter_signal: Callback::noop(),
@@ -406,7 +559,7 @@ fn should_add_delete_icon_tag_text() {
         draggable: false,
         removable: true,
         text: "hello test".to_string(),
-        text_type: Palette::Primary,
+        text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,

@@ -11,13 +11,11 @@ pub struct FormFile {
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    /// Current value of the form control. Required
-    pub value: String,
     /// One or more unique file type specifiers describing file types to allow
     pub accept: Vec<String>,
     /// The input style according with the purpose
     #[prop_or(Palette::Standard)]
-    pub input_type: Palette,
+    pub input_palette: Palette,
     /// The size of the input
     #[prop_or(Size::Medium)]
     pub input_size: Size,
@@ -59,9 +57,6 @@ pub struct Props {
     /// Whether the form control is disabled
     #[prop_or_default]
     pub disabled: bool,
-    /// Content to be appear in the form control when the form control is empty
-    #[prop_or_default]
-    pub placeholder: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -106,7 +101,7 @@ impl Component for FormFile {
                     id=self.props.id
                     class=format!(
                         "form-file {} {} {} {} {}",
-                        get_pallete(self.props.input_type.clone()),
+                        get_pallete(self.props.input_palette.clone()),
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" },
                         if self.props.hidden { "hidden" } else { "" },
@@ -114,7 +109,6 @@ impl Component for FormFile {
                     )
                     onchange=self.link.callback(Msg::Changed)
                     multiple=self.props.multiple
-                    value=self.props.value
                     name=self.props.name
                     alt=self.props.alt
                     accept=self.props.accept.join(", ")
@@ -123,7 +117,6 @@ impl Component for FormFile {
                     readonly=self.props.readonly
                     disabled=self.props.disabled
                     autofocus=self.props.autofocus
-                    placeholder=self.props.placeholder
                 />
                 {get_error_message(self.props.error_state, self.props.error_message.clone())}
             </>
@@ -136,14 +129,12 @@ fn should_create_form_input() {
     let props = Props {
         id: "form-input-id-test".to_string(),
         class_name: "form-input-class-test".to_string(),
-        value: "".to_string(),
         onchange_signal: Callback::noop(),
         error_message: "invalid input".to_string(),
         error_state: false,
         name: "input-test".to_string(),
-        input_type: Palette::Standard,
+        input_palette: Palette::Standard,
         input_size: Size::Medium,
-        placeholder: "test input".to_string(),
         required: false,
         autofocus: false,
         multiple: false,
