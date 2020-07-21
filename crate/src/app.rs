@@ -15,7 +15,7 @@ pub struct App;
 pub enum AppRouter {
     #[to = "/!"]
     RootPath,
-    #[to = "/buttons!"]
+    #[to = "/button!"]
     ButtonPath,
     #[to = "/layouts!"]
     LayoutsPath,
@@ -70,7 +70,7 @@ impl Component for App {
                             <RouterAnchor<AppRouter> route=AppRouter::LayoutsPath>{"Layouts"}</RouterAnchor<AppRouter>>
                         </Item>
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
-                            <RouterAnchor<AppRouter> route=AppRouter::ButtonPath>{"Buttons"}</RouterAnchor<AppRouter>>
+                            <RouterAnchor<AppRouter> route=AppRouter::ButtonPath>{"Button"}</RouterAnchor<AppRouter>>
                         </Item>
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
                             <RouterAnchor<AppRouter> route=AppRouter::NavbarPath>{"Navbars"}</RouterAnchor<AppRouter>>

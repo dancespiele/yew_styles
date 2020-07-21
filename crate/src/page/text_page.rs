@@ -1,8 +1,10 @@
+use super::highlighters::{get_alert_text, get_paragraph_text, get_plain_text, get_tag_text};
 use lipsum::lipsum;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 use yew::prelude::*;
 use yew::utils;
+use yew_prism::Prism;
 use yew_styles::layouts::{
     container::{Container, Direction, Wrap},
     item::{Item, ItemLayout},
@@ -41,7 +43,7 @@ impl Component for TextPage {
                 drag_event
                     .data_transfer()
                     .unwrap()
-                    .set_data("application/card-component", &target_id)
+                    .set_data("application/text-component", &target_id)
                     .unwrap();
 
                 drag_event.data_transfer().unwrap().set_drop_effect("move");
@@ -58,7 +60,7 @@ impl Component for TextPage {
                 let data = drag_event
                     .data_transfer()
                     .unwrap()
-                    .get_data("application/card-component")
+                    .get_data("application/text-component")
                     .unwrap();
 
                 let target_element = drag_event.target().unwrap().dyn_into::<Element>().unwrap();
@@ -86,6 +88,49 @@ impl Component for TextPage {
                 <h1>{"Text Component"}</h1>
                 <h2>{"Features required"}</h2>
                 <span><code>{"text"}</code></span>
+
+                <h2>{"Code example"}</h2>
+                <h3>{"Plain text"}</h3>
+                <Prism
+                    code=get_plain_text()
+                    language="rust"
+                />
+                <h3>{"Paragraph text"}</h3>
+                <Prism
+                    code=get_paragraph_text()
+                    language="rust"
+                />
+                <h3>{"Alert text"}</h3>
+                <Prism
+                    code=get_alert_text()
+                    language="rust"
+                />
+                <h3>{"Tag text"}</h3>
+                <Prism
+                    code=get_tag_text()
+                    language="rust"
+                />
+
+                <h2>{"Properties"}</h2>
+                <ul>
+                    <li><b>{"text: "}</b>{"text to show. Required."}</li>
+                    <li><b>{"input_type: "}</b>{"the text type. Options included in "}<code>{"TextType"}</code>{". Required."}</li>
+                    <li><b>{"text_palette: "}</b>{"type text purpose style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{". Only alert and tag types"}</li>
+                    <li><b>{"text_size: "}</b>{"three diffent text standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{". Only alert and tag types"}</li>
+                    <li><b>{"text_style: "}</b>{"text styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{". Only alert and tag types"}</li>
+                    <li><b>{"removable: "}</b>{"if the tag can be deleted. Default "}<code>{"false"}</code>{". Only for tag text type."}</li>
+                    <li><b>{"onclick_signal: "}</b>{"click event for text. Only for tag type."}</li>
+                    <li><b>{"ondelete_signal: "}</b>{"click event for deleting tag text. Only for tag type with removable set to true."}</li>
+                    <li><b>{"ondrag_signal: "}</b>{"a dragged item (element or text selection) is dragged. Only for tag text type."}</li>
+                    <li><b>{"ondragend_signal: "}</b>{"a drag operation ends. Only for tag text type."}</li>
+                    <li><b>{"ondragenter_signal: "}</b>{"a dragged item enters a valid drop target. Only for tag text type."}</li>
+                    <li><b>{"ondragexit_signal: "}</b>{"an element is no longer the drag operation's immediate selection target. Only for tag text type."}</li>
+                    <li><b>{"ondragleave_signal: "}</b>{"a dragged item leaves a valid drop target. Only for tag text type."}</li>
+                    <li><b>{"ondragover_signal: "}</b>{"a dragged item is being dragged over a valid drop target, every few hundred milliseconds. Only for tag text type."}</li>
+                    <li><b>{"ondragstart_signal: "}</b>{"the user starts dragging an item. Only for tag text type."}</li>
+                    <li><b>{"ondrop_signal: "}</b>{"an item is dropped on a valid drop target. Only for tag text type."}</li>
+                    <li><b>{"draggable: "}</b>{"if the item is draggable. Default "}<code>{"false"}</code>{". Only for tag text type."}</li>
+                </ul>
 
                 <h2>{"Visual examples"}</h2>
 

@@ -136,7 +136,7 @@ impl Component for FormPage {
                 />
                 <ul>
                     <li><b>{"value: "}</b>{"current value of the form control. Required."}</li>
-                    <li><b>{"input_content_palette: "}</b>{"the input type. Options included in "}<code>{"InputType"}</code>
+                    <li><b>{"input_type: "}</b>{"the input type. Options included in "}<code>{"InputType"}</code>
                         {". Default "}<code>{"Text"}</code>{"."}</li>
                     <li><b>{"name: "}</b>{"the name of the input."}</li>
                     <li><b>{"input_palette: "}</b>{"the input style according with the purpose. Options included in "}<code>{"Palette"}</code>

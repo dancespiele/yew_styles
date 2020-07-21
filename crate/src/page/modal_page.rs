@@ -89,7 +89,7 @@ impl Component for ModalPage {
                     language="rust"
                 />
 
-                <h2>{"Propeties"}</h2>
+                <h2>{"Properties"}</h2>
                 <ul>
                     <li><b>{"modal_size: "}</b>{"three diffent modal standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"modal_palette: "}</b>{"type modal background style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>

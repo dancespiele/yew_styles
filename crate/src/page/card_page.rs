@@ -4,7 +4,6 @@ use lipsum::lipsum;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 use yew::prelude::*;
-use yew::services::ConsoleService;
 use yew::utils;
 use yew_prism::Prism;
 use yew_styles::card::Card;
@@ -90,7 +89,7 @@ impl Component for CardPage {
                 <h1>{"Card Component"}</h1>
 
                 <h2>{"Features required"}</h2>
-                <span><code>{"card"}</code>{", "}<code>{"layouts"}</code></span>
+                <span><code>{"card"}</code></span>
 
                 <h2>{"Code example"}</h2>
                     <Prism

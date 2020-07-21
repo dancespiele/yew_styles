@@ -20,11 +20,20 @@ default-target = "wasm32-unknown-unknown"
 crate-type = ["cdylib", "rlib"]
 
 [features]
+full = [
+    "layouts",
+    "button",
+    "navbar",
+    "forms",
+    "card",
+    "modal",
+    "text",
+]
 layouts = []
 button = []
-navbar = []
+navbar = ["layouts"]
 forms = []
-card = []
+card = ["layouts"]
 modal = []
 text = []
 

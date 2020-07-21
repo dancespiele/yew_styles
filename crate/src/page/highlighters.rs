@@ -303,3 +303,46 @@ pub fn get_modal_code() -> String {
 />"
     .to_string()
 }
+
+pub fn get_plain_text() -> String {
+    "<Text
+    text_type=TextType::Plain
+    text_size=Size::Medium
+    text=\"plain text\"
+/>"
+    .to_string()
+}
+
+pub fn get_paragraph_text() -> String {
+    "<Text
+        text_type=TextType::Paragraph
+        text_size=Size::Small
+        text=\"paragraph text\"
+/>"
+    .to_string()
+}
+
+pub fn get_alert_text() -> String {
+    "<Text
+    text_type=TextType::Alert
+    text_size=Size::Medium
+    text=\"alert text\"
+    text_style=Style::Outline
+    text_palette=Palette::Success
+/>"
+    .to_string()
+}
+
+pub fn get_tag_text() -> String {
+    "<Text
+    id=\"tag\"
+    draggable=true
+    ondragstart_signal=link.callback(Msg::Dragged)
+    text_type=TextType::Tag
+    text_size=Size::Medium
+    text=\"tag text\"
+    text_style=Style::Regular
+    text_palette=Palette::Info
+/>"
+    .to_string()
+}

@@ -11,7 +11,7 @@ use yew::{utils, App};
 ///
 /// ## Features required
 ///
-/// card, layouts
+/// card
 ///
 /// ## Example
 ///
