@@ -72,11 +72,16 @@ its logic works, in the same file where it is implemented (test events is not ne
 - [x] Form
 - [x] Card
 - [x] Text
+- [ ] Dropdown
+- [ ] Progress
+- [ ] Spinners
 - [ ] Table
 - [ ] Pagination
 - [x] Modal
 - [ ] Sidebar
 - [ ] Tab
 - [ ] Tooltips
+- [ ] Collapse
+- [ ] Carousel
 - [ ] Calendar
 - [x] Assets (implemented in the new library [yew_assets](https://github.com/spielrs/yew_assets))
