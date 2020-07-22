@@ -1,0 +1,60 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+
+.plain-text, .paragraph-text, .alert-text, .tag-text
+    font-family: Rosario
+
+    @each $name, $size in $sizes
+        &.#{$name}
+            font-size: $size
+
+.alert-text
+    padding: 10px 10px
+    border: none
+    border-radius: 2px
+    width: 100%
+
+    &.regular
+        @include pallete-style($regular-style, false)
+
+    &.outline
+        @include pallete-style($outline-style, false)
+    &.light
+        @include pallete-style($light-style, false)
+
+.tag-text
+    padding: 5px 5px
+    border: none
+    border-radius: 4px
+    width: max-content
+
+    &.interaction
+        cursor: pointer
+
+    &.regular
+        @include pallete-style($regular-style, false)
+    
+    &.interaction.regular
+        @include pallete-style($regular-style, true)
+
+    &.outline
+        @include pallete-style($outline-style, false)
+
+    &.interaction.outline
+        @include pallete-style($outline-style, true)
+
+    &.light
+        @include pallete-style($light-style, false)
+
+    &.interaction.light
+        @include pallete-style($light-style, true)
+
+    span, .tag-delete
+        display: inline
+
+    span
+        margin-right: 3px
+    
+    .tag-delete
+        vertical-align: middle
+        cursor: pointer

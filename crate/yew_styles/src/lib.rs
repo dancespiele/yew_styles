@@ -1,36 +1,45 @@
 //! # Yew Styles
 //!
-//! Yew Styles is a style framework for yew
+//! Yew Styles is a style framework for yew without Javascript dependencies
 //!
 //! ## Motivation
-//!
 //! The purpose of developing this project is first,
-//! provide a style framework for yew because there isn't not many options currently,
+//! provide a style framework for yew that doesn't require any Javascrit dependenciesm
 //! also to create a layout system which is not far of the flexbox concept, and,
-//! to take the rust benefits and implement a properties selected by enumeration
+//! to take the rust benefits and implement properties selected by enumeration
 //! in the most of the cases which makes fast for developing applications and avoids the practice try and error
 //!
 //! ## How it works
-//!
 //! Each component is split in two parts, the logical yew component and its sass module,
 //! however, it is not necessary to worry about the sass module only it needs to be include in the project
 //!
 //! ### How install it
-//!
 //! 1. Install the sass module: `npm install yew-styles`
 //! 2. Add the yew_style crate with the features needed for your project in Cargo.toml file:
 //! ```toml
-//! yew_styles = { version="0.6.2", features=["button", "navbar", "layouts"]}
+//! yew_styles = { version="0.7.0", features=["button", "assets", "navbar", "layouts"] }
 //! ```
 //! 3. Import the main.css file in you main javascript/typescript file project:
 //! ```typescript
-//!    import 'node_modules/yew-styles/main.css';
+//!     import 'node_modules/yew-styles/main.css';
 //! ```
 //! 4. Ready to import and use in your project 🚀
 //!
-//! ## Development phase
+//! ## Run the documentation page
+//! 1. `git clone https://github.com/spielrs/yew_styles.git`
+//! 2. `cd yew_styles`
+//! 3. `npm start`
 //!
-//! Yew style is in early phase, currently doesn't have enough components to cover all the requirements that could need a website/web application.
+//! In the left side there is a list of links where each one access to a correspondent component documentation,
+//! there, shows how to use it.
+//!
+//! ## Run the tests
+//! Inside of the project run:
+//!
+//! `cargo test --target wasm32-unknown-unknown --manifest-path=crate/yew_styles/Cargo.toml`
+//!
+//! ## Development phase
+//! Yew Styles cover all the common cases used in a web application however there are still a lot of work to do and components to implement
 //! All contributions are appreciated.
 //!
 //! ## How contribute
@@ -49,11 +58,9 @@ mod components;
 pub mod styles;
 mod utils;
 
-#[cfg(feature = "asset")]
-pub use components::asset;
 #[cfg(feature = "button")]
 pub use components::button;
-#[cfg(all(feature = "card", feature = "layouts"))]
+#[cfg(feature = "card")]
 pub use components::card;
 #[cfg(feature = "forms")]
 pub use components::forms;
@@ -61,5 +68,7 @@ pub use components::forms;
 pub use components::layouts;
 #[cfg(feature = "modal")]
 pub use components::modal;
-#[cfg(all(feature = "navbar", feature = "layouts", feature = "asset"))]
+#[cfg(feature = "navbar")]
 pub use components::navbar;
+#[cfg(feature = "text")]
+pub use components::text;

@@ -1,3 +1,4 @@
+use super::error_message::get_error_message;
 use crate::styles::{get_pallete, get_size, Palette, Size};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
@@ -209,14 +210,6 @@ impl Component for FormTextArea {
                 {get_error_message(self.props.error_state, self.props.error_message.clone())}
             </>
         }
-    }
-}
-
-fn get_error_message(error_state: bool, error_message: String) -> Html {
-    if error_state {
-        html! {<span class="form-error">{error_message}</span>}
-    } else {
-        html! {}
     }
 }
 

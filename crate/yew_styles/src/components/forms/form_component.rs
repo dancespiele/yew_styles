@@ -252,7 +252,7 @@ use yew::{utils, App};
 ///                                 <FormGroup>
 ///                                 <FormSubmit
 ///                                     value="Submit application"
-///                                     submit_type=Palette::Success
+///                                     submit_palette=Palette::Success
 ///                                     submit_style=Style::Outline
 ///                                 />
 ///                                 </FormGroup>

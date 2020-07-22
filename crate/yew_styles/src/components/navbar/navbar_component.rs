@@ -1,11 +1,11 @@
 use super::navbar_container::NavbarContainer;
 use super::navbar_item::NavbarItem;
-use crate::asset::{Asset, Icon};
 use crate::layouts::container::{Direction, JustifyContent, Mode};
 use crate::styles::{get_pallete, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;
 use yew::Children;
+use yew_assets::ux_assets::{UxAssets, UxIcon};
 
 /// the location of the navbar which is fixed
 #[derive(Clone, PartialEq)]
@@ -23,7 +23,7 @@ pub enum Msg {
 ///
 /// ## Features required
 ///
-/// navbar, layouts
+/// navbar
 ///
 /// ## Example
 ///
@@ -81,7 +81,7 @@ pub enum Msg {
 ///            <Navbar
 ///                fixed=Fixed::None
 ///                navbar_style=Style::Light
-///                navbar_type=Palette::Info
+///                navbar_palette=Palette::Info
 ///                branch=html!{<img src="/assets/spielrs_logo.png"></img>}>
 ///                    <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
 ///                        <NavbarItem
@@ -122,7 +122,7 @@ struct NavbarModel;
 pub struct Props {
     /// Type navbar style
     #[prop_or(Palette::Standard)]
-    pub navbar_type: Palette,
+    pub navbar_palette: Palette,
     /// Navbar styles
     #[prop_or(Style::Regular)]
     pub navbar_style: Style,
@@ -143,7 +143,7 @@ pub struct Props {
 
 #[derive(Clone)]
 pub struct NavbarProps {
-    pub navbar_type: String,
+    pub navbar_palette: String,
     pub navbar_style: String,
     pub class_name: String,
     pub fixed: Fixed,
@@ -154,7 +154,7 @@ pub struct NavbarProps {
 impl From<Props> for NavbarProps {
     fn from(props: Props) -> Self {
         NavbarProps {
-            navbar_type: get_pallete(props.navbar_type),
+            navbar_palette: get_pallete(props.navbar_palette),
             navbar_style: get_style(props.navbar_style),
             class_name: props.class_name,
             fixed: props.fixed,
@@ -202,7 +202,7 @@ impl Component for Navbar {
         html! {
             <>
                 <div
-                    class=format!("navbar-mobile {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
+                    class=format!("navbar-mobile {} {} {}", self.props.navbar_style, self.props.navbar_palette, self.props.class_name)
                 >
                     <div class="navbar-dropdown">
                         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)
@@ -216,8 +216,9 @@ impl Component for Navbar {
                             <NavbarItem
                                 onclick_signal=self.link.callback(move |_| Msg::TroggleMenu)
                             >
-                             <Asset
-                                icon=Icon::Menu
+                             <UxAssets
+                                icon=UxIcon::Menu
+                                size=(String::from("30"), String::from("30"))
                                 class_name="navbar-menu"
                              />
                             </NavbarItem>
@@ -231,7 +232,7 @@ impl Component for Navbar {
                 </div>
 
                 <div
-                    class=format!("navbar {} {} {}", self.props.navbar_style, self.props.navbar_type, self.props.class_name)
+                    class=format!("navbar {} {} {}", self.props.navbar_style, self.props.navbar_palette, self.props.class_name)
                 >
                 <NavbarContainer justify_content=JustifyContent::Start(Mode::NoMode)
                     direction=Direction::Row

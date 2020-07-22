@@ -1,7 +1,8 @@
+use super::error_message::get_error_message;
 use crate::styles::{get_pallete, get_size, Palette, Size};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::{utils, App, ChangeData, FocusEvent, InputData, KeyboardEvent};
+use yew::{utils, App};
 
 /// # Form Input
 ///
@@ -49,7 +50,7 @@ use yew::{utils, App, ChangeData, FocusEvent, InputData, KeyboardEvent};
 ///     fn view(&self) -> Html {
 ///         html!{
 ///             <FormInput
-///                 input_content_type=InputType::Text
+///                 input_type=InputType::Text
 ///                 value=form_page.value.clone()
 ///                 input_type=Palette::Standard
 ///                 input_size=Size::Medium
@@ -76,7 +77,6 @@ pub enum InputType {
     Datetime,
     DatetimeLocal,
     Email,
-    File,
     Hidden,
     Image,
     Month,
@@ -99,10 +99,10 @@ pub struct Props {
     pub value: String,
     /// The input type
     #[prop_or(InputType::Text)]
-    pub input_content_type: InputType,
+    pub input_type: InputType,
     /// The input style according with the purpose
     #[prop_or(Palette::Standard)]
-    pub input_type: Palette,
+    pub input_palette: Palette,
     /// The size of the input
     #[prop_or(Size::Medium)]
     pub input_size: Size,
@@ -115,9 +115,6 @@ pub struct Props {
     /// Signal to emit the event keypress
     #[prop_or(Callback::noop())]
     pub onkeydown_signal: Callback<KeyboardEvent>,
-    /// Signal to emit the event change
-    #[prop_or(Callback::noop())]
-    pub onchange_signal: Callback<ChangeData>,
     /// Content to be appear in the form control when the form control is empty
     #[prop_or_default]
     pub placeholder: String,
@@ -133,9 +130,6 @@ pub struct Props {
     /// The name of the input
     #[prop_or_default]
     pub name: String,
-    /// Hint for expected file type in file upload controls
-    #[prop_or_default]
-    pub accept: String,
     /// Alt attribute for the image type
     #[prop_or_default]
     pub alt: String,
@@ -167,20 +161,14 @@ pub struct Props {
     #[prop_or_default]
     pub readonly: bool,
     /// A value is required or must be check for the form to be submittable
-    #[prop_or_default]
+    #[prop_or(false)]
     pub required: bool,
     /// Whether the form control is disabled
-    #[prop_or_default]
+    #[prop_or(false)]
     pub disabled: bool,
-    /// Whether to allow multiple values
-    #[prop_or_default]
-    pub multiple: bool,
     /// Underline style instead of box, like Material
     #[prop_or_default]
     pub underline: bool,
-    /// Media capture input method in file upload controls
-    #[prop_or_default]
-    pub capture: String,
     /// Incremental values that are valid
     #[prop_or_default]
     pub step: i16,
@@ -197,7 +185,6 @@ pub enum Msg {
     Input(InputData),
     Blur(FocusEvent),
     KeyPressed(KeyboardEvent),
-    Changed(ChangeData),
 }
 
 impl Component for FormInput {
@@ -219,9 +206,6 @@ impl Component for FormInput {
             Msg::KeyPressed(keyboard_event) => {
                 self.props.onkeydown_signal.emit(keyboard_event);
             }
-            Msg::Changed(change_data) => {
-                self.props.onchange_signal.emit(change_data);
-            }
         };
 
         true
@@ -239,23 +223,21 @@ impl Component for FormInput {
                     id=self.props.id
                     class=format!(
                         "form-input {} {} {} {}",
-                        self.props.class_name,
-                        get_pallete(self.props.input_type.clone()),
+                        get_pallete(self.props.input_palette.clone()),
                         get_size(self.props.input_size.clone()),
-                        if self.props.underline { "underline" } else { "" }
+                        if self.props.underline { "underline" } else { "" },
+                        self.props.class_name,
                     )
-                    type=get_type(self.props.input_content_type.clone())
+                    type=get_type(self.props.input_type.clone())
                     oninput=self.link.callback(Msg::Input)
                     checked=self.props.checked
                     onblur=self.link.callback(Msg::Blur)
                     onkeydown=self.link.callback(Msg::KeyPressed)
-                    onchange=self.link.callback(Msg::Changed)
                     value=self.props.value
                     name=self.props.name
                     required=self.props.required
                     readonly=self.props.readonly
                     disabled=self.props.disabled
-                    multiple=self.props.multiple
                     placeholder=self.props.placeholder
                     pattern=self.props.pattern
                     min=self.props.min
@@ -263,8 +245,6 @@ impl Component for FormInput {
                     max=self.props.max
                     maxlength=self.props.maxlength
                     alt=self.props.alt
-                    accept=self.props.accept
-                    capture=self.props.capture
                     autofocus=self.props.autofocus
                     autocomplete=self.props.autocomplete
                     step=self.props.step
@@ -276,8 +256,8 @@ impl Component for FormInput {
     }
 }
 
-fn get_type(input_content_type: InputType) -> String {
-    match input_content_type {
+fn get_type(input_type: InputType) -> String {
+    match input_type {
         InputType::Button => "button".to_string(),
         InputType::Checkbox => "checkbox".to_string(),
         InputType::Color => "color".to_string(),
@@ -285,7 +265,6 @@ fn get_type(input_content_type: InputType) -> String {
         InputType::Datetime => "datetime".to_string(),
         InputType::DatetimeLocal => "datetime-local".to_string(),
         InputType::Email => "email".to_string(),
-        InputType::File => "file".to_string(),
         InputType::Hidden => "hidden".to_string(),
         InputType::Image => "image".to_string(),
         InputType::Month => "month".to_string(),
@@ -303,36 +282,26 @@ fn get_type(input_content_type: InputType) -> String {
     }
 }
 
-fn get_error_message(error_state: bool, error_message: String) -> Html {
-    if error_state {
-        html! {<span class="form-error">{error_message}</span>}
-    } else {
-        html! {}
-    }
-}
-
 #[wasm_bindgen_test]
 fn should_create_form_input() {
     let props = Props {
         id: "form-input-id-test".to_string(),
         class_name: "form-input-class-test".to_string(),
         value: "".to_string(),
-        input_content_type: InputType::Text,
+        input_type: InputType::Text,
         oninput_signal: Callback::noop(),
         onblur_signal: Callback::noop(),
-        onchange_signal: Callback::noop(),
         onkeydown_signal: Callback::noop(),
         checked: false,
         error_message: "invalid input".to_string(),
         error_state: false,
         name: "input-test".to_string(),
-        input_type: Palette::Standard,
+        input_palette: Palette::Standard,
         input_size: Size::Medium,
         placeholder: "test input".to_string(),
         required: false,
         autocomplete: false,
         autofocus: false,
-        multiple: false,
         alt: "input test".to_string(),
         pattern: "".to_string(),
         min: 0,
@@ -343,8 +312,6 @@ fn should_create_form_input() {
         underline: false,
         disabled: false,
         step: 1,
-        accept: "".to_string(),
-        capture: "".to_string(),
         list: "".to_string(),
     };
 

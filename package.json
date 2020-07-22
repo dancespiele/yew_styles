@@ -21,13 +21,17 @@
     "parcel-plugin-static-files-copy": "^2.3.1",
     "sass": "^1.26.5",
     "typescript": "^3.8.3",
-    "prismjs": "^1.20.0"
+    "prismjs": "^1.20.0",
+    "lodash": ">=4.17.19"
   },
   "dependencies": {
     "prismjs": "^1.20.0"
   },
   "staticFiles": {
-    "staticPath": ["./crate/pkg", "./crate/assets"],
+    "staticPath": [
+      "./crate/pkg",
+      "./crate/assets"
+    ],
     "watcherGlob": false
   }
 }

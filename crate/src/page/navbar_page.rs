@@ -14,6 +14,7 @@ use yew_styles::{
 pub struct NavbarPage {
     link: ComponentLink<Self>,
     navbar_menu: Vec<String>,
+    item_menu: Vec<Vec<bool>>,
 }
 
 #[derive(Clone)]
@@ -23,7 +24,7 @@ struct NavbarStyle {
 }
 
 struct NavbarType {
-    navbar_type: Palette,
+    navbar_palette: Palette,
     name: String,
 }
 
@@ -33,7 +34,7 @@ struct ElementRender {
 }
 
 pub enum Msg {
-    ChangeType(usize, String),
+    ChangeType(usize, usize, String),
 }
 
 #[derive(Clone, Properties)]
@@ -47,6 +48,7 @@ impl Component for NavbarPage {
         NavbarPage {
             link,
             navbar_menu: vec![String::from("home"); 50],
+            item_menu: vec![vec![true, false, false, false]; 50],
         }
     }
 
@@ -56,8 +58,12 @@ impl Component for NavbarPage {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::ChangeType(index, navbar_menu) => {
+            Msg::ChangeType(index, item_index, navbar_menu) => {
                 self.navbar_menu[index] = navbar_menu;
+                for (i, _) in self.item_menu[index].clone().into_iter().enumerate() {
+                    self.item_menu[index][i] = false;
+                }
+                self.item_menu[index][item_index] = true;
             }
         };
 
@@ -70,7 +76,7 @@ impl Component for NavbarPage {
                 <h1>{"Navbar Components"}</h1>
 
                 <h2>{"Features required"}</h2>
-                <span><code>{"navbar"}</code>{", "}<code>{"layouts"}</code></span>
+                <span><code>{"navbar"}</code></span>
 
                 <h2>{"Code example"}</h2>
                 <Prism
@@ -80,7 +86,7 @@ impl Component for NavbarPage {
 
                 <h2>{"Navbar properties"}</h2>
                 <ul>
-                    <li><b>{"navbar_type: "}</b>{"type navbar style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
+                    <li><b>{"navbar_palette: "}</b>{"type navbar style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
                     <li><b>{"button_style: "}</b>{"navbar styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"fixed: "}</b>{"the location of the navbar which is fixed .Options included in "}<code>{"Fixed"}</code>{". Default "}<code>{"Top"}</code>{"."}</li>
                     <li><b>{"branch: "}</b>{"vnode embedded in the beginning of the navbar, useful to include a branch logo. Optional"}</li>
@@ -99,19 +105,24 @@ impl Component for NavbarPage {
 
                 <h2>{"Navbar Item properties"}</h2>
                 <ul>
+                    <li><b>{"active: "}</b>{"active nav item style. Default "}<code>{"false"}</code></li>
                     <li><b>{"onclick_signal: "}</b>{"click event for navbar item. Default "}<code>{"noop()"}</code></li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
 
                 <h2>{"Visual examples"}</h2>
-                {get_style(self.link.clone(), self.navbar_menu.clone())}
+                {get_style(self.link.clone(), self.navbar_menu.clone(), self.item_menu.clone())}
             </>
         }
     }
 }
 
-fn get_style(link: ComponentLink<NavbarPage>, navbar_menu: Vec<String>) -> Html {
+fn get_style(
+    link: ComponentLink<NavbarPage>,
+    navbar_menu: Vec<String>,
+    item_menu: Vec<Vec<bool>>,
+) -> Html {
     let styles = vec![
         NavbarStyle {
             style: Style::Regular,
@@ -131,7 +142,13 @@ fn get_style(link: ComponentLink<NavbarPage>, navbar_menu: Vec<String>) -> Html 
     styles
         .into_iter()
         .map(|style| {
-            let navbar = get_navbar_type(link.clone(), style, navbar_menu.clone(), index);
+            let navbar = get_navbar_palette(
+                link.clone(),
+                style,
+                navbar_menu.clone(),
+                item_menu.clone(),
+                index,
+            );
 
             index = navbar.index + 1;
 
@@ -140,69 +157,70 @@ fn get_style(link: ComponentLink<NavbarPage>, navbar_menu: Vec<String>) -> Html 
         .collect::<Html>()
 }
 
-fn get_navbar_type(
+fn get_navbar_palette(
     link: ComponentLink<NavbarPage>,
     style: NavbarStyle,
     navbar_menu: Vec<String>,
+    item_menu: Vec<Vec<bool>>,
     index: usize,
 ) -> ElementRender {
-    let mut navbar_type_rendered = index;
+    let mut navbar_palette_rendered = index;
     let types = vec![
         NavbarType {
-            navbar_type: Palette::Standard,
+            navbar_palette: Palette::Standard,
             name: String::from("Standard"),
         },
         NavbarType {
-            navbar_type: Palette::Primary,
+            navbar_palette: Palette::Primary,
             name: String::from("Primary"),
         },
         NavbarType {
-            navbar_type: Palette::Secondary,
+            navbar_palette: Palette::Secondary,
             name: String::from("Secondary"),
         },
         NavbarType {
-            navbar_type: Palette::Info,
+            navbar_palette: Palette::Info,
             name: String::from("Info"),
         },
         NavbarType {
-            navbar_type: Palette::Link,
+            navbar_palette: Palette::Link,
             name: String::from("Link"),
         },
         NavbarType {
-            navbar_type: Palette::Success,
+            navbar_palette: Palette::Success,
             name: String::from("Success"),
         },
         NavbarType {
-            navbar_type: Palette::Warning,
+            navbar_palette: Palette::Warning,
             name: String::from("Warning"),
         },
         NavbarType {
-            navbar_type: Palette::Danger,
+            navbar_palette: Palette::Danger,
             name: String::from("Danger"),
         },
     ];
 
     let navbar = types
         .into_iter()
-        .map(|navbar_type| {
+        .map(|navbar_palette| {
             let element = html! {
                 <div>
-                    <h3>{format!("{} {}",style.name.clone(), navbar_type.name)}</h3>
+                    <h3>{format!("{} {}",style.name.clone(), navbar_palette.name)}</h3>
                     <Navbar
                         fixed=Fixed::None
                         navbar_style=style.style.clone()
-                        navbar_type=navbar_type.navbar_type
+                        navbar_palette=navbar_palette.navbar_palette
                         branch=html!{<img src="/spielrs_logo.png"/>}
                     >
                         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
-                            {get_menus(link.clone(), navbar_type_rendered)}
+                            {get_menus(link.clone(), navbar_palette_rendered, item_menu.clone())}
                         </NavbarContainer>
                     </Navbar>
-                    <div>{navbar_menu[navbar_type_rendered].clone()}</div>
+                    <div>{navbar_menu[navbar_palette_rendered].clone()}</div>
                 </div>
             };
 
-            navbar_type_rendered += 1;
+            navbar_palette_rendered += 1;
 
             element
         })
@@ -210,20 +228,22 @@ fn get_navbar_type(
 
     ElementRender {
         element: navbar,
-        index: navbar_type_rendered,
+        index: navbar_palette_rendered,
     }
 }
 
-fn get_menus(link: ComponentLink<NavbarPage>, index: usize) -> Html {
+fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<bool>>) -> Html {
     let menus = vec!["home", "shop", "about us", "contact us"];
 
     menus
         .into_iter()
-        .map(|menu| {
+        .enumerate()
+        .map(|(item_index, menu)| {
             html! {
                 <>
                     <NavbarItem
-                        onclick_signal=link.callback(move |_| Msg::ChangeType(index, String::from(menu))
+                        active= item_menu[index][item_index]
+                        onclick_signal=link.callback(move |_| Msg::ChangeType(index, item_index, String::from(menu))
                     )
                     >
                         <span>{menu}</span>
