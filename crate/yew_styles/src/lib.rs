@@ -4,7 +4,7 @@
 //!
 //! ## Motivation
 //! The purpose of developing this project is first,
-//! provide a style framework for yew that doesn't require any Javascrit dependenciesm
+//! provide a style framework for yew that doesn't require any Javascrit dependencies
 //! also to create a layout system which is not far of the flexbox concept, and,
 //! to take the rust benefits and implement properties selected by enumeration
 //! in the most of the cases which makes fast for developing applications and avoids the practice try and error
@@ -17,7 +17,7 @@
 //! 1. Install the sass module: `npm install yew-styles`
 //! 2. Add the yew_style crate with the features needed for your project in Cargo.toml file:
 //! ```toml
-//! yew_styles = { version="0.7.0", features=["button", "assets", "navbar", "layouts"] }
+//! yew_styles = { version="0.7.0", features=["button", "text", "navbar"] }
 //! ```
 //! 3. Import the main.css file in you main javascript/typescript file project:
 //! ```typescript
@@ -39,7 +39,7 @@
 //! `cargo test --target wasm32-unknown-unknown --manifest-path=crate/yew_styles/Cargo.toml`
 //!
 //! ## Development phase
-//! Yew Styles cover all the common cases used in a web application however there are still a lot of work to do and components to implement
+//! Yew Styles cover all the common cases used in a web application however there are still a lot of work to do and components to implement.
 //! All contributions are appreciated.
 //!
 //! ## How contribute
