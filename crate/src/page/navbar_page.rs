@@ -111,6 +111,8 @@ impl Component for NavbarPage {
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
 
+                <p><b>{"Note:"}</b>{" for navbar items which include yew routers or"}<code>{" a "}</code>{"tag, add navbar-route in the class_name attribute"}</p>
+
                 <h2>{"Visual examples"}</h2>
                 {get_style(self.link.clone(), self.navbar_menu.clone(), self.item_menu.clone())}
             </>
