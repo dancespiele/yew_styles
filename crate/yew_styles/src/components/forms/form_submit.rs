@@ -27,6 +27,12 @@ pub struct Props {
     /// the size of the submit
     #[prop_or(Size::Medium)]
     pub size: Size,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// general property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -57,6 +63,8 @@ impl Component for FormSubmit {
         html! {
             <input
                 type="submit"
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
                 class=format!(
                     "form-submit {} {} {} {}",
                     get_style(self.props.submit_style.clone()),
@@ -75,6 +83,8 @@ impl Component for FormSubmit {
 fn should_create_form_submit() {
     let props = Props {
         value: "submit".to_string(),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         id: "result".to_string(),
         class_name: "form-submit-test".to_string(),
         submit_style: Style::Regular,

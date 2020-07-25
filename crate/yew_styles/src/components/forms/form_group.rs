@@ -81,6 +81,12 @@ pub struct Props {
     /// In which orientation will show the inputs, select and labels
     #[prop_or(Orientation::Vertical)]
     pub orientation: Orientation,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -112,6 +118,8 @@ impl Component for FormGroup {
             <div
                 class=format!("form-group {} {}", get_orientation(self.props.orientation.clone()), self.props.class_name)
                 id=self.props.id
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
                 >
                 {self.props.children.clone()}
             </div>
@@ -129,6 +137,8 @@ fn get_orientation(orientation: Orientation) -> String {
 #[wasm_bindgen_test]
 fn should_create_form_group_horizontal_oriented() {
     let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         id: "form-group-test-id".to_string(),
         class_name: "form-group-test-class".to_string(),
         orientation: Orientation::Horizontal,
@@ -158,6 +168,8 @@ fn should_create_form_group_horizontal_oriented() {
 #[wasm_bindgen_test]
 fn should_create_form_group_vertical_oriented() {
     let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         id: "form-group-test-id".to_string(),
         class_name: "form-group-test-class".to_string(),
         orientation: Orientation::Vertical,

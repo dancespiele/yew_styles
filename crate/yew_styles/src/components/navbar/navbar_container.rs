@@ -14,6 +14,12 @@ pub struct Props {
     #[prop_or(Direction::Row)]
     pub direction: Direction,
     pub children: Children,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -138,6 +144,9 @@ impl Component for NavbarContainer {
         html! {
             <Container
                 class_name=format!("navbar-container {}", self.props.class_name)
+                id=self.props.id.clone()
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
                 direction=self.props.direction.clone()
                 wrap=Wrap::Wrap
                 justify_content=self.props.justify_content.clone()>
