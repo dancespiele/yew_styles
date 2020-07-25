@@ -77,6 +77,9 @@ struct ButtonProps {
     button_size: String,
     button_style: String,
     class_name: String,
+    id: String,
+    key: String,
+    code_ref: NodeRef,
     onclick_signal: Callback<MouseEvent>,
     children: Children,
 }
@@ -88,6 +91,9 @@ impl From<Props> for ButtonProps {
             button_size: get_size(props.button_size),
             button_style: get_style(props.button_style),
             class_name: props.class_name,
+            id: props.id,
+            key: props.key,
+            code_ref: props.code_ref,
             onclick_signal: props.onclick_signal,
             children: props.children,
         }
@@ -105,6 +111,12 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// Three diffent button standard sizes. Options included in `Size`
     #[prop_or(Size::Medium)]
     pub button_size: Size,
@@ -155,6 +167,9 @@ impl Component for Button {
                     self.props.button_size.clone(),
                     self.props.button_style.clone(),
                     self.props.class_name.clone())
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
+                id=self.props.id
             > { self.props.children.clone() }
             </button>
         }
@@ -192,6 +207,8 @@ fn should_trigger_action_when_button_clicked() {
     let props = Props {
         class_name: String::from("test-button"),
         id: String::from("button-id-test"),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         button_size: Size::Medium,
         button_style: Style::Regular,
         onclick_signal: onchange_name,
@@ -220,6 +237,8 @@ fn should_create_button_component() {
     let props = Props {
         class_name: String::from("test-button"),
         id: String::from("button-id-test"),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         button_size: Size::Medium,
         button_style: Style::Regular,
         onclick_signal: Callback::noop(),

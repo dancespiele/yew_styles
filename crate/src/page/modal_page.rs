@@ -107,6 +107,8 @@ impl Component for ModalPage {
                     <li><b>{"auto_focus: "}</b>{"if the modal content get the focus. Set to false if the modal includes input events. Default "}
                         <code>{"true"}</code>{"."}
                     </li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>

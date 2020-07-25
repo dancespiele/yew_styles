@@ -59,8 +59,10 @@ impl Component for ButtonPage {
                     <li><b>{"button_size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"onclick_signal: "}</b>{"click event for button. Required."}</li>
-                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
-                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id."}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
                 </ul>
 
                 <h2>{"Visual examples"}</h2>
@@ -163,6 +165,7 @@ fn get_buttons(
                             <Button
                                 onclick_signal=link.callback(move |_| Msg::ChangeType(bt.to_string().clone(), index_style,index_size))
                                 class_name="button-page"
+                                key=format!("button-{}-{}", index_style, index_size)
                                 button_palette=button_palette_enum[index].clone()
                                 button_style=button_style.clone()
                                 button_size=size.clone()

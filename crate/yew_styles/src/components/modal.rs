@@ -155,6 +155,12 @@ pub struct Props {
     /// If the modal content get the focus. Set to false if the modal includes input events
     #[prop_or(true)]
     pub auto_focus: bool,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -225,6 +231,8 @@ fn get_modal(props: Props, link: ComponentLink<Modal>) -> Html {
         html! {
             <div
                 class=format!("modal container {} {}", get_pallete(props.modal_palette), props.class_name)
+                key=props.key
+                ref=props.code_ref
                 tabindex="0"
                 id=props.id
                 onclick=link.callback(Msg::Clicked)
@@ -262,6 +270,8 @@ fn should_create_modal_component() {
     let props = Props {
         class_name: "test-modal".to_string(),
         id: "modal-id-test".to_string(),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         onclick_signal: Callback::noop(),
         onkeydown_signal: Callback::noop(),
         modal_palette: Palette::Standard,
@@ -298,6 +308,8 @@ fn should_hide_modal_component_from_doom() {
     let props = Props {
         class_name: "test-modal".to_string(),
         id: "modal-id-test".to_string(),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         onclick_signal: Callback::noop(),
         onkeydown_signal: Callback::noop(),
         modal_palette: Palette::Standard,

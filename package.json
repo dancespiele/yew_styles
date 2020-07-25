@@ -4,7 +4,7 @@
     "url": "https://github.com/spielrs/yew-parcel-template"
   },
   "name": "create-yew-parcel",
-  "version": "0.16.2",
+  "version": "0.17.2",
   "license": "MIT",
   "scripts": {
     "start": "node wasm-builder.js",

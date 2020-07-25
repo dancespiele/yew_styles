@@ -365,6 +365,12 @@ pub struct Props {
     /// The name of the form
     #[prop_or_default]
     pub name: String,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -414,6 +420,8 @@ impl Component for Form {
                 action=self.props.action
                 method=get_method(self.props.method.clone())
                 name=self.props.name
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
                 class=format!("form {}", self.props.class_name)
                 id=format!("{}", self.props.id)
             >
@@ -434,6 +442,8 @@ fn get_method(method: Method) -> String {
 #[wasm_bindgen_test]
 fn should_create_form_component() {
     let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "form-test".to_string(),
         id: "form-test-id".to_string(),
         onsubmit_signal: Callback::noop(),
@@ -472,6 +482,8 @@ fn should_submit_the_form() {
     });
 
     let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "form-test".to_string(),
         id: "form-test-id".to_string(),
         onsubmit_signal: onsubmit,

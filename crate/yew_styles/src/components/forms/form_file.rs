@@ -57,6 +57,12 @@ pub struct Props {
     /// Whether the form control is disabled
     #[prop_or_default]
     pub disabled: bool,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -107,6 +113,8 @@ impl Component for FormFile {
                         if self.props.hidden { "hidden" } else { "" },
                         self.props.class_name,
                     )
+                    key=self.props.key.clone()
+                    ref=self.props.code_ref.clone()
                     onchange=self.link.callback(Msg::Changed)
                     multiple=self.props.multiple
                     name=self.props.name
@@ -127,6 +135,8 @@ impl Component for FormFile {
 #[wasm_bindgen_test]
 fn should_create_form_input() {
     let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         id: "form-input-id-test".to_string(),
         class_name: "form-input-class-test".to_string(),
         onchange_signal: Callback::noop(),

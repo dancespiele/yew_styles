@@ -205,6 +205,12 @@ pub struct Props {
     /// if hove, focus, active effects are enable
     #[prop_or(true)]
     pub interaction_effect: bool,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -286,6 +292,8 @@ impl Component for Card {
                     get_style(self.props.card_style.clone()),
                     self.props.class_name.clone(),
                 )
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
                 draggable = self.props.draggable
                 ondrag = self.link.callback(Msg::Draged)
                 ondragend = self.link.callback(Msg::DragedEnd)
@@ -381,6 +389,8 @@ fn should_create_card_with_three_parts() {
         card_style: Style::Regular,
         card_size: Size::Medium,
         interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
         id: "id-card-rest".to_string(),
     };
@@ -430,6 +440,8 @@ fn should_create_card_with_single_content() {
         card_style: Style::Regular,
         card_size: Size::Medium,
         interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
         id: "id-card-test".to_string(),
     };
@@ -482,6 +494,8 @@ fn should_ignore_parts_when_single_content_exist() {
         card_style: Style::Regular,
         card_size: Size::Medium,
         interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
         id: "id-card-rest".to_string(),
     };
