@@ -49,3 +49,20 @@
             align-self: center
 
         @include get-branch(40px)
+
+.navbar
+    &.navbar-router
+        .navbar-item
+            &.navbar-route
+                padding: 0
+                height: 100%
+                a
+                    text-decoration: none
+                    color: inherit
+                    display: block
+                    height: 100%
+                    padding: 10px
+                    width: 100%
+
+                    &:focus
+                        outline: none

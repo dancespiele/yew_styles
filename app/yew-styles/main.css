@@ -1737,6 +1737,22 @@
     width: 40px;
   }
 }
+.navbar.navbar-router .navbar-item.navbar-route {
+  padding: 0;
+  height: 100%;
+}
+.navbar.navbar-router .navbar-item.navbar-route a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+  padding: 10px;
+  width: 100%;
+}
+.navbar.navbar-router .navbar-item.navbar-route a:focus {
+  outline: none;
+}
+
 .form-group {
   margin: 10px;
 }

@@ -346,3 +346,28 @@ pub fn get_tag_text() -> String {
 />"
     .to_string()
 }
+
+pub fn navbar_with_a_tag() -> String {
+    "<Navbar
+    class_name=\"navbar-router\"
+    navbar_palette=Palette::Info
+    navbar_style=Style::Outline
+    fixed=Fixed::Top
+    branch=html!{<img src=\"./spielrs_logo.png\"/>}
+>
+    <NavbarContainer>
+        <NavbarItem
+            class_name=\"navbar-route\"
+            active = self.navbar_items[0]
+            onclick_signal = self.link.callback(|_| Msg::ChangeNavbarItem(0))
+            >
+            <RouterAnchor<AppRouter>route=AppRouter::RootPath>{\"Home\"}</RouterAnchor<AppRouter>></NavbarItem>
+        <NavbarItem
+            class_name=\"navbar-route\"
+            active = self.navbar_items[1]
+            onclick_signal = self.link.callback(|_| Msg::ChangeNavbarItem(1))
+            >
+            <RouterAnchor<AppRouter>route=AppRouter::AboutPath>{\"About\"}</RouterAnchor<AppRouter>></NavbarItem>
+    </NavbarContainer>
+</Navbar>".to_string()
+}

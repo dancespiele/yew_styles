@@ -184,9 +184,9 @@ impl Component for Modal {
                     .unwrap()
                     .dyn_into::<Element>()
                     .unwrap()
-                    .class_name();
+                    .class_list();
 
-                if target_event.starts_with("modal container") {
+                if target_event.value().starts_with("modal container") {
                     self.props.onclick_signal.emit(mouse_event);
                 }
             }

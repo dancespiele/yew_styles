@@ -1,4 +1,4 @@
-use super::highlighters::navbar_code;
+use super::highlighters::{navbar_code, navbar_with_a_tag};
 use yew::prelude::*;
 use yew_prism::Prism;
 use yew_styles::{
@@ -110,6 +110,14 @@ impl Component for NavbarPage {
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
+
+                <p><b>{"Note:"}</b>{" for navbar items which include yew routers or"}<code>{" a "}</code>
+                    {"tag, add navbar-route in the class_name attribute of the "}<code>{"NavbarItem"}</code>
+                    {" component and navbar-router in the "}<code>{"Navbar"}</code>{". For example:"}</p>
+
+                <Prism
+                    code=navbar_with_a_tag()
+                    language="rust"/>
 
                 <h2>{"Visual examples"}</h2>
                 {get_style(self.link.clone(), self.navbar_menu.clone(), self.item_menu.clone())}
