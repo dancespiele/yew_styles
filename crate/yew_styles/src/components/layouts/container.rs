@@ -162,6 +162,12 @@ pub struct Props {
     /// Set how will be aligned the items
     #[prop_or(AlignItems::Stretch(Mode::NoMode))]
     pub align_items: AlignItems,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -200,6 +206,8 @@ impl Component for Container {
         html! {
             <div class=format!("container container-{} {}", self.key, self.props.class_name)
                 id=format!("{}", self.props.id)
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
             >
                 {self.props.children.clone()}
             </div>
@@ -323,6 +331,8 @@ fn should_create_a_container() {
         justify_content: JustifyContent::Center(Mode::NoMode),
         align_content: AlignContent::Center(Mode::NoMode),
         align_items: AlignItems::Center(Mode::NoMode),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: String::from("layout-test"),
         id: String::from("layout-id-test"),
         children: Children::new(vec![html! {

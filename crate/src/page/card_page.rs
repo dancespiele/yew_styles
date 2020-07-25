@@ -120,6 +120,8 @@ impl Component for CardPage {
                     <li><b>{"footer_size: "}</b>{"the size of the footer card based in Flexbox. Default "}<code>{"2"}</code>{"."}</li>
                     <li><b>{"single_content"}</b>{"Without split in parts, only a single content. Default"}<code>{"None"}</code>{"."}</li>
                     <li><b>{"interaction_effect: "}</b>{"if hove, focus, active effects are enable. Default "}<code>{"true"}</code>{"."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>

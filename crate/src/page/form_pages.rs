@@ -85,6 +85,8 @@ impl Component for FormPage {
                     <li><b>{"method: "}</b>{"the HTTP method to submit the form. Options included in "}<code>{"Method"}</code>
                         {". Default "}<code>{"Post"}</code>{"."}</li>
                     <li><b>{"name: "}</b>{"the name of the form."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
@@ -97,6 +99,8 @@ impl Component for FormPage {
                 <ul>
                     <li><b>{"orientation: "}</b>{"in which orientation will show the inputs, select and labels. Options included in "}
                         <code>{"Orientation"}</code>{". Default "}<code>{"Vertical"}</code>{"."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
@@ -108,6 +112,8 @@ impl Component for FormPage {
                     <li><b>{"text: "}</b>{"text of the label. Required"}</li>
                     <li><b>{"label_for: "}</b>{"the id of a labelable form-related element in the same document as the "}
                     <code>{"<label>"}</code>{" element"}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
@@ -122,6 +128,8 @@ impl Component for FormPage {
                         {". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"size: "}</b>{"the size of the submit. Options included in "}<code>{"Size"}</code>
                         {". Default "}<code>{"Medium"}</code>{"."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
@@ -164,6 +172,8 @@ impl Component for FormPage {
                     <li><b>{"step: "}</b>{"incremental values that are valid."}</li>
                     <li><b>{"error_state: "}</b>{"error state for validation."}</li>
                     <li><b>{"error_message: "}</b>{"show error message when error_state is true."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id."}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
                 </ul>
@@ -194,6 +204,8 @@ impl Component for FormPage {
                     <li><b>{"capture: "}</b>{"media capture input method in file upload controls."}</li>
                     <li><b>{"error_state: "}</b>{"error state for validation."}</li>
                     <li><b>{"error_message: "}</b>{"show error message when error_state is true."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id."}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
                 </ul>
@@ -220,6 +232,8 @@ impl Component for FormPage {
                         this attribute represents the number of rows in the list that should be visible at one time."}</li>
                     <li><b>{"error_state: "}</b>{"error state for validation."}</li>
                     <li><b>{"error_message: "}</b>{"show error message when error_state is true."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id."}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
                 </ul>
@@ -261,6 +275,8 @@ impl Component for FormPage {
                         {" is subject to spell checking by the underlying browser/OS."}</li>
                     <li><b>{"error_state: "}</b>{"error state for validation."}</li>
                     <li><b>{"error_message: "}</b>{"show error message when error_state is true."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id."}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
                 </ul>

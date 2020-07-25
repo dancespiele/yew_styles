@@ -218,6 +218,12 @@ pub struct Props {
     /// Three diffent text standard sizes
     #[prop_or(Size::Medium)]
     pub text_size: Size,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -301,6 +307,8 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                 <span
                     class=format!("plain-text {} {}", get_size(props.text_size), props.class_name)
                     id=props.id
+                    key=props.key
+                    ref=props.code_ref
                 >{props.text}</span>
             }
         }
@@ -309,6 +317,8 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                 <p
                     class=format!("paragraph-text {} {}", get_size(props.text_size), props.class_name)
                     id=props.id
+                    key=props.key
+                    ref=props.code_ref
                 >{props.text}</p>
             }
         }
@@ -323,6 +333,8 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                         props.class_name,
                     )
                     id =props.id
+                    key=props.key
+                    ref=props.code_ref
                 >
                     <span>{props.text}</span>
                 </div>
@@ -344,6 +356,8 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                         props.class_name,
                     )
                     id =props.id
+                    key=props.key
+                    ref=props.code_ref
                     draggable = props.draggable
                     ondrag = link.callback(Msg::Draged)
                     ondragend = link.callback(Msg::DragedEnd)
@@ -407,6 +421,8 @@ fn should_create_plain_text() {
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
         id: "id-text-test".to_string(),
     };
@@ -446,6 +462,8 @@ fn should_create_paragraph_text() {
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
         id: "id-text-test".to_string(),
     };
@@ -485,6 +503,8 @@ fn should_create_alert_text() {
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
         id: "id-text-test".to_string(),
     };
@@ -524,6 +544,8 @@ fn should_create_tag_text() {
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
         id: "id-text-test".to_string(),
     };
@@ -563,6 +585,8 @@ fn should_add_delete_icon_tag_text() {
         text_style: Style::Regular,
         text_size: Size::Medium,
         interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
         id: "id-text-test".to_string(),
     };

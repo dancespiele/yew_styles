@@ -48,6 +48,8 @@ impl Component for LayoutsPage {
                     <li><b>{"align_content: "}</b>{"set how will be aligned the content. Options included in "}<code>{"AlignContent"}</code>{". Default "}<code>{"Stretch(NoMode)"}</code>{"."}</li>
                     <li><b>{"align_items: "}</b>{"set how will be aligned the items. Options included in "}<code>{"AlignItems"}</code>{". Default "}<code>{"Stretch(NoMode)"}</code>{"."}</li>
                     <li><b>{"mode: "}</b>{"safe postion handler which is additional option for justify_content, align_content and align_items. Options included in "}<code>{"Mode"}</code>{". Default "}<code>{"NoMode"}</code>{"."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
@@ -57,6 +59,8 @@ impl Component for LayoutsPage {
                     <li><b>{"layouts: "}</b>{"percent of the layout that will take the item. The value is a vector "}<code>{"Vec<ItemLayout>"}</code>{". Required"}</li>
                     <li><b>{"align_self: "}</b>{"align the item itself. Options include in "}<code>{"AlignSelf"}</code>{". Default "}<code>{"Auto"}</code></li>
                     <li><b>{"onclick_signal: "}</b>{"click event for the item. Default "}<code>{"noop()"}</code></li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>

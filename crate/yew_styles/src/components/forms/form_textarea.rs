@@ -75,6 +75,12 @@ pub enum WrapText {
 pub struct Props {
     /// Current value of the form control. Required
     pub value: String,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -190,6 +196,8 @@ impl Component for FormTextArea {
                     self.props.class_name,
                     get_pallete(self.props.textarea_style.clone()),
                     get_size(self.props.textarea_size.clone()))
+                    key=self.props.key.clone()
+                    ref=self.props.code_ref.clone()
                     oninput=self.link.callback(|input_data| Msg::Input(input_data))
                     onblur=self.link.callback(|focus_event| Msg::Blur(focus_event))
                     onkeydown=self.link.callback(|keyboard_event| Msg::KeyPressed(keyboard_event))
@@ -226,6 +234,8 @@ fn should_create_form_textarea() {
     let props = Props {
         value: "".to_string(),
         id: "form-input-id-test".to_string(),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "form-input-class-test".to_string(),
         oninput_signal: Callback::noop(),
         onblur_signal: Callback::noop(),
