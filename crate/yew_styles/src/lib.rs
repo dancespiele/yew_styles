@@ -1,10 +1,10 @@
 //! # Yew Styles
 //!
-//! Yew Styles is a style framework for yew without Javascript dependencies
+//! Yew Styles is a style framework for yew without JavaScript dependencies
 //!
 //! ## Motivation
 //! The purpose of developing this project is first,
-//! provide a style framework for yew that doesn't require any Javascrit dependencies
+//! provide a style framework for yew that doesn't require any JavaScript dependencies
 //! also to create a layout system which is not far of the flexbox concept, and,
 //! to take the rust benefits and implement properties selected by enumeration
 //! in the most of the cases which makes fast for developing applications and avoids the practice try and error
