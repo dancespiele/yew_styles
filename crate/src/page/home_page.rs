@@ -34,7 +34,7 @@ impl Component for HomePage {
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"Motivation"}</h2>
-                    <p>{"The purpose of developing this project is first, provide a style framework for yew that doesn't require any Javascrit dependencies
+                    <p>{"The purpose of developing this project is first, provide a style framework for yew that doesn't require any JavaScript dependencies
                     also to create a layout system which is not far of the flexbox concept,
                     and, to take the rust benefits and implement properties selected by enumeration
                      in the most of the cases which makes fast for developing applications and avoids the practice try and error"}</p>
