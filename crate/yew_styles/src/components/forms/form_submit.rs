@@ -27,6 +27,9 @@ pub struct Props {
     /// the size of the submit
     #[prop_or(Size::Medium)]
     pub size: Size,
+    /// Whether the form control is disabled
+    #[prop_or(false)]
+    pub disabled: bool,
     /// General property to get the ref of the component
     #[prop_or_default]
     pub code_ref: NodeRef,
@@ -72,6 +75,7 @@ impl Component for FormSubmit {
                     get_size(self.props.size.clone()),
                     self.props.class_name,
                 ),
+                disabled=self.props.disabled
                 id=self.props.id
                 value=self.props.value
             />
@@ -83,6 +87,7 @@ impl Component for FormSubmit {
 fn should_create_form_submit() {
     let props = Props {
         value: "submit".to_string(),
+        disabled: false,
         key: "".to_string(),
         code_ref: NodeRef::default(),
         id: "result".to_string(),

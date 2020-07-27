@@ -77,6 +77,17 @@ its logic works, in the same file where it is implemented (test events is not ne
 ## Code of Conduct
 Please check our [code of conduct](CODE_OF_CONDUCT.md)
 
+## Code Contributors
+<a href="https://github.com/Bandsberg">
+    <img src="https://github.com/Bandsberg.png?size=50">
+</a>
+<a href="https://github.com/zoechi">
+    <img src="https://github.com/zoechi.png?size=50">
+</a>
+<a href="https://github.com/ajstrand">
+    <img src="https://github.com/ajstrand.png?size=50">
+</a>
+
 ## Roadmap
 
 - [x] Button 

@@ -1,4 +1,6 @@
-use super::highlighters::{get_alert_text, get_paragraph_text, get_plain_text, get_tag_text};
+use super::highlighters::{
+    get_alert_text, get_paragraph_text, get_plain_text, get_tag_text, get_title_text,
+};
 use lipsum::lipsum;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
@@ -10,7 +12,7 @@ use yew_styles::layouts::{
     item::{Item, ItemLayout},
 };
 use yew_styles::styles::{Palette, Size, Style};
-use yew_styles::text::{Text, TextType};
+use yew_styles::text::{Header, Text, TextType};
 
 pub struct TextPage {
     link: ComponentLink<Self>,
@@ -90,6 +92,11 @@ impl Component for TextPage {
                 <span><code>{"text"}</code></span>
 
                 <h2>{"Code example"}</h2>
+                <h3>{"Title text"}</h3>
+                <Prism
+                    code=get_title_text()
+                    language="rust"
+                />
                 <h3>{"Plain text"}</h3>
                 <Prism
                     code=get_plain_text()
@@ -114,9 +121,9 @@ impl Component for TextPage {
                 <h2>{"Properties"}</h2>
                 <ul>
                     <li><b>{"text: "}</b>{"text to show. Required."}</li>
-                    <li><b>{"input_type: "}</b>{"the text type. Options included in "}<code>{"TextType"}</code>{". Required."}</li>
+                    <li><b>{"text_type: "}</b>{"the text type. Options included in "}<code>{"TextType"}</code>{". Required."}</li>
                     <li><b>{"text_palette: "}</b>{"type text purpose style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{". Only alert and tag types"}</li>
-                    <li><b>{"text_size: "}</b>{"three diffent text standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{". Only alert and tag types"}</li>
+                    <li><b>{"text_size: "}</b>{"three diffent text standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{". Not for title type"}</li>
                     <li><b>{"text_style: "}</b>{"text styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{". Only alert and tag types"}</li>
                     <li><b>{"removable: "}</b>{"if the tag can be deleted. Default "}<code>{"false"}</code>{". Only for tag text type."}</li>
                     <li><b>{"onclick_signal: "}</b>{"click event for text. Only for tag type."}</li>
@@ -137,6 +144,9 @@ impl Component for TextPage {
                 </ul>
 
                 <h2>{"Visual examples"}</h2>
+
+                <h3>{"Title text"}</h3>
+                {get_headers()}
 
                 <h3>{"Plain text"}</h3>
                 <Text
@@ -189,6 +199,30 @@ impl Component for TextPage {
             </>
         }
     }
+}
+
+fn get_headers() -> Html {
+    let headers = vec![
+        Header::H1,
+        Header::H2,
+        Header::H3,
+        Header::H4,
+        Header::H5,
+        Header::H6,
+    ];
+    headers
+        .into_iter()
+        .enumerate()
+        .map(|(index, header)| {
+            html! {
+                <Text
+                    text_type=TextType::Title(header)
+                    text=format!("Header {}", index + 1)
+                    key=format!("h{}", index + 1)
+                />
+            }
+        })
+        .collect::<Html>()
 }
 
 fn get_text(text_type: TextType, words: usize, layout_size: i8) -> Html {
