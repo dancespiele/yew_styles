@@ -1,6 +1,3 @@
-<style>
-    .icon {height: 50px}
-</style>
 # Yew Styles
 
 <div align="center">
@@ -83,16 +80,13 @@ Please check our [code of conduct](CODE_OF_CONDUCT.md)
 ## Code Contributors
 
 <a href="https://github.com/dancespiele">
-    <img class="icon" src="https://github.com/dancespiele.png?size=50">
-</a>
-<a href="https://github.com/Bandsberg" style="height: 50px">
-    <img class="icon" src="https://github.com/Bandsberg.png?size=50">
+    <img src="https://github.com/dancespiele.png?size=50">
 </a>
 <a href="https://github.com/zoechi">
-    <img class="icon" src="https://github.com/zoechi.png?size=50">
+    <img src="https://github.com/zoechi.png?size=50">
 </a>
 <a href="https://github.com/ajstrand">
-    <img class="icon" src="https://github.com/ajstrand.png?size=50">
+    <img src="https://github.com/ajstrand.png?size=50">
 </a>
 
 ## Roadmap

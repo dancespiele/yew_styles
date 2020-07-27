@@ -1,6 +1,3 @@
-<style>
-    .icon {height: 50px}
-</style>
 # Yew Styles
 Yew Styles is a style framework for yew without JavaScript dependencies
 
@@ -70,16 +67,13 @@ its logic works, in the same file where it is implemented (test events is not ne
 ## Code Contributors
 
 <a href="https://github.com/dancespiele">
-    <img class="icon" src="https://github.com/dancespiele.png?size=50">
-</a>
-<a href="https://github.com/Bandsberg" style="height: 50px">
-    <img class="icon" src="https://github.com/Bandsberg.png?size=50">
+    <img src="https://github.com/dancespiele.png?size=50">
 </a>
 <a href="https://github.com/zoechi">
-    <img class="icon" src="https://github.com/zoechi.png?size=50">
+    <img src="https://github.com/zoechi.png?size=50">
 </a>
 <a href="https://github.com/ajstrand">
-    <img class="icon" src="https://github.com/ajstrand.png?size=50">
+    <img src="https://github.com/ajstrand.png?size=50">
 </a>
 
 ## Roadmap
