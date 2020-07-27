@@ -660,7 +660,7 @@ dependencies = [
 
 [[package]]
 name = "yew_styles"
-version = "0.7.0"
+version = "0.7.1"
 dependencies = [
  "getrandom",
  "rand",

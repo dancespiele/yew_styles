@@ -105,6 +105,12 @@ pub struct NavbarItem {
 
 #[derive(Clone, Properties)]
 pub struct Props {
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -151,6 +157,9 @@ impl Component for NavbarItem {
                 } else {
                     ""
                 }, self.props.class_name)
+                id=self.props.id
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
                 onclick=self.link.callback(Msg::Clicked)
             >
                 {self.props.children.clone()}
@@ -164,6 +173,8 @@ wasm_bindgen_test_configure!(run_in_browser);
 #[wasm_bindgen_test]
 fn should_create_navbar_item() {
     let navbar_item_props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "navbar-item-test".to_string(),
         id: "navbar-item-id-test".to_string(),
         onclick_signal: Callback::noop(),
@@ -203,6 +214,8 @@ fn should_create_clickable_navbar_item() {
     });
 
     let navbar_item_props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "navbar-item-test".to_string(),
         id: "navbar-item-id-test".to_string(),
         active: false,

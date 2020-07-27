@@ -73,6 +73,12 @@ pub struct FormLabel {
 pub struct Props {
     /// text of the label. Required
     pub text: String,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -107,6 +113,8 @@ impl Component for FormLabel {
             <label
                 class=format!("form-label {}", self.props.class_name)
                 id=self.props.id
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
                 for=self.props.label_for
             >{self.props.text.clone()}</label>
         }
@@ -116,6 +124,8 @@ impl Component for FormLabel {
 #[wasm_bindgen_test]
 fn should_create_form_label() {
     let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "form-label-class-test".to_string(),
         id: "form-label-id-test".to_string(),
         label_for: "label-form".to_string(),

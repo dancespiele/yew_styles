@@ -34,11 +34,10 @@ impl Component for HomePage {
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"Motivation"}</h2>
-                    <p>{"The purpose of developing this project is first, provide a style framework for yew
-                    because there isn't not many options currently, also to create a layout system which is not
-                    far of the flexbox concept, and, to take the rust benefits and implement a properties
-                    selected by enumeration in the most of the cases which makes fast for developing applications
-                    and avoids the practice try and error"}</p>
+                    <p>{"The purpose of developing this project is first, provide a style framework for yew that doesn't require any JavaScript dependencies
+                    also to create a layout system which is not far of the flexbox concept,
+                    and, to take the rust benefits and implement properties selected by enumeration
+                     in the most of the cases which makes fast for developing applications and avoids the practice try and error"}</p>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"How it works"}</h2>
@@ -49,7 +48,7 @@ impl Component for HomePage {
                     <ol>
                         <li>{"Install the sass module: "}<code>{"npm install yew-styles"}</code></li>
                         <li>{"Add the yew_style crate with the features needed for your project in Cargo.toml file: "}<br/>
-                            <code>{"yew_styles = {version=\"0.6.2\", features=[\"layouts\",\"button\"]}"}</code>
+                            <code>{"yew_styles = {version=\"0.7\", features=[\"layouts\",\"button\"]}"}</code>
                         </li>
                         <li>{"Import the main.css file in you main javascript/typescript file project: "}
                             <code>{"import 'node_modules/yew-styles/main.css';"}</code>
@@ -62,8 +61,8 @@ impl Component for HomePage {
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"Development phase"}</h2>
-                    <p>{"Yew style is in early phase, currently doesn't have enough components to cover all the requirements
-                    that could need a website/web application. All contributions are appreciated."}</p>
+                    <p>{"Yew Styles cover all the common cases used in a web application however there are still a lot of work to do and components to implement.
+                    All contributions are appreciated."}</p>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"How contribute"}</h2>

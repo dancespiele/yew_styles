@@ -130,6 +130,10 @@ impl Component for TextPage {
                     <li><b>{"ondragstart_signal: "}</b>{"the user starts dragging an item. Only for tag text type."}</li>
                     <li><b>{"ondrop_signal: "}</b>{"an item is dropped on a valid drop target. Only for tag text type."}</li>
                     <li><b>{"draggable: "}</b>{"if the item is draggable. Default "}<code>{"false"}</code>{". Only for tag text type."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
 
                 <h2>{"Visual examples"}</h2>
@@ -190,6 +194,7 @@ impl Component for TextPage {
 fn get_text(text_type: TextType, words: usize, layout_size: i8) -> Html {
     let styles = vec![Style::Regular, Style::Outline, Style::Light];
     let palette = vec![Palette::Success, Palette::Warning, Palette::Danger];
+    let mut index = 0;
 
     styles
         .into_iter()
@@ -198,8 +203,8 @@ fn get_text(text_type: TextType, words: usize, layout_size: i8) -> Html {
                 .clone()
                 .into_iter()
                 .map(|item_palette| {
-                    html! {
-                        <Item layouts=vec![ItemLayout::ItXs(layout_size)] class_name="alert-example">
+                    let alert_view = html! {
+                        <Item key=format!("alert-{}", index) layouts=vec![ItemLayout::ItXs(layout_size)] class_name="alert-example">
                             <Text
                                 text_type=text_type.clone()
                                 text_size=Size::Medium
@@ -208,7 +213,11 @@ fn get_text(text_type: TextType, words: usize, layout_size: i8) -> Html {
                                 text_palette=item_palette
                             />
                         </Item>
-                    }
+                    };
+
+                    index += 1;
+
+                    alert_view
                 })
                 .collect::<Html>()
         })
@@ -231,6 +240,7 @@ fn get_draggable_tags(link: ComponentLink<TextPage>) -> Html {
                         <Text
                             class_name="draggable-tag"
                             id=format!("tag-{}", index)
+                            key=format!("tag-{}", index)
                             draggable=true
                             ondragstart_signal=link.callback(Msg::Dragged)
                             text_type=TextType::Tag

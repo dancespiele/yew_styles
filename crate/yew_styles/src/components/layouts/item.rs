@@ -113,6 +113,12 @@ pub struct Props {
     #[prop_or(AlignSelf::Auto)]
     /// Align the item itself
     pub align_self: AlignSelf,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -162,7 +168,8 @@ impl Component for Item {
         html! {
             <div
                 class=format!("item item-{} {} {}", self.key, item_props.layouts_classes, item_props.class_name)
-
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
                 onclick=self.link.callback(Msg::Clicked)
             >
                 {self.props.children.clone()}
@@ -226,6 +233,8 @@ fn should_create_item() {
     let props_item = Props {
         layouts: vec![ItemLayout::ItXs(12)],
         align_self: AlignSelf::Center,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "item-test".to_string(),
         id: "item-id-test".to_string(),
         onclick_signal: Callback::noop(),
@@ -266,6 +275,8 @@ fn should_create_clickable_item() {
     let props_item = Props {
         layouts: vec![ItemLayout::ItXs(12)],
         align_self: AlignSelf::Center,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         class_name: "item-test".to_string(),
         id: "item-id-test".to_string(),
         onclick_signal: on_add_item_div,

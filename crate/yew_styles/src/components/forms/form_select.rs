@@ -105,6 +105,12 @@ pub struct Props {
     /// Automatically focus the form control when the page is loaded
     #[prop_or_default]
     pub autofocus: bool,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -154,6 +160,8 @@ impl Component for FormSelect {
                         self.props.class_name,
                     )
                     id=self.props.id
+                    key=self.props.key.clone()
+                    ref=self.props.code_ref.clone()
                     disabled=self.props.disabled,
                     name=self.props.name,
                     autofocus=self.props.autofocus,
@@ -177,6 +185,8 @@ fn should_create_form_select() {
         onchange_signal: Callback::noop(),
         id: "form-select-id-test".to_string(),
         class_name: "form-select-class-test".to_string(),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
         disabled: false,
         autofocus: false,
         required: false,

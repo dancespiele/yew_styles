@@ -126,6 +126,12 @@ pub struct Props {
     /// Navbar styles
     #[prop_or(Style::Regular)]
     pub navbar_style: Style,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -145,6 +151,9 @@ pub struct Props {
 pub struct NavbarProps {
     pub navbar_palette: String,
     pub navbar_style: String,
+    pub key: String,
+    pub code_ref: NodeRef,
+    pub id: String,
     pub class_name: String,
     pub fixed: Fixed,
     pub branch: Html,
@@ -156,6 +165,9 @@ impl From<Props> for NavbarProps {
         NavbarProps {
             navbar_palette: get_pallete(props.navbar_palette),
             navbar_style: get_style(props.navbar_style),
+            key: props.key,
+            code_ref: props.code_ref,
+            id: props.id,
             class_name: props.class_name,
             fixed: props.fixed,
             branch: props.branch,
@@ -203,6 +215,9 @@ impl Component for Navbar {
             <>
                 <div
                     class=format!("navbar-mobile {} {} {}", self.props.navbar_style, self.props.navbar_palette, self.props.class_name)
+                    id=self.props.id
+                    key=self.props.key.clone()
+                    ref=self.props.code_ref.clone()
                 >
                     <div class="navbar-dropdown">
                         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)

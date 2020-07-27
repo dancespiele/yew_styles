@@ -1,4 +1,4 @@
-use super::highlighters::navbar_code;
+use super::highlighters::{navbar_code, navbar_with_a_tag};
 use yew::prelude::*;
 use yew_prism::Prism;
 use yew_styles::{
@@ -90,6 +90,8 @@ impl Component for NavbarPage {
                     <li><b>{"button_style: "}</b>{"navbar styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"fixed: "}</b>{"the location of the navbar which is fixed .Options included in "}<code>{"Fixed"}</code>{". Default "}<code>{"Top"}</code>{"."}</li>
                     <li><b>{"branch: "}</b>{"vnode embedded in the beginning of the navbar, useful to include a branch logo. Optional"}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
@@ -99,6 +101,8 @@ impl Component for NavbarPage {
                     <li><b>{"justify_content: "}</b>{"set how will be justified the navbar items. Options included in "}<code>{"JustifyContent"}</code>{". Default "}<code>{"FlexStart(No Mode)"}</code>{"."}</li>
                     <li><b>{"direction: "}</b>{"which direction are placing the navbar items. Options include in "}<code>{"Direction"}</code>{". Default "}<code>{"Row"}</code>{"."}</li>
                     <li><b>{"mode: "}</b>{"safe postion handler which is additional option for justify_content. Options included in "}<code>{"Mode"}</code>{". Default "}<code>{"NoMode"}</code>{"."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
@@ -107,9 +111,19 @@ impl Component for NavbarPage {
                 <ul>
                     <li><b>{"active: "}</b>{"active nav item style. Default "}<code>{"false"}</code></li>
                     <li><b>{"onclick_signal: "}</b>{"click event for navbar item. Default "}<code>{"noop()"}</code></li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
+
+                <p><b>{"Note:"}</b>{" for navbar items which include yew routers or"}<code>{" a "}</code>
+                    {"tag, add navbar-route in the class_name attribute of the "}<code>{"NavbarItem"}</code>
+                    {" component and navbar-router in the "}<code>{"Navbar"}</code>{". For example:"}</p>
+
+                <Prism
+                    code=navbar_with_a_tag()
+                    language="rust"/>
 
                 <h2>{"Visual examples"}</h2>
                 {get_style(self.link.clone(), self.navbar_menu.clone(), self.item_menu.clone())}
@@ -242,6 +256,7 @@ fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<b
             html! {
                 <>
                     <NavbarItem
+                        key=format!("nabvar-item-{}", item_index)
                         active= item_menu[index][item_index]
                         onclick_signal=link.callback(move |_| Msg::ChangeType(index, item_index, String::from(menu))
                     )
