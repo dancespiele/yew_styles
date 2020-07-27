@@ -128,6 +128,7 @@ impl Component for FormPage {
                         {". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"size: "}</b>{"the size of the submit. Options included in "}<code>{"Size"}</code>
                         {". Default "}<code>{"Medium"}</code>{"."}</li>
+                    <li><b>{"disabled: "}</b>{"whether the form control is disabled."}</li>
                     <li><b>{"key: "}</b>{"general property to add keys."}</li>
                     <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>

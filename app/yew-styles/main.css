@@ -1180,6 +1180,7 @@
   }
   .navbar-mobile .navbar-container.navbar-container-mobile {
     flex-direction: row !important;
+    width: 100%;
   }
   .navbar-mobile .branch {
     align-self: center;
@@ -1751,6 +1752,13 @@
 }
 .navbar.navbar-router .navbar-item.navbar-route a:focus {
   outline: none;
+}
+
+.navbar-container {
+  width: 100%;
+}
+.navbar-container.navbar-container-mobile {
+  width: auto;
 }
 
 .form-group {

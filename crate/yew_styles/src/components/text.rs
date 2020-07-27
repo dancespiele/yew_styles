@@ -156,7 +156,18 @@ pub struct Text {
 }
 
 #[derive(Clone)]
+pub enum Header {
+    H1,
+    H2,
+    H3,
+    H4,
+    H5,
+    H6,
+}
+
+#[derive(Clone)]
 pub enum TextType {
+    Title(Header),
     Plain,
     Paragraph,
     Alert,
@@ -169,32 +180,32 @@ pub struct Props {
     pub text: String,
     /// How is showing the text
     pub text_type: TextType,
-    /// if hove, focus, active effects are enable, only for tag type
+    /// if hove, focus, active effects are enable. Only for tag type
     #[prop_or(false)]
     pub interaction_effect: bool,
-    /// A dragged item (element or text selection) is dragged, only for tag type
+    /// A dragged item (element or text selection) is dragged. Only for tag type
     #[prop_or(Callback::noop())]
     pub ondrag_signal: Callback<DragEvent>,
-    /// A drag operation ends, only for tag type
+    /// A drag operation ends. Only for tag type
     #[prop_or(Callback::noop())]
     pub ondragend_signal: Callback<DragEvent>,
-    /// A dragged item enters a valid drop target, only for tag type
+    /// A dragged item enters a valid drop target. Only for tag type
     #[prop_or(Callback::noop())]
     pub ondragenter_signal: Callback<DragEvent>,
-    /// An element is no longer the drag operation's immediate selection target, only for tag type
+    /// An element is no longer the drag operation's immediate selection target. Only for tag type
     #[prop_or(Callback::noop())]
     pub ondragexit_signal: Callback<DragEvent>,
-    /// A dragged item leaves a valid drop target, only for tag type
+    /// A dragged item leaves a valid drop target. Only for tag type
     #[prop_or(Callback::noop())]
     pub ondragleave_signal: Callback<DragEvent>,
     /// A dragged item is being dragged over a valid drop target
-    /// Every few hundred milliseconds, only for tag type
+    /// Every few hundred milliseconds. Only for tag type
     #[prop_or(Callback::noop())]
     pub ondragover_signal: Callback<DragEvent>,
-    /// The user starts dragging an item, only for tag type
+    /// The user starts dragging an item. Only for tag type
     #[prop_or(Callback::noop())]
     pub ondragstart_signal: Callback<DragEvent>,
-    /// An item is dropped on a valid drop target, only for tag type
+    /// An item is dropped on a valid drop target. Only for tag type
     #[prop_or(Callback::noop())]
     pub ondrop_signal: Callback<DragEvent>,
     /// Click event only for text tag type
@@ -203,19 +214,19 @@ pub struct Props {
     /// Click event only for text tag type with removable in true
     #[prop_or(Callback::noop())]
     pub ondelete_signal: Callback<MouseEvent>,
-    /// If the item is draggable, only for tag type
+    /// If the item is draggable. Only for tag type
     #[prop_or(false)]
     pub draggable: bool,
     /// If the tag can be deleted
     #[prop_or(false)]
     pub removable: bool,
-    /// Type text purpose style, only for tag and alert type
+    /// Type text purpose style. Only for tag and alert type
     #[prop_or(Palette::Standard)]
     pub text_palette: Palette,
-    /// Text styles, only for tag and alert type
+    /// Text styles. Only for tag and alert type
     #[prop_or(Style::Regular)]
     pub text_style: Style,
-    /// Three diffent text standard sizes
+    /// Three diffent text standard sizes. Not for title type
     #[prop_or(Size::Medium)]
     pub text_size: Size,
     /// General property to get the ref of the component
@@ -302,6 +313,7 @@ impl Component for Text {
 
 fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Html {
     match text_type {
+        TextType::Title(header) => get_header(header, props),
         TextType::Plain => {
             html! {
                 <span
@@ -395,6 +407,47 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
 
             }
         }
+    }
+}
+
+fn get_header(header: Header, props: Props) -> Html {
+    match header {
+        Header::H1 => html! {<h1
+            class=format!("header-text {}", props.class_name)
+            id=props.id
+            key=props.key
+            ref=props.code_ref
+        >{props.text}</h1>},
+        Header::H2 => html! {<h2
+            class=format!("header-text {}", props.class_name)
+            id=props.id
+            key=props.key
+            ref=props.code_ref
+        >{props.text}</h2>},
+        Header::H3 => html! {<h3
+            class=format!("header-text {}", props.class_name)
+            id=props.id
+            key=props.key
+            ref=props.code_ref
+        >{props.text}</h3>},
+        Header::H4 => html! {<h4
+            class=format!("header-text {}", props.class_name)
+            id=props.id
+            key=props.key
+            ref=props.code_ref
+        >{props.text}</h4>},
+        Header::H5 => html! {<h5
+            class=format!("header-text {}", props.class_name)
+            id=props.id
+            key=props.key
+            ref=props.code_ref
+        >{props.text}</h5>},
+        Header::H6 => html! {<h6
+            class=format!("header-text {}", props.class_name)
+            id=props.id
+            key=props.key
+            ref=props.code_ref
+        >{props.text}</h6>},
     }
 }
 
