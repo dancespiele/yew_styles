@@ -24,7 +24,7 @@ jobs:
         with:
           version: 'latest'
       - name: download geckodriver
-        run: curl --retry 5 -LO https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+        run: curl --retry 5 -LO https://github.com/mozilla/geckodriver/releases/download/v0.27.0/geckodriver-v0.27.0-linux64.tar.gz
       - name: uncompress geckodriver
         run: tar -xzf geckodriver-v0.27.0-linux64.tar.gz
       - name: execute CI
