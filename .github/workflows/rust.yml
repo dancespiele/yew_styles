@@ -24,14 +24,8 @@ jobs:
         with:
           version: 'latest'
       - name: download geckodriver
-        run: |
-              cd ~
-              mkdir geckodriver
-              curl --retry 5 -LO https://github.com/mozilla/geckodriver/releases/download/v0.27.0/geckodriver-v0.27.0-linux64.tar.gz
+        run: curl --retry 5 -LO https://github.com/mozilla/geckodriver/releases/download/v0.27.0/geckodriver-v0.27.0-linux64.tar.gz
       - name: uncompress geckodriver
-        run: |
-             cd ~ 
-             tar -xzf geckodriver-v0.27.0-linux64.tar.gz -C geckodriver
-             echo "::add-path::$HOME/geckodriver"
+        run: tar -xzf geckodriver-v0.27.0-linux64.tar.gz
       - name: execute CI
-        run: ./ci/run_checks.sh
+        run: GECKODRIVER=$(pwd)/geckodriver ./ci/run_checks.sh
