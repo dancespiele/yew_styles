@@ -23,5 +23,9 @@ jobs:
         uses: jetli/wasm-pack-action@v0.3.0
         with:
           version: 'latest'
+      - name: download geckodriver
+        run: curl --retry 5 -LO https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+      - name: uncompress geckodriver
+        run: tar -xzf geckodriver-v0.24.0-linux64.tar.gz
       - name: execute CI
-        run: ./ci/run_checks.sh
+        run: GECKODRIVER=$(pwd)/geckodriver ./ci/run_checks.sh
