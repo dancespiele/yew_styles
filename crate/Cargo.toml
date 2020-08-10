@@ -11,6 +11,9 @@ version = "0.7.2"
 [lib]
 crate-type = ["cdylib"]
 
+[profile.release]
+opt-level = "z"
+
 [dependencies]
 cfg-if = "0.1"
 wasm-bindgen = "0.2"
