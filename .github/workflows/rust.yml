@@ -29,7 +29,7 @@ jobs:
         uses: nanasess/setup-chromedriver@v1.0.1
       - name: uncompress geckodriver
         run: |
-          tar -xzf geckodriver-v0.27.0-linux64.tar.gz
+          tar -xzf geckodriver-v0.26.0-linux64.tar.gz
           echo "::add-path::$HOME/geckodriver"
           firefox --version
       - name: install chromedriver
