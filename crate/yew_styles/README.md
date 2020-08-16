@@ -54,7 +54,7 @@ First, open an issue describing about the fix, improvement or implementation and
 If the contribution is a fix or small improvement in a component, only a pull request to master explaining what resolve or improve that, is required.
 If it is an implementation, please follow the next requirements:
 
-* Firstable open and issue describing about the component 
+* Firstable open an issue describing about the component 
 * Unit tests, which checks that the component is created and
 its logic works, in the same file where it is implemented (test events is not needed for now)
 * One component per file, if multiple components have connections between them, it is possible create subfolder
@@ -62,7 +62,7 @@ its logic works, in the same file where it is implemented (test events is not ne
 * Create a component page in `/crate/src/page` with the same structure than the rest of the components
 
 ## Do you like Yew Styles?
-* If you like Yew Styles, help us supporting the project with [Github Sponsors](https://github.com/sponsors/dancespiele)!
+* If you like Yew Styles, help us supporting the project with [Github Sponsors](https://github.com/sponsors/dancespiele) or with grants in [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
 
 ## Code Contributors
 
