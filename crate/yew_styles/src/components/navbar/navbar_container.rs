@@ -5,12 +5,12 @@ pub enum Msg {
     Clicked,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
-    /// set how will be justified the navbar items
+    /// set how will be justified the navbar items. Default `JustifyContent::FlexStart(Mode::NoMode)`
     #[prop_or(JustifyContent::FlexStart(Mode::NoMode))]
     pub justify_content: JustifyContent,
-    /// which direction are placing the navbar items
+    /// which direction are placing the navbar items. Default `Direction::Row`
     #[prop_or(Direction::Row)]
     pub direction: Direction,
     pub children: Children,
@@ -136,8 +136,12 @@ impl Component for NavbarContainer {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

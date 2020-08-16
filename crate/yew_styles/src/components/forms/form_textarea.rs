@@ -64,14 +64,14 @@ pub struct FormTextArea {
 }
 
 /// Type of wraps. You can find more information [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea)
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum WrapText {
     Hard,
     Soft,
     Off,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
     /// Current value of the form control. Required
     pub value: String,
@@ -90,35 +90,35 @@ pub struct Props {
     /// Content to be appear in the form control when the form control is empty
     #[prop_or_default]
     pub placeholder: String,
-    /// The input style according with the purpose
+    /// The input style according with the purpose. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub textarea_style: Palette,
-    /// The size of the input
+    /// The size of the input. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub textarea_size: Size,
-    /// Maximum length (number of characters) of value
+    /// Maximum length (number of characters) of value. Default `1000`
     #[prop_or(1000)]
     pub maxlength: u32,
     /// Minimum length (number of characters) of value
     #[prop_or_default]
     pub minlength: u16,
-    /// Whether the form control is disabled
-    #[prop_or_default]
+    /// Whether the form control is disabled. Default `false`
+    #[prop_or(false)]
     pub disabled: bool,
     /// The name of the textarea
     #[prop_or_default]
     pub name: String,
-    /// The value is not editable
-    #[prop_or_default]
+    /// The value is not editable. Default `false`
+    #[prop_or(false)]
     pub readonly: bool,
-    /// A value is required or must be check for the form to be submittable
-    #[prop_or_default]
+    /// A value is required or must be check for the form to be submittable. Default `false`
+    #[prop_or(false)]
     pub required: bool,
-    /// Automatically focus the form control when the page is loaded
-    #[prop_or_default]
+    /// Automatically focus the form control when the page is loaded. Default `false`
+    #[prop_or(false)]
     pub autofocus: bool,
-    /// Hint for form autofill feature
-    #[prop_or_default]
+    /// Hint for form autofill feature. Default `false`
+    #[prop_or(false)]
     pub autocomplete: bool,
     /// The visible width of the text control
     #[prop_or_default]
@@ -127,8 +127,8 @@ pub struct Props {
     #[prop_or_default]
     pub rows: u16,
     /// Specifies whether the "textarea"
-    /// is subject to spell checking by the underlying browser/OS
-    #[prop_or_default]
+    /// is subject to spell checking by the underlying browser/OS. Default `false`
+    #[prop_or(false)]
     pub spellcheck: bool,
     /// Signal to emit the event input
     #[prop_or(Callback::noop())]
@@ -139,13 +139,13 @@ pub struct Props {
     /// Signal to emit the event keypress
     #[prop_or(Callback::noop())]
     pub onkeydown_signal: Callback<KeyboardEvent>,
-    /// Error state for validation
-    #[prop_or_default]
+    /// Error state for validation. Default `false`
+    #[prop_or(false)]
     pub error_state: bool,
     /// Show error message when error_state is true
     #[prop_or_default]
     pub error_message: String,
-    /// Indicates how the control wraps text
+    /// Indicates how the control wraps text. Default `WrapText::Soft`
     #[prop_or(WrapText::Soft)]
     pub wrap: WrapText,
 }
@@ -182,8 +182,12 @@ impl Component for FormTextArea {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

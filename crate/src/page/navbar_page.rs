@@ -1,4 +1,6 @@
 use super::highlighters::{navbar_code, navbar_with_a_tag};
+use wasm_bindgen::JsCast;
+use web_sys::Element;
 use yew::prelude::*;
 use yew_prism::Prism;
 use yew_styles::{
@@ -15,6 +17,7 @@ pub struct NavbarPage {
     link: ComponentLink<Self>,
     navbar_menu: Vec<String>,
     item_menu: Vec<Vec<bool>>,
+    close_navbar_mobile: bool,
 }
 
 #[derive(Clone)]
@@ -35,6 +38,7 @@ struct ElementRender {
 
 pub enum Msg {
     ChangeType(usize, usize, String),
+    CloseNavarMobile(MouseEvent),
 }
 
 #[derive(Clone, Properties)]
@@ -49,6 +53,7 @@ impl Component for NavbarPage {
             link,
             navbar_menu: vec![String::from("home"); 50],
             item_menu: vec![vec![true, false, false, false]; 50],
+            close_navbar_mobile: false,
         }
     }
 
@@ -65,6 +70,29 @@ impl Component for NavbarPage {
                 }
                 self.item_menu[index][item_index] = true;
             }
+            Msg::CloseNavarMobile(mouse_event) => {
+                let target_class = mouse_event
+                    .target()
+                    .unwrap()
+                    .dyn_into::<Element>()
+                    .unwrap()
+                    .class_list();
+
+                let target_parent = mouse_event
+                    .target()
+                    .unwrap()
+                    .dyn_into::<Element>()
+                    .unwrap()
+                    .parent_element()
+                    .unwrap()
+                    .tag_name();
+
+                if !target_class.value().contains("navbar-menu") && target_parent != "svg" {
+                    self.close_navbar_mobile = true;
+                } else {
+                    self.close_navbar_mobile = false
+                }
+            }
         };
 
         true
@@ -72,7 +100,7 @@ impl Component for NavbarPage {
 
     fn view(&self) -> Html {
         html! {
-            <>
+            <div onclick=self.link.callback(|e| Msg::CloseNavarMobile(e))>
                 <h1>{"Navbar Components"}</h1>
 
                 <h2>{"Features required"}</h2>
@@ -88,6 +116,7 @@ impl Component for NavbarPage {
                 <ul>
                     <li><b>{"navbar_palette: "}</b>{"type navbar style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code></li>
                     <li><b>{"button_style: "}</b>{"navbar styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
+                    <li><b>{"hide_navbar_items_mobile: "}</b>{"Hide Navbar items in mobile. Default "}<code>{"false"}</code></li>
                     <li><b>{"fixed: "}</b>{"the location of the navbar which is fixed .Options included in "}<code>{"Fixed"}</code>{". Default "}<code>{"Top"}</code>{"."}</li>
                     <li><b>{"branch: "}</b>{"vnode embedded in the beginning of the navbar, useful to include a branch logo. Optional"}</li>
                     <li><b>{"key: "}</b>{"general property to add keys."}</li>
@@ -126,8 +155,8 @@ impl Component for NavbarPage {
                     language="rust"/>
 
                 <h2>{"Visual examples"}</h2>
-                {get_style(self.link.clone(), self.navbar_menu.clone(), self.item_menu.clone())}
-            </>
+                {get_style(self.link.clone(), self.navbar_menu.clone(), self.item_menu.clone(), self.close_navbar_mobile)}
+            </div>
         }
     }
 }
@@ -136,6 +165,7 @@ fn get_style(
     link: ComponentLink<NavbarPage>,
     navbar_menu: Vec<String>,
     item_menu: Vec<Vec<bool>>,
+    close_navbar_mobile: bool,
 ) -> Html {
     let styles = vec![
         NavbarStyle {
@@ -162,6 +192,7 @@ fn get_style(
                 navbar_menu.clone(),
                 item_menu.clone(),
                 index,
+                close_navbar_mobile,
             );
 
             index = navbar.index + 1;
@@ -177,6 +208,7 @@ fn get_navbar_palette(
     navbar_menu: Vec<String>,
     item_menu: Vec<Vec<bool>>,
     index: usize,
+    close_navbar_mobile: bool,
 ) -> ElementRender {
     let mut navbar_palette_rendered = index;
     let types = vec![
@@ -224,6 +256,7 @@ fn get_navbar_palette(
                         fixed=Fixed::None
                         navbar_style=style.style.clone()
                         navbar_palette=navbar_palette.navbar_palette
+                        hide_navbar_items_mobile = close_navbar_mobile
                         branch=html!{<img src="/spielrs_logo.png"/>}
                     >
                         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>

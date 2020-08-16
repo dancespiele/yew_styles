@@ -350,16 +350,16 @@ pub struct Form {
     props: Props,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
-    /// Signal to emit the event submit.
+    /// Signal to emit the event submit. Default
     #[prop_or(Callback::noop())]
     pub onsubmit_signal: Callback<FocusEvent>,
     pub children: Children,
     /// The URL that processes the form submission
     #[prop_or_default]
     pub action: String,
-    /// The HTTP method to submit the form
+    /// The HTTP method to submit the form. Default `Method::Post`
     #[prop_or(Method::Post)]
     pub method: Method,
     /// The name of the form
@@ -379,7 +379,7 @@ pub struct Props {
     pub id: String,
 }
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Method {
     Post,
     Get,
@@ -409,8 +409,12 @@ impl Component for Form {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

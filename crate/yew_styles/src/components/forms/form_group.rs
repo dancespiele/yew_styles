@@ -70,15 +70,15 @@ pub struct FormGroup {
 }
 
 /// Orientation type
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Orientation {
     Horizontal,
     Vertical,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
-    /// In which orientation will show the inputs, select and labels
+    /// In which orientation will show the inputs, select and labels. Default `Orientation::Vertical`
     #[prop_or(Orientation::Vertical)]
     pub orientation: Orientation,
     /// General property to get the ref of the component
@@ -109,8 +109,12 @@ impl Component for FormGroup {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

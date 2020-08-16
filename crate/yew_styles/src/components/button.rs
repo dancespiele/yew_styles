@@ -102,7 +102,7 @@ impl From<Props> for ButtonProps {
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    /// Type botton style. Options included in `Pallete`
+    /// Type botton style. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub button_palette: Palette,
     /// General property to add custom class styles
@@ -117,10 +117,10 @@ pub struct Props {
     /// General property to add keys
     #[prop_or_default]
     pub key: String,
-    /// Three diffent button standard sizes. Options included in `Size`
+    /// Three diffent button standard sizes. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub button_size: Size,
-    /// Button styles. Options included in `Style`
+    /// Button styles. Default `Style::Regular`
     #[prop_or(Style::Regular)]
     pub button_style: Style,
     /// Click event for button. Required

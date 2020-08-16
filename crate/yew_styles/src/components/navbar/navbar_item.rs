@@ -103,7 +103,7 @@ pub struct NavbarItem {
     props: Props,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
     /// General property to get the ref of the component
     #[prop_or_default]
@@ -117,10 +117,10 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
-    /// Active nav item style
+    /// Active nav item style. Default false
     #[prop_or(false)]
     pub active: bool,
-    /// click event for navbar item
+    /// Click event for navbar item
     #[prop_or(Callback::noop())]
     pub onclick_signal: Callback<MouseEvent>,
     pub children: Children,
@@ -145,8 +145,12 @@ impl Component for NavbarItem {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {
