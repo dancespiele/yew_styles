@@ -23,19 +23,12 @@ jobs:
         uses: jetli/wasm-pack-action@v0.3.0
         with:
           version: 'latest'
-      - name: download geckodriver
-        run: curl --retry 5 -LO https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
       - name: setup-chromedriver
         uses: nanasess/setup-chromedriver@v1.0.1
-      - name: uncompress geckodriver
-        run: |
-          tar -xzf geckodriver-v0.26.0-linux64.tar.gz
-          echo "::add-path::$HOME/geckodriver"
-          firefox --version
       - name: install chromedriver
         run: |
           export DISPLAY=:99
           chromedriver --url-base=/wd/hub &
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
       - name: execute CI
-        run: GECKODRIVER=$(pwd)/geckodriver ./ci/run_checks.sh
+        run: ./ci/run_checks.sh
