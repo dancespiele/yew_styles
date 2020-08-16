@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node wasm-builder.js",
-    "build": "node wasm-builder.js production",
+    "build": "NODE_ENV=production node wasm-builder.js",
     "debug": "NODE_ENV=dev node --nolazy --inspect-brk=9229 wasm-builder.js"
   },
   "bin": {
@@ -21,16 +21,19 @@
     "parcel-plugin-static-files-copy": "^2.3.1",
     "sass": "^1.26.5",
     "typescript": "^3.8.3",
-    "prismjs": "^1.20.0",
-    "lodash": ">=4.17.19"
+    "prismjs": "^1.21.0",
+    "lodash": ">=4.17.19",
+    "express": "^4.17.1",
+    "compression": "^1.7.4"
   },
   "dependencies": {
-    "prismjs": "^1.20.0"
+    "prismjs": "^1.21.0"
   },
   "staticFiles": {
     "staticPath": [
       "./crate/pkg",
-      "./crate/assets"
+      "./crate/assets",
+      "./error-pages"
     ],
     "watcherGlob": false
   }

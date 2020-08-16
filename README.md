@@ -37,6 +37,10 @@ yew_styles = { version="0.7", features=["button", "text", "navbar"] }
 ```
 4. Ready to import and use in your project 🚀
 
+## Visual example:
+
+You can find all the visual example in the website https://yewstyles.spielrs.tech
+
 ## Run the documentation page
 1. `git clone https://github.com/spielrs/yew_styles.git`
 2. `cd yew_styles`
@@ -72,10 +76,22 @@ its logic works, in the same file where it is implemented (test events is not ne
 * Create a component page in `/crate/src/page` with the same structure than the rest of the components
 
 ## Do you like Yew Styles?
-* If you like Yew Styles, help us supporting the project with [Github Sponsors](https://github.com/sponsors/dancespiele)!
+* If you like Yew Styles, help us supporting the project with [Github Sponsors](https://github.com/sponsors/dancespiele) or with grants in [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
 
 ## Code of Conduct
 Please check our [code of conduct](CODE_OF_CONDUCT.md)
+
+## Code Contributors
+
+<a href="https://github.com/dancespiele">
+    <img src="https://github.com/dancespiele.png?size=50">
+</a>
+<a href="https://github.com/zoechi">
+    <img src="https://github.com/zoechi.png?size=50">
+</a>
+<a href="https://github.com/ajstrand">
+    <img src="https://github.com/ajstrand.png?size=50">
+</a>
 
 ## Roadmap
 

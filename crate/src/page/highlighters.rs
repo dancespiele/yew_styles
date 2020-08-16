@@ -304,6 +304,14 @@ pub fn get_modal_code() -> String {
     .to_string()
 }
 
+pub fn get_title_text() -> String {
+    "<Text
+    text_type=TextType::Title(Header::H1)
+    text=\"Header h1\"
+/>"
+    .to_string()
+}
+
 pub fn get_plain_text() -> String {
     "<Text
     text_type=TextType::Plain
@@ -315,9 +323,9 @@ pub fn get_plain_text() -> String {
 
 pub fn get_paragraph_text() -> String {
     "<Text
-        text_type=TextType::Paragraph
-        text_size=Size::Small
-        text=\"paragraph text\"
+    text_type=TextType::Paragraph
+    text_size=Size::Small
+    text=\"paragraph text\"
 />"
     .to_string()
 }
