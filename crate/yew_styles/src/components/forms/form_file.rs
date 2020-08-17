@@ -9,14 +9,14 @@ pub struct FormFile {
     props: Props,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
-    /// One or more unique file type specifiers describing file types to allow
+    /// One or more unique file type specifiers describing file types to allow. Required
     pub accept: Vec<String>,
-    /// The input style according with the purpose
+    /// The input style according with the purpose. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub input_palette: Palette,
-    /// The size of the input
+    /// The size of the input. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub input_size: Size,
     /// Signal to emit the event change
@@ -25,16 +25,16 @@ pub struct Props {
     #[prop_or_default]
     pub capture: String,
     /// Whether to allow multiple values
-    #[prop_or_default]
+    #[prop_or(false)]
     pub multiple: bool,
-    /// Hide the file input element
+    /// Hide the file input element. Default `false`
     #[prop_or(false)]
     pub hidden: bool,
-    /// Underline style instead of box, like Material
-    #[prop_or_default]
+    /// Underline style instead of box, like Material. Default `false`
+    #[prop_or(false)]
     pub underline: bool,
-    /// Error state for validation
-    #[prop_or_default]
+    /// Error state for validation. Default `false`
+    #[prop_or(false)]
     pub error_state: bool,
     /// Show error message when error_state is true
     #[prop_or_default]
@@ -42,20 +42,20 @@ pub struct Props {
     /// Alt attribute for the image type
     #[prop_or_default]
     pub alt: String,
-    /// Automatically focus the form control when the page is loaded
-    #[prop_or_default]
+    /// Automatically focus the form control when the page is loaded. Default `false`
+    #[prop_or(false)]
     pub autofocus: bool,
     /// The name of the input
     #[prop_or_default]
     pub name: String,
-    /// A value is required or must be check for the form to be submittable
+    /// A value is required or must be check for the form to be submittable. Default `false`
     #[prop_or(false)]
     pub required: bool,
-    /// The value is not editable
-    #[prop_or_default]
+    /// The value is not editable. Default `false`
+    #[prop_or(false)]
     pub readonly: bool,
-    /// Whether the form control is disabled
-    #[prop_or_default]
+    /// Whether the form control is disabled. Default `false`
+    #[prop_or(false)]
     pub disabled: bool,
     /// General property to get the ref of the component
     #[prop_or_default]
@@ -95,8 +95,12 @@ impl Component for FormFile {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

@@ -77,7 +77,7 @@ pub struct FormSelect {
     props: Props,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
     /// Different options to select. Required
     pub options: Html,
@@ -85,25 +85,25 @@ pub struct Props {
     /// Whether or not the selector should be disabled.
     #[prop_or_default]
     pub disabled: bool,
-    /// The size of the select
+    /// The size of the select. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub select_size: Size,
     /// The name of the input
     #[prop_or_default]
     pub name: String,
-    /// A value is required or must be check for the form to be submittable
-    #[prop_or_default]
+    /// A value is required or must be check for the form to be submittable. Default `false`
+    #[prop_or(false)]
     pub required: bool,
-    /// Whether to allow multiple values
-    #[prop_or_default]
+    /// Whether to allow multiple values. Default `false`
+    #[prop_or(false)]
     pub multiple: bool,
     /// If the control is presented as a scrolling list box,
     /// this attribute represents the number of rows in the
     /// list that should be visible at one time
     #[prop_or_default]
     pub size: u16,
-    /// Automatically focus the form control when the page is loaded
-    #[prop_or_default]
+    /// Automatically focus the form control when the page is loaded. Default `false`
+    #[prop_or(false)]
     pub autofocus: bool,
     /// General property to get the ref of the component
     #[prop_or_default]
@@ -114,8 +114,8 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
-    /// Error state for validation
-    #[prop_or_default]
+    /// Error state for validation. Default `false`
+    #[prop_or(false)]
     pub error_state: bool,
     /// show error message when error_state is true.
     #[prop_or_default]
@@ -147,8 +147,12 @@ impl Component for FormSelect {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

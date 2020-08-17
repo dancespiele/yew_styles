@@ -139,7 +139,7 @@ pub struct Card {
     props: Props,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
     /// A dragged item (element or text selection) is dragged
     #[prop_or(Callback::noop())]
@@ -169,40 +169,40 @@ pub struct Props {
     /// Click event for card
     #[prop_or(Callback::noop())]
     pub onclick_signal: Callback<MouseEvent>,
-    /// If the item is draggable
+    /// If the item is draggable. Default `false`
     #[prop_or(false)]
     pub draggable: bool,
-    /// Header content of the card
+    /// Header content of the card. Default `None`
     #[prop_or(None)]
     pub header: Option<Html>,
-    /// The size of the header card based in Flexbox
+    /// The size of the header card based in Flexbox. Default `4`
     #[prop_or(4)]
     pub header_size: i8,
-    /// Body content of the card
+    /// Body content of the card. Default None
     #[prop_or(None)]
     pub body: Option<Html>,
-    /// The size of the body card based in Flexbox
+    /// The size of the body card based in Flexbox. Default `6`
     #[prop_or(6)]
     pub body_size: i8,
     /// Footer content of the card
     #[prop_or(None)]
     pub footer: Option<Html>,
-    /// The size of the footer card based in Flexbox
+    /// The size of the footer card based in Flexbox. Default `2`
     #[prop_or(2)]
     pub footer_size: i8,
-    /// Without split in parts, only a single content
+    /// Without split in parts, only a single content. Default `None`
     #[prop_or(None)]
     pub single_content: Option<Html>,
-    /// Type card purpose style
+    /// Type card purpose style. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub card_palette: Palette,
-    /// Card styles
+    /// Card styles. Default `Style::Regular`
     #[prop_or(Style::Regular)]
     pub card_style: Style,
-    /// three diffent card standard sizes
+    /// three diffent card standard sizes. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub card_size: Size,
-    /// if hove, focus, active effects are enable
+    /// if hove, focus, active effects are enable. Default `true`
     #[prop_or(true)]
     pub interaction_effect: bool,
     /// General property to get the ref of the component
@@ -272,8 +272,12 @@ impl Component for Card {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

@@ -14,20 +14,20 @@ pub struct FormSubmit {
     props: Props,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
     /// Text of submit. Required
     pub value: String,
-    /// Type submit style
+    /// Type submit style. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub submit_palette: Palette,
-    /// the submit style according with the purpose
+    /// the submit style according with the purpose. Default `Style::Regular`
     #[prop_or(Style::Regular)]
     pub submit_style: Style,
-    /// the size of the submit
+    /// the size of the submit. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub size: Size,
-    /// Whether the form control is disabled
+    /// Whether the form control is disabled. Default `false`
     #[prop_or(false)]
     pub disabled: bool,
     /// General property to get the ref of the component
@@ -57,9 +57,12 @@ impl Component for FormSubmit {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

@@ -68,7 +68,7 @@ pub struct FormInput {
 }
 
 /// Different type inputs supported. You can find more information [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum InputType {
     Button,
     Checkbox,
@@ -93,17 +93,17 @@ pub enum InputType {
     Week,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
     /// Current value of the form control. Required
     pub value: String,
-    /// The input type
+    /// The input type. Default `InputType::Text`
     #[prop_or(InputType::Text)]
     pub input_type: InputType,
-    /// The input style according with the purpose
+    /// The input style according with the purpose. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub input_palette: Palette,
-    /// The size of the input
+    /// The size of the input. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub input_size: Size,
     /// Signal to emit the event input
@@ -139,11 +139,11 @@ pub struct Props {
     /// Alt attribute for the image type
     #[prop_or_default]
     pub alt: String,
-    /// Automatically focus the form control when the page is loaded
-    #[prop_or_default]
+    /// Automatically focus the form control when the page is loaded. Default `false`
+    #[prop_or(false)]
     pub autofocus: bool,
-    /// Hint for form autofill feature
-    #[prop_or_default]
+    /// Hint for form autofill feature. . Default `false`
+    #[prop_or(false)]
     pub autocomplete: bool,
     /// Value of the id attribute of the "datalist" of autocomplete options
     #[prop_or_default]
@@ -157,29 +157,29 @@ pub struct Props {
     /// Minimum length (number of characters) of value
     #[prop_or_default]
     pub minlength: u16,
-    /// Maximum length (number of characters) of value
+    /// Maximum length (number of characters) of value. Default `1000`
     #[prop_or(1000)]
     pub maxlength: u16,
-    /// Pattern the value must match to be valid
+    /// Pattern the value must match to be valid. Default `"[\\s\\S]*".to_string()`
     #[prop_or("[\\s\\S]*".to_string())]
     pub pattern: String,
-    /// The value is not editable
-    #[prop_or_default]
+    /// The value is not editable. Default `false`
+    #[prop_or(false)]
     pub readonly: bool,
-    /// A value is required or must be check for the form to be submittable
+    /// A value is required or must be check for the form to be submittable. Default `false`
     #[prop_or(false)]
     pub required: bool,
-    /// Whether the form control is disabled
+    /// Whether the form control is disabled. Default `false`
     #[prop_or(false)]
     pub disabled: bool,
-    /// Underline style instead of box, like Material
-    #[prop_or_default]
+    /// Underline style instead of box, like Material. Default `false`
+    #[prop_or(false)]
     pub underline: bool,
     /// Incremental values that are valid
     #[prop_or_default]
     pub step: i16,
-    /// Error state for validation
-    #[prop_or_default]
+    /// Error state for validation. Default `false`
+    #[prop_or(false)]
     pub error_state: bool,
     /// Show error message when error_state is true
     #[prop_or_default]
@@ -218,8 +218,12 @@ impl Component for FormInput {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

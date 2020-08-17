@@ -7,18 +7,6 @@ use yew::prelude::*;
 use yew::Children;
 use yew_assets::ux_assets::{UxAssets, UxIcon};
 
-/// the location of the navbar which is fixed
-#[derive(Clone, PartialEq)]
-pub enum Fixed {
-    None,
-    Top,
-    Bottom,
-}
-
-pub enum Msg {
-    TroggleMenu,
-}
-
 /// # Navbar component
 ///
 /// ## Features required
@@ -44,10 +32,12 @@ pub enum Msg {
 ///
 /// pub struct App {
 ///   link: ComponentLink<Self>,
+///   close_navbar_mobile: bool,
 /// }
 ///
 /// pub enum Msg {
 ///   ChangeMenu(String),
+///   CloseNavarMobile(MouseEvent),
 /// }
 /// #[derive(Clone, Properties)]
 /// pub struct Props {}
@@ -68,6 +58,28 @@ pub enum Msg {
 ///                 let mut console = ConsoleService::new();
 ///                 console.log(format!("{}", menu))
 ///             }
+///         }Msg::CloseNavarMobile(mouse_event) => {
+///             let target_class = mouse_event
+///                 .target()
+///                 .unwrap()
+///                 .dyn_into::<Element>()
+///                 .unwrap()
+///                 .class_list();
+///             
+///             let target_parent = mouse_event
+///                 .target()
+///                 .unwrap()
+///                 .dyn_into::<Element>()
+///                 .unwrap()
+///                 .parent_element()
+///                 .unwrap()
+///                 .tag_name();
+///             
+///             if !target_class.value().contains("navbar-menu") && target_parent != "svg" {
+///                 self.close_navbar_mobile = true;
+///             } else {
+///                 self.close_navbar_mobile = false
+///             }
 ///         }
 ///         false
 ///     }
@@ -78,34 +90,37 @@ pub enum Msg {
 ///
 ///     fn view(&self) -> Html {
 ///        html! {
-///            <Navbar
-///                fixed=Fixed::None
-///                navbar_style=Style::Light
-///                navbar_palette=Palette::Info
-///                branch=html!{<img src="/assets/spielrs_logo.png"></img>}>
-///                    <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
-///                        <NavbarItem
-///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Home")))>
-///                            <span>{"Home"}</span>
-///                        </NavbarItem>
-///                        <NavbarItem
-///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
-///                            <span>{"Shop"}</span>
-///                        </NavbarItem>
-///                        <NavbarItem
-///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
-///                            <span>{"Shop"}</span>
-///                        </NavbarItem>
-///                        <NavbarItem
-///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>   
-///                            <span>{"About us"}</span>
-///                        </NavbarItem>
-///                        <NavbarItem
-///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
-///                            <span>{"Contact"}</span>
-///                        </NavbarItem>
-///                    </NavbarContainer>
-///              </Navbar>
+///            <div onclick=self.link.callback(|e| Msg::CloseNavarMobile(e))>
+///                 <Navbar
+///                     fixed=Fixed::None
+///                     navbar_style=Style::Light
+///                     navbar_palette=Palette::Info
+///                     hide_navbar_items_mobile = self.close_navbar_mobile
+///                     branch=html!{<img src="/assets/spielrs_logo.png"></img>}>
+///                         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
+///                             <NavbarItem
+///                                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Home")))>
+///                                 <span>{"Home"}</span>
+///                             </NavbarItem>
+///                             <NavbarItem
+///                                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
+///                                 <span>{"Shop"}</span>
+///                             </NavbarItem>
+///                             <NavbarItem
+///                                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Shop")))>
+///                                 <span>{"Shop"}</span>
+///                             </NavbarItem>
+///                             <NavbarItem
+///                                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>   
+///                                 <span>{"About us"}</span>
+///                             </NavbarItem>
+///                             <NavbarItem
+///                                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
+///                                 <span>{"Contact"}</span>
+///                             </NavbarItem>
+///                         </NavbarContainer>
+///                  </Navbar>
+///             </div>
 ///         }
 ///     }
 /// }
@@ -120,10 +135,13 @@ struct NavbarModel;
 
 #[derive(Clone, Properties)]
 pub struct Props {
-    /// Type navbar style
+    /// Type navbar style. Default `Standard`
     #[prop_or(Palette::Standard)]
     pub navbar_palette: Palette,
-    /// Navbar styles
+    /// Hide Navbar items in mobile. Default `false`
+    #[prop_or(false)]
+    pub hide_navbar_items_mobile: bool,
+    /// Navbar styles. Default Regular
     #[prop_or(Style::Regular)]
     pub navbar_style: Style,
     /// General property to get the ref of the component
@@ -138,7 +156,7 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
-    /// The location of the navbar which is fixed
+    /// The location of the navbar which is fixed. Default `Fixed::Top`
     #[prop_or(Fixed::Top)]
     pub fixed: Fixed,
     /// Vnode embedded in the beginning of the navbar, useful to include a branch logo
@@ -151,6 +169,7 @@ pub struct Props {
 pub struct NavbarProps {
     pub navbar_palette: String,
     pub navbar_style: String,
+    pub hide_navbar_items_mobile: bool,
     pub key: String,
     pub code_ref: NodeRef,
     pub id: String,
@@ -165,6 +184,7 @@ impl From<Props> for NavbarProps {
         NavbarProps {
             navbar_palette: get_pallete(props.navbar_palette),
             navbar_style: get_style(props.navbar_style),
+            hide_navbar_items_mobile: props.hide_navbar_items_mobile,
             key: props.key,
             code_ref: props.code_ref,
             id: props.id,
@@ -174,6 +194,18 @@ impl From<Props> for NavbarProps {
             children: props.children,
         }
     }
+}
+
+/// the location of the navbar which is fixed
+#[derive(Clone, PartialEq)]
+pub enum Fixed {
+    None,
+    Top,
+    Bottom,
+}
+
+pub enum Msg {
+    TroggleMenu,
 }
 
 impl Component for Navbar {
@@ -207,6 +239,9 @@ impl Component for Navbar {
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         NavbarModel.init(self.props.clone());
         self.props = NavbarProps::from(props);
+        if self.props.hide_navbar_items_mobile && self.display_menu {
+            self.display_menu = false;
+        }
         true
     }
 
@@ -230,6 +265,7 @@ impl Component for Navbar {
                             class_name="navbar-container-mobile">
                             <NavbarItem
                                 onclick_signal=self.link.callback(move |_| Msg::TroggleMenu)
+                                class_name="navbar-menu-item"
                             >
                              <UxAssets
                                 icon=UxIcon::Menu
