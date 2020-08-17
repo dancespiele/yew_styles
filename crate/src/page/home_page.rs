@@ -78,6 +78,33 @@ impl Component for HomePage {
                         <li>{"Create a component page in "}<code>{"/crate/src/page"}</code>{" with the same structure than the rest of the components"}</li>
                     </ol>
                 </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <h2>{"Do you like Yew Styles?"}</h2>
+                    <p>{"If you like Yew Styles, help us supporting the project with "}
+                        <a href="https://github.com/sponsors/dancespiele" target="_blank">{"Github Sponsors"}</a>{" or with grants in "}
+                        <a href="https://gitcoin.co/grants/1048/yew-styles" target="_blank">{"Gitcoin"}</a></p>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <h2>{"Code of Conduct"}</h2>
+                    <p>{"Please check our "}<a href="https://github.com/spielrs/yew_styles/blob/master/CODE_OF_CONDUCT.md" target="_blank">{"code of conduct"}</a></p>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <h2>{"Code Contributors"}</h2>
+                    <a href="https://github.com/dancespiele" target="_blank">
+                        <img src="https://github.com/dancespiele.png?size=50"/>
+                    </a>
+                    <a href="https://github.com/zoechi" target="_blank">
+                        <img src="https://github.com/zoechi.png?size=50"/>
+                    </a>
+                    <a href="https://github.com/ajstrand" target="_blank">
+                        <img src="https://github.com/ajstrand.png?size=50"/>
+                    </a>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <h2>{"License"}</h2>
+                    <p>{"Yew Style is "}<a href="https://github.com/spielrs/yew_styles/blob/master/LICENSE-MIT.md" target="_blank">{"MIT"}</a>
+                    {" and "}<a href="https://github.com/spielrs/yew_styles/blob/master/LICENSE-APACHE.md" target="_blank">{"Apache-2.0"}</a>{" licensed"}</p>
+                </Item>
             </Container>
         }
     }
