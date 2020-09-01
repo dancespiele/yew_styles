@@ -51,7 +51,6 @@ use yew::{utils, App};
 ///         html!{
 ///             <FormInput
 ///                 input_type=InputType::Text
-///                 value=form_page.value.clone()
 ///                 input_type=Palette::Standard
 ///                 input_size=Size::Medium
 ///                 id="form-input-example"
@@ -95,8 +94,6 @@ pub enum InputType {
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct Props {
-    /// Current value of the form control. Required
-    pub value: String,
     /// The input type. Default `InputType::Text`
     #[prop_or(InputType::Text)]
     pub input_type: InputType,
@@ -245,7 +242,6 @@ impl Component for FormInput {
                     checked=self.props.checked
                     onblur=self.link.callback(Msg::Blur)
                     onkeydown=self.link.callback(Msg::KeyPressed)
-                    value=self.props.value
                     name=self.props.name
                     required=self.props.required
                     readonly=self.props.readonly
@@ -301,7 +297,6 @@ fn should_create_form_input() {
         code_ref: NodeRef::default(),
         id: "form-input-id-test".to_string(),
         class_name: "form-input-class-test".to_string(),
-        value: "".to_string(),
         input_type: InputType::Text,
         oninput_signal: Callback::noop(),
         onblur_signal: Callback::noop(),

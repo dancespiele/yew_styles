@@ -30,6 +30,17 @@ impl Component for HomePage {
                     <h1>{"Yew Styles"}</h1>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                <div class="badge">
+                    <p>
+                        <a href="https://crates.io/crates/yew_styles" target="_blank"><img alt="Crate Info" src="https://img.shields.io/badge/yew__styles-framework%20styles-brightgreen"/></a>
+                        <a href="https://docs.rs/yew_styles/" target="_blank"><img alt="API Docs" src="https://img.shields.io/badge/yew__styles-docs-informational"/></a>
+                        <a href="https://discord.gg/ZHWmUaf" target="_blank"><img alt="Discord Chat" src="https://img.shields.io/badge/Discor-Spielrs%20-yellowgreen"/></a>
+                        <a href="https://github.com/spielrs/yew_styles/blob/master/LICENSE-MIT.md" target="_blank"><img alt="License" src="https://img.shields.io/badge/License-MIT%2FApache--2.0-lightgrey"/></a>
+                        <a href="https://paypal.me/dancespiele?locale.x=en_US" target="_blank"><img alt="Donate by Paypal" src="https://img.shields.io/badge/Donate-PayPal-green.svg"/></a>
+                    </p>
+                </div>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <p>{"Yew Styles is a style framework for yew"}</p>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
@@ -80,9 +91,11 @@ impl Component for HomePage {
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"Do you like Yew Styles?"}</h2>
-                    <p>{"If you like Yew Styles, help us supporting the project with "}
-                        <a href="https://github.com/sponsors/dancespiele" target="_blank">{"Github Sponsors"}</a>{" or with grants in "}
-                        <a href="https://gitcoin.co/grants/1048/yew-styles" target="_blank">{"Gitcoin"}</a></p>
+                    <p>{"If you like Yew Styles, help us supporting the project:"}</p>
+                    <ul>
+                        <li><a href="https://github.com/sponsors/dancespiele" target="_blank">{"Github Sponsors"}</a></li>
+                        <li><a href="https://paypal.me/dancespiele?locale.x=en_US" target="_blank">{"Paypal"}</a></li>
+                    </ul>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"Code of Conduct"}</h2>
