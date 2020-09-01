@@ -50,7 +50,6 @@ use yew::{utils, App};
 ///     fn view(&self) -> Html {
 ///         html!{
 ///             <FormTextArea placeholder="write here"
-///                 value=form_page.value.clone()
 ///                 textarea_size=Size::Small
 ///                 textarea_style=Palette::Info
 ///                 oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value))
