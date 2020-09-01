@@ -73,8 +73,6 @@ pub enum WrapText {
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct Props {
-    /// Current value of the form control. Required
-    pub value: String,
     /// General property to get the ref of the component
     #[prop_or_default]
     pub code_ref: NodeRef,
@@ -194,7 +192,6 @@ impl Component for FormTextArea {
         html! {
             <>
                 <textarea
-                    value=self.props.value
                     id=self.props.id
                     class=format!("form-textarea {} {} {}",
                     self.props.class_name,
@@ -236,7 +233,6 @@ fn get_wrap(wrap_text: WrapText) -> String {
 #[wasm_bindgen_test]
 fn should_create_form_textarea() {
     let props = Props {
-        value: "".to_string(),
         id: "form-input-id-test".to_string(),
         key: "".to_string(),
         code_ref: NodeRef::default(),

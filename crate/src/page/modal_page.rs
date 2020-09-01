@@ -183,7 +183,6 @@ impl Component for ModalPage {
                                 <FormLabel text={"Write here"}/>
                                 <FormInput
                                     input_type=InputType::Text
-                                    value=self.input_text.clone()
                                     oninput_signal=self.link.callback(|e: InputData| Msg::InputText(e.value))/>
                                     <span>{format!("value: {}", self.input_text)}</span>
                             </FormGroup>

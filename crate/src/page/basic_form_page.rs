@@ -132,10 +132,6 @@ impl Component for BasicFormPage {
                                 <FormGroup orientation=Orientation::Horizontal>
                                     <FormLabel text="First name: "/>
                                     <FormInput
-                                        value=match self.fields.get("first_name") {
-                                            Some(value) => value,
-                                            None => ""
-                                        }
                                         class_name="horizontal-input"
                                         error_state=self.empty_fields.iter().any(|field| field == "first_name")
                                         error_message="First name field is required"
@@ -146,10 +142,6 @@ impl Component for BasicFormPage {
                                 <FormGroup orientation=Orientation::Horizontal>
                                     <FormLabel text="Last name: "/>
                                     <FormInput
-                                        value=match self.fields.get("last_name") {
-                                            Some(value) => value,
-                                            None => ""
-                                        }
                                         error_state=self.empty_fields.iter().any(|field| field == "last_name")
                                         error_message="Last name field is required"
                                         input_type=InputType::Text
@@ -159,10 +151,6 @@ impl Component for BasicFormPage {
                                 <FormGroup orientation=Orientation::Horizontal>
                                     <FormLabel text="Email: "/>
                                     <FormInput
-                                        value=match self.fields.get("email") {
-                                            Some(value) => value,
-                                            None => ""
-                                        }
                                         error_state=self.empty_fields.iter().any(|field| field == "email")
                                         error_message="Email field is required"
                                         input_type=InputType::Email
@@ -237,10 +225,6 @@ impl Component for BasicFormPage {
                                 <FormGroup orientation=Orientation::Vertical>
                                     <FormLabel text="Cover letter:"/>
                                     <FormTextArea
-                                        value=match self.fields.get("cover_letter") {
-                                            Some(value) => value,
-                                            None => ""
-                                        }
                                         error_state=self.empty_fields.iter().any(|field| field == "cover_letter")
                                         error_message="cover letter is required"
                                         oninput_signal=self.link.callback(|e: InputData| Msg::CoverLetter(e.value))/>
