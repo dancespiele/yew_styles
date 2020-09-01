@@ -59,7 +59,6 @@ pub fn navbar_code() -> String {
 pub fn input_code() -> String {
     "<FormInput
     input_type=InputType::Text
-    value=form_page.value.clone()
     input_palette=Palette::Standard
     input_size=Size::Medium
     id=\"form-input-test\"
@@ -112,7 +111,6 @@ pub fn select_code() -> String {
 
 pub fn textarea_code() -> String {
     "<FormTextArea placeholder=\"write here\"
-    value=form_page.value.clone()
     textarea_size=Size::Medium
     oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value))
 />"
@@ -131,10 +129,6 @@ pub fn basic_form_code() -> String {
                     <FormGroup orientation=Orientation::Horizontal>
                         <FormLabel text=\"First name: \"/>
                         <FormInput
-                            value=match self.fields.get(\"first_name\") {
-                                Some(value) => value,
-                                None => \"\"
-                            }
                             error_state=self.empty_fields.iter().any(|field| field == \"first_name\")
                             error_message=\"First name field is required\"
                             input_type=InputType::Text
@@ -144,10 +138,6 @@ pub fn basic_form_code() -> String {
                     <FormGroup orientation=Orientation::Horizontal>
                         <FormLabel text=\"Last name: \"/>
                         <FormInput
-                            value=match self.fields.get(\"last_name\") {
-                                Some(value) => value,
-                                None => \"\"
-                            }
                             error_state=self.empty_fields.iter().any(|field| field == \"last_name\")
                             error_message=\"Last name field is required\"
                             input_type=InputType::Text
@@ -157,10 +147,6 @@ pub fn basic_form_code() -> String {
                     <FormGroup orientation=Orientation::Horizontal>
                         <FormLabel text=\"Email: \"/>
                         <FormInput
-                            value=match self.fields.get(\"email\") {
-                                Some(value) => value,
-                                None => \"\"
-                            }
                             error_state=self.empty_fields.iter().any(|field| field == \"email\")
                             error_message=\"Email field is required\"
                             input_type=InputType::Email
@@ -235,10 +221,6 @@ pub fn basic_form_code() -> String {
                     <FormGroup orientation=Orientation::Vertical>
                         <FormLabel text=\"Cover letter:\"/>
                         <FormTextArea
-                            value=match self.fields.get(\"cover_letter\") {
-                                Some(value) => value,
-                                None => \"\"
-                            }
                             error_state=self.empty_fields.iter().any(|field| field == \"cover_letter\")
                             error_message=\"cover letter is required\"
                             oninput_signal=self.link.callback(|e: InputData| Msg::CoverLetter(e.value))/>
