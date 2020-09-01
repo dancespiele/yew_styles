@@ -1,4 +1,16 @@
 # Yew Styles
+
+<div align="center">
+    <p>
+        <a href="https://yewstyles.spielrs.tech/"><img alt="Crate Info" src="https://img.shields.io/badge/Homepage-https%3A%2F%2Fyewstyles.spielrs.tech%2F-blue"/></a>
+        <a href="https://crates.io/crates/yew_styles"><img alt="Crate Info" src="https://img.shields.io/badge/yew__styles-framework%20styles-brightgreen"/></a>
+        <a href="https://docs.rs/yew_styles/"><img alt="API Docs" src="https://img.shields.io/badge/yew__styles-docs-informational"/></a>
+        <a href="https://discord.gg/ZHWmUaf" target="_blank"><img alt="Discord Chat" src="https://img.shields.io/badge/Discor-Spielrs%20-yellowgreen"/></a>
+        <a href="https://github.com/spielrs/yew_styles/blob/master/LICENSE-MIT.md" target="_blank"><img alt="License" src="https://img.shields.io/badge/License-MIT%2FApache--2.0-lightgrey"></a>
+        <a href="https://paypal.me/dancespiele?locale.x=en_US" target="_blank"><img alt="Donate by Paypal" src="https://img.shields.io/badge/Donate-PayPal-green.svg"/></a>
+    </p>
+</div>
+
 Yew Styles is a style framework for yew without JavaScript dependencies
 
 ## Motivation

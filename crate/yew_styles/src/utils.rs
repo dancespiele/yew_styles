@@ -76,8 +76,7 @@ fn should_generate_random_string() {
         }
     }
 
-    let mut i = 0;
-    for value in &random_values {
+    for (i, value) in random_values.iter().enumerate() {
         let mut index = 0;
         let repeat = &random_values.iter().any(move |random_value| {
             let exist = random_value == value && i != index;
@@ -85,6 +84,5 @@ fn should_generate_random_string() {
             exist
         });
         assert_eq!(*repeat, false);
-        i += 1;
     }
 }
