@@ -108,6 +108,7 @@ use yew::{utils, App};
 ///                     self.fields.drain();
 ///
 ///                     self.skills = vec![];
+///                     remove_input_values();
 ///
 ///                     set_default_selected("specialty");
 ///                     remove_all_selected("skills");
@@ -310,6 +311,28 @@ use yew::{utils, App};
 ///
 ///         option.set_selected(false);
 ///     }
+/// }
+///
+/// fn remove_input_values() {
+///     let input_ids = vec!["first-name", "last-name", "email"];
+///     
+///     for id in input_ids {
+///         let input_from_element = utils::document()
+///             .get_element_by_id(id)
+///             .unwrap()
+///             .dyn_into::<HtmlInputElement>()
+///             .unwrap();
+///     
+///         input_from_element.set_value("");
+///     }
+///     
+///     let textarea = utils::document()
+///         .get_element_by_id("cover-letter")
+///         .unwrap()
+///         .dyn_into::<HtmlTextAreaElement>()
+///         .unwrap();
+///     
+///     textarea.set_value("");
 /// }
 ///
 /// fn set_default_selected(select: &str) {
