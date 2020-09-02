@@ -1,7 +1,7 @@
 use super::highlighters::basic_form_code;
 use std::collections::HashMap;
 use wasm_bindgen::JsCast;
-use web_sys::{HtmlOptionElement, HtmlSelectElement};
+use web_sys::{HtmlInputElement, HtmlOptionElement, HtmlSelectElement, HtmlTextAreaElement};
 use yew::prelude::*;
 use yew::utils;
 use yew_prism::Prism;
@@ -97,6 +97,7 @@ impl Component for BasicFormPage {
                     self.fields.drain();
 
                     self.skills = vec![];
+                    remove_input_values();
 
                     set_default_selected("specialty");
                     remove_all_selected("skills");
@@ -132,6 +133,7 @@ impl Component for BasicFormPage {
                                 <FormGroup orientation=Orientation::Horizontal>
                                     <FormLabel text="First name: "/>
                                     <FormInput
+                                        id="first-name"
                                         class_name="horizontal-input"
                                         error_state=self.empty_fields.iter().any(|field| field == "first_name")
                                         error_message="First name field is required"
@@ -142,6 +144,7 @@ impl Component for BasicFormPage {
                                 <FormGroup orientation=Orientation::Horizontal>
                                     <FormLabel text="Last name: "/>
                                     <FormInput
+                                        id="last-name"
                                         error_state=self.empty_fields.iter().any(|field| field == "last_name")
                                         error_message="Last name field is required"
                                         input_type=InputType::Text
@@ -151,6 +154,7 @@ impl Component for BasicFormPage {
                                 <FormGroup orientation=Orientation::Horizontal>
                                     <FormLabel text="Email: "/>
                                     <FormInput
+                                        id="email"
                                         error_state=self.empty_fields.iter().any(|field| field == "email")
                                         error_message="Email field is required"
                                         input_type=InputType::Email
@@ -225,6 +229,7 @@ impl Component for BasicFormPage {
                                 <FormGroup orientation=Orientation::Vertical>
                                     <FormLabel text="Cover letter:"/>
                                     <FormTextArea
+                                        id="cover-letter"
                                         error_state=self.empty_fields.iter().any(|field| field == "cover_letter")
                                         error_message="cover letter is required"
                                         oninput_signal=self.link.callback(|e: InputData| Msg::CoverLetter(e.value))/>
@@ -308,6 +313,28 @@ fn remove_all_selected(select: &str) {
 
         option.set_selected(false);
     }
+}
+
+fn remove_input_values() {
+    let input_ids = vec!["first-name", "last-name", "email"];
+
+    for id in input_ids {
+        let input_from_element = utils::document()
+            .get_element_by_id(id)
+            .unwrap()
+            .dyn_into::<HtmlInputElement>()
+            .unwrap();
+
+        input_from_element.set_value("");
+    }
+
+    let textarea = utils::document()
+        .get_element_by_id("cover-letter")
+        .unwrap()
+        .dyn_into::<HtmlTextAreaElement>()
+        .unwrap();
+
+    textarea.set_value("");
 }
 
 fn set_default_selected(select: &str) {
