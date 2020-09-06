@@ -41,7 +41,7 @@ impl Component for HomePage {
                 </div>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
-                    <p>{"Yew Styles is a style framework for yew"}</p>
+                    <p>{"Yew Styles is a style framework for "}<a href="https://yew.rs" target="_blank">{"yew"}</a>{" without JavaScript dependencies"}</p>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"Motivation"}</h2>
