@@ -12,7 +12,7 @@
 </div>
 
 
-Yew Styles is a style framework for yew without JavaScript dependencies
+Yew Styles is a style framework for [yew](https://yew.rs/docs/en/intro/) without JavaScript dependencies
 
 ## Motivation
 The purpose of developing this project is first,
