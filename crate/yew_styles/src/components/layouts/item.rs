@@ -5,7 +5,7 @@ use yew::prelude::*;
 use yew::{utils, App};
 
 /// Percent of the layout that will take the item.
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum ItemLayout {
     ItXs(i8),
     ItS(i8),
@@ -15,7 +15,7 @@ pub enum ItemLayout {
 }
 
 /// Align the item itself
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum AlignSelf {
     Auto,
     FlexStart,
@@ -97,7 +97,7 @@ pub struct Item {
     pub key: String,
 }
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 struct ItemProps {
     layouts_classes: String,
     class_name: String,
@@ -106,12 +106,12 @@ struct ItemProps {
 #[derive(Clone, Copy)]
 struct ItemModel;
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
     /// Percent of the layout that will take the item. Required
     pub layouts: Vec<ItemLayout>,
+    /// Align the item itself. Default `AlignSelf::Auto`
     #[prop_or(AlignSelf::Auto)]
-    /// Align the item itself
     pub align_self: AlignSelf,
     /// General property to get the ref of the component
     #[prop_or_default]
@@ -158,8 +158,12 @@ impl Component for Item {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

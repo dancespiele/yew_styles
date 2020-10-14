@@ -1,5 +1,5 @@
 /// Palette of styles according with the purpose
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Palette {
     Primary,
     Secondary,
@@ -33,7 +33,7 @@ pub enum Size {
 }
 
 /// Standars button styles
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Style {
     Regular,
     Outline,

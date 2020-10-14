@@ -155,7 +155,7 @@ pub struct Text {
     props: Props,
 }
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Header {
     H1,
     H2,
@@ -165,7 +165,7 @@ pub enum Header {
     H6,
 }
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum TextType {
     Title(Header),
     Plain,
@@ -174,13 +174,13 @@ pub enum TextType {
     Tag,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
-    /// Text to show
+    /// Text to show. Required
     pub text: String,
-    /// How is showing the text
+    /// How is showing the text. Required
     pub text_type: TextType,
-    /// if hove, focus, active effects are enable. Only for tag type
+    /// if hove, focus, active effects are enable. Only for tag type. Default `false`
     #[prop_or(false)]
     pub interaction_effect: bool,
     /// A dragged item (element or text selection) is dragged. Only for tag type
@@ -214,19 +214,19 @@ pub struct Props {
     /// Click event only for text tag type with removable in true
     #[prop_or(Callback::noop())]
     pub ondelete_signal: Callback<MouseEvent>,
-    /// If the item is draggable. Only for tag type
+    /// If the item is draggable. Only for tag type. Default `false`
     #[prop_or(false)]
     pub draggable: bool,
-    /// If the tag can be deleted
+    /// If the tag can be deleted. Default `false`
     #[prop_or(false)]
     pub removable: bool,
-    /// Type text purpose style. Only for tag and alert type
+    /// Type text purpose style. Only for tag and alert type. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub text_palette: Palette,
-    /// Text styles. Only for tag and alert type
+    /// Text styles. Only for tag and alert type. Default `Style::Regular`
     #[prop_or(Style::Regular)]
     pub text_style: Style,
-    /// Three diffent text standard sizes. Not for title type
+    /// Three diffent text standard sizes. Not for title type. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub text_size: Size,
     /// General property to get the ref of the component
@@ -298,8 +298,12 @@ impl Component for Text {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

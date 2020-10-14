@@ -108,6 +108,7 @@ use yew::{utils, App};
 ///                     self.fields.drain();
 ///
 ///                     self.skills = vec![];
+///                     remove_input_values();
 ///
 ///                     set_default_selected("specialty");
 ///                     remove_all_selected("skills");
@@ -135,10 +136,6 @@ use yew::{utils, App};
 ///                                 <FormGroup orientation=Orientation::Horizontal>
 ///                                     <FormLabel text="First name: "/>
 ///                                     <FormInput
-///                                         value=match self.fields.get("first_name") {
-///                                             Some(value) => value,
-///                                             None => ""
-///                                         }
 ///                                         error_state=self.empty_fields.iter().any(|field| field == "first_name")
 ///                                         error_message="First name field is required"
 ///                                         input_type=InputType::Text
@@ -148,10 +145,6 @@ use yew::{utils, App};
 ///                                 <FormGroup orientation=Orientation::Horizontal>
 ///                                     <FormLabel text="Last name: "/>
 ///                                     <FormInput
-///                                         value=match self.fields.get("last_name") {
-///                                             Some(value) => value,
-///                                             None => ""
-///                                         }
 ///                                         error_state=self.empty_fields.iter().any(|field| field == "last_name")
 ///                                         error_message="Last name field is required"
 ///                                         input_type=InputType::Text
@@ -161,10 +154,6 @@ use yew::{utils, App};
 ///                                 <FormGroup orientation=Orientation::Horizontal>
 ///                                     <FormLabel text="Email: "/>
 ///                                     <FormInput
-///                                         value=match self.fields.get("email") {
-///                                             Some(value) => value,
-///                                             None => ""
-///                                         }
 ///                                         error_state=self.empty_fields.iter().any(|field| field == "email")
 ///                                         error_message="Email field is required"
 ///                                         input_type=InputType::Email
@@ -239,10 +228,6 @@ use yew::{utils, App};
 ///                                 <FormGroup orientation=Orientation::Vertical>
 ///                                     <FormLabel text="Cover letter:"/>
 ///                                     <FormTextArea
-///                                         value=match self.fields.get("cover_letter") {
-///                                             Some(value) => value,
-///                                             None => ""
-///                                         }
 ///                                         error_state=self.empty_fields.iter().any(|field| field == "cover_letter")
 ///                                         error_message="cover letter is required"
 ///                                         oninput_signal=self.link.callback(|e: InputData| Msg::CoverLetter(e.value))/>
@@ -328,6 +313,28 @@ use yew::{utils, App};
 ///     }
 /// }
 ///
+/// fn remove_input_values() {
+///     let input_ids = vec!["first-name", "last-name", "email"];
+///     
+///     for id in input_ids {
+///         let input_from_element = utils::document()
+///             .get_element_by_id(id)
+///             .unwrap()
+///             .dyn_into::<HtmlInputElement>()
+///             .unwrap();
+///     
+///         input_from_element.set_value("");
+///     }
+///     
+///     let textarea = utils::document()
+///         .get_element_by_id("cover-letter")
+///         .unwrap()
+///         .dyn_into::<HtmlTextAreaElement>()
+///         .unwrap();
+///     
+///     textarea.set_value("");
+/// }
+///
 /// fn set_default_selected(select: &str) {
 ///     let specialty_form_element = utils::document()
 ///         .get_element_by_id(select)
@@ -350,16 +357,16 @@ pub struct Form {
     props: Props,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
-    /// Signal to emit the event submit.
+    /// Signal to emit the event submit. Default
     #[prop_or(Callback::noop())]
     pub onsubmit_signal: Callback<FocusEvent>,
     pub children: Children,
     /// The URL that processes the form submission
     #[prop_or_default]
     pub action: String,
-    /// The HTTP method to submit the form
+    /// The HTTP method to submit the form. Default `Method::Post`
     #[prop_or(Method::Post)]
     pub method: Method,
     /// The name of the form
@@ -379,7 +386,7 @@ pub struct Props {
     pub id: String,
 }
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Method {
     Post,
     Get,
@@ -409,8 +416,12 @@ impl Component for Form {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

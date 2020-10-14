@@ -74,7 +74,7 @@ pub struct Container {
 struct ContainerModel;
 
 /// Which direction are placing the items
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Direction {
     Row,
     RowReverse,
@@ -83,14 +83,14 @@ pub enum Direction {
 }
 
 /// Set a wrap for the items
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Wrap {
     Nowrap,
     Wrap,
     WrapReverse,
 }
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Mode {
     SafeMode,
     UnsafeMode,
@@ -98,7 +98,7 @@ pub enum Mode {
 }
 
 /// Set how will be justified the content
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum JustifyContent {
     FlexStart(Mode),
     FlexEnd(Mode),
@@ -113,7 +113,7 @@ pub enum JustifyContent {
 }
 
 /// Set how will be aligned the items
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum AlignItems {
     Stretch(Mode),
     FlexStart(Mode),
@@ -129,7 +129,7 @@ pub enum AlignItems {
 }
 
 /// set how will be aligned the content
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum AlignContent {
     FlexStart(Mode),
     FlexEnd(Mode),
@@ -147,19 +147,19 @@ pub enum AlignContent {
 
 pub enum Msg {}
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
     /// Which direction are placing the items. Required
     pub direction: Direction,
     /// Set a wrap for the items. Required
     pub wrap: Wrap,
-    /// Set how will be justified the content
+    /// Set how will be justified the content. Default `JustifyContent::FlexStart(Mode::NoMode)`
     #[prop_or(JustifyContent::FlexStart(Mode::NoMode))]
     pub justify_content: JustifyContent,
-    /// Set how will be aligned the content
+    /// Set how will be aligned the content. Default `AlignContent::Stretch(Mode::NoMode)`
     #[prop_or(AlignContent::Stretch(Mode::NoMode))]
     pub align_content: AlignContent,
-    /// Set how will be aligned the items
+    /// Set how will be aligned the items. Default `AlignItems::Stretch(Mode::NoMode)`
     #[prop_or(AlignItems::Stretch(Mode::NoMode))]
     pub align_items: AlignItems,
     /// General property to get the ref of the component
@@ -198,8 +198,12 @@ impl Component for Container {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn view(&self) -> Html {

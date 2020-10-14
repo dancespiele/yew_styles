@@ -144,7 +144,6 @@ impl Component for FormPage {
                     language="rust"
                 />
                 <ul>
-                    <li><b>{"value: "}</b>{"current value of the form control. Required."}</li>
                     <li><b>{"input_type: "}</b>{"the input type. Options included in "}<code>{"InputType"}</code>
                         {". Default "}<code>{"Text"}</code>{"."}</li>
                     <li><b>{"name: "}</b>{"the name of the input."}</li>
@@ -249,7 +248,6 @@ impl Component for FormPage {
                 />
 
                 <ul>
-                    <li><b>{"value: "}</b>{"current value of the form control. Required."}</li>
                     <li><b>{"textarea_palette: "}</b>{"the textarea type. Options included in "}<code>{"InputType"}</code>
                         {". Default "}<code>{"Text"}</code>{"."}</li>
                     <li><b>{"name: "}</b>{"the name of the textarea."}</li>
@@ -296,7 +294,6 @@ fn get_form_group(form_page: &FormPage) -> Html {
                     <FormLabel text="Horizontal: "/>
                     <FormInput
                         input_type=InputType::Text
-                        value=form_page.value[6].clone()
                         placeholder="write here"
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 6))
                     />
@@ -307,7 +304,6 @@ fn get_form_group(form_page: &FormPage) -> Html {
                     <FormLabel text="Vertical: "/>
                     <FormInput
                         input_type=InputType::Text
-                        value=form_page.value[6].clone()
                         placeholder="write here"
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 6))
                     />
@@ -327,7 +323,6 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                     />
                     <FormInput
                         input_type=InputType::Text
-                        value=form_page.value[0].clone()
                         input_palette=Palette::Standard
                         input_size=Size::Medium
                         id="form-input-test"
@@ -345,7 +340,6 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                     />
                     <FormInput
                         input_type=InputType::Text
-                        value=form_page.value[1].clone()
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 1))
                         input_palette=Palette::Standard
                         id="form-input-test"
@@ -362,7 +356,6 @@ fn get_form_inputs(form_page: &FormPage) -> Html {
                     />
                     <FormInput
                         input_type=InputType::Text
-                        value=form_page.value[2].clone()
                         input_palette=Palette::Success
                         oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value, 2))
                         input_size=Size::Medium
@@ -493,7 +486,6 @@ fn get_textarea(form_page: &FormPage) -> Html {
                             text="Standard textarea"
                         />
                         <FormTextArea placeholder="write here"
-                            value=form_page.value[4].clone()
                             textarea_size=Size::Medium
                             oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value, 4))
                         />
@@ -507,7 +499,6 @@ fn get_textarea(form_page: &FormPage) -> Html {
                             text="Info small textarea"
                         />
                         <FormTextArea placeholder="write here"
-                            value=form_page.value[5].clone()
                             textarea_size=Size::Small
                             textarea_style=Palette::Info
                             oninput_signal=form_page.link.callback(|e: InputData| Msg::Input(e.value, 5))

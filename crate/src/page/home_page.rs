@@ -30,7 +30,18 @@ impl Component for HomePage {
                     <h1>{"Yew Styles"}</h1>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
-                    <p>{"Yew Styles is a style framework for yew"}</p>
+                <div class="badge">
+                    <p>
+                        <a href="https://crates.io/crates/yew_styles" target="_blank"><img alt="Crate Info" src="https://img.shields.io/badge/yew__styles-framework%20styles-brightgreen"/></a>
+                        <a href="https://docs.rs/yew_styles/" target="_blank"><img alt="API Docs" src="https://img.shields.io/badge/yew__styles-docs-informational"/></a>
+                        <a href="https://discord.gg/VQck8X4" target="_blank"><img alt="Discord Chat" src="https://img.shields.io/badge/Discor-Spielrs%20-yellowgreen"/></a>
+                        <a href="https://github.com/spielrs/yew_styles/blob/master/LICENSE-MIT.md" target="_blank"><img alt="License" src="https://img.shields.io/badge/License-MIT%2FApache--2.0-lightgrey"/></a>
+                        <a href="https://paypal.me/dancespiele?locale.x=en_US" target="_blank"><img alt="Donate by Paypal" src="https://img.shields.io/badge/Donate-PayPal-green.svg"/></a>
+                    </p>
+                </div>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <p>{"Yew Styles is a style framework for "}<a href="https://yew.rs" target="_blank">{"yew"}</a>{" without JavaScript dependencies"}</p>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"Motivation"}</h2>
@@ -77,6 +88,35 @@ impl Component for HomePage {
                         <li>{"Documentation in the component showing an example of using it and small description of each prop"}</li>
                         <li>{"Create a component page in "}<code>{"/crate/src/page"}</code>{" with the same structure than the rest of the components"}</li>
                     </ol>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <h2>{"Do you like Yew Styles?"}</h2>
+                    <p>{"If you like Yew Styles, help us supporting the project:"}</p>
+                    <ul>
+                        <li><a href="https://github.com/sponsors/dancespiele" target="_blank">{"Github Sponsors"}</a></li>
+                        <li><a href="https://paypal.me/dancespiele?locale.x=en_US" target="_blank">{"Paypal"}</a></li>
+                    </ul>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <h2>{"Code of Conduct"}</h2>
+                    <p>{"Please check our "}<a href="https://github.com/spielrs/yew_styles/blob/master/CODE_OF_CONDUCT.md" target="_blank">{"code of conduct"}</a></p>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <h2>{"Code Contributors"}</h2>
+                    <a href="https://github.com/dancespiele" target="_blank">
+                        <img src="https://github.com/dancespiele.png?size=50"/>
+                    </a>
+                    <a href="https://github.com/zoechi" target="_blank">
+                        <img src="https://github.com/zoechi.png?size=50"/>
+                    </a>
+                    <a href="https://github.com/ajstrand" target="_blank">
+                        <img src="https://github.com/ajstrand.png?size=50"/>
+                    </a>
+                </Item>
+                <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <h2>{"License"}</h2>
+                    <p>{"Yew Style is "}<a href="https://github.com/spielrs/yew_styles/blob/master/LICENSE-MIT.md" target="_blank">{"MIT"}</a>
+                    {" and "}<a href="https://github.com/spielrs/yew_styles/blob/master/LICENSE-APACHE.md" target="_blank">{"Apache-2.0"}</a>{" licensed"}</p>
                 </Item>
             </Container>
         }

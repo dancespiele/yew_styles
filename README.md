@@ -2,14 +2,17 @@
 
 <div align="center">
     <p>
+        <a href="https://yewstyles.spielrs.tech/"><img alt="Crate Info" src="https://img.shields.io/badge/Homepage-https%3A%2F%2Fyewstyles.spielrs.tech%2F-blue"/></a>
         <a href="https://crates.io/crates/yew_styles"><img alt="Crate Info" src="https://img.shields.io/badge/yew__styles-framework%20styles-brightgreen"/></a>
         <a href="https://docs.rs/yew_styles/"><img alt="API Docs" src="https://img.shields.io/badge/yew__styles-docs-informational"/></a>
-        <a href="https://discord.gg/VQck8X4"><img alt="Discord Chat" src="https://img.shields.io/discord/701068342760570933"/></a>
+        <a href="https://discord.gg/VQck8X4" target="_blank"><img alt="Discord Chat" src="https://img.shields.io/badge/Discor-Spielrs%20-yellowgreen"/></a>
+        <a href="https://github.com/spielrs/yew_styles/blob/master/LICENSE-MIT.md" target="_blank"><img alt="License" src="https://img.shields.io/badge/License-MIT%2FApache--2.0-lightgrey"></a>
+        <a href="https://paypal.me/dancespiele?locale.x=en_US" target="_blank"><img alt="Donate by Paypal" src="https://img.shields.io/badge/Donate-PayPal-green.svg"/></a>
     </p>
 </div>
 
 
-Yew Styles is a style framework for yew without JavaScript dependencies
+Yew Styles is a style framework for [yew](https://yew.rs/docs/en/intro/) without JavaScript dependencies
 
 ## Motivation
 The purpose of developing this project is first,
@@ -76,7 +79,9 @@ its logic works, in the same file where it is implemented (test events is not ne
 * Create a component page in `/crate/src/page` with the same structure than the rest of the components
 
 ## Do you like Yew Styles?
-* If you like Yew Styles, help us supporting the project with [Github Sponsors](https://github.com/sponsors/dancespiele) or with grants in [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
+If you like Yew Styles, help us supporting the project:
+- [Github Sponsors](https://github.com/sponsors/dancespiele)
+- [Paypal](https://paypal.me/dancespiele?locale.x=en_US)
 
 ## Code of Conduct
 Please check our [code of conduct](CODE_OF_CONDUCT.md)

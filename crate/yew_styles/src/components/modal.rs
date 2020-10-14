@@ -114,13 +114,13 @@ pub struct Modal {
     props: Props,
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, PartialEq, Properties)]
 pub struct Props {
-    /// Header of the modal
+    /// Header of the modal. Required
     pub header: Html,
-    /// body of the modal
+    /// body of the modal. Required
     pub body: Html,
-    /// if it is true, shows the modal otherwise is hidden
+    /// if it is true, shows the modal otherwise is hidden. Required
     pub is_open: bool,
     /// click event for modal (usually to close the modal)
     #[prop_or(Callback::noop())]
@@ -128,31 +128,31 @@ pub struct Props {
     /// keyboard event for modal (usually to close the modal)
     #[prop_or(Callback::noop())]
     pub onkeydown_signal: Callback<KeyboardEvent>,
-    /// Type modal background style
+    /// Type modal background style. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub modal_palette: Palette,
-    /// Three diffent modal standard sizes
+    /// Three diffent modal standard sizes. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub modal_size: Size,
-    /// Type modal header style
+    /// Type modal header style. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub header_palette: Palette,
-    /// Modal header styles
+    /// Modal header styles. Default `Style::Regular`
     #[prop_or(Style::Regular)]
     pub header_style: Style,
-    /// If hove, focus, active effects are enable in the header
+    /// If hove, focus, active effects are enable in the header. Default `false`
     #[prop_or(false)]
     pub header_interaction: bool,
-    /// Type modal body style
+    /// Type modal body style. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub body_palette: Palette,
-    /// Modal body styles
+    /// Modal body styles. Default `Style::Regular`
     #[prop_or(Style::Regular)]
     pub body_style: Style,
-    /// If hove, focus, active effects are enable in the body
+    /// If hove, focus, active effects are enable in the body. Default `false`
     #[prop_or(false)]
     pub body_interaction: bool,
-    /// If the modal content get the focus. Set to false if the modal includes input events
+    /// If the modal content get the focus. Set to false if the modal includes input events. Default `true`
     #[prop_or(true)]
     pub auto_focus: bool,
     /// General property to get the ref of the component
@@ -204,8 +204,12 @@ impl Component for Modal {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = props;
-        true
+        if self.props != props {
+            self.props = props;
+            true
+        } else {
+            false
+        }
     }
 
     fn rendered(&mut self, _first_render: bool) {
