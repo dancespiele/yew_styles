@@ -40,7 +40,7 @@
     &.it-#{$screen}-#{$size}
         flex-basis: 100% / (12/$size)
 
-@mixin navar-style($style)
+@mixin navbar-style($style)
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
             background-color: $background
@@ -53,14 +53,16 @@
 
             .navbar-item
                 padding: 10px
-                cursor: pointer
+                cursor: default
 
-                &:focus
-                    background-color: darken($background, 5%)
-                &:hover
-                    background-color: darken($background, 10%)
-                &:active, &.active
-                    background-color: darken($background, 15%)
+                &.interaction
+                    cursor: pointer
+                    &:focus
+                        background-color: darken($background, 5%)
+                    &:hover
+                        background-color: darken($background, 10%)
+                    &:active, &.active
+                        background-color: darken($background, 15%)
         
 @mixin get-branch($size)
     .branch

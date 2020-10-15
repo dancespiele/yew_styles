@@ -120,7 +120,8 @@ impl Component for TextPage {
 
                 <h2>{"Properties"}</h2>
                 <ul>
-                    <li><b>{"text: "}</b>{"text to show. Required."}</li>
+                    <li><b>{"plain_text: "}</b>{"plain text to show (one of the props "}<code>{"plain_text"}</code>{" or "}<code>{"html_text"}</code>{" should be set). Required."}</li>
+                    <li><b>{"html_text: "}</b>{"text in html to show (if "}<code>{"plain_text"}</code>{" is Some html_text will be ignored). Required."}</li>
                     <li><b>{"text_type: "}</b>{"the text type. Options included in "}<code>{"TextType"}</code>{". Required."}</li>
                     <li><b>{"text_palette: "}</b>{"type text purpose style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{". Only alert and tag types"}</li>
                     <li><b>{"text_size: "}</b>{"three diffent text standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{". Not for title type"}</li>
@@ -152,14 +153,16 @@ impl Component for TextPage {
                 <Text
                     text_type=TextType::Plain
                     text_size=Size::Medium
-                    text=lipsum(8)
+                    plain_text=Some(lipsum(8))
+                    html_text=None
                 />
 
                 <h3>{"Paragraph"}</h3>
                 <Text
                     text_type=TextType::Paragraph
                     text_size=Size::Small
-                    text=lipsum(200)
+                    plain_text=Some(lipsum(200))
+                    html_text=None
                 />
                 <h3>{"Alert text"}</h3>
                 <Container wrap = Wrap::Wrap direction = Direction::Row>
@@ -173,7 +176,8 @@ impl Component for TextPage {
                 <Text
                     text_type=TextType::Tag
                     text_size=Size::Medium
-                    text=lipsum(1).replace(".", "")
+                    plain_text=Some(lipsum(1).replace(".", ""))
+                    html_text=None
                     text_style=Style::Outline
                     text_palette=Palette::Secondary
                     removable=true
@@ -217,7 +221,8 @@ fn get_headers() -> Html {
             html! {
                 <Text
                     text_type=TextType::Title(header)
-                    text=format!("Header {}", index + 1)
+                    plain_text=Some(format!("Header {}", index + 1))
+                    html_text=None
                     key=format!("h{}", index + 1)
                 />
             }
@@ -242,7 +247,8 @@ fn get_text(text_type: TextType, words: usize, layout_size: i8) -> Html {
                             <Text
                                 text_type=text_type.clone()
                                 text_size=Size::Medium
-                                text=lipsum(words).replace(".", "")
+                                plain_text=Some(lipsum(words).replace(".", ""))
+                                html_text=None
                                 text_style=style.clone()
                                 text_palette=item_palette
                             />
@@ -279,7 +285,8 @@ fn get_draggable_tags(link: ComponentLink<TextPage>) -> Html {
                             ondragstart_signal=link.callback(Msg::Dragged)
                             text_type=TextType::Tag
                             text_size=Size::Medium
-                            text=lipsum(1).replace(".", "")
+                            plain_text=Some(lipsum(1).replace(".", ""))
+                            html_text=None
                             text_style=style.clone()
                             text_palette=item_palette
                             interaction_effect= true

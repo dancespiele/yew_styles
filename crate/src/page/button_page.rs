@@ -142,6 +142,7 @@ fn get_buttons(
         "Success",
         "Warning",
         "Danger",
+        "CLEAN",
     ];
     let button_palette_enum: Vec<Palette> = vec![
         Palette::Standard,
@@ -152,6 +153,7 @@ fn get_buttons(
         Palette::Success,
         Palette::Warning,
         Palette::Danger,
+        Palette::Clean,
     ];
     let mut index = 0;
 
