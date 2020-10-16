@@ -133,7 +133,8 @@ use yew_assets::editing_assets::{EditingAssets, EditingIcon};
 ///                             ondragstart_signal=link.callback(Msg::Dragged)
 ///                             text_type=TextType::Tag
 ///                             text_size=Size::Medium
-///                             text=lipsum(1).replace(".", "")
+///                             plain_text=Some(lipsum(1).replace(".", ""))
+///                             html_text=None
 ///                             text_style=style.clone()
 ///                             text_palette=item_palette
 ///                             interaction_effect= true
@@ -178,9 +179,10 @@ pub enum TextType {
 pub struct Props {
     /// How is showing the text. Required
     pub text_type: TextType,
-    /// Text plain to show
-    pub plain_text: Option<String>,
-    /// Text in html to show
+    /// Text plain to show. Required
+    #[prop_or_default]
+    pub plain_text: String,
+    /// Text in html to show. Required
     pub html_text: Option<Html>,
     /// if hove, focus, active effects are enable. Only for tag type. Default `false`
     #[prop_or(false)]
@@ -317,9 +319,9 @@ impl Component for Text {
     }
 }
 
-fn get_content(plain_text: Option<String>, html_text: Option<Html>) -> Html {
-    if let Some(plain_text_value) = plain_text {
-        html! { <>{plain_text_value}</> }
+fn get_content(plain_text: String, html_text: Option<Html>) -> Html {
+    if !plain_text.is_empty() {
+        html! { <>{plain_text}</> }
     } else if let Some(html_text_value) = html_text {
         html_text_value
     } else {
@@ -485,7 +487,7 @@ fn should_create_plain_text() {
         ondelete_signal: Callback::noop(),
         draggable: false,
         removable: false,
-        plain_text: Some("hello test".to_string()),
+        plain_text: "hello test".to_string(),
         html_text: None,
         text_palette: Palette::Primary,
         text_style: Style::Regular,
@@ -527,7 +529,7 @@ fn should_create_paragraph_text() {
         ondelete_signal: Callback::noop(),
         draggable: false,
         removable: false,
-        plain_text: Some("hello test".to_string()),
+        plain_text: "hello test".to_string(),
         html_text: None,
         text_palette: Palette::Primary,
         text_style: Style::Regular,
@@ -569,7 +571,7 @@ fn should_create_alert_text() {
         ondelete_signal: Callback::noop(),
         draggable: false,
         removable: false,
-        plain_text: Some("hello test".to_string()),
+        plain_text: "hello test".to_string(),
         html_text: None,
         text_palette: Palette::Primary,
         text_style: Style::Regular,
@@ -611,7 +613,7 @@ fn should_create_tag_text() {
         ondelete_signal: Callback::noop(),
         draggable: false,
         removable: false,
-        plain_text: Some("hello test".to_string()),
+        plain_text: "hello test".to_string(),
         html_text: None,
         text_palette: Palette::Primary,
         text_style: Style::Regular,
@@ -653,7 +655,7 @@ fn should_add_delete_icon_tag_text() {
         ondelete_signal: Callback::noop(),
         draggable: false,
         removable: true,
-        plain_text: Some("hello test".to_string()),
+        plain_text: "hello test".to_string(),
         html_text: None,
         text_palette: Palette::Primary,
         text_style: Style::Regular,

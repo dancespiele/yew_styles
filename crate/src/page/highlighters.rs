@@ -289,7 +289,7 @@ pub fn get_modal_code() -> String {
 pub fn get_title_text() -> String {
     "<Text
     text_type=TextType::Title(Header::H1)
-    plain_text=Some(\"Header h1\")
+    plain_text=\"Header h1\"
     html_text=None
 />"
     .to_string()
@@ -299,9 +299,21 @@ pub fn get_plain_text() -> String {
     "<Text
     text_type=TextType::Plain
     text_size=Size::Medium
-    plain_text=Some(\"plain text\")
+    plain_text=\"plain text\"
     html_text=None
 />"
+    .to_string()
+}
+
+pub fn get_html_text() -> String {
+    "<Text
+    text_type=TextType::Plain
+    text_size=Size::Medium
+    html_text=Some(html!{
+        <><i>{\"Italic \"}</i>{\"letter\"}</>
+    })
+/>
+    "
     .to_string()
 }
 
@@ -309,7 +321,7 @@ pub fn get_paragraph_text() -> String {
     "<Text
     text_type=TextType::Paragraph
     text_size=Size::Small
-    plain_text=Some(\"paragraph text\")
+    plain_text=\"paragraph text\"
     html_text=None
 />"
     .to_string()
@@ -319,7 +331,7 @@ pub fn get_alert_text() -> String {
     "<Text
     text_type=TextType::Alert
     text_size=Size::Medium
-    plain_text=Some(\"alert text\")
+    plain_text=\"alert text\"
     html_text=None
     text_style=Style::Outline
     text_palette=Palette::Success
@@ -334,7 +346,7 @@ pub fn get_tag_text() -> String {
     ondragstart_signal=link.callback(Msg::Dragged)
     text_type=TextType::Tag
     text_size=Size::Medium
-    plain_text=Some(\"tag text\")
+    plain_text=\"tag text\"
     html_text=None
     text_style=Style::Regular
     text_palette=Palette::Info

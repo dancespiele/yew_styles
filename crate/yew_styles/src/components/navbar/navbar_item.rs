@@ -53,8 +53,7 @@ pub enum Msg {
 ///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
 ///         match msg {
 ///             Msg::ChangeMenu(menu) => {
-///                 let mut console = ConsoleService::new();
-///                 console.log(format!("{}", menu))
+///                 let mut console = ConsoleService::log(format!("{}", menu));
 ///             }
 ///         }
 ///         false

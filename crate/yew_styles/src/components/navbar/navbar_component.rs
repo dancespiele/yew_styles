@@ -55,30 +55,30 @@ use yew_assets::ux_assets::{UxAssets, UxIcon};
 ///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
 ///         match msg {
 ///             Msg::ChangeMenu(menu) => {
-///                 let mut console = ConsoleService::new();
-///                 console.log(format!("{}", menu))
+///                 ConsoleService::log(&format!("{}", menu));
 ///             }
-///         }Msg::CloseNavarMobile(mouse_event) => {
-///             let target_class = mouse_event
-///                 .target()
-///                 .unwrap()
-///                 .dyn_into::<Element>()
-///                 .unwrap()
-///                 .class_list();
+///             Msg::CloseNavarMobile(mouse_event) => {
+///                 let target_class = mouse_event
+///                     .target()
+///                     .unwrap()
+///                     .dyn_into::<Element>()
+///                     .unwrap()
+///                     .class_list();
 ///             
-///             let target_parent = mouse_event
-///                 .target()
-///                 .unwrap()
-///                 .dyn_into::<Element>()
-///                 .unwrap()
-///                 .parent_element()
-///                 .unwrap()
-///                 .tag_name();
-///             
-///             if !target_class.value().contains("navbar-menu") && target_parent != "svg" {
-///                 self.close_navbar_mobile = true;
-///             } else {
-///                 self.close_navbar_mobile = false
+///                 let target_parent = mouse_event
+///                     .target()
+///                     .unwrap()
+///                     .dyn_into::<Element>()
+///                     .unwrap()
+///                     .parent_element()
+///                     .unwrap()
+///                     .tag_name();
+///                 
+///                 if !target_class.value().contains("navbar-menu") && target_parent != "svg" {
+///                     self.close_navbar_mobile = true;
+///                 } else {
+///                     self.close_navbar_mobile = false
+///                 }
 ///             }
 ///         }
 ///         false
