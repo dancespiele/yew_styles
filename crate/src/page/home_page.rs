@@ -93,6 +93,7 @@ impl Component for HomePage {
                     <h2>{"Do you like Yew Styles?"}</h2>
                     <p>{"If you like Yew Styles, help us supporting the project:"}</p>
                     <ul>
+                        <li><a href="https://gitcoin.co/grants/1048/yew-styles" target="_blank">{"Gitcoin"}</a></li>
                         <li><a href="https://github.com/sponsors/dancespiele" target="_blank">{"Github Sponsors"}</a></li>
                         <li><a href="https://paypal.me/dancespiele?locale.x=en_US" target="_blank">{"Paypal"}</a></li>
                     </ul>
