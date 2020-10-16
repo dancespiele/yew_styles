@@ -80,7 +80,7 @@ its logic works, in the same file where it is implemented (test events is not ne
 
 ## Do you like Yew Styles?
 If you like Yew Styles, help us supporting the project:
-- [Gitcoin][https://gitcoin.co/grants/1048/yew-styles]
+- [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
 - [Github Sponsors](https://github.com/sponsors/dancespiele)
 - [Paypal](https://paypal.me/dancespiele?locale.x=en_US)
 
