@@ -139,6 +139,7 @@ impl Component for NavbarPage {
                 <h2>{"Navbar Item properties"}</h2>
                 <ul>
                     <li><b>{"active: "}</b>{"active nav item style. Default "}<code>{"false"}</code></li>
+                    <li><b>{"interaction_effect: "}</b>{"if hove, focus, active effects are enable. Default "}<code>{"true"}</code>{"."}</li>
                     <li><b>{"onclick_signal: "}</b>{"click event for navbar item. Default "}<code>{"noop()"}</code></li>
                     <li><b>{"key: "}</b>{"general property to add keys."}</li>
                     <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
@@ -244,6 +245,10 @@ fn get_navbar_palette(
             navbar_palette: Palette::Danger,
             name: String::from("Danger"),
         },
+        NavbarType {
+            navbar_palette: Palette::Clean,
+            name: String::from("Clean"),
+        },
     ];
 
     let navbar = types
@@ -280,7 +285,7 @@ fn get_navbar_palette(
 }
 
 fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<bool>>) -> Html {
-    let menus = vec!["home", "shop", "about us", "contact us"];
+    let menus = vec!["home", "shop", "about us", "contact us", "no interaction"];
 
     menus
         .into_iter()
@@ -288,14 +293,28 @@ fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<b
         .map(|(item_index, menu)| {
             html! {
                 <>
-                    <NavbarItem
-                        key=format!("nabvar-item-{}", item_index)
-                        active= item_menu[index][item_index]
-                        onclick_signal=link.callback(move |_| Msg::ChangeType(index, item_index, String::from(menu))
-                    )
-                    >
-                        <span>{menu}</span>
-                    </NavbarItem>
+                    {
+                        if menu != "no interaction" {
+                            html!{
+                                <NavbarItem
+                                key=format!("nabvar-item-{}", item_index)
+                                active= item_menu[index][item_index]
+                                onclick_signal=link.callback(move |_| Msg::ChangeType(index, item_index, String::from(menu)))
+                                >
+                                    <span>{menu}</span>
+                                </NavbarItem>
+                            }
+                        } else {
+                            html!{
+                                <NavbarItem
+                                    key=format!("nabvar-item-{}", item_index)
+                                    interaction_effect=false
+                                >
+                                    <span>{menu}</span>
+                                </NavbarItem>
+                            }
+                        }
+                    }
                 </>
             }
         })

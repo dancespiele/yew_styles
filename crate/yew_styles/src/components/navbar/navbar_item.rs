@@ -53,8 +53,7 @@ pub enum Msg {
 ///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
 ///         match msg {
 ///             Msg::ChangeMenu(menu) => {
-///                 let mut console = ConsoleService::new();
-///                 console.log(format!("{}", menu))
+///                 let mut console = ConsoleService::log(format!("{}", menu));
 ///             }
 ///         }
 ///         false
@@ -118,6 +117,9 @@ pub struct Props {
     #[prop_or_default]
     pub id: String,
     /// Active nav item style. Default false
+    /// if hove, focus, active effects are enable. Default `true`
+    #[prop_or(true)]
+    pub interaction_effect: bool,
     #[prop_or(false)]
     pub active: bool,
     /// Click event for navbar item
@@ -156,11 +158,17 @@ impl Component for NavbarItem {
     fn view(&self) -> Html {
         html! {
             <div
-                class=format!("navbar-item {} {}", if self.props.active {
+                class=format!("navbar-item {} {} {}", if self.props.active {
                     "active"
                 } else {
                     ""
-                }, self.props.class_name)
+                },
+                if self.props.interaction_effect {
+                    "interaction"
+                } else {
+                    ""
+                },
+                self.props.class_name)
                 id=self.props.id
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
@@ -183,6 +191,7 @@ fn should_create_navbar_item() {
         id: "navbar-item-id-test".to_string(),
         onclick_signal: Callback::noop(),
         active: false,
+        interaction_effect: true,
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),
@@ -223,6 +232,7 @@ fn should_create_clickable_navbar_item() {
         class_name: "navbar-item-test".to_string(),
         id: "navbar-item-id-test".to_string(),
         active: false,
+        interaction_effect: true,
         onclick_signal: on_add_item_div,
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>

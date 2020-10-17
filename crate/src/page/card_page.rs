@@ -269,6 +269,7 @@ fn get_types(style: Style) -> Html {
         Palette::Success,
         Palette::Warning,
         Palette::Danger,
+        Palette::Clean,
     ];
 
     palette

@@ -43,8 +43,7 @@ use yew::{utils, App};
 ///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
 ///         match msg {
 ///             Msg::Clicked(greeting) => {
-///                 let mut console = ConsoleService::new();
-///                 console.log(&format!("{}", greeting))
+///                 let mut console = ConsoleService::log(&format!("{}", menu));
 ///             }
 ///         }
 ///         false

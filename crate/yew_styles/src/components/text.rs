@@ -133,7 +133,8 @@ use yew_assets::editing_assets::{EditingAssets, EditingIcon};
 ///                             ondragstart_signal=link.callback(Msg::Dragged)
 ///                             text_type=TextType::Tag
 ///                             text_size=Size::Medium
-///                             text=lipsum(1).replace(".", "")
+///                             plain_text=Some(lipsum(1).replace(".", ""))
+///                             html_text=None
 ///                             text_style=style.clone()
 ///                             text_palette=item_palette
 ///                             interaction_effect= true
@@ -176,10 +177,13 @@ pub enum TextType {
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct Props {
-    /// Text to show. Required
-    pub text: String,
     /// How is showing the text. Required
     pub text_type: TextType,
+    /// Text plain to show. Required
+    #[prop_or_default]
+    pub plain_text: String,
+    /// Text in html to show. Required
+    pub html_text: Option<Html>,
     /// if hove, focus, active effects are enable. Only for tag type. Default `false`
     #[prop_or(false)]
     pub interaction_effect: bool,
@@ -315,6 +319,16 @@ impl Component for Text {
     }
 }
 
+fn get_content(plain_text: String, html_text: Option<Html>) -> Html {
+    if !plain_text.is_empty() {
+        html! { <>{plain_text}</> }
+    } else if let Some(html_text_value) = html_text {
+        html_text_value
+    } else {
+        panic!("One of the props plain_text or html_text should be something");
+    }
+}
+
 fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Html {
     match text_type {
         TextType::Title(header) => get_header(header, props),
@@ -325,7 +339,7 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                     id=props.id
                     key=props.key
                     ref=props.code_ref
-                >{props.text}</span>
+                >{get_content(props.plain_text, props.html_text)}</span>
             }
         }
         TextType::Paragraph => {
@@ -335,7 +349,7 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                     id=props.id
                     key=props.key
                     ref=props.code_ref
-                >{props.text}</p>
+                >{get_content(props.plain_text, props.html_text)}</p>
             }
         }
         TextType::Alert => {
@@ -352,7 +366,7 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                     key=props.key
                     ref=props.code_ref
                 >
-                    <span>{props.text}</span>
+                    <span>{get_content(props.plain_text, props.html_text)}</span>
                 </div>
             }
         }
@@ -385,7 +399,7 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                     ondrop = link.callback(Msg::Dropped)
                     onclick = link.callback(Msg::Clicked)
                 >
-                    <span>{props.text}</span>
+                    <span>{get_content(props.plain_text, props.html_text)}</span>
                     {if props.removable {
                         html!{
                             <div
@@ -421,37 +435,37 @@ fn get_header(header: Header, props: Props) -> Html {
             id=props.id
             key=props.key
             ref=props.code_ref
-        >{props.text}</h1>},
+        >{get_content(props.plain_text, props.html_text)}</h1>},
         Header::H2 => html! {<h2
             class=format!("header-text {}", props.class_name)
             id=props.id
             key=props.key
             ref=props.code_ref
-        >{props.text}</h2>},
+        >{get_content(props.plain_text, props.html_text)}</h2>},
         Header::H3 => html! {<h3
             class=format!("header-text {}", props.class_name)
             id=props.id
             key=props.key
             ref=props.code_ref
-        >{props.text}</h3>},
+        >{get_content(props.plain_text, props.html_text)}</h3>},
         Header::H4 => html! {<h4
             class=format!("header-text {}", props.class_name)
             id=props.id
             key=props.key
             ref=props.code_ref
-        >{props.text}</h4>},
+        >{get_content(props.plain_text, props.html_text)}</h4>},
         Header::H5 => html! {<h5
             class=format!("header-text {}", props.class_name)
             id=props.id
             key=props.key
             ref=props.code_ref
-        >{props.text}</h5>},
+        >{get_content(props.plain_text, props.html_text)}</h5>},
         Header::H6 => html! {<h6
             class=format!("header-text {}", props.class_name)
             id=props.id
             key=props.key
             ref=props.code_ref
-        >{props.text}</h6>},
+        >{get_content(props.plain_text, props.html_text)}</h6>},
     }
 }
 
@@ -473,7 +487,8 @@ fn should_create_plain_text() {
         ondelete_signal: Callback::noop(),
         draggable: false,
         removable: false,
-        text: "hello test".to_string(),
+        plain_text: "hello test".to_string(),
+        html_text: None,
         text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
@@ -514,7 +529,8 @@ fn should_create_paragraph_text() {
         ondelete_signal: Callback::noop(),
         draggable: false,
         removable: false,
-        text: "hello test".to_string(),
+        plain_text: "hello test".to_string(),
+        html_text: None,
         text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
@@ -555,7 +571,8 @@ fn should_create_alert_text() {
         ondelete_signal: Callback::noop(),
         draggable: false,
         removable: false,
-        text: "hello test".to_string(),
+        plain_text: "hello test".to_string(),
+        html_text: None,
         text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
@@ -596,7 +613,8 @@ fn should_create_tag_text() {
         ondelete_signal: Callback::noop(),
         draggable: false,
         removable: false,
-        text: "hello test".to_string(),
+        plain_text: "hello test".to_string(),
+        html_text: None,
         text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
@@ -637,7 +655,8 @@ fn should_add_delete_icon_tag_text() {
         ondelete_signal: Callback::noop(),
         draggable: false,
         removable: true,
-        text: "hello test".to_string(),
+        plain_text: "hello test".to_string(),
+        html_text: None,
         text_palette: Palette::Primary,
         text_style: Style::Regular,
         text_size: Size::Medium,
