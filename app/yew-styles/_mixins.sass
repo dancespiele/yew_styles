@@ -68,11 +68,33 @@
                 fill: $color
                 width: 40px
 
+            .navbar-dropdown
+                padding: 10px 10px 10px 10px
+                cursor: pointer
+                position: relative
+
+                ul
+                    padding: 0
+                    margin-top: 3px
+                    background-color: $background
+                    position: absolute
+                    left: 0
+                    top: 40px
+                    
+                    z-index: 1
+
+                li
+                    display: block
+                    padding: 10px
+                    text-decoration: none
+
+                
+
             .navbar-item
                 padding: 10px
                 cursor: default
 
-                &.interaction
+            .navbar-item.interaction, .navbar-dropdown, .navbar-dropdown-item
                     cursor: pointer
                     &:focus
                         background-color: darken($background, 5%)

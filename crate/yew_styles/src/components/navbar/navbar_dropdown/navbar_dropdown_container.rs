@@ -1,9 +1,8 @@
-use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
 use yew::prelude::*;
 
-pub struct Dropdown {
+pub struct NavbarDropdown {
     props: Props,
-    active: bool,
+    show: bool,
     link: ComponentLink<Self>,
 }
 
@@ -11,18 +10,11 @@ pub struct Dropdown {
 pub struct Props {
     /// clickeable content to show the dropdown. Required
     pub main_content: Html,
-    /// Palette style color for dropdown
-    #[prop_or(Palette::Standard)]
-    pub dropdown_palette: Palette,
-    /// Style for dropdown
-    #[prop_or(Style::Regular)]
-    pub dropdown_style: Style,
-    /// Size for dropdown
-    #[prop_or(Size::Medium)]
-    pub dropdown_size: Size,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    #[prop_or(false)]
+    pub active: bool,
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
@@ -31,9 +23,10 @@ pub struct Props {
 
 pub enum Msg {
     ShowDropdown,
+    HideDropdown,
 }
 
-impl Component for Dropdown {
+impl Component for NavbarDropdown {
     type Message = Msg;
     type Properties = Props;
 
@@ -41,14 +34,17 @@ impl Component for Dropdown {
         Self {
             props,
             link,
-            active: false,
+            show: false,
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::ShowDropdown => {
-                self.active = !self.active;
+                self.show = true;
+            }
+            Msg::HideDropdown => {
+                self.show = false;
             }
         }
         true
@@ -64,19 +60,25 @@ impl Component for Dropdown {
     fn view(&self) -> Html {
         html! {
             <div
-                class=("dropdown", self.props.class_name.clone(), get_style(self.props.dropdown_style.clone()), get_pallete(self.props.dropdown_palette.clone()), get_size(self.props.dropdown_size.clone()))
+                class=("navbar-dropdown", if self.props.active {
+                    "active"
+                } else {
+                    ""
+                }, self.props.class_name.clone())
                 id=self.props.id
-                onclick=self.link.callback(|_| Msg::ShowDropdown)
+                onmouseover=self.link.callback(|_| Msg::ShowDropdown)
+                onmouseleave=self.link.callback(|_| Msg::HideDropdown)
+                onclick=self.link.callback(|_| Msg::HideDropdown)
                 >
                 <div class="main-content">{self.props.main_content.clone()}</div>
-                {get_items(self.active, self.props.children.clone())}
+                {get_items(self.show, self.props.children.clone())}
             </div>
         }
     }
 }
 
-fn get_items(active: bool, children: Children) -> Html {
-    if active {
+fn get_items(show: bool, children: Children) -> Html {
+    if show {
         html! {
             <ul>
                 {children.clone()}

@@ -8,6 +8,7 @@ use yew_styles::{
     navbar::{
         navbar_component::{Fixed, Navbar},
         navbar_container::NavbarContainer,
+        navbar_dropdown::{NavbarDropdown, NavbarDropdownItem},
         navbar_item::NavbarItem,
     },
     styles::{Palette, Style},
@@ -52,7 +53,7 @@ impl Component for NavbarPage {
         NavbarPage {
             link,
             navbar_menu: vec![String::from("home"); 50],
-            item_menu: vec![vec![true, false, false, false]; 50],
+            item_menu: vec![vec![true, false, false, false, false]; 50],
             close_navbar_mobile: false,
         }
     }
@@ -78,19 +79,24 @@ impl Component for NavbarPage {
                     .unwrap()
                     .class_list();
 
-                let target_parent = mouse_event
-                    .target()
-                    .unwrap()
-                    .dyn_into::<Element>()
-                    .unwrap()
-                    .parent_element()
-                    .unwrap()
-                    .tag_name();
+                let target_option = mouse_event.target();
 
-                if !target_class.value().contains("navbar-menu") && target_parent != "svg" {
-                    self.close_navbar_mobile = true;
-                } else {
-                    self.close_navbar_mobile = false
+                if let Some(target) = target_option {
+                    let target_element_option = target.dyn_into::<Element>();
+
+                    if let Ok(target_element) = target_element_option {
+                        let parent_element_option = target_element.parent_element();
+
+                        if let Some(parent_element) = parent_element_option {
+                            let tag_name = parent_element.tag_name();
+
+                            if !target_class.value().contains("navbar-menu") && tag_name != "svg" {
+                                self.close_navbar_mobile = true;
+                            } else {
+                                self.close_navbar_mobile = false
+                            }
+                        }
+                    }
                 }
             }
         };
@@ -285,7 +291,14 @@ fn get_navbar_palette(
 }
 
 fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<bool>>) -> Html {
-    let menus = vec!["home", "shop", "about us", "contact us", "no interaction"];
+    let menus = vec![
+        "home",
+        "shop",
+        "about us",
+        "contact us",
+        "menu",
+        "no interaction",
+    ];
 
     menus
         .into_iter()
@@ -294,21 +307,32 @@ fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<b
             html! {
                 <>
                     {
-                        if menu != "no interaction" {
+                        if menu == "no interaction" {
+                            html!{
+                                <NavbarItem
+                                    key=format!("nabvar-item-{}", item_index)
+                                    interaction_effect=false
+                                >
+                                    <span>{menu}</span>
+                                </NavbarItem>
+                            }
+                        } else if menu == "menu" {
+                            html!{
+                                <NavbarDropdown main_content=html!{<span>{menu}</span>}>
+                                    <NavbarDropdownItem
+                                        onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(index, item_index, String::from("menu 1".to_string())))>{"menu 1"}</NavbarDropdownItem>
+                                    <NavbarDropdownItem
+                                        onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(index, item_index, String::from("menu 2".to_string())))>{"menu 2"}</NavbarDropdownItem>
+                                    <NavbarDropdownItem
+                                        onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(index, item_index, String::from("menu 3".to_string())))>{"menu 3"}</NavbarDropdownItem>
+                                </NavbarDropdown>
+                            }
+                        } else {
                             html!{
                                 <NavbarItem
                                 key=format!("nabvar-item-{}", item_index)
                                 active= item_menu[index][item_index]
                                 onclick_signal=link.callback(move |_| Msg::ChangeType(index, item_index, String::from(menu)))
-                                >
-                                    <span>{menu}</span>
-                                </NavbarItem>
-                            }
-                        } else {
-                            html!{
-                                <NavbarItem
-                                    key=format!("nabvar-item-{}", item_index)
-                                    interaction_effect=false
                                 >
                                     <span>{menu}</span>
                                 </NavbarItem>

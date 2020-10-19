@@ -11,9 +11,6 @@
     .navbar-mobile
         width: 100%
 
-        .navbar-dropdown
-            display: flex
-
         &.regular
             @include navbar-style($regular-style)
         &.outline
@@ -46,7 +43,7 @@
         &.light
             @include navbar-style($light-style)
 
-        .navbar-item
+        .navbar-item, .navbar-dropdown
             align-self: center
 
         @include get-branch(40px)
