@@ -13,6 +13,7 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// show with style when the dropdown is currrently active
     #[prop_or(false)]
     pub active: bool,
     /// General property to add custom id
@@ -52,6 +53,7 @@ impl Component for NavbarDropdown {
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         if self.props != props {
+            self.props = props;
             return true;
         }
         false

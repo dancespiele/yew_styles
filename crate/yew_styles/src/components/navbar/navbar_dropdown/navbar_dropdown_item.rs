@@ -13,6 +13,9 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// show with style when the dropdown item is currrently active
+    #[prop_or(false)]
+    pub active: bool,
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
@@ -42,6 +45,7 @@ impl Component for NavbarDropdownItem {
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         if self.props != props {
+            self.props = props;
             return true;
         }
 
@@ -51,7 +55,11 @@ impl Component for NavbarDropdownItem {
     fn view(&self) -> Html {
         html! {
             <li
-                class=("navbar-dropdown-item", self.props.class_name.clone())
+                class=("navbar-dropdown-item",if self.props.active {
+                    "active"
+                } else {
+                    ""
+                }, self.props.class_name.clone())
                 id=self.props.id
                 onclick=self.link.callback(Msg::Clicked)
             >{self.props.children.clone()}</li>

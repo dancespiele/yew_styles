@@ -10,6 +10,9 @@ pub struct Props {
     #[prop_or(Callback::noop())]
     /// Click event for dropdown item
     pub onclick_signal: Callback<MouseEvent>,
+    /// show with style when the dropdown item is currrently active
+    #[prop_or(false)]
+    pub active: bool,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -42,6 +45,7 @@ impl Component for DropdownItem {
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         if self.props != props {
+            self.props = props;
             return true;
         }
 
@@ -51,7 +55,11 @@ impl Component for DropdownItem {
     fn view(&self) -> Html {
         html! {
             <li
-                class=("dropdown-item", self.props.class_name.clone())
+                class=("dropdown-item", if self.props.active {
+                    "active"
+                } else {
+                    ""
+                }, self.props.class_name.clone())
                 id=self.props.id
                 onclick=self.link.callback(Msg::Clicked)
             >{self.props.children.clone()}</li>

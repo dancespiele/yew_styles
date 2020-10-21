@@ -2,6 +2,7 @@ use super::highlighters::{navbar_code, navbar_with_a_tag};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 use yew::prelude::*;
+use yew_assets::controller_assets::{ControllerAssets, ControllerIcon};
 use yew_prism::Prism;
 use yew_styles::{
     layouts::container::{JustifyContent, Mode},
@@ -318,7 +319,12 @@ fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<b
                             }
                         } else if menu == "menu" {
                             html!{
-                                <NavbarDropdown main_content=html!{<span>{menu}</span>}>
+                                <NavbarDropdown active=item_menu[index][item_index] main_content=html!{
+                                        <span>{menu}<ControllerAssets
+                                            icon=ControllerIcon::ChevronDown
+                                            size=("20".to_string(), "20".to_string())
+                                        /></span>
+                                }>
                                     <NavbarDropdownItem
                                         onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(index, item_index, String::from("menu 1".to_string())))>{"menu 1"}</NavbarDropdownItem>
                                     <NavbarDropdownItem

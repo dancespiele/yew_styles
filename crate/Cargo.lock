@@ -1073,6 +1073,7 @@ dependencies = [
  "wee_alloc",
  "yew",
  "yew-router",
+ "yew_assets",
  "yew_prism",
  "yew_styles",
 ]
