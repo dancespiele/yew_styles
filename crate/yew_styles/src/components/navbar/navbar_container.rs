@@ -74,7 +74,7 @@ pub struct Props {
 ///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
 ///         match msg {
 ///             Msg::ChangeMenu(menu) => {
-///                 let mut console = ConsoleService::log(format!("{}", menu));
+///                 ConsoleService::log(format!("{}", menu));
 ///             }
 ///         }
 ///         false

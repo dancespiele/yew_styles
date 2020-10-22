@@ -1,5 +1,70 @@
 use yew::prelude::*;
 
+/// # Dropdown Item component
+///
+/// ## Features required
+///
+/// dropdown
+///
+/// ## Example
+///
+/// ```rust
+/// use yew::prelude::*;
+/// use yew_styles::dropdown::{Dropdown, DropdownItem};
+/// use yew_styles::styles::{Palette, Size, Style};
+///
+/// pub struct DropDownPage {
+///     link: ComponentLink<Self>,
+///     menu: String,
+/// }
+///
+/// pub enum Msg {
+///     ChangeMenu(String),
+/// }
+///
+/// impl Component for DropDownPage {
+///     type Message = Msg;
+///     type Properties = ();
+///
+///     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+///         Self {
+///             link,
+///             menu: String::from(""),
+///         }
+///     }
+///
+///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+///         match msg {
+///             Msg::ChangeMenu(menu) => {
+///                 self.menu = menu;
+///             }
+///         }
+///         true
+///     }
+///
+///     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+///         false
+///     }
+///
+///     fn view(&self) -> Html {
+///         <>
+///             <Dropdown
+///                 main_content=html!{<span>{"Menu"}</span>}
+///                 dropdown_style=Style::Outline
+///                 dropdown_palette=Palette::Primary
+///                 >
+///                 <DropdownItem
+///                     onclick_signal=link.callback(|_| Msg::ChangeMenu(String::from("Menu 1")))>{"Menu 1"}</DropdownItem>
+///                 <DropdownItem
+///                     onclick_signal=link.callback(|_| Msg::ChangeMenu(String::from("Menu 2")))>{"Menu 2"}</DropdownItem>
+///                 <DropdownItem
+///                     onclick_signal=link.callback(|_| Msg::ChangeMenu(String::from("Menu 3")))>{"Menu 3"}</DropdownItem>
+///             </Dropdown>
+///             <span>{self.menu.clone()}</span>
+///         </>
+///     }
+/// }
+/// ```
 pub struct DropdownItem {
     link: ComponentLink<Self>,
     props: Props,
@@ -10,9 +75,6 @@ pub struct Props {
     #[prop_or(Callback::noop())]
     /// Click event for dropdown item
     pub onclick_signal: Callback<MouseEvent>,
-    /// show with style when the dropdown item is currrently active
-    #[prop_or(false)]
-    pub active: bool,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -55,11 +117,7 @@ impl Component for DropdownItem {
     fn view(&self) -> Html {
         html! {
             <li
-                class=("dropdown-item", if self.props.active {
-                    "active"
-                } else {
-                    ""
-                }, self.props.class_name.clone())
+                class=("dropdown-item", self.props.class_name.clone())
                 id=self.props.id
                 onclick=self.link.callback(Msg::Clicked)
             >{self.props.children.clone()}</li>

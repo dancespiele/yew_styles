@@ -154,6 +154,24 @@ impl Component for NavbarPage {
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
 
+                <h2>{"Navbar Dropdown Container properties"}</h2>
+                <ul>
+                    <li><b>{"main_content: "}</b>{"clickeable content to show the dropdown. Required"}</li>
+                    <li><b>{"active: "}</b>{"show with style when the dropdown is currrently active. Default "}<code>{"false"}</code></li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
+
+                <h2>{"Navbar Dropdown Item properties"}</h2>
+                <ul>
+                    <li><b>{"onclick_signal: "}</b>{"click event for navbar dropdown item. Default "}<code>{"noop()"}</code></li>
+                    <li><b>{"active: "}</b>{"show with style when the dropdown item is currrently active. Default "}<code>{"false"}</code></li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
+
+                <h2>{""}</h2>
+
                 <p><b>{"Note:"}</b>{" for navbar items which include yew routers or"}<code>{" a "}</code>
                     {"tag, add navbar-route in the class_name attribute of the "}<code>{"NavbarItem"}</code>
                     {" component and navbar-router in the "}<code>{"Navbar"}</code>{". For example:"}</p>
