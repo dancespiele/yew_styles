@@ -1,4 +1,6 @@
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::{utils, App};
 
 /// # Dropdown Item component
 ///
@@ -123,4 +125,26 @@ impl Component for DropdownItem {
             >{self.props.children.clone()}</li>
         }
     }
+}
+
+#[wasm_bindgen_test]
+fn should_create_dropdown_container() {
+    let dropdown_item_props = Props {
+        onclick_signal: Callback::noop(),
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
+        children: Children::new(vec![html! {
+            <div id="item">{"Item"}</div>
+        }]),
+    };
+
+    let dropdown_item: App<DropdownItem> = App::new();
+
+    dropdown_item.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        dropdown_item_props,
+    );
+
+    let content_element = utils::document().get_element_by_id("item").unwrap();
+    assert_eq!(content_element.text_content().unwrap(), "Item".to_string());
 }

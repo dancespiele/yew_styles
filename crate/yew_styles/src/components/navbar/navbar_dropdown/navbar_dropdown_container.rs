@@ -1,4 +1,6 @@
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::{utils, App};
 
 /// # Navbar Dropdown Container component
 ///
@@ -192,4 +194,27 @@ fn get_items(show: bool, children: Children) -> Html {
     } else {
         html! {}
     }
+}
+
+#[wasm_bindgen_test]
+fn should_create_navbar_dropdown_container() {
+    let navbar_dropdown_container_props = Props {
+        main_content: html! {<div id="test">{"test"}</div>},
+        active: false,
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
+        children: Children::new(vec![html! {
+            <div id="item">{"Item"}</div>
+        }]),
+    };
+
+    let navbar_dropdown_container: App<NavbarDropdown> = App::new();
+
+    navbar_dropdown_container.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        navbar_dropdown_container_props,
+    );
+
+    let content_element = utils::document().get_element_by_id("test").unwrap();
+    assert_eq!(content_element.text_content().unwrap(), "test".to_string());
 }

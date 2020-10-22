@@ -1,5 +1,7 @@
 use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::{utils, App};
 
 /// # Dropdown Container component
 ///
@@ -150,4 +152,31 @@ fn get_items(active: bool, children: Children) -> Html {
     } else {
         html! {}
     }
+}
+
+wasm_bindgen_test_configure!(run_in_browser);
+
+#[wasm_bindgen_test]
+fn should_create_dropdown_container() {
+    let dropdown_container_props = Props {
+        main_content: html! {<div id="test">{"test"}</div>},
+        dropdown_palette: Palette::Clean,
+        dropdown_size: Size::Medium,
+        dropdown_style: Style::Outline,
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
+        children: Children::new(vec![html! {
+            <div id="item">{"Item"}</div>
+        }]),
+    };
+
+    let dropdown_container: App<Dropdown> = App::new();
+
+    dropdown_container.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        dropdown_container_props,
+    );
+
+    let content_element = utils::document().get_element_by_id("test").unwrap();
+    assert_eq!(content_element.text_content().unwrap(), "test".to_string());
 }
