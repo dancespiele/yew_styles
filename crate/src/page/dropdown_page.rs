@@ -1,6 +1,7 @@
 use super::highlighters::get_dropdown;
 use inflector::Inflector;
 use yew::prelude::*;
+use yew_assets::controller_assets::{ControllerAssets, ControllerIcon};
 use yew_prism::Prism;
 use yew_styles::dropdown::{Dropdown, DropdownItem};
 use yew_styles::layouts::{
@@ -96,7 +97,10 @@ fn get_sizes(link: ComponentLink<DropDownPage>) -> Html {
             html! {
                 <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
                 <Dropdown
-                    main_content=html!{<span>{"Menu"}</span>}
+                    main_content=html!{<span>{"Menu"}<ControllerAssets
+                        icon=ControllerIcon::ChevronDown
+                        size=("20".to_string(), "20".to_string())
+                    /></span>}
                     dropdown_size=size
                     >
                     <DropdownItem
@@ -149,7 +153,10 @@ fn get_types(style: Style, link: ComponentLink<DropDownPage>) -> Html {
             html! {
                 <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
                     <Dropdown
-                        main_content=html!{<span>{"Menu"}</span>}
+                        main_content=html!{<span>{"Menu"}<ControllerAssets
+                            icon=ControllerIcon::ChevronDown
+                            size=("20".to_string(), "20".to_string())
+                        /></span>}
                         dropdown_style=style.clone()
                         dropdown_palette=palette
                         >
