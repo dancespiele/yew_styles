@@ -1,6 +1,7 @@
 pub mod basic_form_page;
 pub mod button_page;
 pub mod card_page;
+pub mod dropdown_page;
 pub mod form_pages;
 mod highlighters;
 pub mod home_page;
@@ -12,6 +13,7 @@ pub mod text_page;
 pub use self::basic_form_page::BasicFormPage;
 pub use self::button_page::ButtonPage;
 pub use self::card_page::CardPage;
+pub use self::dropdown_page::DropDownPage;
 pub use self::form_pages::FormPage;
 pub use self::home_page::HomePage;
 pub use self::layouts_page::LayoutsPage;

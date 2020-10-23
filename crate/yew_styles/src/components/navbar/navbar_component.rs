@@ -133,7 +133,7 @@ pub struct Navbar {
 
 struct NavbarModel;
 
-#[derive(Clone, Properties)]
+#[derive(Clone, Properties, PartialEq)]
 pub struct Props {
     /// Type navbar style. Default `Standard`
     #[prop_or(Palette::Standard)]
@@ -165,7 +165,7 @@ pub struct Props {
     pub children: Children,
 }
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub struct NavbarProps {
     pub navbar_palette: String,
     pub navbar_style: String,
@@ -237,12 +237,16 @@ impl Component for Navbar {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        NavbarModel.init(self.props.clone());
-        self.props = NavbarProps::from(props);
-        if self.props.hide_navbar_items_mobile && self.display_menu {
-            self.display_menu = false;
+        if self.props != NavbarProps::from(props.clone()) {
+            NavbarModel.init(self.props.clone());
+            self.props = NavbarProps::from(props);
+            if self.props.hide_navbar_items_mobile && self.display_menu {
+                self.display_menu = false;
+            }
+            return true;
         }
-        true
+
+        false
     }
 
     fn view(&self) -> Html {
@@ -254,7 +258,7 @@ impl Component for Navbar {
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()
                 >
-                    <div class="navbar-dropdown">
+                    <div class="navbar-collapse">
                         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)
                         direction=Direction::Row
                         class_name="navbar-container-mobile">

@@ -107,7 +107,7 @@ Please check our [code of conduct](CODE_OF_CONDUCT.md)
 - [x] Form
 - [x] Card
 - [x] Text
-- [ ] Dropdown
+- [x] Dropdown
 - [ ] Progress
 - [ ] Spinners
 - [ ] Table

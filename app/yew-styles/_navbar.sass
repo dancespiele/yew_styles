@@ -11,7 +11,7 @@
     .navbar-mobile
         width: 100%
 
-        .navbar-dropdown
+        .navbar-collapse
             display: flex
 
         &.regular
@@ -31,6 +31,22 @@
         
         @include get-branch(50px)
 
+        .navbar-dropdown
+            cursor: pointer
+            padding: 0
+
+            .main-content
+                padding: 10px
+
+            ul
+                padding: 0
+                margin: 0
+                list-style-type: none
+
+                li
+                    padding: 8px 15px
+                    text-decoration: none
+
 @media all and (min-width: 769px)
     .navbar-mobile
         display: none
@@ -46,14 +62,33 @@
         &.light
             @include navbar-style($light-style)
 
-        .navbar-item
+        .navbar-dropdown
+            padding: 10px
+            cursor: pointer
+            position: relative
+
+            ul
+                padding: 0
+                margin-top: 3px
+                position: absolute
+                left: 0
+                top: 40px
+                
+                z-index: 1
+
+            li
+                display: block
+                padding: 10px
+                text-decoration: none
+
+        .navbar-item, .navbar-dropdown
             align-self: center
 
         @include get-branch(40px)
 
 .navbar
     &.navbar-router
-        .navbar-item
+        .navbar-item, .navbar-dropdown-item
             &.navbar-route
                 padding: 0
                 height: 100%

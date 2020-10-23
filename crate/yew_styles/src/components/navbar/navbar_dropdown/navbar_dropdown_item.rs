@@ -1,34 +1,8 @@
-use crate::layouts::container::{Container, Direction, JustifyContent, Mode, Wrap};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::{utils, App};
 
-pub enum Msg {
-    Clicked,
-}
-
-#[derive(Clone, PartialEq, Properties)]
-pub struct Props {
-    /// set how will be justified the navbar items. Default `JustifyContent::FlexStart(Mode::NoMode)`
-    #[prop_or(JustifyContent::FlexStart(Mode::NoMode))]
-    pub justify_content: JustifyContent,
-    /// which direction are placing the navbar items. Default `Direction::Row`
-    #[prop_or(Direction::Row)]
-    pub direction: Direction,
-    pub children: Children,
-    /// General property to get the ref of the component
-    #[prop_or_default]
-    pub code_ref: NodeRef,
-    /// General property to add keys
-    #[prop_or_default]
-    pub key: String,
-    /// General property to add custom class styles
-    #[prop_or_default]
-    pub class_name: String,
-    /// General property to add custom id
-    #[prop_or_default]
-    pub id: String,
-}
-
-/// # Navbar Container component
+/// # Navbar Dropdown Item component
 ///
 /// ## Features required
 ///
@@ -112,49 +86,111 @@ pub struct Props {
 ///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
 ///                            <span>{"Contact"}</span>
 ///                        </NavbarItem>
+///                        <NavbarDropdown main_content=html!{
+///                           <span>{menu}<ControllerAssets
+///                             icon=ControllerIcon::ChevronDown
+///                             size=("20".to_string(), "20".to_string())
+///                           /></span>
+///                        }>
+///                          <NavbarDropdownItem
+///                            onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(String::from("menu 1".to_string())))>{"menu 1"}</NavbarDropdownItem>
+///                          <NavbarDropdownItem
+///                            onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(String::from("menu 2".to_string())))>{"menu 2"}</NavbarDropdownItem>
+///                          <NavbarDropdownItem
+///                            onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(String::from("menu 3".to_string())))>{"menu 3"}</NavbarDropdownItem>
+///                        </NavbarDropdown>
 ///                    </NavbarContainer>
 ///              </Navbar>
 ///         }
 ///     }
 /// }
 /// ```
-pub struct NavbarContainer {
-    pub props: Props,
+pub struct NavbarDropdownItem {
+    link: ComponentLink<Self>,
+    props: Props,
 }
 
-impl Component for NavbarContainer {
+#[derive(Properties, Clone, PartialEq)]
+pub struct Props {
+    #[prop_or(Callback::noop())]
+    /// Click event for dropdown item
+    pub onclick_signal: Callback<MouseEvent>,
+    /// General property to add custom class styles
+    #[prop_or_default]
+    pub class_name: String,
+    /// show with style when the dropdown item is currrently active
+    #[prop_or(false)]
+    pub active: bool,
+    /// General property to add custom id
+    #[prop_or_default]
+    pub id: String,
+    pub children: Children,
+}
+
+pub enum Msg {
+    Clicked(MouseEvent),
+}
+
+impl Component for NavbarDropdownItem {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        NavbarContainer { props }
+    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+        Self { props, link }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
+    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+        match msg {
+            Msg::Clicked(mouse_event) => {
+                self.props.onclick_signal.emit(mouse_event);
+            }
+        }
+        true
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         if self.props != props {
             self.props = props;
-            true
-        } else {
-            false
+            return true;
         }
+
+        false
     }
 
     fn view(&self) -> Html {
         html! {
-            <Container
-                class_name=format!("navbar-container {}", self.props.class_name)
-                id=self.props.id.clone()
-                key=self.props.key.clone()
-                ref=self.props.code_ref.clone()
-                direction=self.props.direction.clone()
-                wrap=Wrap::Wrap
-                justify_content=self.props.justify_content.clone()>
-                    {self.props.children.clone()}
-            </Container>
+            <li
+                class=("navbar-dropdown-item",if self.props.active {
+                    "active"
+                } else {
+                    ""
+                }, self.props.class_name.clone())
+                id=self.props.id
+                onclick=self.link.callback(Msg::Clicked)
+            >{self.props.children.clone()}</li>
         }
     }
+}
+
+#[wasm_bindgen_test]
+fn should_create_dropdown_container() {
+    let dropdown_item_props = Props {
+        onclick_signal: Callback::noop(),
+        active: false,
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
+        children: Children::new(vec![html! {
+            <div id="item">{"Item"}</div>
+        }]),
+    };
+
+    let dropdown_item: App<NavbarDropdownItem> = App::new();
+
+    dropdown_item.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        dropdown_item_props,
+    );
+
+    let content_element = utils::document().get_element_by_id("item").unwrap();
+    assert_eq!(content_element.text_content().unwrap(), "Item".to_string());
 }

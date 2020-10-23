@@ -99,7 +99,7 @@ If you like Yew Styles, help us supporting the project:
 - [x] Form
 - [x] Card
 - [x] Text
-- [ ] Dropdown
+- [x] Dropdown
 - [ ] Progress
 - [ ] Spinners
 - [ ] Table

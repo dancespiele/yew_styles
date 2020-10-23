@@ -55,7 +55,7 @@ impl Component for ButtonPage {
 
                 <h2>{"Properties"}</h2>
                 <ul>
-                    <li><b>{"button_palette: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"button_palette: "}</b>{"type button style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"button_size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"onclick_signal: "}</b>{"click event for button. Required."}</li>

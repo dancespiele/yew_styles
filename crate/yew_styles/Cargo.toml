@@ -29,6 +29,7 @@ full = [
     "card",
     "modal",
     "text",
+    "dropdown"
 ]
 layouts = []
 button = []
@@ -37,6 +38,7 @@ forms = []
 card = ["layouts"]
 modal = []
 text = []
+dropdown = []
 
 
 [dependencies]

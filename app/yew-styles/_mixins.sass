@@ -40,6 +40,23 @@
     &.it-#{$screen}-#{$size}
         flex-basis: 100% / (12/$size)
 
+@mixin dropdown-style($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            background-color: $background
+            color: $color
+            border: get-border($border-color)
+
+            .dropdown-item
+                &:focus
+                    background-color: darken($background, 5%)
+                &:hover
+                    background-color: darken($background, 10%)
+                &:active, &.active
+                    background-color: darken($background, 15%)
+            
+
+
 @mixin navbar-style($style)
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
@@ -55,7 +72,10 @@
                 padding: 10px
                 cursor: default
 
-                &.interaction
+            ul
+                background-color: $background
+
+            .navbar-item.interaction, .navbar-dropdown, .navbar-dropdown-item
                     cursor: pointer
                     &:focus
                         background-color: darken($background, 5%)
