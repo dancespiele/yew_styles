@@ -13,5 +13,7 @@ pub mod layouts;
 pub mod modal;
 #[cfg(feature = "navbar")]
 pub mod navbar;
+#[cfg(feature = "spinner")]
+pub mod spinner;
 #[cfg(feature = "text")]
 pub mod text;

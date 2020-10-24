@@ -72,5 +72,7 @@ pub use components::layouts;
 pub use components::modal;
 #[cfg(feature = "navbar")]
 pub use components::navbar;
+#[cfg(feature = "spinner")]
+pub use components::spinner;
 #[cfg(feature = "text")]
 pub use components::text;
