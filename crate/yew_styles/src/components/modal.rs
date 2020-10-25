@@ -1,4 +1,4 @@
-use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
+use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use web_sys::{Element, HtmlElement};
@@ -234,7 +234,7 @@ fn get_modal(props: Props, link: ComponentLink<Modal>) -> Html {
     if props.is_open {
         html! {
             <div
-                class=format!("modal container {} {}", get_pallete(props.modal_palette), props.class_name)
+                class=format!("modal container {} {}", get_palette(props.modal_palette), props.class_name)
                 key=props.key
                 ref=props.code_ref
                 tabindex="0"
@@ -246,7 +246,7 @@ fn get_modal(props: Props, link: ComponentLink<Modal>) -> Html {
                     <div class=format!(
                         "modal-header {} {} {}",
                         get_style(props.header_style),
-                        get_pallete(props.header_palette),
+                        get_palette(props.header_palette),
                         if props.header_interaction { "interaction" } else { "" }
                     )>
                         {props.header}
@@ -254,7 +254,7 @@ fn get_modal(props: Props, link: ComponentLink<Modal>) -> Html {
                     <div class=format!(
                         "modal-body {} {} {}",
                         get_style(props.body_style),
-                        get_pallete(props.body_palette),
+                        get_palette(props.body_palette),
                         if props.body_interaction { "interaction" } else { "" }
                     )>
                         {props.body}

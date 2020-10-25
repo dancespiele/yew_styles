@@ -1,4 +1,4 @@
-use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
+use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -358,7 +358,7 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                     class=format!(
                         "alert-text {} {} {} {}",
                         get_style(props.text_style),
-                        get_pallete(props.text_palette),
+                        get_palette(props.text_palette),
                         get_size(props.text_size),
                         props.class_name,
                     )
@@ -381,7 +381,7 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                             ""
                         },
                         get_style(props.text_style),
-                        get_pallete(props.text_palette),
+                        get_palette(props.text_palette),
                         get_size(props.text_size.clone()),
                         props.class_name,
                     )

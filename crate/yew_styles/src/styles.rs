@@ -12,7 +12,7 @@ pub enum Palette {
     Clean,
 }
 
-pub fn get_pallete(palette: Palette) -> String {
+pub fn get_palette(palette: Palette) -> String {
     match palette {
         Palette::Primary => String::from("primary"),
         Palette::Secondary => String::from("secondary"),

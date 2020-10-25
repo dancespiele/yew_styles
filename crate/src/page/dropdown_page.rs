@@ -60,6 +60,7 @@ impl Component for DropDownPage {
                 <h2>{"Dropdown Container properties"}</h2>
                 <ul>
                     <li><b>{"main_content: "}</b>{"clickeable content to show the dropdown. Required"}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
                     <li><b>{"dropdown_palette: "}</b>{"type dropdown style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"dropdown_size: "}</b>{"three diffent dropdown standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"dropdown_style: "}</b>{"dropdown styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
@@ -70,6 +71,7 @@ impl Component for DropDownPage {
                 <h2>{"Dropdown Item properties"}</h2>
                 <ul>
                     <li><b>{"onclick_signal: "}</b>{"click event for dropdown item. Default "}<code>{"noop()"}</code></li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>

@@ -3,7 +3,7 @@ use yew::prelude::*;
 use yew_prism::Prism;
 use yew_styles::{
     button::Button,
-    styles::{get_pallete, get_size, get_style, Palette, Size, Style},
+    styles::{get_palette, get_size, get_style, Palette, Size, Style},
 };
 
 pub struct ButtonPage {
@@ -171,7 +171,7 @@ fn get_buttons(
                                 button_palette=button_palette_enum[index].clone()
                                 button_style=button_style.clone()
                                 button_size=size.clone()
-                            >{to_first_upercase(&get_pallete(button_palette_enum[index].clone()))}
+                            >{to_first_upercase(&get_palette(button_palette_enum[index].clone()))}
                             </Button>
                         </>
                     };

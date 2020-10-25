@@ -12,7 +12,7 @@ use yew_styles::{
         navbar_dropdown::{NavbarDropdown, NavbarDropdownItem},
         navbar_item::NavbarItem,
     },
-    styles::{Palette, Style},
+    styles::{get_palette, Palette, Style},
 };
 
 pub struct NavbarPage {
@@ -158,6 +158,7 @@ impl Component for NavbarPage {
                 <ul>
                     <li><b>{"main_content: "}</b>{"clickeable content to show the dropdown. Required"}</li>
                     <li><b>{"active: "}</b>{"show with style when the dropdown is currrently active. Default "}<code>{"false"}</code></li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
@@ -166,6 +167,7 @@ impl Component for NavbarPage {
                 <ul>
                     <li><b>{"onclick_signal: "}</b>{"click event for navbar dropdown item. Default "}<code>{"noop()"}</code></li>
                     <li><b>{"active: "}</b>{"show with style when the dropdown item is currrently active. Default "}<code>{"false"}</code></li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
@@ -284,12 +286,16 @@ fn get_navbar_palette(
                     <h3>{format!("{} {}",style.name.clone(), navbar_palette.name)}</h3>
                     <Navbar
                         fixed=Fixed::None
+                        key=format!("navbar-{}-{}", get_palette(navbar_palette.navbar_palette.clone()), index)
                         navbar_style=style.style.clone()
-                        navbar_palette=navbar_palette.navbar_palette
+                        navbar_palette=navbar_palette.navbar_palette.clone()
                         hide_navbar_items_mobile = close_navbar_mobile
                         branch=html!{<img src="/spielrs_logo.png"/>}
                     >
-                        <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
+                        <NavbarContainer
+                            justify_content=JustifyContent::FlexStart(Mode::NoMode)
+                            key=format!("navbar-container-{}-{}", get_palette(navbar_palette.navbar_palette.clone()), index)
+                        >
                             {get_menus(link.clone(), navbar_palette_rendered, item_menu.clone())}
                         </NavbarContainer>
                     </Navbar>
@@ -337,17 +343,20 @@ fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<b
                             }
                         } else if menu == "menu" {
                             html!{
-                                <NavbarDropdown active=item_menu[index][item_index] main_content=html!{
+                                <NavbarDropdown key=format!("dropdown-{}-{}", menu,item_index) active=item_menu[index][item_index] main_content=html!{
                                         <span>{menu}<ControllerAssets
                                             icon=ControllerIcon::ChevronDown
                                             size=("20".to_string(), "20".to_string())
                                         /></span>
                                 }>
                                     <NavbarDropdownItem
+                                        key=format!("dropdown-item-{}-{}-1", menu,item_index)
                                         onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(index, item_index, String::from("menu 1".to_string())))>{"menu 1"}</NavbarDropdownItem>
                                     <NavbarDropdownItem
+                                        key=format!("dropdown-item-{}-{}-2", menu,item_index)
                                         onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(index, item_index, String::from("menu 2".to_string())))>{"menu 2"}</NavbarDropdownItem>
                                     <NavbarDropdownItem
+                                        key=format!("dropdown-item-{}-{}-3", menu,item_index)
                                         onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(index, item_index, String::from("menu 3".to_string())))>{"menu 3"}</NavbarDropdownItem>
                                 </NavbarDropdown>
                             }

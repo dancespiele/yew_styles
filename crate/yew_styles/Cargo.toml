@@ -29,7 +29,8 @@ full = [
     "card",
     "modal",
     "text",
-    "dropdown"
+    "dropdown",
+    "spinner",
 ]
 layouts = []
 button = []

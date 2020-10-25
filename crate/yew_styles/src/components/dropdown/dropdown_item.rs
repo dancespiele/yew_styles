@@ -77,6 +77,9 @@ pub struct Props {
     #[prop_or(Callback::noop())]
     /// Click event for dropdown item
     pub onclick_signal: Callback<MouseEvent>,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -121,6 +124,7 @@ impl Component for DropdownItem {
             <li
                 class=("dropdown-item", self.props.class_name.clone())
                 id=self.props.id
+                key=self.props.key.clone()
                 onclick=self.link.callback(Msg::Clicked)
             >{self.props.children.clone()}</li>
         }
@@ -131,6 +135,7 @@ impl Component for DropdownItem {
 fn should_create_dropdown_container() {
     let dropdown_item_props = Props {
         onclick_signal: Callback::noop(),
+        key: String::from("dropdown-item-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
         children: Children::new(vec![html! {
