@@ -59,7 +59,7 @@ impl Component for HomePage {
                     <ol>
                         <li>{"Install the sass module: "}<code>{"npm install yew-styles"}</code></li>
                         <li>{"Add the yew_style crate with the features needed for your project in Cargo.toml file: "}<br/>
-                            <code>{"yew_styles = {version=\"0.7\", features=[\"layouts\",\"button\"]}"}</code>
+                            <code>{"yew_styles = {version=\"0.8\", features=[\"layouts\",\"button\"]}"}</code>
                         </li>
                         <li>{"Import the main.css file in you main javascript/typescript file project: "}
                             <code>{"import 'node_modules/yew-styles/main.css';"}</code>
@@ -93,6 +93,7 @@ impl Component for HomePage {
                     <h2>{"Do you like Yew Styles?"}</h2>
                     <p>{"If you like Yew Styles, help us supporting the project:"}</p>
                     <ul>
+                        <li><a href="https://gitcoin.co/grants/1048/yew-styles" target="_blank">{"Gitcoin"}</a></li>
                         <li><a href="https://github.com/sponsors/dancespiele" target="_blank">{"Github Sponsors"}</a></li>
                         <li><a href="https://paypal.me/dancespiele?locale.x=en_US" target="_blank">{"Paypal"}</a></li>
                     </ul>

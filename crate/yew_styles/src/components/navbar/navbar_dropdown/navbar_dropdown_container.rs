@@ -1,13 +1,8 @@
 use wasm_bindgen_test::*;
-use web_sys::window;
 use yew::prelude::*;
 use yew::{utils, App};
 
-pub enum Msg {
-    Clicked(MouseEvent),
-}
-
-/// # Navbar Item component
+/// # Navbar Dropdown Container component
 ///
 /// ## Features required
 ///
@@ -53,7 +48,7 @@ pub enum Msg {
 ///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
 ///         match msg {
 ///             Msg::ChangeMenu(menu) => {
-///                 let mut console = ConsoleService::log(format!("{}", menu));
+///                 ConsoleService::log(format!("{}", menu));
 ///             }
 ///         }
 ///         false
@@ -91,166 +86,140 @@ pub enum Msg {
 ///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
 ///                            <span>{"Contact"}</span>
 ///                        </NavbarItem>
+///                        <NavbarDropdown main_content=html!{
+///                           <span>{menu}<ControllerAssets
+///                             icon=ControllerIcon::ChevronDown
+///                             size=("20".to_string(), "20".to_string())
+///                           /></span>
+///                        }>
+///                          <NavbarDropdownItem
+///                            onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(String::from("menu 1".to_string())))>{"menu 1"}</NavbarDropdownItem>
+///                          <NavbarDropdownItem
+///                            onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(String::from("menu 2".to_string())))>{"menu 2"}</NavbarDropdownItem>
+///                          <NavbarDropdownItem
+///                            onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(String::from("menu 3".to_string())))>{"menu 3"}</NavbarDropdownItem>
+///                        </NavbarDropdown>
 ///                    </NavbarContainer>
 ///              </Navbar>
 ///         }
 ///     }
 /// }
 /// ```
-pub struct NavbarItem {
-    link: ComponentLink<Self>,
+pub struct NavbarDropdown {
     props: Props,
+    show: bool,
+    link: ComponentLink<Self>,
 }
 
-#[derive(Clone, PartialEq, Properties)]
+#[derive(Clone, Properties, PartialEq)]
 pub struct Props {
-    /// General property to get the ref of the component
-    #[prop_or_default]
-    pub code_ref: NodeRef,
+    /// clickeable content to show the dropdown. Required
+    pub main_content: Html,
     /// General property to add keys
     #[prop_or_default]
     pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// show with style when the dropdown is currrently active
+    #[prop_or(false)]
+    pub active: bool,
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
-    /// Active nav item style. Default false
-    /// if hove, focus, active effects are enable. Default `true`
-    #[prop_or(true)]
-    pub interaction_effect: bool,
-    #[prop_or(false)]
-    pub active: bool,
-    /// Click event for navbar item
-    #[prop_or(Callback::noop())]
-    pub onclick_signal: Callback<MouseEvent>,
     pub children: Children,
 }
 
-impl Component for NavbarItem {
+pub enum Msg {
+    ShowDropdown,
+    HideDropdown,
+}
+
+impl Component for NavbarDropdown {
     type Message = Msg;
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        NavbarItem { link, props }
+        Self {
+            props,
+            link,
+            show: false,
+        }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::Clicked(mouse_event) => {
-                self.props.onclick_signal.emit(mouse_event);
+            Msg::ShowDropdown => {
+                self.show = true;
+            }
+            Msg::HideDropdown => {
+                self.show = false;
             }
         }
-
         true
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         if self.props != props {
             self.props = props;
-            true
-        } else {
-            false
+            return true;
         }
+        false
     }
 
     fn view(&self) -> Html {
         html! {
             <div
-                class=format!("navbar-item {} {} {}", if self.props.active {
+                class=("navbar-dropdown", if self.props.active {
                     "active"
                 } else {
                     ""
-                },
-                if self.props.interaction_effect {
-                    "interaction"
-                } else {
-                    ""
-                },
-                self.props.class_name)
+                }, self.props.class_name.clone())
                 id=self.props.id
                 key=self.props.key.clone()
-                ref=self.props.code_ref.clone()
-                onclick=self.link.callback(Msg::Clicked)
-            >
-                {self.props.children.clone()}
+                onmouseover=self.link.callback(|_| Msg::ShowDropdown)
+                onmouseleave=self.link.callback(|_| Msg::HideDropdown)
+                onclick=self.link.callback(|_| Msg::HideDropdown)
+                >
+                <div class="main-content">{self.props.main_content.clone()}</div>
+                {get_items(self.show, self.props.children.clone())}
             </div>
         }
     }
 }
 
-wasm_bindgen_test_configure!(run_in_browser);
-
-#[wasm_bindgen_test]
-fn should_create_navbar_item() {
-    let navbar_item_props = Props {
-        key: "".to_string(),
-        code_ref: NodeRef::default(),
-        class_name: "navbar-item-test".to_string(),
-        id: "navbar-item-id-test".to_string(),
-        onclick_signal: Callback::noop(),
-        active: false,
-        interaction_effect: true,
-        children: Children::new(vec![html! {
-            <div id="item">{"Item"}</div>
-        }]),
-    };
-
-    let navbar_item: App<NavbarItem> = App::new();
-
-    navbar_item.mount_with_props(
-        utils::document().get_element_by_id("output").unwrap(),
-        navbar_item_props,
-    );
-
-    let item_element = utils::document().get_element_by_id("item").unwrap();
-
-    assert_eq!(item_element.text_content().unwrap(), "Item".to_string());
+fn get_items(show: bool, children: Children) -> Html {
+    if show {
+        html! {
+            <ul>
+                {children.clone()}
+            </ul>
+        }
+    } else {
+        html! {}
+    }
 }
 
 #[wasm_bindgen_test]
-fn should_create_clickable_navbar_item() {
-    let on_add_item_div = Callback::from(|_| {
-        let body = window().unwrap().document().unwrap().body().unwrap();
-
-        let child_element = window()
-            .unwrap()
-            .document()
-            .unwrap()
-            .create_element("div")
-            .unwrap();
-
-        child_element.set_text_content(Some("item2"));
-        child_element.set_id("item2");
-        body.append_child(&child_element).unwrap();
-    });
-
-    let navbar_item_props = Props {
-        key: "".to_string(),
-        code_ref: NodeRef::default(),
-        class_name: "navbar-item-test".to_string(),
-        id: "navbar-item-id-test".to_string(),
+fn should_create_navbar_dropdown_container() {
+    let navbar_dropdown_container_props = Props {
+        main_content: html! {<div id="test">{"test"}</div>},
         active: false,
-        interaction_effect: true,
-        onclick_signal: on_add_item_div,
+        key: String::from("navbar-dropdown-1"),
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),
     };
 
-    let mouse_event = MouseEvent::new("click").unwrap();
+    let navbar_dropdown_container: App<NavbarDropdown> = App::new();
 
-    navbar_item_props.onclick_signal.emit(mouse_event);
+    navbar_dropdown_container.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        navbar_dropdown_container_props,
+    );
 
-    let updated_content = window()
-        .unwrap()
-        .document()
-        .unwrap()
-        .get_element_by_id("item2")
-        .unwrap()
-        .text_content()
-        .unwrap();
-
-    assert_eq!(updated_content, "item2".to_string());
+    let content_element = utils::document().get_element_by_id("test").unwrap();
+    assert_eq!(content_element.text_content().unwrap(), "test".to_string());
 }

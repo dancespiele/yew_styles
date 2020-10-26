@@ -32,6 +32,7 @@ pub fn navbar_code() -> String {
     branch=html!{<img src=\"/assets/spielrs_logo.png\"></img>}>
         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
             <NavbarItem
+                active=true
                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from(\"Home\")))>
                 <span>{\"Home\"}</span>
             </NavbarItem>
@@ -51,6 +52,25 @@ pub fn navbar_code() -> String {
                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from(\"Contact\")))>   
                 <span>{\"Contact\"}</span>
             </NavbarItem>
+            <NavbarDropdown main_content=html!{
+                <span>{menu}<ControllerAssets
+                    icon=ControllerIcon::ChevronDown
+                    size=(\"20\".to_string(), \"20\".to_string())
+                /></span>
+            }>
+                <NavbarDropdownItem
+                    onclick_signal=link
+                        .callback(move |_: MouseEvent| Msg::ChangeType(String::from(\"menu 1\".to_string())))>{\"menu 1\"}        
+                </NavbarDropdownItem>
+                <NavbarDropdownItem
+                    onclick_signal=link
+                        .callback(move |_: MouseEvent| Msg::ChangeType(String::from(\"menu 2\".to_string())))>{\"menu 2\"}
+                </NavbarDropdownItem>
+                <NavbarDropdownItem
+                    onclick_signal=link
+                        .callback(move |_: MouseEvent| Msg::ChangeType(String::from(\"menu 3\".to_string())))>{\"menu 3\"}
+                </NavbarDropdownItem>
+            </NavbarDropdown>
         </NavbarContainer>
 </Navbar>"
         .to_string()
@@ -289,7 +309,8 @@ pub fn get_modal_code() -> String {
 pub fn get_title_text() -> String {
     "<Text
     text_type=TextType::Title(Header::H1)
-    text=\"Header h1\"
+    plain_text=\"Header h1\"
+    html_text=None
 />"
     .to_string()
 }
@@ -298,8 +319,21 @@ pub fn get_plain_text() -> String {
     "<Text
     text_type=TextType::Plain
     text_size=Size::Medium
-    text=\"plain text\"
+    plain_text=\"plain text\"
+    html_text=None
 />"
+    .to_string()
+}
+
+pub fn get_html_text() -> String {
+    "<Text
+    text_type=TextType::Plain
+    text_size=Size::Medium
+    html_text=Some(html!{
+        <><i>{\"Italic \"}</i>{\"letter\"}</>
+    })
+/>
+    "
     .to_string()
 }
 
@@ -307,7 +341,8 @@ pub fn get_paragraph_text() -> String {
     "<Text
     text_type=TextType::Paragraph
     text_size=Size::Small
-    text=\"paragraph text\"
+    plain_text=\"paragraph text\"
+    html_text=None
 />"
     .to_string()
 }
@@ -316,7 +351,8 @@ pub fn get_alert_text() -> String {
     "<Text
     text_type=TextType::Alert
     text_size=Size::Medium
-    text=\"alert text\"
+    plain_text=\"alert text\"
+    html_text=None
     text_style=Style::Outline
     text_palette=Palette::Success
 />"
@@ -330,7 +366,8 @@ pub fn get_tag_text() -> String {
     ondragstart_signal=link.callback(Msg::Dragged)
     text_type=TextType::Tag
     text_size=Size::Medium
-    text=\"tag text\"
+    plain_text=\"tag text\"
+    html_text=None
     text_style=Style::Regular
     text_palette=Palette::Info
 />"
@@ -360,4 +397,28 @@ pub fn navbar_with_a_tag() -> String {
             <RouterAnchor<AppRouter>route=AppRouter::AboutPath>{\"About\"}</RouterAnchor<AppRouter>></NavbarItem>
     </NavbarContainer>
 </Navbar>".to_string()
+}
+
+pub fn get_dropdown() -> String {
+    "<Dropdown
+    main_content=html!{<span>{\"Menu\"}</span>}
+    dropdown_size=Size::Medium
+    >
+    <DropdownItem
+        onclick_signal=self.link.callback(|_| Msg::ChangeMenu(String::from(\"Menu 1\")))>{\"Menu 1\"}</DropdownItem>
+    <DropdownItem
+        onclick_signal=self.link.callback(|_| Msg::ChangeMenu(String::from(\"Menu 2\")))>{\"Menu 2\"}</DropdownItem>
+    <DropdownItem
+        onclick_signal=self.link.callback(|_| Msg::ChangeMenu(String::from(\"Menu 3\")))>{\"Menu 3\"}</DropdownItem>
+</Dropdown>
+
+<div>{self.menu.clone()}</div>".to_string()
+}
+
+pub fn get_spinner() -> String {
+    "<Spinner
+        spinner_type=SpinnerType::Circle
+        spinner_size=Size::Medium
+        spinner_palette=Palette::Info/>"
+        .to_string()
 }

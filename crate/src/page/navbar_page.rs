@@ -2,15 +2,17 @@ use super::highlighters::{navbar_code, navbar_with_a_tag};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 use yew::prelude::*;
+use yew_assets::controller_assets::{ControllerAssets, ControllerIcon};
 use yew_prism::Prism;
 use yew_styles::{
     layouts::container::{JustifyContent, Mode},
     navbar::{
         navbar_component::{Fixed, Navbar},
         navbar_container::NavbarContainer,
+        navbar_dropdown::{NavbarDropdown, NavbarDropdownItem},
         navbar_item::NavbarItem,
     },
-    styles::{Palette, Style},
+    styles::{get_palette, Palette, Style},
 };
 
 pub struct NavbarPage {
@@ -52,7 +54,7 @@ impl Component for NavbarPage {
         NavbarPage {
             link,
             navbar_menu: vec![String::from("home"); 50],
-            item_menu: vec![vec![true, false, false, false]; 50],
+            item_menu: vec![vec![true, false, false, false, false]; 50],
             close_navbar_mobile: false,
         }
     }
@@ -78,19 +80,24 @@ impl Component for NavbarPage {
                     .unwrap()
                     .class_list();
 
-                let target_parent = mouse_event
-                    .target()
-                    .unwrap()
-                    .dyn_into::<Element>()
-                    .unwrap()
-                    .parent_element()
-                    .unwrap()
-                    .tag_name();
+                let target_option = mouse_event.target();
 
-                if !target_class.value().contains("navbar-menu") && target_parent != "svg" {
-                    self.close_navbar_mobile = true;
-                } else {
-                    self.close_navbar_mobile = false
+                if let Some(target) = target_option {
+                    let target_element_option = target.dyn_into::<Element>();
+
+                    if let Ok(target_element) = target_element_option {
+                        let parent_element_option = target_element.parent_element();
+
+                        if let Some(parent_element) = parent_element_option {
+                            let tag_name = parent_element.tag_name();
+
+                            if !target_class.value().contains("navbar-menu") && tag_name != "svg" {
+                                self.close_navbar_mobile = true;
+                            } else {
+                                self.close_navbar_mobile = false
+                            }
+                        }
+                    }
                 }
             }
         };
@@ -139,12 +146,33 @@ impl Component for NavbarPage {
                 <h2>{"Navbar Item properties"}</h2>
                 <ul>
                     <li><b>{"active: "}</b>{"active nav item style. Default "}<code>{"false"}</code></li>
+                    <li><b>{"interaction_effect: "}</b>{"if hove, focus, active effects are enable. Default "}<code>{"true"}</code>{"."}</li>
                     <li><b>{"onclick_signal: "}</b>{"click event for navbar item. Default "}<code>{"noop()"}</code></li>
                     <li><b>{"key: "}</b>{"general property to add keys."}</li>
                     <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
+
+                <h2>{"Navbar Dropdown Container properties"}</h2>
+                <ul>
+                    <li><b>{"main_content: "}</b>{"clickeable content to show the dropdown. Required"}</li>
+                    <li><b>{"active: "}</b>{"show with style when the dropdown is currrently active. Default "}<code>{"false"}</code></li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
+
+                <h2>{"Navbar Dropdown Item properties"}</h2>
+                <ul>
+                    <li><b>{"onclick_signal: "}</b>{"click event for navbar dropdown item. Default "}<code>{"noop()"}</code></li>
+                    <li><b>{"active: "}</b>{"show with style when the dropdown item is currrently active. Default "}<code>{"false"}</code></li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
+
+                <h2>{""}</h2>
 
                 <p><b>{"Note:"}</b>{" for navbar items which include yew routers or"}<code>{" a "}</code>
                     {"tag, add navbar-route in the class_name attribute of the "}<code>{"NavbarItem"}</code>
@@ -244,6 +272,10 @@ fn get_navbar_palette(
             navbar_palette: Palette::Danger,
             name: String::from("Danger"),
         },
+        NavbarType {
+            navbar_palette: Palette::Clean,
+            name: String::from("Clean"),
+        },
     ];
 
     let navbar = types
@@ -254,12 +286,16 @@ fn get_navbar_palette(
                     <h3>{format!("{} {}",style.name.clone(), navbar_palette.name)}</h3>
                     <Navbar
                         fixed=Fixed::None
+                        key=format!("navbar-{}-{}", get_palette(navbar_palette.navbar_palette.clone()), index)
                         navbar_style=style.style.clone()
-                        navbar_palette=navbar_palette.navbar_palette
+                        navbar_palette=navbar_palette.navbar_palette.clone()
                         hide_navbar_items_mobile = close_navbar_mobile
                         branch=html!{<img src="/spielrs_logo.png"/>}
                     >
-                        <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)>
+                        <NavbarContainer
+                            justify_content=JustifyContent::FlexStart(Mode::NoMode)
+                            key=format!("navbar-container-{}-{}", get_palette(navbar_palette.navbar_palette.clone()), index)
+                        >
                             {get_menus(link.clone(), navbar_palette_rendered, item_menu.clone())}
                         </NavbarContainer>
                     </Navbar>
@@ -280,7 +316,14 @@ fn get_navbar_palette(
 }
 
 fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<bool>>) -> Html {
-    let menus = vec!["home", "shop", "about us", "contact us"];
+    let menus = vec![
+        "home",
+        "shop",
+        "about us",
+        "contact us",
+        "menu",
+        "no interaction",
+    ];
 
     menus
         .into_iter()
@@ -288,14 +331,47 @@ fn get_menus(link: ComponentLink<NavbarPage>, index: usize, item_menu: Vec<Vec<b
         .map(|(item_index, menu)| {
             html! {
                 <>
-                    <NavbarItem
-                        key=format!("nabvar-item-{}", item_index)
-                        active= item_menu[index][item_index]
-                        onclick_signal=link.callback(move |_| Msg::ChangeType(index, item_index, String::from(menu))
-                    )
-                    >
-                        <span>{menu}</span>
-                    </NavbarItem>
+                    {
+                        if menu == "no interaction" {
+                            html!{
+                                <NavbarItem
+                                    key=format!("nabvar-item-{}", item_index)
+                                    interaction_effect=false
+                                >
+                                    <span>{menu}</span>
+                                </NavbarItem>
+                            }
+                        } else if menu == "menu" {
+                            html!{
+                                <NavbarDropdown key=format!("dropdown-{}-{}", menu,item_index) active=item_menu[index][item_index] main_content=html!{
+                                        <span>{menu}<ControllerAssets
+                                            icon=ControllerIcon::ChevronDown
+                                            size=("20".to_string(), "20".to_string())
+                                        /></span>
+                                }>
+                                    <NavbarDropdownItem
+                                        key=format!("dropdown-item-{}-{}-1", menu,item_index)
+                                        onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(index, item_index, String::from("menu 1".to_string())))>{"menu 1"}</NavbarDropdownItem>
+                                    <NavbarDropdownItem
+                                        key=format!("dropdown-item-{}-{}-2", menu,item_index)
+                                        onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(index, item_index, String::from("menu 2".to_string())))>{"menu 2"}</NavbarDropdownItem>
+                                    <NavbarDropdownItem
+                                        key=format!("dropdown-item-{}-{}-3", menu,item_index)
+                                        onclick_signal=link.callback(move |_: MouseEvent| Msg::ChangeType(index, item_index, String::from("menu 3".to_string())))>{"menu 3"}</NavbarDropdownItem>
+                                </NavbarDropdown>
+                            }
+                        } else {
+                            html!{
+                                <NavbarItem
+                                key=format!("nabvar-item-{}", item_index)
+                                active= item_menu[index][item_index]
+                                onclick_signal=link.callback(move |_| Msg::ChangeType(index, item_index, String::from(menu)))
+                                >
+                                    <span>{menu}</span>
+                                </NavbarItem>
+                            }
+                        }
+                    }
                 </>
             }
         })

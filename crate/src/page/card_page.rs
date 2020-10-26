@@ -11,7 +11,7 @@ use yew_styles::layouts::{
     container::{Container, Direction, Wrap},
     item::{Item, ItemLayout},
 };
-use yew_styles::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
+use yew_styles::styles::{get_palette, get_size, get_style, Palette, Size, Style};
 
 pub enum Msg {
     Dragged(DragEvent),
@@ -269,6 +269,7 @@ fn get_types(style: Style) -> Html {
         Palette::Success,
         Palette::Warning,
         Palette::Danger,
+        Palette::Clean,
     ];
 
     palette
@@ -280,7 +281,7 @@ fn get_types(style: Style) -> Html {
                         card_style=style.clone()
                         card_palette=card_palette.clone()
                         header=Some(html!{<div class="image">
-                            {get_pallete(card_palette.clone()).to_pascal_case()}
+                            {get_palette(card_palette.clone()).to_pascal_case()}
                         </div>})
                         body=Some(html!{
                             <div class="content">{lipsum(10)}</div>

@@ -1,7 +1,7 @@
 use super::navbar_container::NavbarContainer;
 use super::navbar_item::NavbarItem;
 use crate::layouts::container::{Direction, JustifyContent, Mode};
-use crate::styles::{get_pallete, get_style, Palette, Style};
+use crate::styles::{get_palette, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;
 use yew::Children;
@@ -55,30 +55,30 @@ use yew_assets::ux_assets::{UxAssets, UxIcon};
 ///     fn update(&mut self, msg: Self::Message) -> ShouldRender {
 ///         match msg {
 ///             Msg::ChangeMenu(menu) => {
-///                 let mut console = ConsoleService::new();
-///                 console.log(format!("{}", menu))
+///                 ConsoleService::log(&format!("{}", menu));
 ///             }
-///         }Msg::CloseNavarMobile(mouse_event) => {
-///             let target_class = mouse_event
-///                 .target()
-///                 .unwrap()
-///                 .dyn_into::<Element>()
-///                 .unwrap()
-///                 .class_list();
+///             Msg::CloseNavarMobile(mouse_event) => {
+///                 let target_class = mouse_event
+///                     .target()
+///                     .unwrap()
+///                     .dyn_into::<Element>()
+///                     .unwrap()
+///                     .class_list();
 ///             
-///             let target_parent = mouse_event
-///                 .target()
-///                 .unwrap()
-///                 .dyn_into::<Element>()
-///                 .unwrap()
-///                 .parent_element()
-///                 .unwrap()
-///                 .tag_name();
-///             
-///             if !target_class.value().contains("navbar-menu") && target_parent != "svg" {
-///                 self.close_navbar_mobile = true;
-///             } else {
-///                 self.close_navbar_mobile = false
+///                 let target_parent = mouse_event
+///                     .target()
+///                     .unwrap()
+///                     .dyn_into::<Element>()
+///                     .unwrap()
+///                     .parent_element()
+///                     .unwrap()
+///                     .tag_name();
+///                 
+///                 if !target_class.value().contains("navbar-menu") && target_parent != "svg" {
+///                     self.close_navbar_mobile = true;
+///                 } else {
+///                     self.close_navbar_mobile = false
+///                 }
 ///             }
 ///         }
 ///         false
@@ -133,7 +133,7 @@ pub struct Navbar {
 
 struct NavbarModel;
 
-#[derive(Clone, Properties)]
+#[derive(Clone, Properties, PartialEq)]
 pub struct Props {
     /// Type navbar style. Default `Standard`
     #[prop_or(Palette::Standard)]
@@ -165,7 +165,7 @@ pub struct Props {
     pub children: Children,
 }
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub struct NavbarProps {
     pub navbar_palette: String,
     pub navbar_style: String,
@@ -182,7 +182,7 @@ pub struct NavbarProps {
 impl From<Props> for NavbarProps {
     fn from(props: Props) -> Self {
         NavbarProps {
-            navbar_palette: get_pallete(props.navbar_palette),
+            navbar_palette: get_palette(props.navbar_palette),
             navbar_style: get_style(props.navbar_style),
             hide_navbar_items_mobile: props.hide_navbar_items_mobile,
             key: props.key,
@@ -237,12 +237,16 @@ impl Component for Navbar {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        NavbarModel.init(self.props.clone());
-        self.props = NavbarProps::from(props);
-        if self.props.hide_navbar_items_mobile && self.display_menu {
-            self.display_menu = false;
+        if self.props != NavbarProps::from(props.clone()) {
+            NavbarModel.init(self.props.clone());
+            self.props = NavbarProps::from(props);
+            if self.props.hide_navbar_items_mobile && self.display_menu {
+                self.display_menu = false;
+            }
+            return true;
         }
-        true
+
+        false
     }
 
     fn view(&self) -> Html {
@@ -254,7 +258,7 @@ impl Component for Navbar {
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()
                 >
-                    <div class="navbar-dropdown">
+                    <div class="navbar-collapse">
                         <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)
                         direction=Direction::Row
                         class_name="navbar-container-mobile">

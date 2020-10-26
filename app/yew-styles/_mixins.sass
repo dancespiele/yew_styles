@@ -17,6 +17,25 @@
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
             background-color: transparentize($background, 0.4)
+    
+@mixin spinner-style($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            div[class$="-dot"]:before,
+            div[class$="-rect"]:before,
+            div[class$="-cube"]:before,
+            .sk-grid-cube,
+            .sk-wander-cube,
+            .sk-wave-rect,
+            .sk-swing-dot,
+            .sk-bounce-dot,
+            .sk-flow-dot
+                background: $background
+    
+@mixin spinner-plane-style($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            background: $background
 
 @mixin layout-screen($screen)
     @for $size from 1 through 12
@@ -40,7 +59,24 @@
     &.it-#{$screen}-#{$size}
         flex-basis: 100% / (12/$size)
 
-@mixin navar-style($style)
+@mixin dropdown-style($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            background-color: $background
+            color: $color
+            border: get-border($border-color)
+
+            .dropdown-item
+                &:focus
+                    background-color: darken($background, 5%)
+                &:hover
+                    background-color: darken($background, 10%)
+                &:active, &.active
+                    background-color: darken($background, 15%)
+            
+
+
+@mixin navbar-style($style)
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
             background-color: $background
@@ -53,14 +89,19 @@
 
             .navbar-item
                 padding: 10px
-                cursor: pointer
+                cursor: default
 
-                &:focus
-                    background-color: darken($background, 5%)
-                &:hover
-                    background-color: darken($background, 10%)
-                &:active, &.active
-                    background-color: darken($background, 15%)
+            ul
+                background-color: $background
+
+            .navbar-item.interaction, .navbar-dropdown, .navbar-dropdown-item
+                    cursor: pointer
+                    &:focus
+                        background-color: darken($background, 5%)
+                    &:hover
+                        background-color: darken($background, 10%)
+                    &:active, &.active
+                        background-color: darken($background, 15%)
         
 @mixin get-branch($size)
     .branch

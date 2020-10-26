@@ -31,7 +31,7 @@ Possible candidates are [CssinRust](https://github.com/lukidoescode/css-in-rust)
 1. Install the sass module: `npm install yew-styles`
 2. Add the yew_style crate with the features needed for your project in Cargo.toml file: 
 ```toml
-yew_styles = { version="0.7", features=["button", "text", "navbar"] }
+yew_styles = { version="0.8", features=["button", "text", "navbar"] }
 ```
 3. Import the main.css file in you main javascript/typescript file project: 
 ```typescript
@@ -75,6 +75,7 @@ its logic works, in the same file where it is implemented (test events is not ne
 
 ## Do you like Yew Styles?
 If you like Yew Styles, help us supporting the project:
+- [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
 - [Github Sponsors](https://github.com/sponsors/dancespiele)
 - [Paypal](https://paypal.me/dancespiele?locale.x=en_US)
 
@@ -98,9 +99,9 @@ If you like Yew Styles, help us supporting the project:
 - [x] Form
 - [x] Card
 - [x] Text
-- [ ] Dropdown
+- [x] Dropdown
 - [ ] Progress
-- [ ] Spinners
+- [x] Spinners
 - [ ] Table
 - [ ] Pagination
 - [x] Modal

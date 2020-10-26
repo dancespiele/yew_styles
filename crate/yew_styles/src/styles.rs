@@ -9,9 +9,10 @@ pub enum Palette {
     Warning,
     Danger,
     Standard,
+    Clean,
 }
 
-pub fn get_pallete(palette: Palette) -> String {
+pub fn get_palette(palette: Palette) -> String {
     match palette {
         Palette::Primary => String::from("primary"),
         Palette::Secondary => String::from("secondary"),
@@ -21,6 +22,7 @@ pub fn get_pallete(palette: Palette) -> String {
         Palette::Warning => String::from("warning"),
         Palette::Danger => String::from("danger"),
         Palette::Standard => String::from("standard"),
+        Palette::Clean => String::from("clean"),
     }
 }
 

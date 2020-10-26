@@ -1,0 +1,35 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+
+.dropdown
+    cursor: pointer
+    padding-left: 0
+
+    .main-content, li
+        padding: 8px 10px 8px
+
+    &.small
+        .main-content, li
+            padding: 2px 5px 2px
+    
+    &.big
+        .main-content, li
+            padding: 12px 15px 12px
+
+    ul
+        padding: 0
+        margin-top: 3px
+
+    &.regular
+        @include dropdown-style($regular-style)
+
+    &.outline
+        @include dropdown-style($outline-style)
+
+    &.light
+        @include dropdown-style($light-style)
+
+    li
+        display: block
+        text-decoration: none
+        position: relative

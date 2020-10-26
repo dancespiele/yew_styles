@@ -1,6 +1,6 @@
 [package]
 name = "yew_styles"
-version = "0.7.4"
+version = "0.8.0"
 description = "Framework styles for yew"
 documentation = "https://docs.rs/crate/yew_styles"
 authors = ["Francisco Jesus Navarro Cortes <spieljs@gmail.com>"]
@@ -29,6 +29,8 @@ full = [
     "card",
     "modal",
     "text",
+    "dropdown",
+    "spinner",
 ]
 layouts = []
 button = []
@@ -37,7 +39,8 @@ forms = []
 card = ["layouts"]
 modal = []
 text = []
-
+dropdown = []
+spinner = []
 
 [dependencies]
 wasm-bindgen = "0.2"

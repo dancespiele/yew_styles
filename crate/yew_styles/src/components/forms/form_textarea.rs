@@ -1,5 +1,5 @@
 use super::error_message::get_error_message;
-use crate::styles::{get_pallete, get_size, Palette, Size};
+use crate::styles::{get_palette, get_size, Palette, Size};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -194,7 +194,7 @@ impl Component for FormTextArea {
                     id=self.props.id
                     class=format!("form-textarea {} {} {}",
                     self.props.class_name,
-                    get_pallete(self.props.textarea_style.clone()),
+                    get_palette(self.props.textarea_style.clone()),
                     get_size(self.props.textarea_size.clone()))
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()

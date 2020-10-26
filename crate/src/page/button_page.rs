@@ -3,7 +3,7 @@ use yew::prelude::*;
 use yew_prism::Prism;
 use yew_styles::{
     button::Button,
-    styles::{get_pallete, get_size, get_style, Palette, Size, Style},
+    styles::{get_palette, get_size, get_style, Palette, Size, Style},
 };
 
 pub struct ButtonPage {
@@ -55,7 +55,7 @@ impl Component for ButtonPage {
 
                 <h2>{"Properties"}</h2>
                 <ul>
-                    <li><b>{"button_palette: "}</b>{"type botton style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"button_palette: "}</b>{"type button style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"button_size: "}</b>{"three diffent button standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"button_style: "}</b>{"button styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"onclick_signal: "}</b>{"click event for button. Required."}</li>
@@ -142,6 +142,7 @@ fn get_buttons(
         "Success",
         "Warning",
         "Danger",
+        "CLEAN",
     ];
     let button_palette_enum: Vec<Palette> = vec![
         Palette::Standard,
@@ -152,6 +153,7 @@ fn get_buttons(
         Palette::Success,
         Palette::Warning,
         Palette::Danger,
+        Palette::Clean,
     ];
     let mut index = 0;
 
@@ -169,7 +171,7 @@ fn get_buttons(
                                 button_palette=button_palette_enum[index].clone()
                                 button_style=button_style.clone()
                                 button_size=size.clone()
-                            >{to_first_upercase(&get_pallete(button_palette_enum[index].clone()))}
+                            >{to_first_upercase(&get_palette(button_palette_enum[index].clone()))}
                             </Button>
                         </>
                     };

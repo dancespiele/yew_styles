@@ -2,7 +2,7 @@ use crate::layouts::{
     container::{AlignContent, Container, Direction, Mode, Wrap},
     item::{Item, ItemLayout},
 };
-use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
+use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -286,7 +286,7 @@ impl Component for Card {
                 id=self.props.id
                 class=format!(
                     "card {} {} {} {} {}",
-                    get_pallete(self.props.card_palette.clone()),
+                    get_palette(self.props.card_palette.clone()),
                     if self.props.interaction_effect {
                         "interaction"
                     } else {

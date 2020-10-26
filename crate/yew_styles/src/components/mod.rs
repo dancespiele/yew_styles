@@ -3,6 +3,8 @@ extern crate getrandom;
 pub mod button;
 #[cfg(feature = "card")]
 pub mod card;
+#[cfg(feature = "dropdown")]
+pub mod dropdown;
 #[cfg(feature = "forms")]
 pub mod forms;
 #[cfg(feature = "layouts")]
@@ -11,5 +13,7 @@ pub mod layouts;
 pub mod modal;
 #[cfg(feature = "navbar")]
 pub mod navbar;
+#[cfg(feature = "spinner")]
+pub mod spinner;
 #[cfg(feature = "text")]
 pub mod text;
