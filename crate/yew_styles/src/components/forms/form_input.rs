@@ -1,5 +1,5 @@
 use super::error_message::get_error_message;
-use crate::styles::{get_pallete, get_size, Palette, Size};
+use crate::styles::{get_palette, get_size, Palette, Size};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -230,7 +230,7 @@ impl Component for FormInput {
                     id=self.props.id
                     class=format!(
                         "form-input {} {} {} {}",
-                        get_pallete(self.props.input_palette.clone()),
+                        get_palette(self.props.input_palette.clone()),
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" },
                         self.props.class_name,

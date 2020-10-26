@@ -1,4 +1,4 @@
-use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
+use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
@@ -86,7 +86,7 @@ struct ButtonProps {
 impl From<Props> for ButtonProps {
     fn from(props: Props) -> Self {
         ButtonProps {
-            button_palette: get_pallete(props.button_palette),
+            button_palette: get_palette(props.button_palette),
             button_size: get_size(props.button_size),
             button_style: get_style(props.button_style),
             class_name: props.class_name,

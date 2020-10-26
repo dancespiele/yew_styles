@@ -1,4 +1,4 @@
-use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
+use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -74,7 +74,7 @@ impl Component for FormSubmit {
                 class=format!(
                     "form-submit {} {} {} {}",
                     get_style(self.props.submit_style.clone()),
-                    get_pallete(self.props.submit_palette.clone()),
+                    get_palette(self.props.submit_palette.clone()),
                     get_size(self.props.size.clone()),
                     self.props.class_name,
                 ),

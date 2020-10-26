@@ -1,3 +1,4 @@
+pub mod assets_page;
 pub mod basic_form_page;
 pub mod button_page;
 pub mod card_page;
@@ -8,8 +9,10 @@ pub mod home_page;
 pub mod layouts_page;
 pub mod modal_page;
 pub mod navbar_page;
+pub mod spinner_page;
 pub mod text_page;
 
+pub use self::assets_page::AssetsPage;
 pub use self::basic_form_page::BasicFormPage;
 pub use self::button_page::ButtonPage;
 pub use self::card_page::CardPage;
@@ -19,4 +22,5 @@ pub use self::home_page::HomePage;
 pub use self::layouts_page::LayoutsPage;
 pub use self::modal_page::ModalPage;
 pub use self::navbar_page::NavbarPage;
+pub use self::spinner_page::SpinnerPage;
 pub use self::text_page::TextPage;

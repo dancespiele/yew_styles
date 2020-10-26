@@ -1,4 +1,4 @@
-use crate::styles::{get_pallete, get_size, get_style, Palette, Size, Style};
+use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -87,6 +87,9 @@ pub struct Props {
     /// Size for dropdown
     #[prop_or(Size::Medium)]
     pub dropdown_size: Size,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -131,8 +134,9 @@ impl Component for Dropdown {
     fn view(&self) -> Html {
         html! {
             <div
-                class=("dropdown", self.props.class_name.clone(), get_style(self.props.dropdown_style.clone()), get_pallete(self.props.dropdown_palette.clone()), get_size(self.props.dropdown_size.clone()))
+                class=("dropdown", self.props.class_name.clone(), get_style(self.props.dropdown_style.clone()), get_palette(self.props.dropdown_palette.clone()), get_size(self.props.dropdown_size.clone()))
                 id=self.props.id
+                key=self.props.key.clone()
                 onclick=self.link.callback(|_| Msg::ShowDropdown)
                 >
                 <div class="main-content">{self.props.main_content.clone()}</div>
@@ -163,6 +167,7 @@ fn should_create_dropdown_container() {
         dropdown_palette: Palette::Clean,
         dropdown_size: Size::Medium,
         dropdown_style: Style::Outline,
+        key: String::from("dropdown-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
         children: Children::new(vec![html! {

@@ -414,3 +414,11 @@ pub fn get_dropdown() -> String {
 
 <div>{self.menu.clone()}</div>".to_string()
 }
+
+pub fn get_spinner() -> String {
+    "<Spinner
+        spinner_type=SpinnerType::Circle
+        spinner_size=Size::Medium
+        spinner_palette=Palette::Info/>"
+        .to_string()
+}

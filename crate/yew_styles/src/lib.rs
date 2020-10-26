@@ -17,7 +17,7 @@
 //! 1. Install the sass module: `npm install yew-styles`
 //! 2. Add the yew_style crate with the features needed for your project in Cargo.toml file:
 //! ```toml
-//! yew_styles = { version="0.7", features=["button", "text", "navbar"] }
+//! yew_styles = { version="0.8", features=["button", "text", "navbar"] }
 //! ```
 //! 3. Import the main.css file in you main javascript/typescript file project:
 //! ```typescript
@@ -72,5 +72,7 @@ pub use components::layouts;
 pub use components::modal;
 #[cfg(feature = "navbar")]
 pub use components::navbar;
+#[cfg(feature = "spinner")]
+pub use components::spinner;
 #[cfg(feature = "text")]
 pub use components::text;

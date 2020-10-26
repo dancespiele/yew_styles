@@ -1,0 +1,17 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+    
+div[class^="sk-"]
+    &.small
+        height: 15px
+    
+    &.big
+        height: 100px
+
+    @include spinner-style($regular-style)
+
+.sk-plane, .sk-pulse
+    @include spinner-plane-style($regular-style)
+    
+    
+    

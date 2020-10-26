@@ -115,6 +115,9 @@ pub struct Props {
     #[prop_or(Callback::noop())]
     /// Click event for dropdown item
     pub onclick_signal: Callback<MouseEvent>,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -166,6 +169,7 @@ impl Component for NavbarDropdownItem {
                     ""
                 }, self.props.class_name.clone())
                 id=self.props.id
+                key=self.props.key.clone()
                 onclick=self.link.callback(Msg::Clicked)
             >{self.props.children.clone()}</li>
         }
@@ -173,10 +177,11 @@ impl Component for NavbarDropdownItem {
 }
 
 #[wasm_bindgen_test]
-fn should_create_dropdown_container() {
+fn should_create_dropdown_item() {
     let dropdown_item_props = Props {
         onclick_signal: Callback::noop(),
         active: false,
+        key: String::from("navbar-dropdown-item-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
         children: Children::new(vec![html! {

@@ -1,7 +1,7 @@
 use super::navbar_container::NavbarContainer;
 use super::navbar_item::NavbarItem;
 use crate::layouts::container::{Direction, JustifyContent, Mode};
-use crate::styles::{get_pallete, get_style, Palette, Style};
+use crate::styles::{get_palette, get_style, Palette, Style};
 use crate::utils::create_style;
 use yew::prelude::*;
 use yew::Children;
@@ -182,7 +182,7 @@ pub struct NavbarProps {
 impl From<Props> for NavbarProps {
     fn from(props: Props) -> Self {
         NavbarProps {
-            navbar_palette: get_pallete(props.navbar_palette),
+            navbar_palette: get_palette(props.navbar_palette),
             navbar_style: get_style(props.navbar_style),
             hide_navbar_items_mobile: props.hide_navbar_items_mobile,
             key: props.key,

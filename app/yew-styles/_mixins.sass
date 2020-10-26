@@ -17,6 +17,25 @@
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
             background-color: transparentize($background, 0.4)
+    
+@mixin spinner-style($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            div[class$="-dot"]:before,
+            div[class$="-rect"]:before,
+            div[class$="-cube"]:before,
+            .sk-grid-cube,
+            .sk-wander-cube,
+            .sk-wave-rect,
+            .sk-swing-dot,
+            .sk-bounce-dot,
+            .sk-flow-dot
+                background: $background
+    
+@mixin spinner-plane-style($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            background: $background
 
 @mixin layout-screen($screen)
     @for $size from 1 through 12

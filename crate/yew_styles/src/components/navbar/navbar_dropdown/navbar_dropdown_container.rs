@@ -115,6 +115,9 @@ pub struct NavbarDropdown {
 pub struct Props {
     /// clickeable content to show the dropdown. Required
     pub main_content: Html,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
@@ -173,6 +176,7 @@ impl Component for NavbarDropdown {
                     ""
                 }, self.props.class_name.clone())
                 id=self.props.id
+                key=self.props.key.clone()
                 onmouseover=self.link.callback(|_| Msg::ShowDropdown)
                 onmouseleave=self.link.callback(|_| Msg::HideDropdown)
                 onclick=self.link.callback(|_| Msg::HideDropdown)
@@ -201,6 +205,7 @@ fn should_create_navbar_dropdown_container() {
     let navbar_dropdown_container_props = Props {
         main_content: html! {<div id="test">{"test"}</div>},
         active: false,
+        key: String::from("navbar-dropdown-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
         children: Children::new(vec![html! {
