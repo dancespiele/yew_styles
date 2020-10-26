@@ -52,6 +52,9 @@ impl Component for SpinnerPage {
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles."}</li>
                 </ul>
 
+                <h2>{"Sources"}</h2>
+                <span>{"The spinners are created by "}<a href="https://tobiasahlin.com/spinkit/" target="_blank">{"Tobias Ahlin"}</a>{" and all of them have the most permissive license (MIT)"}</span>
+
                 <h2>{"Visual exmples"}</h2>
 
                 <h3>{"Sizes"}</h3>

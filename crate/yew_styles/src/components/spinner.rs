@@ -1,5 +1,7 @@
 use crate::styles::{get_palette, get_size, Palette, Size};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::{utils, App};
 
 /// # Spinner component
 ///
@@ -273,4 +275,28 @@ fn render_spinner_type(
             {vdots.into_iter().map(|vdot| vdot).collect::<Html>()}
         </div>
     }
+}
+
+wasm_bindgen_test_configure!(run_in_browser);
+
+#[wasm_bindgen_test]
+fn should_create_spinner() {
+    let spinner_props = Props {
+        spinner_palette: Palette::Clean,
+        spinner_type: SpinnerType::Circle,
+        spinner_size: Size::Medium,
+        key: String::from("dropdown-1"),
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
+    };
+
+    let spinner: App<Spinner> = App::new();
+
+    spinner.mount_with_props(
+        utils::document().get_element_by_id("output").unwrap(),
+        spinner_props,
+    );
+
+    let content_element = utils::document().get_element_by_id("id-test").unwrap();
+    assert_eq!(content_element.id(), "id-test".to_string());
 }

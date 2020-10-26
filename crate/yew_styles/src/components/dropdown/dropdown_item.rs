@@ -132,7 +132,7 @@ impl Component for DropdownItem {
 }
 
 #[wasm_bindgen_test]
-fn should_create_dropdown_container() {
+fn should_create_dropdown_item() {
     let dropdown_item_props = Props {
         onclick_signal: Callback::noop(),
         key: String::from("dropdown-item-1"),

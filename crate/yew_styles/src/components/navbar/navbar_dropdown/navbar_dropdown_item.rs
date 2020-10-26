@@ -177,7 +177,7 @@ impl Component for NavbarDropdownItem {
 }
 
 #[wasm_bindgen_test]
-fn should_create_dropdown_container() {
+fn should_create_dropdown_item() {
     let dropdown_item_props = Props {
         onclick_signal: Callback::noop(),
         active: false,
