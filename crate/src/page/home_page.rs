@@ -96,7 +96,7 @@ impl Component for HomePage {
                         <li><a href="https://gitcoin.co/grants/1048/yew-styles" target="_blank">{"Gitcoin"}</a></li>
                         <li>{"BAT rewards in case that you use "}<a href="https://brave.com">{"Brave Browser"}</a></li>
                         <li><a href="https://github.com/sponsors/dancespiele" target="_blank">{"Github Sponsors"}</a></li>
-                        <li>{"Burst coins to the address BURST-DPN6-2AT3-FCRL-9BBKG"}</a></li>
+                        <li>{"Burst coins to the address BURST-DPN6-2AT3-FCRL-9BBKG"}</li>
                     </ul>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
