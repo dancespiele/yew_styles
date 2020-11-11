@@ -7,7 +7,6 @@
         <a href="https://docs.rs/yew_styles/"><img alt="API Docs" src="https://img.shields.io/badge/yew__styles-docs-informational"/></a>
         <a href="https://discord.gg/VQck8X4" target="_blank"><img alt="Discord Chat" src="https://img.shields.io/badge/Discor-Spielrs%20-yellowgreen"/></a>
         <a href="https://github.com/spielrs/yew_styles/blob/master/LICENSE-MIT.md" target="_blank"><img alt="License" src="https://img.shields.io/badge/License-MIT%2FApache--2.0-lightgrey"></a>
-        <a href="https://paypal.me/dancespiele?locale.x=en_US" target="_blank"><img alt="Donate by Paypal" src="https://img.shields.io/badge/Donate-PayPal-green.svg"/></a>
     </p>
 </div>
 
@@ -79,10 +78,11 @@ its logic works, in the same file where it is implemented (test events is not ne
 * Create a component page in `/crate/src/page` with the same structure than the rest of the components
 
 ## Do you like Yew Styles?
-If you like Yew Styles, help us supporting the project:
+If you like Yew Styles, help me supporting the project:
 - [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
+- BAT rewards in case that you use [Brave Browser](https://brave.com/)
 - [Github Sponsors](https://github.com/sponsors/dancespiele)
-- [Paypal](https://paypal.me/dancespiele?locale.x=en_US)
+- Burst coins to the address BURST-DPN6-2AT3-FCRL-9BBKG
 
 ## Code of Conduct
 Please check our [code of conduct](CODE_OF_CONDUCT.md)
