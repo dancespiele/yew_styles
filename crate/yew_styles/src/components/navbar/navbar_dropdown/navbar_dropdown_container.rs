@@ -1,3 +1,4 @@
+use crate::utils::{get_html_element_by_class, get_random_string};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -108,6 +109,7 @@ use yew::{utils, App};
 pub struct NavbarDropdown {
     props: Props,
     show: bool,
+    key: String,
     link: ComponentLink<Self>,
 }
 
@@ -140,9 +142,12 @@ impl Component for NavbarDropdown {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+        let key = get_random_string(10);
+
         Self {
             props,
             link,
+            key,
             show: false,
         }
     }
@@ -167,10 +172,26 @@ impl Component for NavbarDropdown {
         false
     }
 
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            let navbar_dropdown =
+                get_html_element_by_class(&format!("navbar-dropdown-{}", self.key), 0);
+            let navbar_dropdown_width = navbar_dropdown.offset_width();
+
+            let navbar_dropdown_container =
+                get_html_element_by_class(&format!("navbar-dropdown-container-{}", self.key), 0);
+
+            navbar_dropdown_container
+                .style()
+                .set_property("width", &format!("{}px", navbar_dropdown_width))
+                .unwrap()
+        }
+    }
+
     fn view(&self) -> Html {
         html! {
             <div
-                class=("navbar-dropdown", if self.props.active {
+                class=("navbar-dropdown", format!("navbar-dropdown-{}", self.key), if self.props.active {
                     "active"
                 } else {
                     ""
@@ -182,21 +203,17 @@ impl Component for NavbarDropdown {
                 onclick=self.link.callback(|_| Msg::HideDropdown)
                 >
                 <div class="main-content">{self.props.main_content.clone()}</div>
-                {get_items(self.show, self.props.children.clone())}
+                {get_items(self.show, self.key.clone(), self.props.children.clone())}
             </div>
         }
     }
 }
 
-fn get_items(show: bool, children: Children) -> Html {
-    if show {
-        html! {
-            <ul>
-                {children.clone()}
-            </ul>
-        }
-    } else {
-        html! {}
+fn get_items(show: bool, key: String, children: Children) -> Html {
+    html! {
+        <ul class=(format!("navbar-dropdown-container-{}", key), if show { "active"} else {"inactive"})>
+            {children.clone()}
+        </ul>
     }
 }
 
