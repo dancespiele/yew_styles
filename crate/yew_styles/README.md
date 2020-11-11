@@ -74,7 +74,7 @@ its logic works, in the same file where it is implemented (test events is not ne
 * Create a component page in `/crate/src/page` with the same structure than the rest of the components
 
 ## Do you like Yew Styles?
-If you like Yew Styles, help us supporting the project:
+If you like Yew Styles, help me supporting the project:
 - [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
 - BAT rewards in case that you use [Brave Browser](https://brave.com/)
 - [Github Sponsors](https://github.com/sponsors/dancespiele)

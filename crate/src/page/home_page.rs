@@ -91,7 +91,7 @@ impl Component for HomePage {
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"Do you like Yew Styles?"}</h2>
-                    <p>{"If you like Yew Styles, help us supporting the project:"}</p>
+                    <p>{"If you like Yew Styles, help me supporting the project:"}</p>
                     <ul>
                         <li><a href="https://gitcoin.co/grants/1048/yew-styles" target="_blank">{"Gitcoin"}</a></li>
                         <li>{"BAT rewards in case that you use "}<a href="https://brave.com">{"Brave Browser"}</a></li>
