@@ -80,6 +80,8 @@ If you like Yew Styles, help me supporting the project:
 - [Github Sponsors](https://github.com/sponsors/dancespiele)
 - Burst coins to the address BURST-DPN6-2AT3-FCRL-9BBKG
 
+If you need a feature that is not cover yet, as soon as possible, you can also fund the issue [here](https://issuehunt.io/r/spielrs/yew_styles). 
+
 ## Code Contributors
 
 <a href="https://github.com/dancespiele">

@@ -98,6 +98,7 @@ impl Component for HomePage {
                         <li><a href="https://github.com/sponsors/dancespiele" target="_blank">{"Github Sponsors"}</a></li>
                         <li>{"Burst coins to the address BURST-DPN6-2AT3-FCRL-9BBKG"}</li>
                     </ul>
+                    <p>{"If you need a feature that is not cover yet, as soon as possible, you can also fund the issue "}<a href="https://issuehunt.io/r/spielrs/yew_styles">{"here"}</a></p>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"Code of Conduct"}</h2>
