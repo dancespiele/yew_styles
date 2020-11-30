@@ -81,7 +81,7 @@ its logic works, in the same file where it is implemented (test events is not ne
 
 ## Do you like Yew Styles?
 If you like Yew Styles, help me supporting the project:
-- [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
+- Sending coins to the address **0x619d3FA3bD7CF497d9899Ccd4d7b5663Ff318e52**
 - BAT rewards in case that you use [Brave Browser](https://brave.com/)
 - [Github Sponsors](https://github.com/sponsors/dancespiele)
 - Burst coins to the address BURST-DPN6-2AT3-FCRL-9BBKG
