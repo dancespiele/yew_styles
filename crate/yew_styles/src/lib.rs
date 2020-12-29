@@ -62,6 +62,8 @@ mod utils;
 pub use components::button;
 #[cfg(feature = "card")]
 pub use components::card;
+#[cfg(feature = "carousel")]
+pub use components::carousel;
 #[cfg(feature = "dropdown")]
 pub use components::dropdown;
 #[cfg(feature = "forms")]
