@@ -1,13 +1,10 @@
 use crate::styles::{get_size, Size};
 use yew::prelude::*;
-use yew::{utils, App};
 use yew_assets::controller_assets::{ControllerAssets, ControllerIcon};
-use yew_assets::object_assets::{ObjectAssets, ObjectIcon};
 
 pub struct Carousel {
     link: ComponentLink<Self>,
     props: Props,
-    images_total: u32,
 }
 
 #[derive(Clone, Properties, PartialEq)]
@@ -24,13 +21,18 @@ pub struct Props {
     pub dot_controls: bool,
     #[prop_or(Callback::noop())]
     pub dot_signal: Callback<MouseEvent>,
+    #[prop_or_default]
+    pub dot_index: u32,
+    #[prop_or_default]
+    pub class_name: String,
+    #[prop_or_default]
+    pub id: String,
     pub children: Children,
 }
 
 pub enum Msg {
     PrevClicked(MouseEvent),
     NextClicked(MouseEvent),
-    DotClicked(MouseEvent),
 }
 
 impl Component for Carousel {
@@ -38,11 +40,7 @@ impl Component for Carousel {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self {
-            link,
-            props,
-            images_total: 0,
-        }
+        Self { link, props }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -53,11 +51,8 @@ impl Component for Carousel {
             Msg::NextClicked(mouse_event) => {
                 self.props.next_signal.emit(mouse_event);
             }
-            Msg::DotClicked(mouse_event) => {
-                self.props.dot_signal.emit(mouse_event);
-            }
         }
-        false
+        true
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
@@ -69,20 +64,11 @@ impl Component for Carousel {
         false
     }
 
-    fn rendered(&mut self, first_render: bool) {
-        if first_render {
-            self.images_total = utils::document()
-                .get_elements_by_class_name("carousel-image")
-                .length();
-        }
-    }
-
     fn view(&self) -> Html {
         html! {
             <div class=("carousel-container", get_size(self.props.carousel_size.clone()))>
+                {self.props.children.clone()}
                 {get_controls(self.props.controls, self.link.clone())}
-                <div class="carousel-images">{self.props.children.clone()}</div>
-                {get_dots_controls(self.props.dot_controls, self.images_total, self.link.clone())}
             </div>
         }
     }
@@ -108,26 +94,6 @@ fn get_controls(controls: bool, link: ComponentLink<Carousel>) -> Html {
                 </div>
             </div>
         }
-    } else {
-        html! {}
-    }
-}
-
-fn get_dots_controls(dot_controls: bool, images_total: u32, link: ComponentLink<Carousel>) -> Html {
-    if dot_controls && images_total > 0 {
-        let mut dots = vec![];
-        for _i in 0..images_total {
-            dots.push(html! {
-                <div
-                    class="carousel-dot-container"
-                    onclick=link.callback(|e| Msg::DotClicked(e))
-                >
-                    <ObjectAssets icon=ObjectIcon::Circle class_name="carousel-dot"/>
-                </div>
-            });
-        }
-
-        dots.into_iter().collect::<Html>()
     } else {
         html! {}
     }
