@@ -51,7 +51,7 @@ impl Component for Carousel {
 
     fn view(&self) -> Html {
         html! {
-            <div class=("carousel-container", get_size(self.props.carousel_size.clone()))>
+            <div class=("carousel-container", get_size(self.props.carousel_size.clone()), self.props.class_name.clone())>
                 {self.props.children.clone()}
             </div>
         }

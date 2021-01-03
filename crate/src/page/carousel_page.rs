@@ -1,6 +1,9 @@
+use super::highlighters::get_carousel;
 use yew::prelude::*;
 use yew::services::ConsoleService;
+use yew_prism::Prism;
 use yew_styles::carousel::{Carousel, CarouselControls, CarouselDot, CarouselImage};
+use yew_styles::styles::Size;
 
 pub struct CarouselPage {
     link: ComponentLink<Self>,
@@ -84,9 +87,14 @@ impl Component for CarouselPage {
         html! {
             <div>
                 <h1>{"Carousel Component"}</h1>
+                <h2>{"Code Example"}</h2>
+                <Prism
+                    code=get_carousel()
+                    language="rust"
+                />
                 <h2>{"Visual example"}</h2>
                 <div>
-                    <Carousel>
+                    <Carousel class_name="fill-background">
                         {get_images(self.images.to_vec(), self.active_image.to_vec())}
                         {get_dots(self.active_image.to_vec(), self.link.clone())}
                         {get_controls(self.link.clone())}
@@ -124,6 +132,7 @@ fn get_dots(active_image: Vec<bool>, link: ComponentLink<CarouselPage>) -> Html 
 fn get_controls(link: ComponentLink<CarouselPage>) -> Html {
     html! {
         <CarouselControls
+            controls_size=Size::Small
             prev_signal=link.callback(|_| Msg::Prev)
             next_signal=link.callback(|_| Msg::Next)/>
     }

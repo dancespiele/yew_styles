@@ -10,7 +10,7 @@ pub struct CarouselDot {
 #[derive(Clone, Properties, PartialEq)]
 pub struct Props {
     pub onclick_signal: Callback<MouseEvent>,
-    #[prop_or(Palette::Primary)]
+    #[prop_or(Palette::Standard)]
     pub carousel_dot_palette: Palette,
     #[prop_or(false)]
     pub active: bool,
@@ -62,7 +62,8 @@ impl Component for CarouselDot {
                         "active"
                     } else {
                         ""
-                    }
+                    },
+                    self.props.class_name.clone(),
                 )
                 id={self.props.id.clone()}
                 onclick=self.link.callback(|e| Msg::DotClicked(e))

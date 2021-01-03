@@ -1,6 +1,10 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+  
 .carousel-container
   position: relative
   text-align: center
+  border-radius: 2px
 
 .carousel-image
   display: none
@@ -8,9 +12,6 @@
 
   &.active
     display: block
-
-  img
-    width: 100%
 
 .carousel-dot
   cursor: pointer
@@ -20,19 +21,7 @@
   border-radius: 50%
   display: inline-block
 
-  &:active
-      -webkit-animation-name: shadow
-      -webkit-animation-duration: 1.5s
-      animation-name: shadow
-      animation-duration: 1.5s
-
-  &:hover
-    svg
-      fill: #BDBDBD
-
-  &.active
-    svg
-      fill: #000
+  @include carousel-dot-style($light-style)
 
 .carousel-fade
   -webkit-animation-name: fade
@@ -41,13 +30,25 @@
   animation-duration: 1.5s
 
 .carousel-control-left, .carousel-control-right
-  background: #4B4B4B
   border-radius: 50%
   padding: 5px
-  color: #fff
   cursor: pointer
   position: absolute
   top: 40%
+
+  &.small
+    padding: 2px
+
+  &.big
+    padding: 10px
+
+  &.regular
+    @include pallete-style($regular-style, true)
+  &.outline
+    @include pallete-style($outline-style, true)
+  &.light
+    @include pallete-style($light-style, true)
+
   
 .carousel-control-left
   left: 5px
@@ -66,15 +67,3 @@
     opacity: .4
   to 
     opacity: 1
-
-@-webkit-keyframes shadow
-  from 
-    box-shadow: 0
-  to 
-    box-shadow: 0px 8px 2px -1px #4B4B4B
-
-@keyframes shadow
-  from 
-    box-shadow: 0px 8px 2px -1px #4B4B4B
-  to 
-    box-shadow: 0
