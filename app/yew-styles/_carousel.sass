@@ -1,0 +1,80 @@
+.carousel-container
+  position: relative
+  text-align: center
+
+.carousel-image
+  display: none
+  width: 100%
+
+  &.active
+    display: block
+
+  img
+    width: 100%
+
+.carousel-dot
+  cursor: pointer
+  height: 15px
+  width: 15px
+  margin: 0 5px
+  border-radius: 50%
+  display: inline-block
+
+  &:active
+      -webkit-animation-name: shadow
+      -webkit-animation-duration: 1.5s
+      animation-name: shadow
+      animation-duration: 1.5s
+
+  &:hover
+    svg
+      fill: #BDBDBD
+
+  &.active
+    svg
+      fill: #000
+
+.carousel-fade
+  -webkit-animation-name: fade
+  -webkit-animation-duration: 1.5s
+  animation-name: fade
+  animation-duration: 1.5s
+
+.carousel-control-left, .carousel-control-right
+  background: #4B4B4B
+  border-radius: 50%
+  padding: 5px
+  color: #fff
+  cursor: pointer
+  position: absolute
+  top: 40%
+  
+.carousel-control-left
+  left: 5px
+
+.carousel-control-right
+  right: 5px
+
+@-webkit-keyframes fade
+  from 
+    opacity: .4
+  to 
+    opacity: 1
+
+@keyframes fade
+  from 
+    opacity: .4
+  to 
+    opacity: 1
+
+@-webkit-keyframes shadow
+  from 
+    box-shadow: 0
+  to 
+    box-shadow: 0px 8px 2px -1px #4B4B4B
+
+@keyframes shadow
+  from 
+    box-shadow: 0px 8px 2px -1px #4B4B4B
+  to 
+    box-shadow: 0

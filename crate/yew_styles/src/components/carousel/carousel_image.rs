@@ -7,6 +7,8 @@ pub struct CarouselImage {
 #[derive(Clone, Properties, PartialEq)]
 pub struct Props {
     pub img_src: String,
+    #[prop_or(false)]
+    pub active: bool,
     #[prop_or_default]
     pub class_name: String,
     #[prop_or_default]
@@ -36,7 +38,11 @@ impl Component for CarouselImage {
 
     fn view(&self) -> Html {
         html! {
-            <div class="carousel-image carousel-fade">
+            <div class=("carousel-image carousel-fade", if self.props.active {
+                "active"
+            } else {
+                ""
+            })>
                 <img src=self.props.img_src/>
             </div>
         }

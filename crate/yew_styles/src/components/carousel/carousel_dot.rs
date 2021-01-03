@@ -12,6 +12,8 @@ pub struct Props {
     pub onclick_signal: Callback<MouseEvent>,
     #[prop_or(Palette::Primary)]
     pub carousel_dot_palette: Palette,
+    #[prop_or(false)]
+    pub active: bool,
     #[prop_or_default]
     pub class_name: String,
     #[prop_or_default]
@@ -52,11 +54,20 @@ impl Component for CarouselDot {
     fn view(&self) -> Html {
         html! {
             <div
-                class=("carousel-dot", self.props.class_name.clone(), get_palette(self.props.carousel_dot_palette.clone()))
+                class=(
+                    "carousel-dot",
+                    self.props.class_name.clone(),
+                    get_palette(self.props.carousel_dot_palette.clone()),
+                    if self.props.active {
+                        "active"
+                    } else {
+                        ""
+                    }
+                )
                 id={self.props.id.clone()}
                 onclick=self.link.callback(|e| Msg::DotClicked(e))
             >
-                <ObjectAssets icon=ObjectIcon::Circle class_name="carousel-dot-assets"/>
+                <ObjectAssets size=("12".to_string(), "12".to_string()) icon=ObjectIcon::Circle class_name="carousel-dot-assets"/>
             </div>
         }
     }
