@@ -1,4 +1,3 @@
-use crate::styles::{get_size, Size};
 use yew::prelude::*;
 
 pub struct Carousel {
@@ -7,22 +6,16 @@ pub struct Carousel {
 
 #[derive(Clone, Properties, PartialEq)]
 pub struct Props {
-    #[prop_or(Size::Medium)]
-    pub carousel_size: Size,
-    #[prop_or(true)]
-    pub controls: bool,
-    #[prop_or(Callback::noop())]
-    pub prev_signal: Callback<MouseEvent>,
-    #[prop_or(Callback::noop())]
-    pub next_signal: Callback<MouseEvent>,
-    #[prop_or(true)]
-    pub dot_controls: bool,
-    #[prop_or(Callback::noop())]
-    pub dot_signal: Callback<MouseEvent>,
+    /// General property to get the ref of the component
     #[prop_or_default]
-    pub dot_index: u32,
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
     #[prop_or_default]
     pub id: String,
     pub children: Children,
@@ -51,7 +44,11 @@ impl Component for Carousel {
 
     fn view(&self) -> Html {
         html! {
-            <div class=("carousel-container", get_size(self.props.carousel_size.clone()), self.props.class_name.clone())>
+            <div
+                class=("carousel-container", self.props.class_name.clone())
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
+            >
                 {self.props.children.clone()}
             </div>
         }

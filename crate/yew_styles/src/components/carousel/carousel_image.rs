@@ -6,13 +6,23 @@ pub struct CarouselImage {
 
 #[derive(Clone, Properties, PartialEq)]
 pub struct Props {
+    /// Url image path
     pub img_src: String,
     #[prop_or(false)]
+    /// Show the image if it is active
     pub active: bool,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
 }
 
 impl Component for CarouselImage {
@@ -42,7 +52,10 @@ impl Component for CarouselImage {
                 "active"
             } else {
                 ""
-            })>
+            })
+                ref=self.props.code_ref.clone()
+                id=self.props.id
+            >
                 <img src=self.props.img_src/>
             </div>
         }

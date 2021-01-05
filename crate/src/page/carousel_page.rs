@@ -87,11 +87,58 @@ impl Component for CarouselPage {
         html! {
             <div>
                 <h1>{"Carousel Component"}</h1>
+                <h2>{"Features required"}</h2>
+                <span><code>{"Carousel"}</code></span>
+
                 <h2>{"Code Example"}</h2>
                 <Prism
                     code=get_carousel()
                     language="rust"
                 />
+
+                <h2>{"Carousel properties"}</h2>
+                <h3>{"Carousel Container"}</h3>
+                <ul>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
+
+                <h3>{"Carousel Controls"}</h3>
+                <ul>
+                    <li><b>{"prev_signal: "}</b>{"click event for the left control button to go to previous image. Required."}</li>
+                    <li><b>{"next_signal: "}</b>{"click event for the left control button to go to the next image. Required."}</li>
+                    <li><b>{"controls_palette: "}</b>{"type controls style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"controls_size: "}</b>{"three diffent controls standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
+                    <li><b>{"controls_style: "}</b>{"controls styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
+
+                <h3>{"Carousel Dot"}</h3>
+                <ul>
+                    <li><b>{"onclick_signal: "}</b>{"Click event for carousel dot. Required."}</li>
+                    <li><b>{"carousel_dot_palette: "}</b>{"type carousel dot style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
+
+                <h3>{"Carousel Image"}</h3>
+                <ul>
+                    <li><b>{"img_src: "}</b>{"Url image path. Required."}</li>
+                    <li><b>{"active: "}</b>{"Show the image if it is active. "}<code>{"false"}</code>{" by default"}</li>
+                    <li><b>{"carousel_dot_palette: "}</b>{"type carousel dot style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"key: "}</b>{"general property to add keys."}</li>
+                    <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
+                    <li><b>{"id: "}</b>{"general property to add custom id"}</li>
+                    <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                </ul>
+
                 <h2>{"Visual example"}</h2>
                 <div>
                     <Carousel class_name="fill-background">

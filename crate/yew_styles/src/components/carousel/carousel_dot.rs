@@ -9,13 +9,24 @@ pub struct CarouselDot {
 
 #[derive(Clone, Properties, PartialEq)]
 pub struct Props {
+    /// Click event for carousel dot. Required
     pub onclick_signal: Callback<MouseEvent>,
+    /// Type botton style. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub carousel_dot_palette: Palette,
+    /// If the dot is active to add active style
     #[prop_or(false)]
     pub active: bool,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
     #[prop_or_default]
     pub id: String,
 }
@@ -66,6 +77,8 @@ impl Component for CarouselDot {
                     self.props.class_name.clone(),
                 )
                 id={self.props.id.clone()}
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
                 onclick=self.link.callback(|e| Msg::DotClicked(e))
             >
                 <ObjectAssets size=("12".to_string(), "12".to_string()) icon=ObjectIcon::Circle class_name="carousel-dot-assets"/>

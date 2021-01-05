@@ -11,14 +11,25 @@ pub struct CarouselControls {
 pub struct Props {
     pub prev_signal: Callback<MouseEvent>,
     pub next_signal: Callback<MouseEvent>,
+    /// controls styles. Default `Style::Regular`
     #[prop_or(Style::Regular)]
     pub controls_style: Style,
+    /// Type controls style. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub controls_palette: Palette,
+    /// Three diffent button standard sizes. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub controls_size: Size,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
+    /// General property to add keys
+    #[prop_or_default]
+    pub key: String,
+    /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// General property to add custom id
     #[prop_or_default]
     pub id: String,
 }
@@ -60,7 +71,10 @@ impl Component for CarouselControls {
 
     fn view(&self) -> Html {
         html! {
-            <div class="carousel-control">
+            <div class="carousel-control"
+                key=self.props.key.clone()
+                ref=self.props.code_ref.clone()
+            >
                 <div
                     class="carousel-control-left-container"
 
