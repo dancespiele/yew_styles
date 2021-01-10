@@ -30,6 +30,15 @@ pub fn get_html_element_by_class(class_name: &str, index: u32) -> HtmlElement {
         .unwrap()
 }
 
+pub fn get_html_element_by_class(class_name: &str, index: u32) -> HtmlElement {
+    utils::document()
+        .get_elements_by_class_name(class_name)
+        .get_with_index(index)
+        .unwrap()
+        .dyn_into::<HtmlElement>()
+        .unwrap()
+}
+
 wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
