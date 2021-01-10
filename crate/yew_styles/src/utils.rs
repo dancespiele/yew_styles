@@ -17,7 +17,8 @@ pub fn get_random_string(len: usize) -> String {
     thread_rng()
         .sample_iter(&Alphanumeric)
         .take(len)
-        .collect::<String>()
+        .map(char::from)
+        .collect()
 }
 
 pub fn get_html_element_by_class(class_name: &str, index: u32) -> HtmlElement {

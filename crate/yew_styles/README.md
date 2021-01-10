@@ -31,7 +31,7 @@ Possible candidates are [CssinRust](https://github.com/lukidoescode/css-in-rust)
 1. Install the sass module: `npm install yew-styles`
 2. Add the yew_style crate with the features needed for your project in Cargo.toml file: 
 ```toml
-yew_styles = { version="0.8", features=["button", "text", "navbar"] }
+yew_styles = { version="0.9", features=["button", "text", "navbar"] }
 ```
 3. Import the main.css file in you main javascript/typescript file project: 
 ```typescript
@@ -111,7 +111,7 @@ If you need a feature that is not cover yet, as soon as possible, you can also f
 - [ ] Sidebar
 - [ ] Tab
 - [ ] Tooltips
-- [ ] Collapse
+- [x] Collapse
 - [ ] Carousel
 - [ ] Calendar
 - [x] Assets (implemented in the new library [yew_assets](https://github.com/spielrs/yew_assets))

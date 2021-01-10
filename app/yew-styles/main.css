@@ -6998,4 +6998,559 @@ div[class^=sk-].clean .sk-flow-dot {
   background: #fff;
 }
 
+.carousel-container {
+  position: relative;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.carousel-image {
+  display: none;
+  width: 100%;
+}
+.carousel-image.active {
+  display: block;
+}
+
+.carousel-dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 5px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.carousel-dot.standard svg {
+  fill: #faf3f3;
+}
+.carousel-dot.standard:focus svg {
+  fill: #f3e1e1;
+}
+.carousel-dot.standard:hover svg {
+  fill: #ebcfcf;
+}
+.carousel-dot.standard:active svg, .carousel-dot.standard.active svg {
+  fill: #e4bdbd;
+}
+.carousel-dot.primary svg {
+  fill: #e9d7c4;
+}
+.carousel-dot.primary:focus svg {
+  fill: #e2cab1;
+}
+.carousel-dot.primary:hover svg {
+  fill: #dbbe9f;
+}
+.carousel-dot.primary:active svg, .carousel-dot.primary.active svg {
+  fill: #d4b18c;
+}
+.carousel-dot.secondary svg {
+  fill: #ffd9ac;
+}
+.carousel-dot.secondary:focus svg {
+  fill: #ffcd93;
+}
+.carousel-dot.secondary:hover svg {
+  fill: #ffc279;
+}
+.carousel-dot.secondary:active svg, .carousel-dot.secondary.active svg {
+  fill: #ffb660;
+}
+.carousel-dot.success svg {
+  fill: #b6f5c6;
+}
+.carousel-dot.success:focus svg {
+  fill: #a0f2b4;
+}
+.carousel-dot.success:hover svg {
+  fill: #89efa3;
+}
+.carousel-dot.success:active svg, .carousel-dot.success.active svg {
+  fill: #73ec91;
+}
+.carousel-dot.info svg {
+  fill: #cedaff;
+}
+.carousel-dot.info:focus svg {
+  fill: #b5c7ff;
+}
+.carousel-dot.info:hover svg {
+  fill: #9bb3ff;
+}
+.carousel-dot.info:active svg, .carousel-dot.info.active svg {
+  fill: #82a0ff;
+}
+.carousel-dot.link svg {
+  fill: #4fb0ff;
+}
+.carousel-dot.link:focus svg {
+  fill: #36a5ff;
+}
+.carousel-dot.link:hover svg {
+  fill: #1c99ff;
+}
+.carousel-dot.link:active svg, .carousel-dot.link.active svg {
+  fill: #038eff;
+}
+.carousel-dot.warning svg {
+  fill: #fdffa8;
+}
+.carousel-dot.warning:focus svg {
+  fill: #fcff8f;
+}
+.carousel-dot.warning:hover svg {
+  fill: #fcff75;
+}
+.carousel-dot.warning:active svg, .carousel-dot.warning.active svg {
+  fill: #fbff5c;
+}
+.carousel-dot.danger svg {
+  fill: #fdc5c5;
+}
+.carousel-dot.danger:focus svg {
+  fill: #fcacac;
+}
+.carousel-dot.danger:hover svg {
+  fill: #fb9494;
+}
+.carousel-dot.danger:active svg, .carousel-dot.danger.active svg {
+  fill: #fa7b7b;
+}
+.carousel-dot.clean svg {
+  fill: #fff;
+}
+.carousel-dot.clean:focus svg {
+  fill: #f2f2f2;
+}
+.carousel-dot.clean:hover svg {
+  fill: #e6e6e6;
+}
+.carousel-dot.clean:active svg, .carousel-dot.clean.active svg {
+  fill: #d9d9d9;
+}
+
+.carousel-fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+.carousel-control-left, .carousel-control-right {
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 42%;
+}
+.carousel-control-left.small, .carousel-control-right.small {
+  padding: 2px;
+}
+.carousel-control-left.big, .carousel-control-right.big {
+  padding: 10px;
+}
+.carousel-control-left.regular.standard, .carousel-control-right.regular.standard {
+  background-color: #918d94;
+  color: #fff;
+  border: none;
+}
+.carousel-control-left.regular.standard:focus, .carousel-control-right.regular.standard:focus {
+  background-color: #848088;
+}
+.carousel-control-left.regular.standard:hover, .carousel-control-right.regular.standard:hover {
+  background-color: #78737b;
+}
+.carousel-control-left.regular.standard:active, .carousel-control-right.regular.standard:active {
+  background-color: #6b676e;
+}
+.carousel-control-left.regular.primary, .carousel-control-right.regular.primary {
+  background-color: #654016;
+  color: #fff;
+  border: none;
+}
+.carousel-control-left.regular.primary:focus, .carousel-control-right.regular.primary:focus {
+  background-color: #503311;
+}
+.carousel-control-left.regular.primary:hover, .carousel-control-right.regular.primary:hover {
+  background-color: #3b250d;
+}
+.carousel-control-left.regular.primary:active, .carousel-control-right.regular.primary:active {
+  background-color: #261808;
+}
+.carousel-control-left.regular.secondary, .carousel-control-right.regular.secondary {
+  background-color: #c77b21;
+  color: #fff;
+  border: none;
+}
+.carousel-control-left.regular.secondary:focus, .carousel-control-right.regular.secondary:focus {
+  background-color: #b16d1d;
+}
+.carousel-control-left.regular.secondary:hover, .carousel-control-right.regular.secondary:hover {
+  background-color: #9b601a;
+}
+.carousel-control-left.regular.secondary:active, .carousel-control-right.regular.secondary:active {
+  background-color: #855216;
+}
+.carousel-control-left.regular.success, .carousel-control-right.regular.success {
+  background-color: #40C600;
+  color: #fff;
+  border: none;
+}
+.carousel-control-left.regular.success:focus, .carousel-control-right.regular.success:focus {
+  background-color: #38ad00;
+}
+.carousel-control-left.regular.success:hover, .carousel-control-right.regular.success:hover {
+  background-color: #309300;
+}
+.carousel-control-left.regular.success:active, .carousel-control-right.regular.success:active {
+  background-color: #277a00;
+}
+.carousel-control-left.regular.info, .carousel-control-right.regular.info {
+  background-color: #008FD5;
+  color: #fff;
+  border: none;
+}
+.carousel-control-left.regular.info:focus, .carousel-control-right.regular.info:focus {
+  background-color: #007ebc;
+}
+.carousel-control-left.regular.info:hover, .carousel-control-right.regular.info:hover {
+  background-color: #006da2;
+}
+.carousel-control-left.regular.info:active, .carousel-control-right.regular.info:active {
+  background-color: #005c89;
+}
+.carousel-control-left.regular.link, .carousel-control-right.regular.link {
+  background-color: #034DA1;
+  color: #fff;
+  border: none;
+}
+.carousel-control-left.regular.link:focus, .carousel-control-right.regular.link:focus {
+  background-color: #034188;
+}
+.carousel-control-left.regular.link:hover, .carousel-control-right.regular.link:hover {
+  background-color: #02356f;
+}
+.carousel-control-left.regular.link:active, .carousel-control-right.regular.link:active {
+  background-color: #022956;
+}
+.carousel-control-left.regular.warning, .carousel-control-right.regular.warning {
+  background-color: #FFF200;
+  color: #000;
+  border: none;
+}
+.carousel-control-left.regular.warning:focus, .carousel-control-right.regular.warning:focus {
+  background-color: #e6da00;
+}
+.carousel-control-left.regular.warning:hover, .carousel-control-right.regular.warning:hover {
+  background-color: #ccc200;
+}
+.carousel-control-left.regular.warning:active, .carousel-control-right.regular.warning:active {
+  background-color: #b3a900;
+}
+.carousel-control-left.regular.danger, .carousel-control-right.regular.danger {
+  background-color: #ed1c24;
+  color: #fff;
+  border: none;
+}
+.carousel-control-left.regular.danger:focus, .carousel-control-right.regular.danger:focus {
+  background-color: #de1219;
+}
+.carousel-control-left.regular.danger:hover, .carousel-control-right.regular.danger:hover {
+  background-color: #c61017;
+}
+.carousel-control-left.regular.danger:active, .carousel-control-right.regular.danger:active {
+  background-color: #af0e14;
+}
+.carousel-control-left.regular.clean, .carousel-control-right.regular.clean {
+  background-color: #fff;
+  color: #313131;
+  border: none;
+}
+.carousel-control-left.regular.clean:focus, .carousel-control-right.regular.clean:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.regular.clean:hover, .carousel-control-right.regular.clean:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.regular.clean:active, .carousel-control-right.regular.clean:active {
+  background-color: #d9d9d9;
+}
+.carousel-control-left.outline.standard, .carousel-control-right.outline.standard {
+  background-color: #fff;
+  color: #918d94;
+  border: 1px solid #918d94;
+}
+.carousel-control-left.outline.standard:focus, .carousel-control-right.outline.standard:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.outline.standard:hover, .carousel-control-right.outline.standard:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.outline.standard:active, .carousel-control-right.outline.standard:active {
+  background-color: #d9d9d9;
+}
+.carousel-control-left.outline.primary, .carousel-control-right.outline.primary {
+  background-color: #fff;
+  color: #654016;
+  border: 1px solid #654016;
+}
+.carousel-control-left.outline.primary:focus, .carousel-control-right.outline.primary:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.outline.primary:hover, .carousel-control-right.outline.primary:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.outline.primary:active, .carousel-control-right.outline.primary:active {
+  background-color: #d9d9d9;
+}
+.carousel-control-left.outline.secondary, .carousel-control-right.outline.secondary {
+  background-color: #fff;
+  color: #c77b21;
+  border: 1px solid #c77b21;
+}
+.carousel-control-left.outline.secondary:focus, .carousel-control-right.outline.secondary:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.outline.secondary:hover, .carousel-control-right.outline.secondary:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.outline.secondary:active, .carousel-control-right.outline.secondary:active {
+  background-color: #d9d9d9;
+}
+.carousel-control-left.outline.success, .carousel-control-right.outline.success {
+  background-color: #fff;
+  color: #40C600;
+  border: 1px solid #40C600;
+}
+.carousel-control-left.outline.success:focus, .carousel-control-right.outline.success:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.outline.success:hover, .carousel-control-right.outline.success:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.outline.success:active, .carousel-control-right.outline.success:active {
+  background-color: #d9d9d9;
+}
+.carousel-control-left.outline.info, .carousel-control-right.outline.info {
+  background-color: #fff;
+  color: #008FD5;
+  border: 1px solid #008FD5;
+}
+.carousel-control-left.outline.info:focus, .carousel-control-right.outline.info:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.outline.info:hover, .carousel-control-right.outline.info:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.outline.info:active, .carousel-control-right.outline.info:active {
+  background-color: #d9d9d9;
+}
+.carousel-control-left.outline.link, .carousel-control-right.outline.link {
+  background-color: #fff;
+  color: #034DA1;
+  border: 1px solid #034DA1;
+}
+.carousel-control-left.outline.link:focus, .carousel-control-right.outline.link:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.outline.link:hover, .carousel-control-right.outline.link:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.outline.link:active, .carousel-control-right.outline.link:active {
+  background-color: #d9d9d9;
+}
+.carousel-control-left.outline.warning, .carousel-control-right.outline.warning {
+  background-color: #fff;
+  color: #e6bd44;
+  border: 1px solid #e6bd44;
+}
+.carousel-control-left.outline.warning:focus, .carousel-control-right.outline.warning:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.outline.warning:hover, .carousel-control-right.outline.warning:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.outline.warning:active, .carousel-control-right.outline.warning:active {
+  background-color: #d9d9d9;
+}
+.carousel-control-left.outline.danger, .carousel-control-right.outline.danger {
+  background-color: #fff;
+  color: #ed1c24;
+  border: 1px solid #ed1c24;
+}
+.carousel-control-left.outline.danger:focus, .carousel-control-right.outline.danger:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.outline.danger:hover, .carousel-control-right.outline.danger:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.outline.danger:active, .carousel-control-right.outline.danger:active {
+  background-color: #d9d9d9;
+}
+.carousel-control-left.outline.clean, .carousel-control-right.outline.clean {
+  background-color: #fff;
+  color: #313131;
+  border: 1px solid #313131;
+}
+.carousel-control-left.outline.clean:focus, .carousel-control-right.outline.clean:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.outline.clean:hover, .carousel-control-right.outline.clean:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.outline.clean:active, .carousel-control-right.outline.clean:active {
+  background-color: #d9d9d9;
+}
+.carousel-control-left.light.standard, .carousel-control-right.light.standard {
+  background-color: #faf3f3;
+  color: #918d94;
+  border: none;
+}
+.carousel-control-left.light.standard:focus, .carousel-control-right.light.standard:focus {
+  background-color: #f3e1e1;
+}
+.carousel-control-left.light.standard:hover, .carousel-control-right.light.standard:hover {
+  background-color: #ebcfcf;
+}
+.carousel-control-left.light.standard:active, .carousel-control-right.light.standard:active {
+  background-color: #e4bdbd;
+}
+.carousel-control-left.light.primary, .carousel-control-right.light.primary {
+  background-color: #e9d7c4;
+  color: #654016;
+  border: none;
+}
+.carousel-control-left.light.primary:focus, .carousel-control-right.light.primary:focus {
+  background-color: #e2cab1;
+}
+.carousel-control-left.light.primary:hover, .carousel-control-right.light.primary:hover {
+  background-color: #dbbe9f;
+}
+.carousel-control-left.light.primary:active, .carousel-control-right.light.primary:active {
+  background-color: #d4b18c;
+}
+.carousel-control-left.light.secondary, .carousel-control-right.light.secondary {
+  background-color: #ffd9ac;
+  color: #c77b21;
+  border: none;
+}
+.carousel-control-left.light.secondary:focus, .carousel-control-right.light.secondary:focus {
+  background-color: #ffcd93;
+}
+.carousel-control-left.light.secondary:hover, .carousel-control-right.light.secondary:hover {
+  background-color: #ffc279;
+}
+.carousel-control-left.light.secondary:active, .carousel-control-right.light.secondary:active {
+  background-color: #ffb660;
+}
+.carousel-control-left.light.success, .carousel-control-right.light.success {
+  background-color: #b6f5c6;
+  color: #1ca53e;
+  border: none;
+}
+.carousel-control-left.light.success:focus, .carousel-control-right.light.success:focus {
+  background-color: #a0f2b4;
+}
+.carousel-control-left.light.success:hover, .carousel-control-right.light.success:hover {
+  background-color: #89efa3;
+}
+.carousel-control-left.light.success:active, .carousel-control-right.light.success:active {
+  background-color: #73ec91;
+}
+.carousel-control-left.light.info, .carousel-control-right.light.info {
+  background-color: #cedaff;
+  color: #008FD5;
+  border: none;
+}
+.carousel-control-left.light.info:focus, .carousel-control-right.light.info:focus {
+  background-color: #b5c7ff;
+}
+.carousel-control-left.light.info:hover, .carousel-control-right.light.info:hover {
+  background-color: #9bb3ff;
+}
+.carousel-control-left.light.info:active, .carousel-control-right.light.info:active {
+  background-color: #82a0ff;
+}
+.carousel-control-left.light.link, .carousel-control-right.light.link {
+  background-color: #4fb0ff;
+  color: #034DA1;
+  border: none;
+}
+.carousel-control-left.light.link:focus, .carousel-control-right.light.link:focus {
+  background-color: #36a5ff;
+}
+.carousel-control-left.light.link:hover, .carousel-control-right.light.link:hover {
+  background-color: #1c99ff;
+}
+.carousel-control-left.light.link:active, .carousel-control-right.light.link:active {
+  background-color: #038eff;
+}
+.carousel-control-left.light.warning, .carousel-control-right.light.warning {
+  background-color: #fdffa8;
+  color: #99a034;
+  border: none;
+}
+.carousel-control-left.light.warning:focus, .carousel-control-right.light.warning:focus {
+  background-color: #fcff8f;
+}
+.carousel-control-left.light.warning:hover, .carousel-control-right.light.warning:hover {
+  background-color: #fcff75;
+}
+.carousel-control-left.light.warning:active, .carousel-control-right.light.warning:active {
+  background-color: #fbff5c;
+}
+.carousel-control-left.light.danger, .carousel-control-right.light.danger {
+  background-color: #fdc5c5;
+  color: #ed1c24;
+  border: none;
+}
+.carousel-control-left.light.danger:focus, .carousel-control-right.light.danger:focus {
+  background-color: #fcacac;
+}
+.carousel-control-left.light.danger:hover, .carousel-control-right.light.danger:hover {
+  background-color: #fb9494;
+}
+.carousel-control-left.light.danger:active, .carousel-control-right.light.danger:active {
+  background-color: #fa7b7b;
+}
+.carousel-control-left.light.clean, .carousel-control-right.light.clean {
+  background-color: #fff;
+  color: #313131;
+  border: none;
+}
+.carousel-control-left.light.clean:focus, .carousel-control-right.light.clean:focus {
+  background-color: #f2f2f2;
+}
+.carousel-control-left.light.clean:hover, .carousel-control-right.light.clean:hover {
+  background-color: #e6e6e6;
+}
+.carousel-control-left.light.clean:active, .carousel-control-right.light.clean:active {
+  background-color: #d9d9d9;
+}
+
+.carousel-control-left {
+  left: 5px;
+}
+
+.carousel-control-right {
+  right: 5px;
+}
+
+@-webkit-keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /*# sourceMappingURL=main.css.map */

@@ -74,7 +74,21 @@
                 &:active, &.active
                     background-color: darken($background, 15%)
             
+@mixin carousel-dot-style($style)
+    @each $name, $background, $color, $border-color in $style
+        &.#{$name}
+            svg
+                fill: $background
 
+            &:focus
+                svg
+                    fill: darken($background, 5%)
+            &:hover
+                svg
+                    fill: darken($background, 10%)
+            &:active, &.active
+                svg
+                    fill: darken($background, 15%)
 
 @mixin navbar-style($style)
     @each $name, $background, $color, $border-color in $style
