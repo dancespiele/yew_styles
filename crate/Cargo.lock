@@ -442,7 +442,7 @@ checksum = "8dd5a6d5999d9907cda8ed67bbd137d3af8085216c2ac62de5be860bd41f304a"
 [[package]]
 name = "lipsum"
 version = "0.7.0"
-source = "git+https://github.com/dancespiele/lipsum?branch=update-rand#07567c67eccdf26cd57e57d00de6811b6d975046"
+source = "git+https://github.com/mgeisler/lipsum.git#98c2fe10003bb1e618ce40b9799d3d1157bfd6da"
 dependencies = [
  "rand",
  "rand_chacha",
@@ -1149,7 +1149,7 @@ dependencies = [
 
 [[package]]
 name = "yew_style_page"
-version = "0.8.1"
+version = "0.9.0"
 dependencies = [
  "Inflector",
  "cfg-if 1.0.0",
@@ -1171,7 +1171,7 @@ dependencies = [
 
 [[package]]
 name = "yew_styles"
-version = "0.8.1"
+version = "0.9.0"
 dependencies = [
  "getrandom",
  "rand",
