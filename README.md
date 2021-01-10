@@ -7,7 +7,6 @@
         <a href="https://docs.rs/yew_styles/"><img alt="API Docs" src="https://img.shields.io/badge/yew__styles-docs-informational"/></a>
         <a href="https://discord.gg/VQck8X4" target="_blank"><img alt="Discord Chat" src="https://img.shields.io/badge/Discor-Spielrs%20-yellowgreen"/></a>
         <a href="https://github.com/spielrs/yew_styles/blob/master/LICENSE-MIT.md" target="_blank"><img alt="License" src="https://img.shields.io/badge/License-MIT%2FApache--2.0-lightgrey"></a>
-        <a href="https://paypal.me/dancespiele?locale.x=en_US" target="_blank"><img alt="Donate by Paypal" src="https://img.shields.io/badge/Donate-PayPal-green.svg"/></a>
     </p>
 </div>
 
@@ -32,7 +31,7 @@ Possible candidates are [CssinRust](https://github.com/lukidoescode/css-in-rust)
 1. Install the sass module: `npm install yew-styles`
 2. Add the yew_style crate with the features needed for your project in Cargo.toml file: 
 ```toml
-yew_styles = { version="0.8", features=["button", "text", "navbar"] }
+yew_styles = { version="0.9", features=["button", "text", "navbar"] }
 ```
 3. Import the main.css file in you main javascript/typescript file project: 
 ```typescript
@@ -78,11 +77,16 @@ its logic works, in the same file where it is implemented (test events is not ne
 * Documentation in the component showing an example of using it and small description of each prop
 * Create a component page in `/crate/src/page` with the same structure than the rest of the components
 
+
+
 ## Do you like Yew Styles?
-If you like Yew Styles, help us supporting the project:
-- [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
+If you like Yew Styles, help me supporting the project:
+- Sending coins to the address **0x619d3FA3bD7CF497d9899Ccd4d7b5663Ff318e52**
+- BAT rewards in case that you use [Brave Browser](https://brave.com/)
 - [Github Sponsors](https://github.com/sponsors/dancespiele)
-- [Paypal](https://paypal.me/dancespiele?locale.x=en_US)
+- Burst coins to the address BURST-DPN6-2AT3-FCRL-9BBKG
+
+If you need a feature that is not cover yet, as soon as possible, you can also fund the issue [here](https://issuehunt.io/r/spielrs/yew_styles)
 
 ## Code of Conduct
 Please check our [code of conduct](CODE_OF_CONDUCT.md)
@@ -116,7 +120,7 @@ Please check our [code of conduct](CODE_OF_CONDUCT.md)
 - [ ] Sidebar
 - [ ] Tab
 - [ ] Tooltips
-- [ ] Collapse
+- [x] Collapse
 - [ ] Carousel
 - [ ] Calendar
 - [x] Assets (implemented in the new library [yew_assets](https://github.com/spielrs/yew_assets))

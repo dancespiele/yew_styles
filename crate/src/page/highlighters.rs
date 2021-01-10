@@ -422,3 +422,15 @@ pub fn get_spinner() -> String {
         spinner_palette=Palette::Info/>"
         .to_string()
 }
+
+pub fn get_carousel() -> String {
+    "<Carousel class_name=\"fill-background\">
+    <CarouselDot active=active_image[1] onclick_signal = link.callback(move |_| Msg::ChangeImage(1))/>
+    <CarouselDot active=active_image[2] onclick_signal = link.callback(move |_| Msg::ChangeImage(2))/>
+    <CarouselDot active=active_image[3] onclick_signal = link.callback(move |_| Msg::ChangeImage(3))/>
+    <CarouselControls
+        controls_size=Size::Small
+        prev_signal=link.callback(|_| Msg::Prev)
+        next_signal=link.callback(|_| Msg::Next)/>
+</Carousel>".to_string()
+}

@@ -31,7 +31,7 @@ Possible candidates are [CssinRust](https://github.com/lukidoescode/css-in-rust)
 1. Install the sass module: `npm install yew-styles`
 2. Add the yew_style crate with the features needed for your project in Cargo.toml file: 
 ```toml
-yew_styles = { version="0.8", features=["button", "text", "navbar"] }
+yew_styles = { version="0.9", features=["button", "text", "navbar"] }
 ```
 3. Import the main.css file in you main javascript/typescript file project: 
 ```typescript
@@ -74,10 +74,13 @@ its logic works, in the same file where it is implemented (test events is not ne
 * Create a component page in `/crate/src/page` with the same structure than the rest of the components
 
 ## Do you like Yew Styles?
-If you like Yew Styles, help us supporting the project:
+If you like Yew Styles, help me supporting the project:
 - [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
+- BAT rewards in case that you use [Brave Browser](https://brave.com/)
 - [Github Sponsors](https://github.com/sponsors/dancespiele)
-- [Paypal](https://paypal.me/dancespiele?locale.x=en_US)
+- Burst coins to the address BURST-DPN6-2AT3-FCRL-9BBKG
+
+If you need a feature that is not cover yet, as soon as possible, you can also fund the issue [here](https://issuehunt.io/r/spielrs/yew_styles). 
 
 ## Code Contributors
 
@@ -108,7 +111,7 @@ If you like Yew Styles, help us supporting the project:
 - [ ] Sidebar
 - [ ] Tab
 - [ ] Tooltips
-- [ ] Collapse
+- [x] Collapse
 - [ ] Carousel
 - [ ] Calendar
 - [x] Assets (implemented in the new library [yew_assets](https://github.com/spielrs/yew_assets))

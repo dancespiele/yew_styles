@@ -5,15 +5,10 @@ use rand::{distributions::Alphanumeric, thread_rng, Rng};
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use web_sys::{window, HtmlElement};
+use yew::utils;
 
 pub fn create_style(style: String, value: String, wrap: String) {
-    let document = window().unwrap().document().unwrap();
-    let element = document
-        .get_elements_by_class_name(&wrap)
-        .get_with_index(0)
-        .unwrap()
-        .dyn_into::<HtmlElement>()
-        .unwrap();
+    let element = get_html_element_by_class(&wrap, 0);
 
     element.style().set_property(&style, &value).unwrap();
 }
@@ -22,7 +17,17 @@ pub fn get_random_string(len: usize) -> String {
     thread_rng()
         .sample_iter(&Alphanumeric)
         .take(len)
-        .collect::<String>()
+        .map(char::from)
+        .collect()
+}
+
+pub fn get_html_element_by_class(class_name: &str, index: u32) -> HtmlElement {
+    utils::document()
+        .get_elements_by_class_name(class_name)
+        .get_with_index(index)
+        .unwrap()
+        .dyn_into::<HtmlElement>()
+        .unwrap()
 }
 
 wasm_bindgen_test_configure!(run_in_browser);

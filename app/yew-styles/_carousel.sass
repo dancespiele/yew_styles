@@ -1,0 +1,69 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+  
+.carousel-container
+  position: relative
+  text-align: center
+  border-radius: 2px
+
+.carousel-image
+  display: none
+  width: 100%
+
+  &.active
+    display: block
+
+.carousel-dot
+  cursor: pointer
+  height: 15px
+  width: 15px
+  margin: 0 5px
+  border-radius: 50%
+  display: inline-block
+
+  @include carousel-dot-style($light-style)
+
+.carousel-fade
+  -webkit-animation-name: fade
+  -webkit-animation-duration: 1.5s
+  animation-name: fade
+  animation-duration: 1.5s
+
+.carousel-control-left, .carousel-control-right
+  border-radius: 50%
+  padding: 5px
+  cursor: pointer
+  position: absolute
+  top: 42%
+
+  &.small
+    padding: 2px
+
+  &.big
+    padding: 10px
+
+  &.regular
+    @include pallete-style($regular-style, true)
+  &.outline
+    @include pallete-style($outline-style, true)
+  &.light
+    @include pallete-style($light-style, true)
+
+  
+.carousel-control-left
+  left: 5px
+
+.carousel-control-right
+  right: 5px
+
+@-webkit-keyframes fade
+  from 
+    opacity: .4
+  to 
+    opacity: 1
+
+@keyframes fade
+  from 
+    opacity: .4
+  to 
+    opacity: 1

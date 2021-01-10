@@ -1,7 +1,8 @@
 use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
+use crate::utils::get_html_element_by_class;
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
-use web_sys::{Element, HtmlElement};
+use web_sys::Element;
 use yew::prelude::*;
 use yew::{utils, App};
 
@@ -214,14 +215,9 @@ impl Component for Modal {
 
     fn rendered(&mut self, _first_render: bool) {
         if self.props.is_open && self.props.auto_focus {
-            utils::document()
-                .get_elements_by_class_name("modal")
-                .get_with_index(0)
-                .unwrap()
-                .dyn_into::<HtmlElement>()
-                .unwrap()
-                .focus()
-                .unwrap();
+            let modal_form = get_html_element_by_class("modal", 0);
+
+            modal_form.focus().unwrap();
         }
     }
 
