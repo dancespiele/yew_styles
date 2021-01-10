@@ -24,7 +24,8 @@
     "prismjs": "^1.21.0",
     "lodash": ">=4.17.19",
     "express": "^4.17.1",
-    "compression": "^1.7.4"
+    "compression": "^1.7.4",
+    "node-forge": ">=0.10.0"
   },
   "dependencies": {
     "prismjs": "^1.21.0"

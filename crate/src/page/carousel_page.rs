@@ -88,7 +88,7 @@ impl Component for CarouselPage {
             <div>
                 <h1>{"Carousel Component"}</h1>
                 <h2>{"Features required"}</h2>
-                <span><code>{"Carousel"}</code></span>
+                <span><code>{"carousel"}</code></span>
 
                 <h2>{"Code Example"}</h2>
                 <Prism
