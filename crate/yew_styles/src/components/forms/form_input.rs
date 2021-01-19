@@ -51,7 +51,7 @@ use yew::{utils, App};
 ///         html!{
 ///             <FormInput
 ///                 input_type=InputType::Text
-///                 input_type=Palette::Standard
+///                 input_palette=Palette::Standard
 ///                 input_size=Size::Medium
 ///                 id="form-input-example"
 ///                 oninput_signal = form_page.link.callback(|e: InputData| Msg::Input(e.value))
