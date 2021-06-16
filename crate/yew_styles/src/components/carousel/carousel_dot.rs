@@ -207,7 +207,7 @@ impl Component for CarouselDot {
     fn view(&self) -> Html {
         html! {
             <div
-                class=(
+                class=classes!(
                     "carousel-dot",
                     self.props.class_name.clone(),
                     get_palette(self.props.carousel_dot_palette.clone()),
@@ -221,7 +221,7 @@ impl Component for CarouselDot {
                 id={self.props.id.clone()}
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
-                onclick=self.link.callback(|e| Msg::DotClicked(e))
+                onclick=self.link.callback(Msg::DotClicked)
             >
                 <ObjectAssets size=("12".to_string(), "12".to_string()) icon=ObjectIcon::Circle class_name="carousel-dot-assets"/>
             </div>

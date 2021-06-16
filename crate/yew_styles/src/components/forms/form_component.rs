@@ -427,14 +427,14 @@ impl Component for Form {
     fn view(&self) -> Html {
         html! {
             <form
-                onsubmit=self.link.callback(|e: FocusEvent| Msg::Submitted(e))
-                action=self.props.action
+                onsubmit=self.link.callback(Msg::Submitted)
+                action=self.props.action.clone()
                 method=get_method(self.props.method.clone())
-                name=self.props.name
+                name=self.props.name.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
                 class=format!("form {}", self.props.class_name)
-                id=format!("{}", self.props.id)
+                id=self.props.id.to_string()
             >
                 { self.props.children.clone() }
             </form>

@@ -227,13 +227,13 @@ impl Component for FormInput {
         html! {
             <>
                 <input
-                    id=self.props.id
-                    class=format!(
-                        "form-input {} {} {} {}",
+                    id=self.props.id.clone()
+                    class=classes!(
+                        "form-input",
                         get_palette(self.props.input_palette.clone()),
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" },
-                        self.props.class_name,
+                        self.props.class_name.clone(),
                     )
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()
@@ -242,21 +242,21 @@ impl Component for FormInput {
                     checked=self.props.checked
                     onblur=self.link.callback(Msg::Blur)
                     onkeydown=self.link.callback(Msg::KeyPressed)
-                    name=self.props.name
+                    name=self.props.name.clone()
                     required=self.props.required
                     readonly=self.props.readonly
                     disabled=self.props.disabled
-                    placeholder=self.props.placeholder
-                    pattern=self.props.pattern
-                    min=self.props.min
-                    minlength=self.props.minlength
-                    max=self.props.max
-                    maxlength=self.props.maxlength
-                    alt=self.props.alt
+                    placeholder=self.props.placeholder.clone()
+                    pattern=self.props.pattern.clone()
+                    min=self.props.min.to_string()
+                    minlength=self.props.minlength.to_string()
+                    max=self.props.max.to_string()
+                    maxlength=self.props.maxlength.to_string()
+                    alt=self.props.alt.clone()
                     autofocus=self.props.autofocus
-                    autocomplete=self.props.autocomplete
-                    step=self.props.step
-                    list=self.props.list
+                    autocomplete=self.props.autocomplete.to_string()
+                    step=self.props.step.to_string()
+                    list=self.props.list.clone()
                 />
                 {get_error_message(self.props.error_state, self.props.error_message.clone())}
             </>

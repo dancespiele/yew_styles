@@ -186,7 +186,7 @@ impl Component for CarouselControls {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { props, link }
+        Self { link, props }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -215,13 +215,13 @@ impl Component for CarouselControls {
         html! {
             <div class="carousel-control"
                 key=self.props.key.clone()
-                id=self.props.id
+                id=self.props.id.clone()
                 ref=self.props.code_ref.clone()
             >
                 <div
                     class="carousel-control-left-container"
 
-                    onclick=self.link.callback(|e| Msg::PrevClicked(e))>
+                    onclick=self.link.callback(Msg::PrevClicked)>
                     <ControllerAssets
                         size=("50".to_string(),"50".to_string())
                         class_name=format!("carousel-control-left {} {} {} {}",
@@ -235,7 +235,7 @@ impl Component for CarouselControls {
                 </div>
                 <div
                     class="carousel-control-right-container"
-                    onclick=self.link.callback(|e| Msg::NextClicked(e))
+                    onclick=self.link.callback(Msg::NextClicked)
                 >
                     <ControllerAssets
                         size=("50".to_string(),"50".to_string())

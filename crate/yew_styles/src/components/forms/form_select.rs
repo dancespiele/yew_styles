@@ -159,22 +159,22 @@ impl Component for FormSelect {
         html! {
             <>
                 <select
-                    class=format!("form-select {} {}",
+                    class=classes!(
+                        "form-select",
                         get_size(self.props.select_size.clone()),
-                        self.props.class_name,
+                        self.props.class_name.clone()
                     )
-                    id=self.props.id
+                    id=self.props.id.clone()
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()
-                    disabled=self.props.disabled,
-                    name=self.props.name,
-                    autofocus=self.props.autofocus,
-                    required=self.props.required,
-                    multiple=self.props.multiple,
-                    size=self.props.size,
+                    disabled=self.props.disabled
+                    name=self.props.name.clone()
+                    autofocus=self.props.autofocus
+                    required=self.props.required
+                    multiple=self.props.multiple
+                    size=self.props.size.to_string()
                     onchange=self.link.callback(Msg::Selected)
                 >
-
                     {self.props.options.clone()}
                 </select>
                 {get_error_message(self.props.error_state, self.props.error_message.clone())}

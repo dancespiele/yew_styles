@@ -115,10 +115,10 @@ impl Component for FormLabel {
         html! {
             <label
                 class=format!("form-label {}", self.props.class_name)
-                id=self.props.id
+                id=self.props.id.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
-                for=self.props.label_for
+                for=self.props.label_for.clone()
             >{self.props.text.clone()}</label>
         }
     }

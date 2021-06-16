@@ -200,8 +200,8 @@ impl Component for TextPage {
                 <Container wrap = Wrap::Wrap direction = Direction::Row>
                     <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
                         <div
-                            ondrop=self.link.callback(|e| Msg::Dropped(e))
-                            ondragover=self.link.callback(|e| Msg::DraggedOver(e))
+                            ondrop=self.link.callback(Msg::Dropped)
+                            ondragover=self.link.callback(Msg::DraggedOver)
                             class="tag-box"
                         >
                             {get_draggable_tags(self.link.clone())}

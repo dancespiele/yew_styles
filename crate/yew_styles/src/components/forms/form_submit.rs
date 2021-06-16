@@ -71,16 +71,15 @@ impl Component for FormSubmit {
                 type="submit"
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
-                class=format!(
-                    "form-submit {} {} {} {}",
+                class=classes!(
+                    "form-submit",
                     get_style(self.props.submit_style.clone()),
                     get_palette(self.props.submit_palette.clone()),
                     get_size(self.props.size.clone()),
-                    self.props.class_name,
-                ),
+                self.props.class_name.clone())
                 disabled=self.props.disabled
-                id=self.props.id
-                value=self.props.value
+                id=self.props.id.clone()
+                value=self.props.value.clone()
             />
         }
     }
