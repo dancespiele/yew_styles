@@ -75,10 +75,8 @@ its logic works, in the same file where it is implemented (test events is not ne
 
 ## Do you like Yew Styles?
 If you like Yew Styles, help me supporting the project:
-- [Gitcoin](https://gitcoin.co/grants/1048/yew-styles)
 - BAT rewards in case that you use [Brave Browser](https://brave.com/)
-- [Github Sponsors](https://github.com/sponsors/dancespiele)
-- Burst coins to the address BURST-DPN6-2AT3-FCRL-9BBKG
+- Using this link to create an account in [Binance](https://www.binance.com/es/register?ref=DB8EPXF0) (get 10% fee back for every trading)
 
 If you need a feature that is not cover yet, as soon as possible, you can also fund the issue [here](https://issuehunt.io/r/spielrs/yew_styles). 
 
