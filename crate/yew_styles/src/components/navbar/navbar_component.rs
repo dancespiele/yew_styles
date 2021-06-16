@@ -254,7 +254,7 @@ impl Component for Navbar {
             <>
                 <div
                     class=format!("navbar-mobile {} {} {}", self.props.navbar_style, self.props.navbar_palette, self.props.class_name)
-                    id=self.props.id
+                    id=self.props.id.clone()
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()
                 >

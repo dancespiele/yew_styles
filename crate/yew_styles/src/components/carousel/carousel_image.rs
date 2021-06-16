@@ -190,15 +190,15 @@ impl Component for CarouselImage {
 
     fn view(&self) -> Html {
         html! {
-            <div class=("carousel-image carousel-fade", if self.props.active {
+            <div class=classes!("carousel-image", "carousel-fade", if self.props.active {
                 "active"
             } else {
                 ""
             })
                 ref=self.props.code_ref.clone()
-                id=self.props.id
+                id=self.props.id.clone()
             >
-                <img src=self.props.img_src/>
+                <img src=self.props.img_src.clone()/>
             </div>
         }
     }

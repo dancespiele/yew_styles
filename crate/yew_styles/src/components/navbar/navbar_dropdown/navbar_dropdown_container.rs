@@ -191,12 +191,12 @@ impl Component for NavbarDropdown {
     fn view(&self) -> Html {
         html! {
             <div
-                class=("navbar-dropdown", format!("navbar-dropdown-{}", self.key), if self.props.active {
+                class=classes!("navbar-dropdown", format!("navbar-dropdown-{}", self.key), if self.props.active {
                     "active"
                 } else {
                     ""
                 }, self.props.class_name.clone())
-                id=self.props.id
+                id=self.props.id.clone()
                 key=self.props.key.clone()
                 onmouseover=self.link.callback(|_| Msg::ShowDropdown)
                 onmouseleave=self.link.callback(|_| Msg::HideDropdown)
@@ -211,7 +211,7 @@ impl Component for NavbarDropdown {
 
 fn get_items(show: bool, key: String, children: Children) -> Html {
     html! {
-        <ul class=(format!("navbar-dropdown-container-{}", key), if show { "active"} else {"inactive"})>
+        <ul class=classes!(format!("navbar-dropdown-container-{}", key), if show { "active"} else {"inactive"})>
             {children.clone()}
         </ul>
     }

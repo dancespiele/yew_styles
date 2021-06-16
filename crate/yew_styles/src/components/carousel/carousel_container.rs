@@ -187,8 +187,8 @@ impl Component for Carousel {
     fn view(&self) -> Html {
         html! {
             <div
-                class=("carousel-container", self.props.class_name.clone())
-                id=self.props.id
+                class=classes!("carousel-container", self.props.class_name.clone())
+                id=self.props.id.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
             >

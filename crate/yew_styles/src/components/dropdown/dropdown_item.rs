@@ -98,7 +98,7 @@ impl Component for DropdownItem {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { props, link }
+        Self { link, props }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -122,8 +122,8 @@ impl Component for DropdownItem {
     fn view(&self) -> Html {
         html! {
             <li
-                class=("dropdown-item", self.props.class_name.clone())
-                id=self.props.id
+                class=classes!("dropdown-item", self.props.class_name.clone())
+                id=self.props.id.clone()
                 key=self.props.key.clone()
                 onclick=self.link.callback(Msg::Clicked)
             >{self.props.children.clone()}</li>
