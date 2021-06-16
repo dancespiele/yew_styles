@@ -120,8 +120,8 @@ Please check our [code of conduct](CODE_OF_CONDUCT.md)
 - [ ] Sidebar
 - [ ] Tab
 - [ ] Tooltips
-- [x] Collapse
-- [ ] Carousel
+- [ ] Collapse
+- [x] Carousel
 - [ ] Calendar
 - [x] Assets (implemented in the new library [yew_assets](https://github.com/spielrs/yew_assets))
 

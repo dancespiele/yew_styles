@@ -268,11 +268,11 @@ fn render_spinner_type(
     }
     html! {
         <div
-            class=(spinner_type, get_palette(spinner_palette), get_size(spinner_size), class_name)
+            class=classes!(spinner_type.to_owned(), get_palette(spinner_palette), get_size(spinner_size), class_name)
             id=id
             key=key
         >
-            {vdots.into_iter().map(|vdot| vdot).collect::<Html>()}
+            {vdots.into_iter().collect::<Html>()}
         </div>
     }
 }

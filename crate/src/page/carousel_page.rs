@@ -158,7 +158,7 @@ fn get_images(images: Vec<&str>, active_image: Vec<bool>) -> Html {
         .enumerate()
         .map(|(index, image)| {
             html! {
-                <CarouselImage active=active_image[index] img_src=image/>
+                <CarouselImage active=active_image[index] img_src=image.to_owned()/>
             }
         })
         .collect::<Html>()

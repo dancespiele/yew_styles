@@ -108,7 +108,7 @@ impl Component for FormFile {
             <>
                 <input
                     type="file"
-                    id=self.props.id
+                    id=self.props.id.clone()
                     class=format!(
                         "form-file {} {} {} {} {}",
                         get_palette(self.props.input_palette.clone()),
@@ -121,10 +121,10 @@ impl Component for FormFile {
                     ref=self.props.code_ref.clone()
                     onchange=self.link.callback(Msg::Changed)
                     multiple=self.props.multiple
-                    name=self.props.name
-                    alt=self.props.alt
+                    name=self.props.name.clone()
+                    alt=self.props.alt.clone()
                     accept=self.props.accept.join(", ")
-                    capture=self.props.capture
+                    capture=self.props.capture.clone()
                     required=self.props.required
                     readonly=self.props.readonly
                     disabled=self.props.disabled

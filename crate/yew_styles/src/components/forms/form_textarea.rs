@@ -191,28 +191,28 @@ impl Component for FormTextArea {
         html! {
             <>
                 <textarea
-                    id=self.props.id
+                    id=self.props.id.clone()
                     class=format!("form-textarea {} {} {}",
                     self.props.class_name,
                     get_palette(self.props.textarea_style.clone()),
                     get_size(self.props.textarea_size.clone()))
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()
-                    oninput=self.link.callback(|input_data| Msg::Input(input_data))
-                    onblur=self.link.callback(|focus_event| Msg::Blur(focus_event))
-                    onkeydown=self.link.callback(|keyboard_event| Msg::KeyPressed(keyboard_event))
-                    name=self.props.name
-                    autocomplete=self.props.autocomplete
+                    oninput=self.link.callback(Msg::Input)
+                    onblur=self.link.callback(Msg::Blur)
+                    onkeydown=self.link.callback(Msg::KeyPressed)
+                    name=self.props.name.clone()
+                    autocomplete=self.props.autocomplete.to_string()
                     autofocus=self.props.autofocus
                     required=self.props.required
                     readonly=self.props.readonly
                     disabled=self.props.disabled
-                    rows=self.props.rows
-                    placeholder=self.props.placeholder
-                    cols=self.props.cols
-                    spellcheck=self.props.spellcheck
-                    minlength=self.props.minlength
-                    maxlength=self.props.maxlength
+                    rows=self.props.rows.to_string()
+                    placeholder=self.props.placeholder.clone()
+                    cols=self.props.cols.to_string()
+                    spellcheck=self.props.spellcheck.to_string()
+                    minlength=self.props.minlength.to_string()
+                    maxlength=self.props.maxlength.to_string()
                     warp=get_wrap(self.props.wrap.clone())
                 />
                 {get_error_message(self.props.error_state, self.props.error_message.clone())}

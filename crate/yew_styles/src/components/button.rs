@@ -168,7 +168,7 @@ impl Component for Button {
                     self.props.class_name.clone())
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
-                id=self.props.id
+                id=self.props.id.clone()
             > { self.props.children.clone() }
             </button>
         }

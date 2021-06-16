@@ -175,8 +175,8 @@ impl Component for CardPage {
                 <h3>{"Drag and drop"}</h3>
                     <Container direction=Direction::Row wrap=Wrap::Wrap>
                         <Item layouts=vec!(ItemLayout::ItL(4), ItemLayout::ItM(6), ItemLayout::ItXs(12))>
-                        <div ondrop=self.link.callback(|e| Msg::Dropped(e))
-                            ondragover=self.link.callback(|e| Msg::DraggedOver(e))
+                        <div ondrop=self.link.callback(Msg::Dropped)
+                            ondragover=self.link.callback(Msg::DraggedOver)
                             class="box">
                             {"Box 1"}
                             <Card

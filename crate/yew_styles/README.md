@@ -111,7 +111,7 @@ If you need a feature that is not cover yet, as soon as possible, you can also f
 - [ ] Sidebar
 - [ ] Tab
 - [ ] Tooltips
-- [x] Collapse
-- [ ] Carousel
+- [ ] Collapse
+- [x] Carousel
 - [ ] Calendar
 - [x] Assets (implemented in the new library [yew_assets](https://github.com/spielrs/yew_assets))
