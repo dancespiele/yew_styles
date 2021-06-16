@@ -93,10 +93,11 @@ impl Component for HomePage {
                     <h2>{"Do you like Yew Styles?"}</h2>
                     <p>{"If you like Yew Styles, help me supporting the project:"}</p>
                     <ul>
-                        <li><a href="https://gitcoin.co/grants/1048/yew-styles" target="_blank">{"Gitcoin"}</a></li>
                         <li>{"BAT rewards in case that you use "}<a href="https://brave.com">{"Brave Browser"}</a></li>
-                        <li><a href="https://github.com/sponsors/dancespiele" target="_blank">{"Github Sponsors"}</a></li>
-                        <li>{"Burst coins to the address BURST-DPN6-2AT3-FCRL-9BBKG"}</li>
+                        <li>{"Using this link to create an account in "}<a href="https://www.binance.com/es/register?ref=DB8EPXF0">{"Binance"}</a>{
+                            "(get 10% fee back for every trading)"
+                        }
+                        </li>
                     </ul>
                     <p>{"If you need a feature that is not cover yet, as soon as possible, you can also fund the issue "}<a href="https://issuehunt.io/r/spielrs/yew_styles">{"here"}</a></p>
                 </Item>
