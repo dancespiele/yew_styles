@@ -94,7 +94,7 @@ impl Component for HomePage {
                     <p>{"If you like Yew Styles, help me supporting the project:"}</p>
                     <ul>
                         <li>{"BAT rewards in case that you use "}<a href="https://brave.com">{"Brave Browser"}</a></li>
-                        <li>{"Using this link to create an account in "}<a href="https://www.binance.com/es/register?ref=DB8EPXF0">{"Binance"}</a>{
+                        <li>{"Using this link to create an account in "}<a href="https://www.binance.com/en/register?ref=DB8EPXF0">{"Binance"}</a>{
                             "(get 10% fee back for every trading)"
                         }
                         </li>
