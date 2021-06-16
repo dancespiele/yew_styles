@@ -121,7 +121,7 @@ impl Component for FormGroup {
         html! {
             <div
                 class=format!("form-group {} {}", get_orientation(self.props.orientation.clone()), self.props.class_name)
-                id=self.props.id
+                id=self.props.id.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
                 >

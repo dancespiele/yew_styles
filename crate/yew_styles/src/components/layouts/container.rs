@@ -209,7 +209,7 @@ impl Component for Container {
     fn view(&self) -> Html {
         html! {
             <div class=format!("container container-{} {}", self.key, self.props.class_name)
-                id=format!("{}", self.props.id)
+                id=self.props.id.to_string()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
             >

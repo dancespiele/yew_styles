@@ -388,7 +388,7 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                     id =props.id
                     key=props.key
                     ref=props.code_ref
-                    draggable = props.draggable
+                    draggable = props.draggable.to_string()
                     ondrag = link.callback(Msg::Draged)
                     ondragend = link.callback(Msg::DragedEnd)
                     ondragenter = link.callback(Msg::DragedEnter)

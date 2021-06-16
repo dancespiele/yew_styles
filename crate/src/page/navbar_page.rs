@@ -107,7 +107,7 @@ impl Component for NavbarPage {
 
     fn view(&self) -> Html {
         html! {
-            <div onclick=self.link.callback(|e| Msg::CloseNavarMobile(e))>
+            <div onclick=self.link.callback(Msg::CloseNavarMobile)>
                 <h1>{"Navbar Components"}</h1>
 
                 <h2>{"Features required"}</h2>

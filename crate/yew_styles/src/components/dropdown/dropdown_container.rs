@@ -134,8 +134,8 @@ impl Component for Dropdown {
     fn view(&self) -> Html {
         html! {
             <div
-                class=("dropdown", self.props.class_name.clone(), get_style(self.props.dropdown_style.clone()), get_palette(self.props.dropdown_palette.clone()), get_size(self.props.dropdown_size.clone()))
-                id=self.props.id
+                class=classes!("dropdown", self.props.class_name.clone(), get_style(self.props.dropdown_style.clone()), get_palette(self.props.dropdown_palette.clone()), get_size(self.props.dropdown_size.clone()))
+                id=self.props.id.clone()
                 key=self.props.key.clone()
                 onclick=self.link.callback(|_| Msg::ShowDropdown)
                 >

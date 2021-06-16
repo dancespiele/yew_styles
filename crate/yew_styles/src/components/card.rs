@@ -283,7 +283,7 @@ impl Component for Card {
     fn view(&self) -> Html {
         html! {
             <div
-                id=self.props.id
+                id=self.props.id.clone()
                 class=format!(
                     "card {} {} {} {} {}",
                     get_palette(self.props.card_palette.clone()),
@@ -298,7 +298,7 @@ impl Component for Card {
                 )
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
-                draggable = self.props.draggable
+                draggable = self.props.draggable.to_string()
                 ondrag = self.link.callback(Msg::Draged)
                 ondragend = self.link.callback(Msg::DragedEnd)
                 ondragenter = self.link.callback(Msg::DragedEnter)
@@ -352,7 +352,7 @@ fn get_content(
 fn get_content_part(content: Option<Html>, size: i8, class_content: &str) -> Html {
     if let Some(content_node) = content {
         html! {
-            <Item layouts=vec!(ItemLayout::ItXs(size)) class_name=class_content>
+            <Item layouts=vec!(ItemLayout::ItXs(size)) class_name=class_content.to_owned()>
                 {content_node}
             </Item>
         }

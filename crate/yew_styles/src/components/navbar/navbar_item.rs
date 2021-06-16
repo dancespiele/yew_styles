@@ -169,7 +169,7 @@ impl Component for NavbarItem {
                     ""
                 },
                 self.props.class_name)
-                id=self.props.id
+                id=self.props.id.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
                 onclick=self.link.callback(Msg::Clicked)

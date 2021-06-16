@@ -390,7 +390,7 @@ fn get_form_file(form_page: &FormPage) -> Html {
                     />
                     {if !form_page.file_path.is_empty() {
                         html!{
-                            <img alt="example image" src=form_page.file_path/>
+                            <img alt="example image" src=form_page.file_path.clone()/>
                         }
                     } else {
                         html!{}

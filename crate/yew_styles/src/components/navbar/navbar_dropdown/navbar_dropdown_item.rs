@@ -139,7 +139,7 @@ impl Component for NavbarDropdownItem {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { props, link }
+        Self { link, props }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -163,12 +163,12 @@ impl Component for NavbarDropdownItem {
     fn view(&self) -> Html {
         html! {
             <li
-                class=("navbar-dropdown-item",if self.props.active {
+                class=classes!("navbar-dropdown-item",if self.props.active {
                     "active"
                 } else {
                     ""
                 }, self.props.class_name.clone())
-                id=self.props.id
+                id=self.props.id.clone()
                 key=self.props.key.clone()
                 onclick=self.link.callback(Msg::Clicked)
             >{self.props.children.clone()}</li>
