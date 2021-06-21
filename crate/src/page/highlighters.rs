@@ -424,7 +424,14 @@ pub fn get_spinner() -> String {
 }
 
 pub fn get_carousel() -> String {
-    "<Carousel class_name=\"fill-background\">
+    "<Carousel
+    class_name=\"fill-background\"
+    onwheel_signal= self.link.callback(Msg::Scroll)
+    onmouseover_signal= self.link.callback(|_| Msg::ShowScroll)
+    onmouseleave_signal= self.link.callback(|_| Msg::HideScroll)>
+    <CarouselImage active=active_image[1] img_src=image.to_owned()/>
+    <CarouselImage active=active_image[2] img_src=image.to_owned()/>
+    <CarouselImage active=active_image[3] img_src=image.to_owned()/>
     <CarouselDot active=active_image[1] onclick_signal = link.callback(move |_| Msg::ChangeImage(1))/>
     <CarouselDot active=active_image[2] onclick_signal = link.callback(move |_| Msg::ChangeImage(2))/>
     <CarouselDot active=active_image[3] onclick_signal = link.callback(move |_| Msg::ChangeImage(3))/>

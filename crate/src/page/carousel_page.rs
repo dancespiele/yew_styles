@@ -1,6 +1,7 @@
 use super::highlighters::get_carousel;
 use yew::prelude::*;
 use yew::services::ConsoleService;
+use yew::utils::document;
 use yew_prism::Prism;
 use yew_styles::carousel::{Carousel, CarouselControls, CarouselDot, CarouselImage};
 use yew_styles::styles::Size;
@@ -13,6 +14,9 @@ pub struct CarouselPage {
 
 pub enum Msg {
     ChangeImage(usize),
+    Scroll(WheelEvent),
+    ShowScroll,
+    HideScroll,
     Prev,
     Next,
 }
@@ -74,6 +78,41 @@ impl Component for CarouselPage {
                     ConsoleService::error("no image active")
                 }
             }
+            Msg::Scroll(wheel_event) => {
+                let len = self.active_image.len();
+                let index_opt = self.active_image.to_vec().into_iter().position(|ai| ai);
+                for (i, _) in self.active_image.clone().into_iter().enumerate() {
+                    self.active_image[i] = false;
+                }
+
+                if wheel_event.delta_y() > 0.00 {
+                    if let Some(index) = index_opt {
+                        if index == 0 {
+                            self.active_image[len - 1] = true
+                        } else {
+                            self.active_image[index - 1] = true
+                        }
+                    } else {
+                        ConsoleService::error("no image active")
+                    }
+                } else if let Some(index) = index_opt {
+                    if index == len - 1 {
+                        self.active_image[0] = true
+                    } else {
+                        self.active_image[index + 1] = true
+                    }
+                } else {
+                    ConsoleService::error("no image active")
+                }
+            }
+            Msg::ShowScroll => {
+                let body_style = document().body().unwrap().style();
+                body_style.set_property("overflow", "hidden").unwrap();
+            }
+            Msg::HideScroll => {
+                let body_style = document().body().unwrap().style();
+                body_style.set_property("overflow", "scroll").unwrap();
+            }
         }
 
         true
@@ -99,10 +138,14 @@ impl Component for CarouselPage {
                 <h2>{"Carousel properties"}</h2>
                 <h3>{"Carousel Container"}</h3>
                 <ul>
+                    <li><b>{"onwheel_signal: "}</b>{"wheel event for carousel."}</li>
+                    <li><b>{"onmouseover_signal: "}</b>{"mouse over event for carousel."}</li>
+                    <li><b>{"onmouseleave_signal: "}</b>{"mouse leave event for carousel."}</li>
                     <li><b>{"key: "}</b>{"general property to add keys."}</li>
                     <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+
                 </ul>
 
                 <h3>{"Carousel Controls"}</h3>
@@ -141,7 +184,11 @@ impl Component for CarouselPage {
 
                 <h2>{"Visual example"}</h2>
                 <div>
-                    <Carousel class_name="fill-background">
+                    <Carousel
+                        class_name="fill-background"
+                        onwheel_signal= self.link.callback(Msg::Scroll)
+                        onmouseover_signal= self.link.callback(|_| Msg::ShowScroll)
+                        onmouseleave_signal= self.link.callback(|_| Msg::HideScroll)>
                         {get_images(self.images.to_vec(), self.active_image.to_vec())}
                         {get_dots(self.active_image.to_vec(), self.link.clone())}
                         {get_controls(self.link.clone())}
