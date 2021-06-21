@@ -14,10 +14,12 @@ use yew::{utils, App};
 /// use super::highlighters::get_carousel;
 /// use yew::prelude::*;
 /// use yew::services::ConsoleService;
+/// use yew::utils::document;
+/// use yew_prism::Prism;
 /// use yew_styles::carousel::{Carousel, CarouselControls, CarouselDot, CarouselImage};
 /// use yew_styles::styles::Size;
 ///
-/// pub struct App {
+/// pub struct CarouselPage {
 ///     link: ComponentLink<Self>,
 ///     images: Vec<&'static str>,
 ///     active_image: Vec<bool>,
@@ -25,11 +27,14 @@ use yew::{utils, App};
 ///
 /// pub enum Msg {
 ///     ChangeImage(usize),
+///     Scroll(WheelEvent),
+///     ShowScroll,
+///     HideScroll,
 ///     Prev,
 ///     Next,
 /// }
 ///
-/// impl Component for App {
+/// impl Component for CarouselPage {
 ///     type Message = Msg;
 ///     type Properties = ();
 ///
@@ -86,6 +91,41 @@ use yew::{utils, App};
 ///                     ConsoleService::error("no image active")
 ///                 }
 ///             }
+///             Msg::Scroll(wheel_event) => {
+///                 let len = self.active_image.len();
+///                 let index_opt = self.active_image.to_vec().into_iter().position(|ai| ai);
+///                 for (i, _) in self.active_image.clone().into_iter().enumerate() {
+///                     self.active_image[i] = false;
+///                 }
+///
+///                 if wheel_event.delta_y() > 0.00 {
+///                     if let Some(index) = index_opt {
+///                         if index == 0 {
+///                             self.active_image[len - 1] = true
+///                         } else {
+///                             self.active_image[index - 1] = true
+///                         }
+///                     } else {
+///                         ConsoleService::error("no image active")
+///                     }
+///                 } else if let Some(index) = index_opt {
+///                     if index == len - 1 {
+///                         self.active_image[0] = true
+///                     } else {
+///                         self.active_image[index + 1] = true
+///                     }
+///                 } else {
+///                     ConsoleService::error("no image active")
+///                 }
+///             }
+///             Msg::ShowScroll => {
+///                 let body_style = document().body().unwrap().style();
+///                 body_style.set_property("overflow", "hidden").unwrap();
+///             }
+///             Msg::HideScroll => {
+///                 let body_style = document().body().unwrap().style();
+///                 body_style.set_property("overflow", "scroll").unwrap();
+///             }
 ///         }
 ///
 ///         true
@@ -135,10 +175,15 @@ use yew::{utils, App};
 ///
 /// fn get_controls(link: ComponentLink<App>) -> Html {
 ///     html! {
-///         <CarouselControls
-///             controls_size=Size::Small
-///             prev_signal=link.callback(|_| Msg::Prev)
-///             next_signal=link.callback(|_| Msg::Next)/>
+///         <Carousel
+///             class_name="fill-background"
+///             onwheel_signal= self.link.callback(Msg::Scroll)
+///             onmouseover_signal= self.link.callback(|_| Msg::ShowScroll)
+///             onmouseleave_signal= self.link.callback(|_| Msg::HideScroll)>
+///             {get_images(self.images.to_vec(), self.active_image.to_vec())}
+///             {get_dots(self.active_image.to_vec(), self.link.clone())}
+///             {get_controls(self.link.clone())}
+///         </Carousel>
 ///     }
 /// }
 /// ```
