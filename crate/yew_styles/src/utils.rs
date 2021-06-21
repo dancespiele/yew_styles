@@ -88,6 +88,6 @@ fn should_generate_random_string() {
             index += 1;
             exist
         });
-        assert_eq!(*repeat, false);
+        assert!(!*repeat);
     }
 }

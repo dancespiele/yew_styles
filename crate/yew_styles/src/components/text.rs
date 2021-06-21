@@ -510,7 +510,7 @@ fn should_create_plain_text() {
         .get_elements_by_class_name("plain-text")
         .get_with_index(0);
 
-    assert_eq!(plain_text_element.is_some(), true);
+    assert!(plain_text_element.is_some());
 }
 
 #[wasm_bindgen_test]
@@ -552,7 +552,7 @@ fn should_create_paragraph_text() {
         .get_elements_by_class_name("paragraph-text")
         .get_with_index(0);
 
-    assert_eq!(paragraph_text_element.is_some(), true);
+    assert!(paragraph_text_element.is_some());
 }
 
 #[wasm_bindgen_test]
@@ -594,7 +594,7 @@ fn should_create_alert_text() {
         .get_elements_by_class_name("alert-text")
         .get_with_index(0);
 
-    assert_eq!(alert_text_element.is_some(), true);
+    assert!(alert_text_element.is_some());
 }
 
 #[wasm_bindgen_test]
@@ -636,7 +636,7 @@ fn should_create_tag_text() {
         .get_elements_by_class_name("tag-text")
         .get_with_index(0);
 
-    assert_eq!(tag_text_element.is_some(), true);
+    assert!(tag_text_element.is_some());
 }
 
 #[wasm_bindgen_test]
@@ -678,5 +678,5 @@ fn should_add_delete_icon_tag_text() {
         .get_elements_by_class_name("tag-delete")
         .get_with_index(0);
 
-    assert_eq!(tag_text_element.is_some(), true);
+    assert!(tag_text_element.is_some());
 }
