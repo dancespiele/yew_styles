@@ -21,14 +21,14 @@
     "parcel-plugin-static-files-copy": "^2.3.1",
     "sass": "^1.26.5",
     "typescript": "^3.8.3",
-    "prismjs": "^1.21.0",
+    "prismjs": "^1.24.0",
     "lodash": ">=4.17.19",
     "express": "^4.17.1",
     "compression": "^1.7.4",
     "node-forge": ">=0.10.0"
   },
   "dependencies": {
-    "prismjs": "^1.21.0"
+    "prismjs": "^1.24.0"
   },
   "staticFiles": {
     "staticPath": [
