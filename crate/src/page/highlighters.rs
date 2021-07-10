@@ -45,11 +45,11 @@ pub fn navbar_code() -> String {
                 <span>{\"Shop\"}</span>
             </NavbarItem>
             <NavbarItem
-                onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from(\"About us\")))>   
+                onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from(\"About us\")))>
                 <span>{\"About us\"}</span>
             </NavbarItem>
             <NavbarItem
-                onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from(\"Contact\")))>   
+                onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from(\"Contact\")))>
                 <span>{\"Contact\"}</span>
             </NavbarItem>
             <NavbarDropdown main_content=html!{
@@ -60,7 +60,7 @@ pub fn navbar_code() -> String {
             }>
                 <NavbarDropdownItem
                     onclick_signal=link
-                        .callback(move |_: MouseEvent| Msg::ChangeType(String::from(\"menu 1\".to_string())))>{\"menu 1\"}        
+                        .callback(move |_: MouseEvent| Msg::ChangeType(String::from(\"menu 1\".to_string())))>{\"menu 1\"}
                 </NavbarDropdownItem>
                 <NavbarDropdownItem
                     onclick_signal=link
@@ -432,9 +432,15 @@ pub fn get_carousel() -> String {
     <CarouselImage active=active_image[1] img_src=image.to_owned()/>
     <CarouselImage active=active_image[2] img_src=image.to_owned()/>
     <CarouselImage active=active_image[3] img_src=image.to_owned()/>
-    <CarouselDot active=active_image[1] onclick_signal = link.callback(move |_| Msg::ChangeImage(1))/>
-    <CarouselDot active=active_image[2] onclick_signal = link.callback(move |_| Msg::ChangeImage(2))/>
-    <CarouselDot active=active_image[3] onclick_signal = link.callback(move |_| Msg::ChangeImage(3))/>
+    <CarouselDot active=active_image[1] onclick_signal = link.callback(move |_| Msg::ChangeImage(1))>
+        <CommunicationAssets size=(\"12\".to_string(), \"12\".to_string()) icon=CommunicationIcon::Smile/>
+    </CarouselDot>
+    <CarouselDot active=active_image[2] onclick_signal = link.callback(move |_| Msg::ChangeImage(2))>
+        <CommunicationAssets size=(\"12\".to_string(), \"12\".to_string()) icon=CommunicationIcon::Smile/>
+    </CarouselDot>
+    <CarouselDot active=active_image[3] onclick_signal = link.callback(move |_| Msg::ChangeImage(3))>
+        <CommunicationAssets size=(\"12\".to_string(), \"12\".to_string()) icon=CommunicationIcon::Smile/>
+    </CarouselDot>
     <CarouselControls
         controls_size=Size::Small
         prev_signal=link.callback(|_| Msg::Prev)
