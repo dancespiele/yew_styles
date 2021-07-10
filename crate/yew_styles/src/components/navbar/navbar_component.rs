@@ -64,7 +64,7 @@ use yew_assets::ux_assets::{UxAssets, UxIcon};
 ///                     .dyn_into::<Element>()
 ///                     .unwrap()
 ///                     .class_list();
-///             
+///
 ///                 let target_parent = mouse_event
 ///                     .target()
 ///                     .unwrap()
@@ -73,7 +73,7 @@ use yew_assets::ux_assets::{UxAssets, UxIcon};
 ///                     .parent_element()
 ///                     .unwrap()
 ///                     .tag_name();
-///                 
+///
 ///                 if !target_class.value().contains("navbar-menu") && target_parent != "svg" {
 ///                     self.close_navbar_mobile = true;
 ///                 } else {
@@ -111,11 +111,11 @@ use yew_assets::ux_assets::{UxAssets, UxIcon};
 ///                                 <span>{"Shop"}</span>
 ///                             </NavbarItem>
 ///                             <NavbarItem
-///                                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>   
+///                                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>
 ///                                 <span>{"About us"}</span>
 ///                             </NavbarItem>
 ///                             <NavbarItem
-///                                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
+///                                 onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>
 ///                                 <span>{"Contact"}</span>
 ///                             </NavbarItem>
 ///                         </NavbarContainer>
@@ -294,7 +294,11 @@ impl Component for Navbar {
                     class_name="navbar-container-mobile">
                     {get_branch(self.props.branch.clone())}
                 </NavbarContainer>
-                    {self.props.children.clone()}
+                    {if !self.display_menu {
+                        html!{<>{self.props.children.clone()}</>}
+                    }else {
+                        html!{}
+                    } }
                 </div>
             </>
         }
