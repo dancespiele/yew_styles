@@ -916,7 +916,7 @@ dependencies = [
 
 [[package]]
 name = "yew_style_page"
-version = "0.9.2"
+version = "0.9.3"
 dependencies = [
  "Inflector",
  "cfg-if 1.0.0",

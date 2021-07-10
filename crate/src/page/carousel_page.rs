@@ -2,6 +2,7 @@ use super::highlighters::get_carousel;
 use yew::prelude::*;
 use yew::services::ConsoleService;
 use yew::utils::document;
+use yew_assets::communication_assets::{CommunicationAssets, CommunicationIcon};
 use yew_prism::Prism;
 use yew_styles::carousel::{Carousel, CarouselControls, CarouselDot, CarouselImage};
 use yew_styles::styles::Size;
@@ -171,6 +172,8 @@ impl Component for CarouselPage {
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
                 </ul>
 
+                <p><b>{"This component has a optional children prop, in case that it is not included a default dot icon will be added"}</b></p>
+
                 <h3>{"Carousel Image"}</h3>
                 <ul>
                     <li><b>{"img_src: "}</b>{"Url image path. Required."}</li>
@@ -216,7 +219,9 @@ fn get_dots(active_image: Vec<bool>, link: ComponentLink<CarouselPage>) -> Html 
 
     for (i, _) in active_image.clone().into_iter().enumerate() {
         dot.push(html! {
-            <CarouselDot active=active_image[i] onclick_signal = link.callback(move |_| Msg::ChangeImage(i))/>
+            <CarouselDot active=active_image[i] onclick_signal = link.callback(move |_| Msg::ChangeImage(i))>
+                <CommunicationAssets size=("12".to_string(), "12".to_string()) icon=CommunicationIcon::Smile/>
+            </CarouselDot>
         })
     }
 

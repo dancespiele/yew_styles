@@ -80,11 +80,11 @@ use yew::{utils, App};
 ///                            <span>{"Shop"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarItem
-///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>   
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("About us")))>
 ///                            <span>{"About us"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarItem
-///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>   
+///                            onclick_signal=link.callback(move |_| Msg::ChangeMenu(String::from("Contact")))>
 ///                            <span>{"Contact"}</span>
 ///                        </NavbarItem>
 ///                        <NavbarDropdown main_content=html!{

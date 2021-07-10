@@ -4,7 +4,7 @@ use yew::prelude::*;
 use yew::{utils, App};
 use yew_assets::object_assets::{ObjectAssets, ObjectIcon};
 
-/// # Carousel Component
+/// # Carousel Dots
 ///
 /// ## Features required
 ///
@@ -140,8 +140,11 @@ use yew_assets::object_assets::{ObjectAssets, ObjectIcon};
 ///     fn view(&self) -> Html {
 ///         html! {
 ///             <div>
-///                 
-///                 <Carousel class_name="fill-background">
+///                 <Carousel
+///                     class_name="fill-background"
+///                     onwheel_signal= self.link.callback(Msg::Scroll)
+///                     onmouseover_signal= self.link.callback(|_| Msg::ShowScroll)
+///                     onmouseleave_signal= self.link.callback(|_| Msg::HideScroll)>
 ///                     {get_images(self.images.to_vec(), self.active_image.to_vec())}
 ///                     {get_dots(self.active_image.to_vec(), self.link.clone())}
 ///                     {get_controls(self.link.clone())}
@@ -163,12 +166,14 @@ use yew_assets::object_assets::{ObjectAssets, ObjectIcon};
 ///         .collect::<Html>()
 /// }
 ///
-/// fn get_dots(active_image: Vec<bool>, link: ComponentLink<App>) -> Html {
+/// fn get_dots(active_image: Vec<bool>, link: ComponentLink<CarouselPage>) -> Html {
 ///     let mut dot = vec![];
 ///
 ///     for (i, _) in active_image.clone().into_iter().enumerate() {
 ///         dot.push(html! {
-///             <CarouselDot active=active_image[i] onclick_signal = link.callback(move |_| Msg::ChangeImage(i))/>
+///             <CarouselDot active=active_image[i] onclick_signal = link.callback(move |_| Msg::ChangeImage(i))>
+///                 <CommunicationAssets size=("12".to_string(), "12".to_string()) icon=CommunicationIcon::Smile/>
+///             </CarouselDot>
 ///         })
 ///     }
 ///
@@ -177,15 +182,10 @@ use yew_assets::object_assets::{ObjectAssets, ObjectIcon};
 ///
 /// fn get_controls(link: ComponentLink<App>) -> Html {
 ///     html! {
-///         <Carousel
-///             class_name="fill-background"
-///             onwheel_signal= self.link.callback(Msg::Scroll)
-///             onmouseover_signal= self.link.callback(|_| Msg::ShowScroll)
-///             onmouseleave_signal= self.link.callback(|_| Msg::HideScroll)>
-///             {get_images(self.images.to_vec(), self.active_image.to_vec())}
-///             {get_dots(self.active_image.to_vec(), self.link.clone())}
-///             {get_controls(self.link.clone())}
-///         </Carousel>
+///         <CarouselControls
+///             controls_size=Size::Small
+///             prev_signal=link.callback(|_| Msg::Prev)
+///             next_signal=link.callback(|_| Msg::Next)/>
 ///     }
 /// }
 /// ```
@@ -216,6 +216,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// In case that children is not included will add a dot icon by default
+    #[prop_or_default]
+    pub children: Option<Children>,
 }
 
 pub enum Msg {
@@ -268,7 +271,17 @@ impl Component for CarouselDot {
                 ref=self.props.code_ref.clone()
                 onclick=self.link.callback(Msg::DotClicked)
             >
-                <ObjectAssets size=("12".to_string(), "12".to_string()) icon=ObjectIcon::Circle class_name="carousel-dot-assets"/>
+            {
+                if let Some(children) = self.props.children.clone() {
+                    html! {
+                        <>{children }</>
+                    }
+                } else {
+                    html!{
+                        <ObjectAssets size=("12".to_string(), "12".to_string()) icon=ObjectIcon::Circle class_name="carousel-dot-assets"/>
+                    }
+                }
+            }
             </div>
         }
     }
@@ -284,6 +297,7 @@ fn should_create_carousel_dot_component() {
         active: false,
         onclick_signal: Callback::noop(),
         key: "".to_string(),
+        children: None,
     };
 
     let carousel: App<CarouselDot> = App::new();
