@@ -295,9 +295,9 @@ impl Component for Navbar {
                     {get_branch(self.props.branch.clone())}
                 </NavbarContainer>
                     {if !self.display_menu {
-                        html!{<>{self.props.children.clone()}</>}
-                    }else {
-                        html!{}
+                        self.props.children.clone()
+                    } else {
+                        Children::new(vec![])
                     } }
                 </div>
             </>
