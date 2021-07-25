@@ -29,11 +29,11 @@ Possible candidates are [CssinRust](https://github.com/lukidoescode/css-in-rust)
 
 ### How install it
 1. Install the sass module: `npm install yew-styles`
-2. Add the yew_style crate with the features needed for your project in Cargo.toml file: 
+2. Add the yew_style crate with the features needed for your project in Cargo.toml file:
 ```toml
 yew_styles = { version="0.9", features=["button", "text", "navbar"] }
 ```
-3. Import the main.css file in you main javascript/typescript file project: 
+3. Import the main.css file in you main javascript/typescript file project:
 ```typescript
     import 'node_modules/yew-styles/main.css';
 ```
@@ -66,7 +66,7 @@ First, open an issue describing about the fix, improvement or implementation and
 If the contribution is a fix or small improvement in a component, only a pull request to master explaining what resolve or improve that, is required.
 If it is an implementation, please follow the next requirements:
 
-* Firstable open an issue describing about the component 
+* Firstable open an issue describing about the component
 * Unit tests, which checks that the component is created and
 its logic works, in the same file where it is implemented (test events is not needed for now)
 * One component per file, if multiple components have connections between them, it is possible create subfolder
@@ -78,7 +78,7 @@ If you like Yew Styles, help me supporting the project:
 - BAT rewards in case that you use [Brave Browser](https://brave.com/)
 - Using this link to create an account in [Binance](https://www.binance.com/en/register?ref=DB8EPXF0) (get 10% fee back for every trading)
 
-If you need a feature that is not cover yet, as soon as possible, you can also fund the issue [here](https://issuehunt.io/r/spielrs/yew_styles). 
+If you need a feature that is not cover yet, as soon as possible, you can also fund the issue [here](https://issuehunt.io/r/spielrs/yew_styles).
 
 ## Code Contributors
 
@@ -94,7 +94,7 @@ If you need a feature that is not cover yet, as soon as possible, you can also f
 
 ## Roadmap
 
-- [x] Button 
+- [x] Button
 - [x] Layout
 - [x] Navbar
 - [x] Form
@@ -108,7 +108,7 @@ If you need a feature that is not cover yet, as soon as possible, you can also f
 - [x] Modal
 - [ ] Sidebar
 - [ ] Tab
-- [ ] Tooltips
+- [x] Tooltips
 - [ ] Collapse
 - [x] Carousel
 - [ ] Calendar

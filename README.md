@@ -117,7 +117,7 @@ Please check our [code of conduct](CODE_OF_CONDUCT.md)
 - [x] Modal
 - [ ] Sidebar
 - [ ] Tab
-- [ ] Tooltips
+- [x] Tooltips
 - [ ] Collapse
 - [x] Carousel
 - [ ] Calendar

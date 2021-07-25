@@ -78,3 +78,5 @@ pub use components::navbar;
 pub use components::spinner;
 #[cfg(feature = "text")]
 pub use components::text;
+#[cfg(feature = "tooltip")]
+pub use components::tooltip;

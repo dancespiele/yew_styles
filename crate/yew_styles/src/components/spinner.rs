@@ -72,7 +72,7 @@ pub struct Props {
     /// Spinner type. Default `SpinnerType::Circle`
     #[prop_or(SpinnerType::Circle)]
     pub spinner_type: SpinnerType,
-    /// Type spinner style. Default `Palette::Standard`
+    /// Type spinner palette. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub spinner_palette: Palette,
     /// Three diffent spinner standard sizes. Default `Size::Medium`
