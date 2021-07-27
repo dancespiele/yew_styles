@@ -1,0 +1,32 @@
+@import "_global-variables.sass"
+@import "_mixins.sass"
+
+.tooltip_container
+  position: relative
+
+  .tooltip
+    position: absolute
+
+    &.left
+      left: -10px
+
+    &.rigth
+      right: -10px
+
+    &.above
+      top: -10px
+
+    &.below
+      bottom: -10px
+
+    @each $name, $size in $sizes
+        &.#{$name}
+            font-size: $size
+
+    &.regular
+        @include pallete-style($regular-style, true)
+
+    &.outline
+        @include pallete-style($outline-style, true)
+    &.light
+        @include pallete-style($light-style, true)

@@ -156,7 +156,7 @@ impl Component for Button {
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         let prop_mapped = ButtonProps::from(props);
         if self.props != prop_mapped {
-            self.props = ButtonProps::from(props);
+            self.props = prop_mapped;
             return true;
         }
         true

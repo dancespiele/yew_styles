@@ -1,4 +1,4 @@
-use crate::styles::{get_palette, get_size, Palette, Position, Size, Style};
+use crate::styles::{get_palette, get_size, get_style, Palette, Position, Size, Style};
 use yew::prelude::*;
 
 #[derive(Clone, Properties, PartialEq)]
@@ -12,6 +12,7 @@ pub struct Props {
     /// Tooltip size. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub tooltip_size: Size,
+    /// General property to add keys
     #[prop_or_default]
     pub key: String,
     /// General property to add custom class styles
@@ -71,18 +72,18 @@ impl Component for Tooltip {
         let tooltip = html! {
             <div class=classes!(
                 "tooltip",
-                get_position(self.props.tooltip_position),
-                props.tooltip_palette,
-                props.tooltip_style,
-                props.tooltip_size,
-                props.class_name
+                get_position(self.props.tooltip_position.clone()),
+                get_palette(self.props.tooltip_palette.clone()),
+                get_style(self.props.tooltip_style.clone()),
+                get_size(self.props.tooltip_size.clone()),
+                self.props.class_name.clone()
         )>
-             {self.props.content}
+             {self.props.content.clone()}
             </div>
         };
 
         html! {
-            <div class="tooltip_container",
+            <div class="tooltip_container"
                 onmouseover = self.link.callback(|_| Msg::TargetOver)
                 onmouseleave = self.link.callback(|_| Msg::TargetLeave)
             >
@@ -91,7 +92,7 @@ impl Component for Tooltip {
                 }else {
                     html!{}
                 }}
-                {props.children}
+                {self.props.children.clone()}
             </div>
         }
     }
