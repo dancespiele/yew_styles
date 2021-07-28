@@ -3,21 +3,23 @@
 
 .tooltip_container
   position: relative
+  width: fit-content
+  width: -moz-fit-content
 
   .tooltip
     position: absolute
 
     &.left
-      left: -10px
+      left: -42px
 
     &.rigth
-      right: -10px
+      right: -55px
 
     &.above
-      top: -10px
+      top: -25px
 
     &.below
-      bottom: -10px
+      bottom: -25px
 
     @each $name, $size in $sizes
         &.#{$name}
