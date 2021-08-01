@@ -1,34 +1,100 @@
 @import "_global-variables.sass"
 @import "_mixins.sass"
 
-.tooltip_container
+.tooltip-container
   position: relative
   width: fit-content
   width: -moz-fit-content
 
   .tooltip
     position: absolute
+    padding: 3px 5px
+    border-radius: 5px
+    text-align: center
+    z-index: 1
+
+    @each $name, $size in $sizes
+      &.#{$name}
+        font-size: $size
+
+        @if $name == "big"
+          &.left
+            left: -70px
+
+          &.right
+            right: -75px
+
+          &.above
+            top: -45px
+
+          &.below
+            bottom: -45px
+
+        @if $name == "small"
+          &.left
+            left: -40px
+
+          &.right
+            right: -50px
+
+          &.above
+            top: -25px
+
+          &.below
+            bottom: -25px
 
     &.left
-      left: -42px
+      left: -55px
+      &::after
+        top: 50%
+        left: 100%
+        margin-top: -5px
+        border-style: solid
 
-    &.rigth
+    &.right
       right: -55px
+      &::after
+        top: 50%
+        right: 100%
+        margin-top: -5px
+        border-style: solid
 
     &.above
-      top: -25px
+      top: -35px
+      &::after
+        top: 100%
+        margin-left: -5px
+        left: 50%
+        border-style: solid
 
     &.below
-      bottom: -25px
+      bottom: -35px
+      &::after
+        bottom: 100%
+        left: 50%
+        margin-left: -5px
+        border-style: solid
 
     @each $name, $size in $sizes
         &.#{$name}
             font-size: $size
 
     &.regular
-        @include pallete-style($regular-style, true)
+      @include pallete-style($regular-style, true)
+      @include arrow-style($regular-style, true, "left")
+      @include arrow-style($regular-style, true, "right")
+      @include arrow-style($regular-style, true, "above")
+      @include arrow-style($regular-style, true, "below")
 
     &.outline
-        @include pallete-style($outline-style, true)
+      @include pallete-style($outline-style, true)
+      @include arrow-style($regular-style, true, "left")
+      @include arrow-style($regular-style, true, "right")
+      @include arrow-style($regular-style, true, "above")
+      @include arrow-style($regular-style, true, "below")
     &.light
-        @include pallete-style($light-style, true)
+      @include pallete-style($light-style, true)
+      @include arrow-style($regular-style, true, "left")
+      @include arrow-style($regular-style, true, "right")
+      @include arrow-style($regular-style, true, "above")
+      @include arrow-style($regular-style, true, "below")

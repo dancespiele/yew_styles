@@ -78,6 +78,9 @@ pub struct Props {
     /// Three diffent spinner standard sizes. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub spinner_size: Size,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
     /// General property to add keys
     #[prop_or_default]
     pub key: String,
@@ -117,6 +120,7 @@ impl Component for Spinner {
             self.props.class_name.clone(),
             self.props.id.clone(),
             self.props.key.clone(),
+            self.props.code_ref.clone(),
         )
     }
 }
@@ -128,6 +132,7 @@ fn get_spinner_type(
     class_name: String,
     id: String,
     key: String,
+    code_ref: NodeRef,
 ) -> Html {
     match spinner_type {
         SpinnerType::Plane => render_spinner_type(
@@ -136,6 +141,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -145,6 +151,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -154,6 +161,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -163,6 +171,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -172,6 +181,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -181,6 +191,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -190,6 +201,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -199,6 +211,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -208,6 +221,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -217,6 +231,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -226,6 +241,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -235,6 +251,7 @@ fn get_spinner_type(
             spinner_palette,
             spinner_size,
             class_name,
+            code_ref,
             id,
             key,
         ),
@@ -247,6 +264,7 @@ fn render_spinner_type(
     spinner_palette: Palette,
     spinner_size: Size,
     class_name: String,
+    code_ref: NodeRef,
     id: String,
     key: String,
 ) -> Html {
@@ -269,6 +287,7 @@ fn render_spinner_type(
     html! {
         <div
             class=classes!(spinner_type.to_owned(), get_palette(spinner_palette), get_size(spinner_size), class_name)
+            ref=code_ref
             id=id
             key=key
         >
@@ -285,6 +304,7 @@ fn should_create_spinner() {
         spinner_palette: Palette::Clean,
         spinner_type: SpinnerType::Circle,
         spinner_size: Size::Medium,
+        code_ref: NodeRef::default(),
         key: String::from("dropdown-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
