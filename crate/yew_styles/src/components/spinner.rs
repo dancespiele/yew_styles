@@ -114,146 +114,74 @@ impl Component for Spinner {
 
     fn view(&self) -> Html {
         get_spinner_type(
-            self.props.spinner_type.clone(),
-            self.props.spinner_palette.clone(),
-            self.props.spinner_size.clone(),
-            self.props.class_name.clone(),
-            self.props.id.clone(),
-            self.props.key.clone(),
-            self.props.code_ref.clone(),
+            self.props.clone()
         )
     }
 }
 
 fn get_spinner_type(
-    spinner_type: SpinnerType,
-    spinner_palette: Palette,
-    spinner_size: Size,
-    class_name: String,
-    id: String,
-    key: String,
-    code_ref: NodeRef,
+    props: Props
 ) -> Html {
-    match spinner_type {
+    match props.spinner_type {
         SpinnerType::Plane => render_spinner_type(
             "sk-plane",
             0,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::Chase => render_spinner_type(
             "sk-chase",
             6,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::Bounce => render_spinner_type(
             "sk-bounce",
             2,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::Wave => render_spinner_type(
             "sk-wave",
             5,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::Pulse => render_spinner_type(
             "sk-pulse",
             0,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::Flow => render_spinner_type(
             "sk-flow",
             3,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::Swing => render_spinner_type(
             "sk-swing",
             2,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::Circle => render_spinner_type(
             "sk-circle",
             12,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::CircleFade => render_spinner_type(
             "sk-circle-fade",
             12,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::Grid => render_spinner_type(
             "sk-grid",
             9,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::Fold => render_spinner_type(
             "sk-fold",
             4,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
         SpinnerType::Wander => render_spinner_type(
             "sk-wander",
             6,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            code_ref,
-            id,
-            key,
+            props,
         ),
     }
 }
@@ -261,12 +189,7 @@ fn get_spinner_type(
 fn render_spinner_type(
     spinner_type: &str,
     dots: u8,
-    spinner_palette: Palette,
-    spinner_size: Size,
-    class_name: String,
-    code_ref: NodeRef,
-    id: String,
-    key: String,
+    props: Props,
 ) -> Html {
     let mut vdots: Vec<Html> = vec![];
     let mut i = 0;
@@ -286,10 +209,10 @@ fn render_spinner_type(
     }
     html! {
         <div
-            class=classes!(spinner_type.to_owned(), get_palette(spinner_palette), get_size(spinner_size), class_name)
-            ref=code_ref
-            id=id
-            key=key
+            class=classes!(spinner_type.to_owned(), get_palette(props.spinner_palette), get_size(props.spinner_size), props.class_name)
+            ref=props.code_ref
+            id=props.id
+            key=props.key
         >
             {vdots.into_iter().collect::<Html>()}
         </div>
