@@ -188,14 +188,12 @@ fn should_create_tooltip() {
         tooltip_props,
     );
 
-    let content_element = utils::document().get_element_by_id("id-test").unwrap();
-    // let tooltip_element = utils::document()
-    //     .get_elements_by_class_name("tooltip-container")
-    //     .get_with_index(0)
-    //     .unwrap();
-    //
-    // let child = tooltip_element.first_element_child().unwrap();
+    let tooltip_element = utils::document()
+        .get_elements_by_class_name("tooltip-container")
+        .get_with_index(0)
+        .unwrap();
 
-    assert_eq!(content_element.id(), "id-test".to_string());
-    // assert_eq!(child.id(), "result".to_string());
+    let child = tooltip_element.first_element_child().unwrap();
+
+    assert_eq!(child.id(), "result".to_string());
 }
