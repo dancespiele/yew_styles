@@ -447,3 +447,17 @@ pub fn get_carousel() -> String {
         next_signal=link.callback(|_| Msg::Next)/>
 </Carousel>".to_string()
 }
+
+pub fn get_tooltip() -> String {
+    "<Tooltip
+    tooltip_palette=Palette::Standard
+    tooltip_style=Style::Outline
+    tooltip_position=Position::Above
+    tooltip_size=Size::Small
+    content=html!{<span>{\"Info\"}</span>}
+    class_name=\"tooltip-page\"
+>
+    <div class=\"tooltip-content\">{\"Tooltip above\"}</div>
+</Tooltip>"
+        .to_string()
+}

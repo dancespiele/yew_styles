@@ -72,12 +72,15 @@ pub struct Props {
     /// Spinner type. Default `SpinnerType::Circle`
     #[prop_or(SpinnerType::Circle)]
     pub spinner_type: SpinnerType,
-    /// Type spinner style. Default `Palette::Standard`
+    /// Type spinner palette. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
     pub spinner_palette: Palette,
     /// Three diffent spinner standard sizes. Default `Size::Medium`
     #[prop_or(Size::Medium)]
     pub spinner_size: Size,
+    /// General property to get the ref of the component
+    #[prop_or_default]
+    pub code_ref: NodeRef,
     /// General property to add keys
     #[prop_or_default]
     pub key: String,
@@ -110,146 +113,28 @@ impl Component for Spinner {
     }
 
     fn view(&self) -> Html {
-        get_spinner_type(
-            self.props.spinner_type.clone(),
-            self.props.spinner_palette.clone(),
-            self.props.spinner_size.clone(),
-            self.props.class_name.clone(),
-            self.props.id.clone(),
-            self.props.key.clone(),
-        )
+        get_spinner_type(self.props.clone())
     }
 }
 
-fn get_spinner_type(
-    spinner_type: SpinnerType,
-    spinner_palette: Palette,
-    spinner_size: Size,
-    class_name: String,
-    id: String,
-    key: String,
-) -> Html {
-    match spinner_type {
-        SpinnerType::Plane => render_spinner_type(
-            "sk-plane",
-            0,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::Chase => render_spinner_type(
-            "sk-chase",
-            6,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::Bounce => render_spinner_type(
-            "sk-bounce",
-            2,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::Wave => render_spinner_type(
-            "sk-wave",
-            5,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::Pulse => render_spinner_type(
-            "sk-pulse",
-            0,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::Flow => render_spinner_type(
-            "sk-flow",
-            3,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::Swing => render_spinner_type(
-            "sk-swing",
-            2,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::Circle => render_spinner_type(
-            "sk-circle",
-            12,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::CircleFade => render_spinner_type(
-            "sk-circle-fade",
-            12,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::Grid => render_spinner_type(
-            "sk-grid",
-            9,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::Fold => render_spinner_type(
-            "sk-fold",
-            4,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
-        SpinnerType::Wander => render_spinner_type(
-            "sk-wander",
-            6,
-            spinner_palette,
-            spinner_size,
-            class_name,
-            id,
-            key,
-        ),
+fn get_spinner_type(props: Props) -> Html {
+    match props.spinner_type {
+        SpinnerType::Plane => render_spinner_type("sk-plane", 0, props),
+        SpinnerType::Chase => render_spinner_type("sk-chase", 6, props),
+        SpinnerType::Bounce => render_spinner_type("sk-bounce", 2, props),
+        SpinnerType::Wave => render_spinner_type("sk-wave", 5, props),
+        SpinnerType::Pulse => render_spinner_type("sk-pulse", 0, props),
+        SpinnerType::Flow => render_spinner_type("sk-flow", 3, props),
+        SpinnerType::Swing => render_spinner_type("sk-swing", 2, props),
+        SpinnerType::Circle => render_spinner_type("sk-circle", 12, props),
+        SpinnerType::CircleFade => render_spinner_type("sk-circle-fade", 12, props),
+        SpinnerType::Grid => render_spinner_type("sk-grid", 9, props),
+        SpinnerType::Fold => render_spinner_type("sk-fold", 4, props),
+        SpinnerType::Wander => render_spinner_type("sk-wander", 6, props),
     }
 }
 
-fn render_spinner_type(
-    spinner_type: &str,
-    dots: u8,
-    spinner_palette: Palette,
-    spinner_size: Size,
-    class_name: String,
-    id: String,
-    key: String,
-) -> Html {
+fn render_spinner_type(spinner_type: &str, dots: u8, props: Props) -> Html {
     let mut vdots: Vec<Html> = vec![];
     let mut i = 0;
 
@@ -268,9 +153,10 @@ fn render_spinner_type(
     }
     html! {
         <div
-            class=classes!(spinner_type.to_owned(), get_palette(spinner_palette), get_size(spinner_size), class_name)
-            id=id
-            key=key
+            class=classes!(spinner_type.to_owned(), get_palette(props.spinner_palette), get_size(props.spinner_size), props.class_name)
+            ref=props.code_ref
+            id=props.id
+            key=props.key
         >
             {vdots.into_iter().collect::<Html>()}
         </div>
@@ -285,6 +171,7 @@ fn should_create_spinner() {
         spinner_palette: Palette::Clean,
         spinner_type: SpinnerType::Circle,
         spinner_size: Size::Medium,
+        code_ref: NodeRef::default(),
         key: String::from("dropdown-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),

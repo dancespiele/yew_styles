@@ -1,6 +1,6 @@
 [package]
 name = "yew_styles"
-version = "0.9.4"
+version = "0.10.0"
 description = "Framework styles for yew"
 documentation = "https://docs.rs/crate/yew_styles"
 authors = ["Francisco Jesus Navarro Cortes <spieljs@gmail.com>"]
@@ -31,7 +31,8 @@ full = [
     "text",
     "dropdown",
     "spinner",
-    "carousel"
+    "carousel",
+    "tooltip"
 ]
 layouts = []
 button = []
@@ -43,6 +44,7 @@ text = []
 dropdown = []
 spinner = []
 carousel = []
+tooltip = []
 
 [dependencies]
 wasm-bindgen = "0.2"

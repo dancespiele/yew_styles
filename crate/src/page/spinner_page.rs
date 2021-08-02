@@ -44,7 +44,7 @@ impl Component for SpinnerPage {
                 <h2>{"Properties"}</h2>
                 <ul>
                     <li><b>{"spinner_type: "}</b>{"spinner type. Options included in "}<code>{"SpinnerType"}</code>{". Default "}<code>{"Circle"}</code>{"."}</li>
-                    <li><b>{"spinner_palette: "}</b>{"type spinner style. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
+                    <li><b>{"spinner_palette: "}</b>{"type spinner palette. Options included in "}<code>{"Pallete"}</code>{". Default "}<code>{"Standard"}</code>{"."}</li>
                     <li><b>{"spinner_size: "}</b>{"three diffent spinner standard sizes. Options included in "}<code>{"Size"}</code>{". Default "}<code>{"Medium"}</code>{"."}</li>
                     <li><b>{"key: "}</b>{"general property to add keys."}</li>
                     <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
