@@ -1,13 +1,13 @@
 {
   "name": "yew-styles",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "css for yew_styles",
   "repository": {
     "url": "https://github.com/spielrs/yew-styles-page/tree/master/app/yew-styles"
   },
   "main": "main.css",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "sass ./app/yew-styles/main.sass ./app/yew-styles/main.css"
   },
   "keywords": [
     "styles",
