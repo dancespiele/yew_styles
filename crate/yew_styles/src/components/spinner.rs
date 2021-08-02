@@ -113,84 +113,28 @@ impl Component for Spinner {
     }
 
     fn view(&self) -> Html {
-        get_spinner_type(
-            self.props.clone()
-        )
+        get_spinner_type(self.props.clone())
     }
 }
 
-fn get_spinner_type(
-    props: Props
-) -> Html {
+fn get_spinner_type(props: Props) -> Html {
     match props.spinner_type {
-        SpinnerType::Plane => render_spinner_type(
-            "sk-plane",
-            0,
-            props,
-        ),
-        SpinnerType::Chase => render_spinner_type(
-            "sk-chase",
-            6,
-            props,
-        ),
-        SpinnerType::Bounce => render_spinner_type(
-            "sk-bounce",
-            2,
-            props,
-        ),
-        SpinnerType::Wave => render_spinner_type(
-            "sk-wave",
-            5,
-            props,
-        ),
-        SpinnerType::Pulse => render_spinner_type(
-            "sk-pulse",
-            0,
-            props,
-        ),
-        SpinnerType::Flow => render_spinner_type(
-            "sk-flow",
-            3,
-            props,
-        ),
-        SpinnerType::Swing => render_spinner_type(
-            "sk-swing",
-            2,
-            props,
-        ),
-        SpinnerType::Circle => render_spinner_type(
-            "sk-circle",
-            12,
-            props,
-        ),
-        SpinnerType::CircleFade => render_spinner_type(
-            "sk-circle-fade",
-            12,
-            props,
-        ),
-        SpinnerType::Grid => render_spinner_type(
-            "sk-grid",
-            9,
-            props,
-        ),
-        SpinnerType::Fold => render_spinner_type(
-            "sk-fold",
-            4,
-            props,
-        ),
-        SpinnerType::Wander => render_spinner_type(
-            "sk-wander",
-            6,
-            props,
-        ),
+        SpinnerType::Plane => render_spinner_type("sk-plane", 0, props),
+        SpinnerType::Chase => render_spinner_type("sk-chase", 6, props),
+        SpinnerType::Bounce => render_spinner_type("sk-bounce", 2, props),
+        SpinnerType::Wave => render_spinner_type("sk-wave", 5, props),
+        SpinnerType::Pulse => render_spinner_type("sk-pulse", 0, props),
+        SpinnerType::Flow => render_spinner_type("sk-flow", 3, props),
+        SpinnerType::Swing => render_spinner_type("sk-swing", 2, props),
+        SpinnerType::Circle => render_spinner_type("sk-circle", 12, props),
+        SpinnerType::CircleFade => render_spinner_type("sk-circle-fade", 12, props),
+        SpinnerType::Grid => render_spinner_type("sk-grid", 9, props),
+        SpinnerType::Fold => render_spinner_type("sk-fold", 4, props),
+        SpinnerType::Wander => render_spinner_type("sk-wander", 6, props),
     }
 }
 
-fn render_spinner_type(
-    spinner_type: &str,
-    dots: u8,
-    props: Props,
-) -> Html {
+fn render_spinner_type(spinner_type: &str, dots: u8, props: Props) -> Html {
     let mut vdots: Vec<Html> = vec![];
     let mut i = 0;
 
