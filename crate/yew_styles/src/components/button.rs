@@ -71,6 +71,7 @@ pub struct Button {
     props: ButtonProps,
 }
 
+#[derive(PartialEq)]
 struct ButtonProps {
     button_palette: String,
     button_size: String,
@@ -99,7 +100,7 @@ impl From<Props> for ButtonProps {
     }
 }
 
-#[derive(Clone, Properties)]
+#[derive(Clone, Properties, PartialEq)]
 pub struct Props {
     /// Type botton style. Default `Palette::Standard`
     #[prop_or(Palette::Standard)]
@@ -153,7 +154,11 @@ impl Component for Button {
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props = ButtonProps::from(props);
+        let prop_mapped = ButtonProps::from(props);
+        if self.props != prop_mapped {
+            self.props = prop_mapped;
+            return true;
+        }
         true
     }
 

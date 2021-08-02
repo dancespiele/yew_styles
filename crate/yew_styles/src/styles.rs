@@ -42,6 +42,15 @@ pub enum Style {
     Light,
 }
 
+/// Position over targeted element
+#[derive(Clone, PartialEq)]
+pub enum Position {
+    Left,
+    Right,
+    Above,
+    Below,
+}
+
 pub fn get_size(size: Size) -> String {
     match size {
         Size::Small => String::from("small"),

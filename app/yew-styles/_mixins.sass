@@ -1,3 +1,5 @@
+@use "sass:math"
+
 @mixin pallete-style($style, $interaction)
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
@@ -17,7 +19,7 @@
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
             background-color: transparentize($background, 0.4)
-    
+
 @mixin spinner-style($style)
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
@@ -31,7 +33,26 @@
             .sk-bounce-dot,
             .sk-flow-dot
                 background: $background
-    
+
+@mixin arrow-style($style, $interaction, $element-position)
+  @each $name, $background, $color, $border-color in $style
+    &.#{$name}
+      &.#{$element-position}::after
+        content: " "
+        position: absolute
+        border-width: 5px
+        @if $element-position == "left"
+          border-color: transparent transparent transparent $background
+
+        @if $element-position == "right"
+          border-color: transparent $background transparent transparent
+
+        @if $element-position == "below"
+          border-color: transparent transparent $background transparent
+
+        @if $element-position == "above"
+          border-color: $background transparent transparent transparent
+
 @mixin spinner-plane-style($style)
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
@@ -53,11 +74,11 @@
                 @include get-layout($screen, $size)
         @else
             @include get-layout($screen, $size)
-            
+
 
 @mixin get-layout($screen, $size)
     &.it-#{$screen}-#{$size}
-        flex-basis: 100% / (12/$size)
+        flex-basis: math.div(100%, math.div(12, $size))
 
 @mixin dropdown-style($style)
     @each $name, $background, $color, $border-color in $style
@@ -73,7 +94,7 @@
                     background-color: darken($background, 10%)
                 &:active, &.active
                     background-color: darken($background, 15%)
-            
+
 @mixin carousel-dot-style($style)
     @each $name, $background, $color, $border-color in $style
         &.#{$name}
@@ -116,19 +137,19 @@
                         background-color: darken($background, 10%)
                     &:active, &.active
                         background-color: darken($background, 15%)
-        
+
 @mixin get-branch($size)
     .branch
         align-self: center
         margin-left: 5px
         img
-            width: $size    
+            width: $size
 
 @function get-border($border-color)
     $border: none
     @if $border-color != none
         $border: 1px solid $border-color
-    
+
     @return $border
 
 @mixin form-style($style, $underline)
@@ -142,7 +163,7 @@
                 border-bottom: 2px solid $border-color
             @else
                 border: 1px solid $border-color
-            
+
             @include placeholder
                 color: $color
 

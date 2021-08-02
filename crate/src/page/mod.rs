@@ -12,6 +12,7 @@ pub mod modal_page;
 pub mod navbar_page;
 pub mod spinner_page;
 pub mod text_page;
+pub mod tooltip_page;
 
 pub use self::assets_page::AssetsPage;
 pub use self::basic_form_page::BasicFormPage;
@@ -26,3 +27,4 @@ pub use self::modal_page::ModalPage;
 pub use self::navbar_page::NavbarPage;
 pub use self::spinner_page::SpinnerPage;
 pub use self::text_page::TextPage;
+pub use self::tooltip_page::TooltipPage;
