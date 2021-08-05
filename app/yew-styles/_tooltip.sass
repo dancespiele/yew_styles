@@ -1,79 +1,102 @@
 @import "_global-variables.sass"
 @import "_mixins.sass"
 
+:root
+  --tooltip-margin: 30px
+  --tooltip-arrow-size: 6px
+
 .tooltip-container
   position: relative
-  width: fit-content
-  width: -moz-fit-content
+  display: inline-block
 
   .tooltip
     position: absolute
-    padding: 3px 5px
-    border-radius: 5px
-    text-align: center
-    z-index: 1
+    border-radius: 4px
+    left: 50%
+    transform: translateX(-50%)
+    padding: 6px
+    font-size: 14px
+    font-family: sans-serif
+    line-height: 1
+    z-index: 100
+    white-space: nowrap
+
+    &::before
+      content: " "
+      left: 50%
+      border: solid transparent
+      height: 0
+      width: 0
+      position: absolute
+      pointer-events: none
+      border-width: var(--tooltip-arrow-size)
+      margin-left: calc(var(--tooltip-arrow-size) * -1)
 
     @each $name, $size in $sizes
       &.#{$name}
         font-size: $size
 
-        @if $name == "big"
-          &.left
-            left: -70px
-
-          &.right
-            right: -75px
-
-          &.above
-            top: -45px
-
-          &.below
-            bottom: -45px
-
         @if $name == "small"
-          &.left
-            left: -40px
-
-          &.right
-            right: -50px
-
           &.above
-            top: -25px
-
+            top: calc(var(--tooltip-margin) * -1)
           &.below
-            bottom: -25px
+            bottom: calc(var(--tooltip-margin) * -1)
+
+        @if $name == "big"
+          &.above
+            top: calc(var(--tooltip-margin) * -1.5)
+          &.below
+            bottom: calc(var(--tooltip-margin) * -1.5)
 
     &.left
-      left: -55px
+      left: auto
+      right: calc(100% + var(--tooltip-margin))
+      top: 50%
+      transform: translateX(0) translateY(-50%)
+      &::before
+        left: auto
+        right: calc(var(--tooltip-arrow-size) * -1)
+        top: 50%
+        transform: translateX(0) translateY(-50%)
+
       &::after
         top: 50%
         left: 100%
         margin-top: -5px
-        border-style: solid
 
     &.right
-      right: -55px
+      left: calc(100% + var(--tooltip-margin))
+      top: 50%
+      transform: translateX(0) translateY(-50%)
+      &::before
+        left: calc(var(--tooltip-arrow-size) * -1)
+        top: 50%
+        transform: translateX(0) translateY(-50%)
+
       &::after
         top: 50%
         right: 100%
         margin-top: -5px
-        border-style: solid
 
     &.above
-      top: -35px
+      top: calc(var(--tooltip-margin) * -1.2)
+      &::before
+        top: 100%
+
       &::after
         top: 100%
-        margin-left: -5px
         left: 50%
-        border-style: solid
+        margin-left: -5px
 
     &.below
-      bottom: -35px
+      bottom: calc(var(--tooltip-margin) * -1.2)
+      &::before
+        bottom: 100%
+
       &::after
         bottom: 100%
         left: 50%
         margin-left: -5px
-        border-style: solid
 
     @each $name, $size in $sizes
         &.#{$name}
