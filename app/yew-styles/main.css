@@ -677,7 +677,7 @@
   z-index: 1;
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 991px) {
   .navbar {
     display: none;
   }
@@ -1476,7 +1476,7 @@
     text-decoration: none;
   }
 }
-@media all and (min-width: 769px) {
+@media all and (min-width: 992px) {
   .navbar-mobile {
     display: none;
   }
