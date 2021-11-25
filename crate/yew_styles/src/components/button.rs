@@ -1,4 +1,5 @@
 use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
@@ -81,6 +82,7 @@ struct ButtonProps {
     key: String,
     code_ref: NodeRef,
     onclick_signal: Callback<MouseEvent>,
+    styles: StyleSource<'static>,
     children: Children,
 }
 
@@ -95,6 +97,7 @@ impl From<Props> for ButtonProps {
             key: props.key,
             code_ref: props.code_ref,
             onclick_signal: props.onclick_signal,
+            styles: props.styles,
             children: props.children,
         }
     }
@@ -125,6 +128,9 @@ pub struct Props {
     pub button_style: Style,
     /// Click event for button. Required
     pub onclick_signal: Callback<MouseEvent>,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -166,11 +172,13 @@ impl Component for Button {
         html! {
             <button
                 onclick=self.link.callback(Msg::Clicked)
-                class=format!("button {} {} {} {}",
+                class=classes!("button",
                     self.props.button_palette.clone(),
                     self.props.button_size.clone(),
                     self.props.button_style.clone(),
-                    self.props.class_name.clone())
+                    self.props.class_name.clone(),
+                    self.props.styles.clone(),
+                )
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
                 id=self.props.id.clone()
@@ -217,6 +225,7 @@ fn should_trigger_action_when_button_clicked() {
         button_style: Style::Regular,
         onclick_signal: onchange_name,
         button_palette: Palette::Standard,
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {<div id="submenu">{"another menu"}</div>}]),
     };
 
@@ -247,6 +256,7 @@ fn should_create_button_component() {
         button_style: Style::Regular,
         onclick_signal: Callback::noop(),
         button_palette: Palette::Standard,
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
     };
 

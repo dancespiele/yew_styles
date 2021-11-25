@@ -1,6 +1,7 @@
 use crate::styles::{get_palette, get_size, Palette, Size};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
+use stylist::{css, StyleSource};
 use yew::{utils, App};
 
 /// # Spinner component
@@ -90,6 +91,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
 }
 
 impl Component for Spinner {
@@ -153,7 +157,7 @@ fn render_spinner_type(spinner_type: &str, dots: u8, props: Props) -> Html {
     }
     html! {
         <div
-            class=classes!(spinner_type.to_owned(), get_palette(props.spinner_palette), get_size(props.spinner_size), props.class_name)
+            class=classes!(spinner_type.to_owned(), get_palette(props.spinner_palette), get_size(props.spinner_size), props.class_name, props.styles)
             ref=props.code_ref
             id=props.id
             key=props.key
@@ -175,6 +179,7 @@ fn should_create_spinner() {
         key: String::from("dropdown-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
+        styles: css!("font-size: 50px;")
     };
 
     let spinner: App<Spinner> = App::new();

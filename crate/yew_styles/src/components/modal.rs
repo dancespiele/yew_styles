@@ -5,6 +5,7 @@ use wasm_bindgen_test::*;
 use web_sys::Element;
 use yew::prelude::*;
 use yew::{utils, App};
+use stylist::{css, StyleSource};
 
 /// # Modal component
 ///
@@ -168,6 +169,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
 }
 
 pub enum Msg {
@@ -230,7 +234,7 @@ fn get_modal(props: Props, link: ComponentLink<Modal>) -> Html {
     if props.is_open {
         html! {
             <div
-                class=format!("modal container {} {}", get_palette(props.modal_palette), props.class_name)
+                class=classes!("modal", "container", get_palette(props.modal_palette), props.class_name, props.styles)
                 key=props.key
                 ref=props.code_ref
                 tabindex="0"
@@ -286,6 +290,9 @@ fn should_create_modal_component() {
         body_interaction: false,
         is_open: true,
         auto_focus: false,
+        styles: css!("modal-content {
+            color: #000;
+        }")
     };
 
     let modal: App<Modal> = App::new();
@@ -324,6 +331,9 @@ fn should_hide_modal_component_from_doom() {
         body_interaction: false,
         is_open: false,
         auto_focus: false,
+        styles: css!("modal-content {
+            color: #000;
+        }")
     };
 
     let modal: App<Modal> = App::new();
