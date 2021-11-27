@@ -1,6 +1,7 @@
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
+use stylist::{css, StyleSource};
 
 /// # Dropdown Item component
 ///
@@ -86,6 +87,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -122,7 +126,7 @@ impl Component for DropdownItem {
     fn view(&self) -> Html {
         html! {
             <li
-                class=classes!("dropdown-item", self.props.class_name.clone())
+                class=classes!("dropdown-item", self.props.class_name.clone(), self.props.styles.clone())
                 id=self.props.id.clone()
                 key=self.props.key.clone()
                 onclick=self.link.callback(Msg::Clicked)
@@ -138,6 +142,7 @@ fn should_create_dropdown_item() {
         key: String::from("dropdown-item-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),

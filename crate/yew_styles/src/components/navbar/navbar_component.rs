@@ -6,6 +6,7 @@ use crate::utils::create_style;
 use yew::prelude::*;
 use yew::Children;
 use yew_assets::ux_assets::{UxAssets, UxIcon};
+use stylist::{css, StyleSource};
 
 /// # Navbar component
 ///
@@ -162,6 +163,8 @@ pub struct Props {
     /// Vnode embedded in the beginning of the navbar, useful to include a branch logo
     #[prop_or_default]
     pub branch: Html,
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -176,6 +179,7 @@ pub struct NavbarProps {
     pub class_name: String,
     pub fixed: Fixed,
     pub branch: Html,
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -192,6 +196,7 @@ impl From<Props> for NavbarProps {
             fixed: props.fixed,
             branch: props.branch,
             children: props.children,
+            styles: props.styles,
         }
     }
 }
@@ -253,7 +258,7 @@ impl Component for Navbar {
         html! {
             <>
                 <div
-                    class=format!("navbar-mobile {} {} {}", self.props.navbar_style, self.props.navbar_palette, self.props.class_name)
+                    class=classes!("navbar-mobile", self.props.navbar_style.clone(), self.props.navbar_palette.clone(), self.props.class_name.clone(), self.props.styles.clone())
                     id=self.props.id.clone()
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()

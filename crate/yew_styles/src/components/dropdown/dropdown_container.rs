@@ -2,6 +2,7 @@ use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
+use stylist::{css, StyleSource};
 
 /// # Dropdown Container component
 ///
@@ -96,6 +97,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -134,7 +138,7 @@ impl Component for Dropdown {
     fn view(&self) -> Html {
         html! {
             <div
-                class=classes!("dropdown", self.props.class_name.clone(), get_style(self.props.dropdown_style.clone()), get_palette(self.props.dropdown_palette.clone()), get_size(self.props.dropdown_size.clone()))
+                class=classes!("dropdown", self.props.class_name.clone(), get_style(self.props.dropdown_style.clone()), get_palette(self.props.dropdown_palette.clone()), get_size(self.props.dropdown_size.clone()), self.props.styles.clone())
                 id=self.props.id.clone()
                 key=self.props.key.clone()
                 onclick=self.link.callback(|_| Msg::ShowDropdown)
@@ -170,6 +174,7 @@ fn should_create_dropdown_container() {
         key: String::from("dropdown-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),

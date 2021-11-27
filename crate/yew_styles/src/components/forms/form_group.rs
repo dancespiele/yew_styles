@@ -1,6 +1,7 @@
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
+use stylist::{css, StyleSource};
 
 /// # Form Group
 ///
@@ -93,6 +94,8 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -120,7 +123,7 @@ impl Component for FormGroup {
     fn view(&self) -> Html {
         html! {
             <div
-                class=format!("form-group {} {}", get_orientation(self.props.orientation.clone()), self.props.class_name)
+                class=classes!("form-group", get_orientation(self.props.orientation.clone()), self.props.class_name.clone(), self.props.styles.clone())
                 id=self.props.id.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
@@ -146,6 +149,7 @@ fn should_create_form_group_horizontal_oriented() {
         id: "form-group-test-id".to_string(),
         class_name: "form-group-test-class".to_string(),
         orientation: Orientation::Horizontal,
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {
             <input id="input-child"/>
         }]),
@@ -177,6 +181,7 @@ fn should_create_form_group_vertical_oriented() {
         id: "form-group-test-id".to_string(),
         class_name: "form-group-test-class".to_string(),
         orientation: Orientation::Vertical,
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {
             <input id="input-child"/>
         }]),

@@ -3,6 +3,7 @@ use crate::styles::{get_palette, get_size, Palette, Size};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
+use stylist::{css, StyleSource};
 
 /// # Form Input
 ///
@@ -181,6 +182,9 @@ pub struct Props {
     /// Show error message when error_state is true
     #[prop_or_default]
     pub error_message: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
 }
 
 #[derive(Debug)]
@@ -234,6 +238,7 @@ impl Component for FormInput {
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" },
                         self.props.class_name.clone(),
+                        self.props.styles.clone(),
                     )
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()
@@ -322,6 +327,7 @@ fn should_create_form_input() {
         disabled: false,
         step: 1,
         list: "".to_string(),
+        styles: css!("background-color: #918d94;"),
     };
 
     let form_input: App<FormInput> = App::new();

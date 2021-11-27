@@ -1,6 +1,7 @@
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
+use stylist::{css, StyleSource};
 
 /// # Form
 ///
@@ -384,6 +385,8 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
 }
 
 #[derive(Clone, PartialEq)]
@@ -433,7 +436,7 @@ impl Component for Form {
                 name=self.props.name.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
-                class=format!("form {}", self.props.class_name)
+                class=classes!("form", self.props.class_name.clone(), self.props.styles.clone())
                 id=self.props.id.to_string()
             >
                 { self.props.children.clone() }
@@ -461,6 +464,7 @@ fn should_create_form_component() {
         method: Method::Post,
         action: "".to_string(),
         name: "form-test".to_string(),
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {<input id="result"/>}]),
     };
 
@@ -501,6 +505,7 @@ fn should_submit_the_form() {
         method: Method::Post,
         action: "".to_string(),
         name: "form-test".to_string(),
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {<input/>}]),
     };
 

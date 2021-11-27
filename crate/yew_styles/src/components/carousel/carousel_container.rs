@@ -1,6 +1,7 @@
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
+use stylist::{css, StyleSource};
 
 /// # Carousel Component
 ///
@@ -215,6 +216,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -260,7 +264,7 @@ impl Component for Carousel {
     fn view(&self) -> Html {
         html! {
             <div
-                class=classes!("carousel-container", self.props.class_name.clone())
+                class=classes!("carousel-container", self.props.class_name.clone(), self.props.styles.clone())
                 id=self.props.id.clone()
                 key=self.props.key.clone()
                 onwheel=self.link.callback(Msg::Wheel)
@@ -284,6 +288,7 @@ fn should_create_carousel_container_component() {
         onwheel_signal: Callback::noop(),
         onmouseover_signal: Callback::noop(),
         onmouseleave_signal: Callback::noop(),
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
     };
 

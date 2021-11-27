@@ -3,6 +3,7 @@ use crate::styles::{get_size, Size};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App, ChangeData};
+use stylist::{css, StyleSource};
 
 /// # Form Select
 ///
@@ -123,6 +124,9 @@ pub struct Props {
     /// general property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
 }
 
 pub enum Msg {
@@ -162,7 +166,8 @@ impl Component for FormSelect {
                     class=classes!(
                         "form-select",
                         get_size(self.props.select_size.clone()),
-                        self.props.class_name.clone()
+                        self.props.class_name.clone(),
+                        self.props.styles.clone()
                     )
                     id=self.props.id.clone()
                     key=self.props.key.clone()
@@ -200,6 +205,7 @@ fn should_create_form_select() {
         error_message: "".to_string(),
         error_state: false,
         multiple: false,
+        styles: css!("background-color: #918d94;"),
         options: html! {
             <>
                 <option value="value-1" selected=true>{"option 1"}</option>

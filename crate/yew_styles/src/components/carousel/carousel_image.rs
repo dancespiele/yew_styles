@@ -1,6 +1,7 @@
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
+use stylist::{css, StyleSource};
 
 /// # Carousel Images
 ///
@@ -201,6 +202,9 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
@@ -239,7 +243,7 @@ impl Component for CarouselImage {
                 "active"
             } else {
                 ""
-            })
+            }, self.props.styles.clone())
                 ref=self.props.code_ref.clone()
                 id=self.props.id.clone()
             >
@@ -257,6 +261,7 @@ fn should_create_carousel_dot_component() {
         id: String::from("carousel-id-test"),
         active: false,
         img_src: "/slide_1.jpg".to_string(),
+        styles: css!("background-color: #918d94;"),
         key: "".to_string(),
     };
 

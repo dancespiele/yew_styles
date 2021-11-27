@@ -2,6 +2,7 @@ use crate::utils::{get_html_element_by_class, get_random_string};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
+use stylist::{css, StyleSource};
 
 /// # Navbar Dropdown Container component
 ///
@@ -129,6 +130,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -195,7 +199,7 @@ impl Component for NavbarDropdown {
                     "active"
                 } else {
                     ""
-                }, self.props.class_name.clone())
+                }, self.props.class_name.clone(), self.props.styles.clone())
                 id=self.props.id.clone()
                 key=self.props.key.clone()
                 onmouseover=self.link.callback(|_| Msg::ShowDropdown)
@@ -225,6 +229,7 @@ fn should_create_navbar_dropdown_container() {
         key: String::from("navbar-dropdown-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),

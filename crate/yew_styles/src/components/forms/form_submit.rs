@@ -2,6 +2,7 @@ use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
+use stylist::{css, StyleSource};
 
 /// # Form Submit
 ///
@@ -42,6 +43,8 @@ pub struct Props {
     /// general property to add custom id
     #[prop_or_default]
     pub id: String,
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
 }
 
 impl Component for FormSubmit {
@@ -97,6 +100,7 @@ fn should_create_form_submit() {
         submit_style: Style::Regular,
         submit_palette: Palette::Standard,
         size: Size::Medium,
+        styles: css!("background-color: #918d94;"),
     };
 
     let form_submit: App<FormSubmit> = App::new();
