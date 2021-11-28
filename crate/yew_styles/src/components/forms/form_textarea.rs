@@ -1,5 +1,6 @@
 use super::error_message::get_error_message;
 use crate::styles::{get_palette, get_size, Palette, Size};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -145,6 +146,9 @@ pub struct Props {
     /// Indicates how the control wraps text. Default `WrapText::Soft`
     #[prop_or(WrapText::Soft)]
     pub wrap: WrapText,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
 }
 
 #[derive(Debug)]
@@ -192,10 +196,12 @@ impl Component for FormTextArea {
             <>
                 <textarea
                     id=self.props.id.clone()
-                    class=format!("form-textarea {} {} {}",
-                    self.props.class_name,
-                    get_palette(self.props.textarea_style.clone()),
-                    get_size(self.props.textarea_size.clone()))
+                    class=classes!("form-textarea",
+                        get_palette(self.props.textarea_style.clone()),
+                        get_size(self.props.textarea_size.clone()),
+                        self.props.class_name.clone(),
+                        self.props.styles.clone()
+                    )
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()
                     oninput=self.link.callback(Msg::Input)
@@ -236,6 +242,7 @@ fn should_create_form_textarea() {
         key: "".to_string(),
         code_ref: NodeRef::default(),
         class_name: "form-input-class-test".to_string(),
+        styles: css!("background-color: #918d94;"),
         oninput_signal: Callback::noop(),
         onblur_signal: Callback::noop(),
         onkeydown_signal: Callback::noop(),

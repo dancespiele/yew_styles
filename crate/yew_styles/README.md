@@ -25,13 +25,13 @@ Each component is split in two parts, the logical yew component and its sass mod
 however, it is not necessary to worry about the sass module only it needs to be include in the project
 
 **Note:** One of the goals of yew_styles project is include css in the components without depending of any external css file.
-Possible candidates are [CssinRust](https://github.com/lukidoescode/css-in-rust) or [RUSS](https://github.com/siku2/russ)
+Candidate chosen [stylist-rs](https://github.com/futursolo/stylist-rs)
 
 ### How install it
 1. Install the sass module: `npm install yew-styles`
 2. Add the yew_style crate with the features needed for your project in Cargo.toml file:
 ```toml
-yew_styles = { version="0.10", features=["button", "text", "navbar"] }
+yew_styles = { version="0.11", features=["button", "text", "navbar"] }
 ```
 3. Import the main.css file in you main javascript/typescript file project:
 ```typescript
@@ -91,6 +91,9 @@ If you need a feature that is not cover yet, as soon as possible, you can also f
 <a href="https://github.com/ajstrand">
     <img src="https://github.com/ajstrand.png?size=50">
 </a>
+<a href="https://github.com/philip-peterson">
+    <img src="https://github.com/philip-peterson.png?size=50">
+</a>
 
 ## Roadmap
 
@@ -101,6 +104,7 @@ If you need a feature that is not cover yet, as soon as possible, you can also f
 - [x] Card
 - [x] Text
 - [x] Dropdown
+- [ ] get rid of css files
 - [ ] Progress
 - [x] Spinners
 - [ ] Table

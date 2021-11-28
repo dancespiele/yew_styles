@@ -52,6 +52,7 @@ impl Component for LayoutsPage {
                     <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                    <li><b>{"styles: "}</b>{"use stylist-rs to write styles in the component. Example: "}<code>{"css!(\"background-color: #918d94;\")"}</code></li>
                 </ul>
 
                 <h2>{"Item properties"}</h2>
@@ -63,6 +64,7 @@ impl Component for LayoutsPage {
                     <li><b>{"code_ref: "}</b>{"general property to get the ref of the component."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                    <li><b>{"styles: "}</b>{"use stylist-rs to write styles in the component. Example: "}<code>{"css!(\"background-color: #918d94;\")"}</code></li>
                 </ul>
 
 

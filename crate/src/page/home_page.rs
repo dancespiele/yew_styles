@@ -59,7 +59,7 @@ impl Component for HomePage {
                     <ol>
                         <li>{"Install the sass module: "}<code>{"npm install yew-styles"}</code></li>
                         <li>{"Add the yew_style crate with the features needed for your project in Cargo.toml file: "}<br/>
-                            <code>{"yew_styles = {version=\"0.10\", features=[\"layouts\",\"button\"]}"}</code>
+                            <code>{"yew_styles = {version=\"0.11\", features=[\"layouts\",\"button\"]}"}</code>
                         </li>
                         <li>{"Import the main.css file in you main javascript/typescript file project: "}
                             <code>{"import 'node_modules/yew-styles/main.css';"}</code>
@@ -116,6 +116,10 @@ impl Component for HomePage {
                     <a href="https://github.com/ajstrand" target="_blank">
                         <img src="https://github.com/ajstrand.png?size=50"/>
                     </a>
+                    <a href="https://github.com/philip-peterson">
+                        <img src="https://github.com/philip-peterson.png?size=50"/>
+                    </a>
+
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"License"}</h2>

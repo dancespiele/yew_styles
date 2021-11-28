@@ -1,3 +1,4 @@
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -88,6 +89,9 @@ pub struct Props {
     /// The id of a labelable form-related element in the same document as the <label> element
     #[prop_or_default]
     pub label_for: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
 }
 
 impl Component for FormLabel {
@@ -114,7 +118,7 @@ impl Component for FormLabel {
     fn view(&self) -> Html {
         html! {
             <label
-                class=format!("form-label {}", self.props.class_name)
+                class=classes!("form-label", self.props.class_name.clone(), self.props.styles.clone())
                 id=self.props.id.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
@@ -132,6 +136,7 @@ fn should_create_form_label() {
         class_name: "form-label-class-test".to_string(),
         id: "form-label-id-test".to_string(),
         label_for: "label-form".to_string(),
+        styles: css!("background-color: #918d94;"),
         text: "label text".to_string(),
     };
 
