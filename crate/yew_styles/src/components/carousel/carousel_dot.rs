@@ -3,6 +3,7 @@ use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
 use yew_assets::object_assets::{ObjectAssets, ObjectIcon};
+use stylist::{css, StyleSource};
 
 /// # Carousel Dots
 ///
@@ -216,6 +217,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     /// In case that children is not included will add a dot icon by default
     #[prop_or_default]
     pub children: Option<Children>,
@@ -265,6 +269,7 @@ impl Component for CarouselDot {
                         ""
                     },
                     self.props.class_name.clone(),
+                    self.props.styles.clone(),
                 )
                 id={self.props.id.clone()}
                 key=self.props.key.clone()
@@ -297,6 +302,7 @@ fn should_create_carousel_dot_component() {
         active: false,
         onclick_signal: Callback::noop(),
         key: "".to_string(),
+        styles: css!("background-color: #918d94;"),
         children: None,
     };
 

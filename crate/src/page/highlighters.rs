@@ -461,3 +461,16 @@ pub fn get_tooltip() -> String {
 </Tooltip>"
         .to_string()
 }
+
+pub fn get_stylist() -> String {
+    "<Text
+    text_type=TextType::Plain
+    plain_text=lipsum(8)
+    html_text=None
+    styles=css!(\"
+        color: #FFF;
+        background-color: #918d94;
+    \")
+/>"
+    .to_string()
+}
