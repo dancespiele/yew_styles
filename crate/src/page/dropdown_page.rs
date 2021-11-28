@@ -66,6 +66,7 @@ impl Component for DropDownPage {
                     <li><b>{"dropdown_style: "}</b>{"dropdown styles. Options included in "}<code>{"Style"}</code>{". Default "}<code>{"Regular"}</code>{"."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                    <li><b>{"styles: "}</b>{"use stylist-rs to write styles in the component. Example: "}<code>{"css!(\"background-color: #918d94;\")"}</code></li>
                 </ul>
 
                 <h2>{"Dropdown Item properties"}</h2>
@@ -74,6 +75,7 @@ impl Component for DropDownPage {
                     <li><b>{"key: "}</b>{"general property to add keys."}</li>
                     <li><b>{"id: "}</b>{"general property to add custom id"}</li>
                     <li><b>{"class_name: "}</b>{"general property to add custom class styles"}</li>
+                    <li><b>{"styles: "}</b>{"use stylist-rs to write styles in the component. Example: "}<code>{"css!(\"background-color: #918d94;\")"}</code></li>
                 </ul>
 
                 <h2>{"Visual Example"}</h2>

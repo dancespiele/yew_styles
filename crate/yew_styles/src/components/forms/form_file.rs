@@ -1,5 +1,6 @@
 use super::error_message::get_error_message;
 use crate::styles::{get_palette, get_size, Palette, Size};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -66,6 +67,9 @@ pub struct Props {
     /// General property to add custom class styles
     #[prop_or_default]
     pub class_name: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
@@ -109,13 +113,14 @@ impl Component for FormFile {
                 <input
                     type="file"
                     id=self.props.id.clone()
-                    class=format!(
-                        "form-file {} {} {} {} {}",
+                    class=classes!(
+                        "form-file",
                         get_palette(self.props.input_palette.clone()),
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" },
                         if self.props.hidden { "hidden" } else { "" },
-                        self.props.class_name,
+                        self.props.class_name.clone(),
+                        self.props.styles.clone(),
                     )
                     key=self.props.key.clone()
                     ref=self.props.code_ref.clone()
@@ -143,6 +148,7 @@ fn should_create_form_input() {
         code_ref: NodeRef::default(),
         id: "form-input-id-test".to_string(),
         class_name: "form-input-class-test".to_string(),
+        styles: css!("background-color: #918d94;"),
         onchange_signal: Callback::noop(),
         error_message: "invalid input".to_string(),
         error_state: false,

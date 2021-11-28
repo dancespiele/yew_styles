@@ -1,4 +1,5 @@
 use crate::styles::{get_palette, get_size, get_style, Palette, Position, Size, Style};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -85,6 +86,9 @@ pub struct Props {
     pub tooltip_position: Position,
     /// Show the content of tooltip
     pub content: Html,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -134,7 +138,8 @@ impl Component for Tooltip {
                     get_palette(self.props.tooltip_palette.clone()),
                     get_style(self.props.tooltip_style.clone()),
                     get_size(self.props.tooltip_size.clone()),
-                    self.props.class_name.clone()
+                    self.props.class_name.clone(),
+                    self.props.styles.clone()
                 )
             >
              {self.props.content.clone()}
@@ -178,6 +183,7 @@ fn should_create_tooltip() {
         key: String::from("dropdown-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
+        styles: css!("color: blue;"),
         children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
     };
 
