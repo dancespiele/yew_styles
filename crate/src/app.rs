@@ -1,6 +1,6 @@
 use page::{
     AssetsPage, BasicFormPage, ButtonPage, CardPage, CarouselPage, DropDownPage, FormPage,
-    HomePage, LayoutsPage, ModalPage, NavbarPage, SpinnerPage, TextPage, TooltipPage,
+    HomePage, LayoutsPage, ModalPage, NavbarPage, SpinnerPage, StylistPage, TextPage, TooltipPage,
 };
 use yew::prelude::*;
 use yew_router::{prelude::*, route::Route, switch::Permissive, Switch};
@@ -41,6 +41,8 @@ pub enum AppRouter {
     CarouselPath,
     #[to = "/tooltip"]
     TooltipPath,
+    #[to = "/stylist"]
+    StylistPagePath,
     #[to = "/page-not-found"]
     PageNotFound(Permissive<String>),
 }
@@ -115,6 +117,9 @@ impl Component for App {
                         <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
                             <RouterAnchor<AppRouter> route=AppRouter::TooltipPath>{"Tooltip"}</RouterAnchor<AppRouter>>
                         </Item>
+                        <Item layouts=vec!(ItemLayout::ItXs(12)) class_name="component-link">
+                        <RouterAnchor<AppRouter> route=AppRouter::StylistPagePath>{"Stylist"}</RouterAnchor<AppRouter>>
+                    </Item>
                     </Container>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXs(12), ItemLayout::ItL(10) )>
@@ -135,6 +140,7 @@ impl Component for App {
                                 AppRouter::AssetsPath => html!{<AssetsPage/>},
                                 AppRouter::CarouselPath => html!{<CarouselPage/>},
                                 AppRouter::TooltipPath => html!{<TooltipPage/>},
+                                AppRouter::StylistPagePath => html!{<StylistPage/>},
                                 AppRouter::PageNotFound(Permissive(None)) => html!{"Page not found"},
                                 AppRouter::PageNotFound(Permissive(Some(missed_route))) => html!{format!("Page '{}' not found", missed_route)}
                             }

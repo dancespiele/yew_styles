@@ -3,6 +3,7 @@ use crate::layouts::{
     item::{Item, ItemLayout},
 };
 use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -217,6 +218,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
 }
 
 pub enum Msg {
@@ -284,8 +288,8 @@ impl Component for Card {
         html! {
             <div
                 id=self.props.id.clone()
-                class=format!(
-                    "card {} {} {} {} {}",
+                class=classes!(
+                    "card",
                     get_palette(self.props.card_palette.clone()),
                     if self.props.interaction_effect {
                         "interaction"
@@ -295,6 +299,7 @@ impl Component for Card {
                     get_size(self.props.card_size.clone()),
                     get_style(self.props.card_style.clone()),
                     self.props.class_name.clone(),
+                    self.props.styles.clone(),
                 )
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
@@ -396,6 +401,7 @@ fn should_create_card_with_three_parts() {
         key: "".to_string(),
         code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
+        styles: css!("background-color: #918d94;"),
         id: "id-card-rest".to_string(),
     };
 
@@ -447,6 +453,7 @@ fn should_create_card_with_single_content() {
         key: "".to_string(),
         code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
+        styles: css!("background-color: #918d94;"),
         id: "id-card-test".to_string(),
     };
 
@@ -501,6 +508,7 @@ fn should_ignore_parts_when_single_content_exist() {
         key: "".to_string(),
         code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
+        styles: css!("background-color: #918d94;"),
         id: "id-card-rest".to_string(),
     };
 

@@ -1,4 +1,5 @@
 use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -245,6 +246,9 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
 }
 
 pub enum Msg {
@@ -335,7 +339,7 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
         TextType::Plain => {
             html! {
                 <span
-                    class=format!("plain-text {} {}", get_size(props.text_size), props.class_name)
+                    class=classes!("plain-text", get_size(props.text_size), props.class_name, props.styles)
                     id=props.id
                     key=props.key
                     ref=props.code_ref
@@ -345,7 +349,7 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
         TextType::Paragraph => {
             html! {
                 <p
-                    class=format!("paragraph-text {} {}", get_size(props.text_size), props.class_name)
+                    class=classes!("paragraph-text", get_size(props.text_size), props.class_name, props.styles)
                     id=props.id
                     key=props.key
                     ref=props.code_ref
@@ -355,12 +359,13 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
         TextType::Alert => {
             html! {
                 <div
-                    class=format!(
-                        "alert-text {} {} {} {}",
+                    class=classes!(
+                        "alert-text",
                         get_style(props.text_style),
                         get_palette(props.text_palette),
                         get_size(props.text_size),
                         props.class_name,
+                        props.styles
                     )
                     id =props.id
                     key=props.key
@@ -373,8 +378,8 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
         TextType::Tag => {
             html! {
                 <div
-                    class=format!(
-                        "tag-text {} {} {} {} {}",
+                    class=classes!(
+                        "tag-text",
                         if props.interaction_effect {
                             "interaction"
                         } else {
@@ -384,6 +389,7 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
                         get_palette(props.text_palette),
                         get_size(props.text_size.clone()),
                         props.class_name,
+                        props.styles,
                     )
                     id =props.id
                     key=props.key
@@ -431,37 +437,37 @@ fn get_text(text_type: TextType, props: Props, link: ComponentLink<Text>) -> Htm
 fn get_header(header: Header, props: Props) -> Html {
     match header {
         Header::H1 => html! {<h1
-            class=format!("header-text {}", props.class_name)
+            class=classes!("header-text", props.class_name, props.styles)
             id=props.id
             key=props.key
             ref=props.code_ref
         >{get_content(props.plain_text, props.html_text)}</h1>},
         Header::H2 => html! {<h2
-            class=format!("header-text {}", props.class_name)
+            class=classes!("header-text", props.class_name, props.styles)
             id=props.id
             key=props.key
             ref=props.code_ref
         >{get_content(props.plain_text, props.html_text)}</h2>},
         Header::H3 => html! {<h3
-            class=format!("header-text {}", props.class_name)
+            class=classes!("header-text", props.class_name, props.styles)
             id=props.id
             key=props.key
             ref=props.code_ref
         >{get_content(props.plain_text, props.html_text)}</h3>},
         Header::H4 => html! {<h4
-            class=format!("header-text {}", props.class_name)
+            class=classes!("header-text", props.class_name, props.styles)
             id=props.id
             key=props.key
             ref=props.code_ref
         >{get_content(props.plain_text, props.html_text)}</h4>},
         Header::H5 => html! {<h5
-            class=format!("header-text {}", props.class_name)
+            class=classes!("header-text", props.class_name, props.styles)
             id=props.id
             key=props.key
             ref=props.code_ref
         >{get_content(props.plain_text, props.html_text)}</h5>},
         Header::H6 => html! {<h6
-            class=format!("header-text {}", props.class_name)
+            class=classes!("header-text", props.class_name, props.styles)
             id=props.id
             key=props.key
             ref=props.code_ref
@@ -496,6 +502,7 @@ fn should_create_plain_text() {
         key: "".to_string(),
         code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
+        styles: css!("color: blue;"),
         id: "id-text-test".to_string(),
     };
 
@@ -538,6 +545,7 @@ fn should_create_paragraph_text() {
         key: "".to_string(),
         code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
+        styles: css!("color: blue;"),
         id: "id-text-test".to_string(),
     };
 
@@ -580,6 +588,7 @@ fn should_create_alert_text() {
         key: "".to_string(),
         code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
+        styles: css!("color: blue;"),
         id: "id-text-test".to_string(),
     };
 
@@ -622,6 +631,7 @@ fn should_create_tag_text() {
         key: "".to_string(),
         code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
+        styles: css!("color: blue;"),
         id: "id-text-test".to_string(),
     };
 
@@ -664,6 +674,7 @@ fn should_add_delete_icon_tag_text() {
         key: "".to_string(),
         code_ref: NodeRef::default(),
         class_name: "class-card-test".to_string(),
+        styles: css!("color: blue;"),
         id: "id-text-test".to_string(),
     };
 
