@@ -25,7 +25,7 @@ Each component is split in two parts, the logical yew component and its sass mod
 however, it is not necessary to worry about the sass module only it needs to be include in the project
 
 **Note:** One of the goals of yew_styles project is include css in the components without depending of any external css file.
-Possible candidates are [CssinRust](https://github.com/lukidoescode/css-in-rust) or [RUSS](https://github.com/siku2/russ)
+Candidate chosen [stylist-rs](https://github.com/futursolo/stylist-rs)
 
 ### How install it
 1. Install the sass module: `npm install yew-styles`
@@ -113,6 +113,7 @@ Please check our [code of conduct](CODE_OF_CONDUCT.md)
 - [x] Card
 - [x] Text
 - [x] Dropdown
+- [ ] get rid of css files
 - [ ] Progress
 - [x] Spinners
 - [ ] Table
