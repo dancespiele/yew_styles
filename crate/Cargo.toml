@@ -6,7 +6,7 @@ license = "MIT/Apache-2.0"
 name = "yew_style_page"
 readme = "./README.md"
 repository = "https://github.com/spielrs/yew-styles-page.git"
-version = "0.10.0"
+version = "0.11.0"
 
 [lib]
 crate-type = ["cdylib"]
@@ -29,5 +29,6 @@ web-sys = "0.3"
 yew_prism = "0.4.2"
 yew_styles= {path= "./yew_styles", features=["full"]}
 yew_assets= {version = "0.1.2", features = ["full"]}
+stylist = {version= "0.9", features= ["yew_integration"]}
 lipsum={git="https://github.com/mgeisler/lipsum.git"}
 Inflector="0.11"

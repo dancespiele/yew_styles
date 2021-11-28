@@ -1,3 +1,4 @@
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
@@ -125,6 +126,9 @@ pub struct Props {
     /// Click event for navbar item
     #[prop_or(Callback::noop())]
     pub onclick_signal: Callback<MouseEvent>,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -158,7 +162,7 @@ impl Component for NavbarItem {
     fn view(&self) -> Html {
         html! {
             <div
-                class=format!("navbar-item {} {} {}", if self.props.active {
+                class=classes!("navbar-item", if self.props.active {
                     "active"
                 } else {
                     ""
@@ -168,7 +172,9 @@ impl Component for NavbarItem {
                 } else {
                     ""
                 },
-                self.props.class_name)
+                self.props.class_name.clone(),
+                self.props.styles.clone()
+            )
                 id=self.props.id.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
@@ -192,6 +198,7 @@ fn should_create_navbar_item() {
         onclick_signal: Callback::noop(),
         active: false,
         interaction_effect: true,
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),
@@ -234,6 +241,7 @@ fn should_create_clickable_navbar_item() {
         active: false,
         interaction_effect: true,
         onclick_signal: on_add_item_div,
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),

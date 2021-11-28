@@ -1,4 +1,5 @@
 use crate::utils::{create_style, get_random_string};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
@@ -101,6 +102,7 @@ pub struct Item {
 struct ItemProps {
     layouts_classes: String,
     class_name: String,
+    styles: StyleSource<'static>,
 }
 
 #[derive(Clone, Copy)]
@@ -128,6 +130,9 @@ pub struct Props {
     /// Click event for the item
     #[prop_or(Callback::noop())]
     pub onclick_signal: Callback<MouseEvent>,
+    /// Set css styles directly in the component
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -171,7 +176,7 @@ impl Component for Item {
 
         html! {
             <div
-                class=format!("item item-{} {} {}", self.key, item_props.layouts_classes, item_props.class_name)
+                class=classes!(format!("item item-{}", self.key), item_props.layouts_classes, item_props.class_name, item_props.styles)
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
                 onclick=self.link.callback(Msg::Clicked)
@@ -187,6 +192,7 @@ impl From<Props> for ItemProps {
         ItemProps {
             layouts_classes: ItemModel.get_layout_classes(props.layouts),
             class_name: props.class_name,
+            styles: props.styles,
         }
     }
 }
@@ -242,6 +248,7 @@ fn should_create_item() {
         class_name: "item-test".to_string(),
         id: "item-id-test".to_string(),
         onclick_signal: Callback::noop(),
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),
@@ -284,6 +291,7 @@ fn should_create_clickable_item() {
         class_name: "item-test".to_string(),
         id: "item-id-test".to_string(),
         onclick_signal: on_add_item_div,
+        styles: css!("background-color: #918d94;"),
         children: Children::new(vec![html! {
             <div id="item">{"Item"}</div>
         }]),

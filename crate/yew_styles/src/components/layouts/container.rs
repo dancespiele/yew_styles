@@ -1,4 +1,5 @@
 use crate::utils::{create_style, get_random_string};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -174,6 +175,8 @@ pub struct Props {
     /// General property to add custom id
     #[prop_or_default]
     pub id: String,
+    #[prop_or(css!(""))]
+    pub styles: StyleSource<'static>,
     pub children: Children,
 }
 
@@ -208,7 +211,7 @@ impl Component for Container {
 
     fn view(&self) -> Html {
         html! {
-            <div class=format!("container container-{} {}", self.key, self.props.class_name)
+            <div class=classes!("container", format!("container-{} {}", self.key, self.props.class_name), self.props.styles.clone())
                 id=self.props.id.to_string()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
@@ -338,6 +341,7 @@ fn should_create_a_container() {
         key: "".to_string(),
         code_ref: NodeRef::default(),
         class_name: String::from("layout-test"),
+        styles: css!("color: red;"),
         id: String::from("layout-id-test"),
         children: Children::new(vec![html! {
             <div id="container">{"Container"}</div>
