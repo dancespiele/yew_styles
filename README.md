@@ -100,6 +100,9 @@ Please check our [code of conduct](CODE_OF_CONDUCT.md)
 <a href="https://github.com/ajstrand">
     <img src="https://github.com/ajstrand.png?size=50">
 </a>
+<a href="https://github.com/philip-peterson">
+    <img src="https://github.com/philip-peterson.png?size=50">
+</a>
 
 ## Roadmap
 

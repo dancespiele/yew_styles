@@ -91,6 +91,9 @@ If you need a feature that is not cover yet, as soon as possible, you can also f
 <a href="https://github.com/ajstrand">
     <img src="https://github.com/ajstrand.png?size=50">
 </a>
+<a href="https://github.com/philip-peterson">
+    <img src="https://github.com/philip-peterson.png?size=50">
+</a>
 
 ## Roadmap
 

@@ -116,6 +116,10 @@ impl Component for HomePage {
                     <a href="https://github.com/ajstrand" target="_blank">
                         <img src="https://github.com/ajstrand.png?size=50"/>
                     </a>
+                    <a href="https://github.com/philip-peterson">
+                        <img src="https://github.com/philip-peterson.png?size=50"/>
+                    </a>
+
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
                     <h2>{"License"}</h2>
