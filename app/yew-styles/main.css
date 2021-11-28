@@ -677,7 +677,7 @@
   z-index: 1;
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 991px) {
   .navbar {
     display: none;
   }
@@ -1476,7 +1476,7 @@
     text-decoration: none;
   }
 }
-@media all and (min-width: 769px) {
+@media all and (min-width: 992px) {
   .navbar-mobile {
     display: none;
   }
@@ -7552,32 +7552,46 @@ div[class^=sk-].clean .sk-flow-dot {
     opacity: 1;
   }
 }
+:root {
+  --tooltip-margin: 30px;
+  --tooltip-arrow-size: 6px;
+}
+
 .tooltip-container {
   position: relative;
-  width: fit-content;
-  width: -moz-fit-content;
+  display: inline-block;
 }
 .tooltip-container .tooltip {
   position: absolute;
-  padding: 3px 5px;
-  border-radius: 5px;
-  text-align: center;
-  z-index: 1;
+  border-radius: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px;
+  font-size: 14px;
+  font-family: sans-serif;
+  line-height: 1;
+  z-index: 100;
+  white-space: nowrap;
+}
+.tooltip-container .tooltip::before {
+  content: " ";
+  left: 50%;
+  border: solid transparent;
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-width: var(--tooltip-arrow-size);
+  margin-left: calc(var(--tooltip-arrow-size) * -1);
 }
 .tooltip-container .tooltip.small {
   font-size: 12px;
 }
-.tooltip-container .tooltip.small.left {
-  left: -40px;
-}
-.tooltip-container .tooltip.small.right {
-  right: -50px;
-}
 .tooltip-container .tooltip.small.above {
-  top: -25px;
+  top: calc(var(--tooltip-margin) * -1);
 }
 .tooltip-container .tooltip.small.below {
-  bottom: -25px;
+  bottom: calc(var(--tooltip-margin) * -1);
 }
 .tooltip-container .tooltip.medium {
   font-size: 18px;
@@ -7585,53 +7599,65 @@ div[class^=sk-].clean .sk-flow-dot {
 .tooltip-container .tooltip.big {
   font-size: 26px;
 }
-.tooltip-container .tooltip.big.left {
-  left: -70px;
-}
-.tooltip-container .tooltip.big.right {
-  right: -75px;
-}
 .tooltip-container .tooltip.big.above {
-  top: -45px;
+  top: calc(var(--tooltip-margin) * -1.5);
 }
 .tooltip-container .tooltip.big.below {
-  bottom: -45px;
+  bottom: calc(var(--tooltip-margin) * -1.5);
 }
 .tooltip-container .tooltip.left {
-  left: -55px;
+  left: auto;
+  right: calc(100% + var(--tooltip-margin));
+  top: 50%;
+  transform: translateX(0) translateY(-50%);
+}
+.tooltip-container .tooltip.left::before {
+  left: auto;
+  right: calc(var(--tooltip-arrow-size) * -1);
+  top: 50%;
+  transform: translateX(0) translateY(-50%);
 }
 .tooltip-container .tooltip.left::after {
   top: 50%;
   left: 100%;
   margin-top: -5px;
-  border-style: solid;
 }
 .tooltip-container .tooltip.right {
-  right: -55px;
+  left: calc(100% + var(--tooltip-margin));
+  top: 50%;
+  transform: translateX(0) translateY(-50%);
+}
+.tooltip-container .tooltip.right::before {
+  left: calc(var(--tooltip-arrow-size) * -1);
+  top: 50%;
+  transform: translateX(0) translateY(-50%);
 }
 .tooltip-container .tooltip.right::after {
   top: 50%;
   right: 100%;
   margin-top: -5px;
-  border-style: solid;
 }
 .tooltip-container .tooltip.above {
-  top: -35px;
+  top: calc(var(--tooltip-margin) * -1.2);
+}
+.tooltip-container .tooltip.above::before {
+  top: 100%;
 }
 .tooltip-container .tooltip.above::after {
   top: 100%;
-  margin-left: -5px;
   left: 50%;
-  border-style: solid;
+  margin-left: -5px;
 }
 .tooltip-container .tooltip.below {
-  bottom: -35px;
+  bottom: calc(var(--tooltip-margin) * -1.2);
+}
+.tooltip-container .tooltip.below::before {
+  bottom: 100%;
 }
 .tooltip-container .tooltip.below::after {
   bottom: 100%;
   left: 50%;
   margin-left: -5px;
-  border-style: solid;
 }
 .tooltip-container .tooltip.small {
   font-size: 12px;
@@ -7771,216 +7797,252 @@ div[class^=sk-].clean .sk-flow-dot {
 .tooltip-container .tooltip.regular.standard.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #918d94;
 }
 .tooltip-container .tooltip.regular.primary.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #654016;
 }
 .tooltip-container .tooltip.regular.secondary.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #c77b21;
 }
 .tooltip-container .tooltip.regular.success.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #40C600;
 }
 .tooltip-container .tooltip.regular.info.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #008FD5;
 }
 .tooltip-container .tooltip.regular.link.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #034DA1;
 }
 .tooltip-container .tooltip.regular.warning.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #FFF200;
 }
 .tooltip-container .tooltip.regular.danger.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #ed1c24;
 }
 .tooltip-container .tooltip.regular.clean.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #fff;
 }
 .tooltip-container .tooltip.regular.standard.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #918d94 transparent transparent;
 }
 .tooltip-container .tooltip.regular.primary.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #654016 transparent transparent;
 }
 .tooltip-container .tooltip.regular.secondary.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #c77b21 transparent transparent;
 }
 .tooltip-container .tooltip.regular.success.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #40C600 transparent transparent;
 }
 .tooltip-container .tooltip.regular.info.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #008FD5 transparent transparent;
 }
 .tooltip-container .tooltip.regular.link.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #034DA1 transparent transparent;
 }
 .tooltip-container .tooltip.regular.warning.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #FFF200 transparent transparent;
 }
 .tooltip-container .tooltip.regular.danger.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #ed1c24 transparent transparent;
 }
 .tooltip-container .tooltip.regular.clean.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #fff transparent transparent;
 }
 .tooltip-container .tooltip.regular.standard.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #918d94 transparent transparent transparent;
 }
 .tooltip-container .tooltip.regular.primary.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #654016 transparent transparent transparent;
 }
 .tooltip-container .tooltip.regular.secondary.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #c77b21 transparent transparent transparent;
 }
 .tooltip-container .tooltip.regular.success.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #40C600 transparent transparent transparent;
 }
 .tooltip-container .tooltip.regular.info.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #008FD5 transparent transparent transparent;
 }
 .tooltip-container .tooltip.regular.link.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #034DA1 transparent transparent transparent;
 }
 .tooltip-container .tooltip.regular.warning.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #FFF200 transparent transparent transparent;
 }
 .tooltip-container .tooltip.regular.danger.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #ed1c24 transparent transparent transparent;
 }
 .tooltip-container .tooltip.regular.clean.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #fff transparent transparent transparent;
 }
 .tooltip-container .tooltip.regular.standard.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #918d94 transparent;
 }
 .tooltip-container .tooltip.regular.primary.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #654016 transparent;
 }
 .tooltip-container .tooltip.regular.secondary.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #c77b21 transparent;
 }
 .tooltip-container .tooltip.regular.success.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #40C600 transparent;
 }
 .tooltip-container .tooltip.regular.info.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #008FD5 transparent;
 }
 .tooltip-container .tooltip.regular.link.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #034DA1 transparent;
 }
 .tooltip-container .tooltip.regular.warning.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #FFF200 transparent;
 }
 .tooltip-container .tooltip.regular.danger.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #ed1c24 transparent;
 }
 .tooltip-container .tooltip.regular.clean.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #fff transparent;
 }
@@ -8113,216 +8175,252 @@ div[class^=sk-].clean .sk-flow-dot {
 .tooltip-container .tooltip.outline.standard.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #918d94;
 }
 .tooltip-container .tooltip.outline.primary.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #654016;
 }
 .tooltip-container .tooltip.outline.secondary.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #c77b21;
 }
 .tooltip-container .tooltip.outline.success.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #40C600;
 }
 .tooltip-container .tooltip.outline.info.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #008FD5;
 }
 .tooltip-container .tooltip.outline.link.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #034DA1;
 }
 .tooltip-container .tooltip.outline.warning.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #FFF200;
 }
 .tooltip-container .tooltip.outline.danger.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #ed1c24;
 }
 .tooltip-container .tooltip.outline.clean.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #fff;
 }
 .tooltip-container .tooltip.outline.standard.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #918d94 transparent transparent;
 }
 .tooltip-container .tooltip.outline.primary.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #654016 transparent transparent;
 }
 .tooltip-container .tooltip.outline.secondary.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #c77b21 transparent transparent;
 }
 .tooltip-container .tooltip.outline.success.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #40C600 transparent transparent;
 }
 .tooltip-container .tooltip.outline.info.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #008FD5 transparent transparent;
 }
 .tooltip-container .tooltip.outline.link.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #034DA1 transparent transparent;
 }
 .tooltip-container .tooltip.outline.warning.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #FFF200 transparent transparent;
 }
 .tooltip-container .tooltip.outline.danger.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #ed1c24 transparent transparent;
 }
 .tooltip-container .tooltip.outline.clean.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #fff transparent transparent;
 }
 .tooltip-container .tooltip.outline.standard.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #918d94 transparent transparent transparent;
 }
 .tooltip-container .tooltip.outline.primary.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #654016 transparent transparent transparent;
 }
 .tooltip-container .tooltip.outline.secondary.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #c77b21 transparent transparent transparent;
 }
 .tooltip-container .tooltip.outline.success.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #40C600 transparent transparent transparent;
 }
 .tooltip-container .tooltip.outline.info.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #008FD5 transparent transparent transparent;
 }
 .tooltip-container .tooltip.outline.link.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #034DA1 transparent transparent transparent;
 }
 .tooltip-container .tooltip.outline.warning.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #FFF200 transparent transparent transparent;
 }
 .tooltip-container .tooltip.outline.danger.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #ed1c24 transparent transparent transparent;
 }
 .tooltip-container .tooltip.outline.clean.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #fff transparent transparent transparent;
 }
 .tooltip-container .tooltip.outline.standard.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #918d94 transparent;
 }
 .tooltip-container .tooltip.outline.primary.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #654016 transparent;
 }
 .tooltip-container .tooltip.outline.secondary.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #c77b21 transparent;
 }
 .tooltip-container .tooltip.outline.success.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #40C600 transparent;
 }
 .tooltip-container .tooltip.outline.info.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #008FD5 transparent;
 }
 .tooltip-container .tooltip.outline.link.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #034DA1 transparent;
 }
 .tooltip-container .tooltip.outline.warning.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #FFF200 transparent;
 }
 .tooltip-container .tooltip.outline.danger.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #ed1c24 transparent;
 }
 .tooltip-container .tooltip.outline.clean.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #fff transparent;
 }
@@ -8455,216 +8553,252 @@ div[class^=sk-].clean .sk-flow-dot {
 .tooltip-container .tooltip.light.standard.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #918d94;
 }
 .tooltip-container .tooltip.light.primary.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #654016;
 }
 .tooltip-container .tooltip.light.secondary.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #c77b21;
 }
 .tooltip-container .tooltip.light.success.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #40C600;
 }
 .tooltip-container .tooltip.light.info.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #008FD5;
 }
 .tooltip-container .tooltip.light.link.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #034DA1;
 }
 .tooltip-container .tooltip.light.warning.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #FFF200;
 }
 .tooltip-container .tooltip.light.danger.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #ed1c24;
 }
 .tooltip-container .tooltip.light.clean.left::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent transparent #fff;
 }
 .tooltip-container .tooltip.light.standard.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #918d94 transparent transparent;
 }
 .tooltip-container .tooltip.light.primary.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #654016 transparent transparent;
 }
 .tooltip-container .tooltip.light.secondary.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #c77b21 transparent transparent;
 }
 .tooltip-container .tooltip.light.success.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #40C600 transparent transparent;
 }
 .tooltip-container .tooltip.light.info.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #008FD5 transparent transparent;
 }
 .tooltip-container .tooltip.light.link.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #034DA1 transparent transparent;
 }
 .tooltip-container .tooltip.light.warning.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #FFF200 transparent transparent;
 }
 .tooltip-container .tooltip.light.danger.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #ed1c24 transparent transparent;
 }
 .tooltip-container .tooltip.light.clean.right::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent #fff transparent transparent;
 }
 .tooltip-container .tooltip.light.standard.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #918d94 transparent transparent transparent;
 }
 .tooltip-container .tooltip.light.primary.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #654016 transparent transparent transparent;
 }
 .tooltip-container .tooltip.light.secondary.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #c77b21 transparent transparent transparent;
 }
 .tooltip-container .tooltip.light.success.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #40C600 transparent transparent transparent;
 }
 .tooltip-container .tooltip.light.info.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #008FD5 transparent transparent transparent;
 }
 .tooltip-container .tooltip.light.link.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #034DA1 transparent transparent transparent;
 }
 .tooltip-container .tooltip.light.warning.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #FFF200 transparent transparent transparent;
 }
 .tooltip-container .tooltip.light.danger.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #ed1c24 transparent transparent transparent;
 }
 .tooltip-container .tooltip.light.clean.above::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: #fff transparent transparent transparent;
 }
 .tooltip-container .tooltip.light.standard.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #918d94 transparent;
 }
 .tooltip-container .tooltip.light.primary.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #654016 transparent;
 }
 .tooltip-container .tooltip.light.secondary.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #c77b21 transparent;
 }
 .tooltip-container .tooltip.light.success.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #40C600 transparent;
 }
 .tooltip-container .tooltip.light.info.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #008FD5 transparent;
 }
 .tooltip-container .tooltip.light.link.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #034DA1 transparent;
 }
 .tooltip-container .tooltip.light.warning.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #FFF200 transparent;
 }
 .tooltip-container .tooltip.light.danger.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #ed1c24 transparent;
 }
 .tooltip-container .tooltip.light.clean.below::after {
   content: " ";
   position: absolute;
+  border-style: solid;
   border-width: 5px;
   border-color: transparent transparent #fff transparent;
 }
