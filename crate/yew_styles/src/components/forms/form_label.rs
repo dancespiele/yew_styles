@@ -1,7 +1,7 @@
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
-use stylist::{css, StyleSource};
 
 /// # Form Label
 ///

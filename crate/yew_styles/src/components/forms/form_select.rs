@@ -1,9 +1,9 @@
 use super::error_message::get_error_message;
 use crate::styles::{get_size, Size};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App, ChangeData};
-use stylist::{css, StyleSource};
 
 /// # Form Select
 ///

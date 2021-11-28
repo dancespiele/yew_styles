@@ -1,7 +1,7 @@
 use crate::styles::{get_palette, get_size, Palette, Size};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use stylist::{css, StyleSource};
 use yew::{utils, App};
 
 /// # Spinner component
@@ -179,7 +179,7 @@ fn should_create_spinner() {
         key: String::from("dropdown-1"),
         class_name: String::from("class-test"),
         id: String::from("id-test"),
-        styles: css!("font-size: 50px;")
+        styles: css!("font-size: 50px;"),
     };
 
     let spinner: App<Spinner> = App::new();

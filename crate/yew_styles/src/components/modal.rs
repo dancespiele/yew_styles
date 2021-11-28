@@ -1,11 +1,11 @@
 use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
 use crate::utils::get_html_element_by_class;
+use stylist::{css, StyleSource};
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use web_sys::Element;
 use yew::prelude::*;
 use yew::{utils, App};
-use stylist::{css, StyleSource};
 
 /// # Modal component
 ///
@@ -290,9 +290,11 @@ fn should_create_modal_component() {
         body_interaction: false,
         is_open: true,
         auto_focus: false,
-        styles: css!("modal-content {
-            color: #000;
-        }")
+        styles: css!(
+            "modal-content {
+                color: #000;
+            }"
+        ),
     };
 
     let modal: App<Modal> = App::new();
@@ -331,9 +333,11 @@ fn should_hide_modal_component_from_doom() {
         body_interaction: false,
         is_open: false,
         auto_focus: false,
-        styles: css!("modal-content {
-            color: #000;
-        }")
+        styles: css!(
+            "modal-content {
+                color: #000;
+            }"
+        ),
     };
 
     let modal: App<Modal> = App::new();

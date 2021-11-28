@@ -1,8 +1,8 @@
 use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
-use stylist::{css, StyleSource};
 
 /// # Form Submit
 ///

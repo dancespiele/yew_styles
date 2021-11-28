@@ -1,8 +1,8 @@
 use crate::utils::{get_html_element_by_class, get_random_string};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
-use stylist::{css, StyleSource};
 
 /// # Navbar Dropdown Container component
 ///

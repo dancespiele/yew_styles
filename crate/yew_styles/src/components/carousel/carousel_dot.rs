@@ -1,9 +1,9 @@
 use crate::styles::{get_palette, Palette};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
 use yew_assets::object_assets::{ObjectAssets, ObjectIcon};
-use stylist::{css, StyleSource};
 
 /// # Carousel Dots
 ///

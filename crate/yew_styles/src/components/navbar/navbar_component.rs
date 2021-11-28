@@ -3,10 +3,10 @@ use super::navbar_item::NavbarItem;
 use crate::layouts::container::{Direction, JustifyContent, Mode};
 use crate::styles::{get_palette, get_style, Palette, Style};
 use crate::utils::create_style;
+use stylist::{css, StyleSource};
 use yew::prelude::*;
 use yew::Children;
 use yew_assets::ux_assets::{UxAssets, UxIcon};
-use stylist::{css, StyleSource};
 
 /// # Navbar component
 ///

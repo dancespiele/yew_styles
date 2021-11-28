@@ -1,9 +1,9 @@
 use crate::utils::{create_style, get_random_string};
+use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
 use yew::{utils, App};
-use stylist::{css, StyleSource};
 
 /// Percent of the layout that will take the item.
 #[derive(Clone, PartialEq)]
