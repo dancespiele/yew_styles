@@ -39,6 +39,10 @@ yew_styles = { version="0.11", features=["button", "text", "navbar"] }
 ```
 4. Ready to import and use in your project 🚀
 
+### Yew styles with Trunk
+
+To create an app with Yew Styles framework using [Trunk](https://trunkrs.dev/) instead of `Parcel` is possible, please check [Yew Styles Trunk Template](https://github.com/dancespiele/yew_styles_trunk_template)
+
 ## Run the documentation page
 1. `git clone https://github.com/spielrs/yew_styles.git`
 2. `cd yew_styles`
@@ -76,7 +80,7 @@ its logic works, in the same file where it is implemented (test events is not ne
 ## Do you like Yew Styles?
 If you like Yew Styles, help me supporting the project:
 - BAT rewards in case that you use [Brave Browser](https://brave.com/)
-- Using this link to create an account in [Binance](https://www.binance.com/en/register?ref=DB8EPXF0) (get 10% fee back for every trading)
+- [Github Sponsors](https://github.com/sponsors/dancespiele)
 
 If you need a feature that is not cover yet, as soon as possible, you can also fund the issue [here](https://issuehunt.io/r/spielrs/yew_styles).
 
