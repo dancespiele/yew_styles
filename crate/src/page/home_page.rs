@@ -71,8 +71,9 @@ impl Component for HomePage {
                     there, shows how to use it."}</p>
                 </Item>
                 <Item layouts=vec!(ItemLayout::ItXl(8), ItemLayout::ItM(10), ItemLayout::ItXs(12))>
+                    <h2>{"Yew Styles using Trunk"}</h2>
                     <p>{"To create an app with Yew Styles framework using "}<a href="https://trunkrs.dev/" target="_blank">{"Trunk"}</a>
-                        {" instead of `Parcel` is possible, please check "}
+                        {" instead of Parcel is possible, please check "}
                         <a href="https://github.com/dancespiele/yew_styles_trunk_template" target="_blank">{"Yew Styles Trunk Template"}
                     </a></p>
                 </Item>
