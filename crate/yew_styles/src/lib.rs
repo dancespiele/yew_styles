@@ -25,6 +25,9 @@
 //! ```
 //! 4. Ready to import and use in your project 🚀
 //!
+//! ### Yew styles with Trunk
+//! To create an app with Yew Styles framework using [Trunk](https://trunkrs.dev/) instead of `Parcel` is possible, please check [Yew Styles Trunk Template](https://github.com/dancespiele/yew_styles_trunk_template)
+//!
 //! ## Run the documentation page
 //! 1. `git clone https://github.com/spielrs/yew_styles.git`
 //! 2. `cd yew_styles`

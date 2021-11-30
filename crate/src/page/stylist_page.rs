@@ -37,7 +37,7 @@ impl Component for StylistPage {
                 <h2>{"Sources"}</h2>
                 <span>{"More info about "}<code>{"stylist-rs"}</code>{" please click "}<a href="https://github.com/futursolo/stylist-rs" target="_blank">{"here"}</a>{"."}</span>
 
-                <h2>{"Visual exmples"}</h2>
+                <h2>{"Visual example"}</h2>
                 <Text
                     text_type=TextType::Plain
                     plain_text=lipsum(8)
