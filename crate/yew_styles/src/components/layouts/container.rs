@@ -1,5 +1,4 @@
-use crate::utils::{create_style, get_random_string};
-use stylist::{css, StyleSource};
+use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -68,7 +67,6 @@ use yew::{utils, App};
 /// ```
 pub struct Container {
     props: Props,
-    pub key: String,
 }
 
 #[derive(Clone, Copy)]
@@ -180,20 +178,30 @@ pub struct Props {
     pub children: Children,
 }
 
+impl YieldStyle for Container {
+    fn style_from(&self) -> StyleSource<'static> {
+        css!(
+            r#"
+                display: flex;
+                flex-flow: ${flow};
+                justify-content: ${justify_content};
+                align-items: ${align_items};
+                align-content: ${align_content};
+            "#,
+            flow = get_flow(self.props.direction.clone(), self.props.wrap.clone()),
+            justify_content = get_justify_content(self.props.justify_content.clone()),
+            align_items = get_align_items(self.props.align_items.clone()),
+            align_content = get_align_content(self.props.align_content.clone()),
+        )
+    }
+}
+
 impl Component for Container {
     type Message = Msg;
     type Properties = Props;
 
     fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        let key = get_random_string(10);
-
-        Container { props, key }
-    }
-
-    fn rendered(&mut self, first_render: bool) {
-        if first_render {
-            ContainerModel.init(self.props.clone(), self.key.clone());
-        }
+        Container { props }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
@@ -211,7 +219,7 @@ impl Component for Container {
 
     fn view(&self) -> Html {
         html! {
-            <div class=classes!("container", format!("container-{} {}", self.key, self.props.class_name), self.props.styles.clone())
+            <div class=classes!(self.style(), self.props.class_name.clone(), self.props.styles.clone())
                 id=self.props.id.to_string()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
@@ -222,109 +230,76 @@ impl Component for Container {
     }
 }
 
-impl ContainerModel {
-    fn init(self, props: Props, key: String) {
-        self.get_flow(props.direction, props.wrap, key.clone());
-        self.get_justify_content(props.justify_content, key.clone());
-        self.get_align_content(props.align_content, key.clone());
-        self.get_align_items(props.align_items, key);
+fn get_flow(direction: Direction, wrap: Wrap) -> String {
+    let direction = match direction {
+        Direction::Row => "row".to_string(),
+        Direction::RowReverse => "row-reverse".to_string(),
+        Direction::Column => "column".to_string(),
+        Direction::ColumnReverse => "column-reverse".to_string(),
+    };
+
+    let wrap = match wrap {
+        Wrap::Nowrap => "nowrap".to_string(),
+        Wrap::Wrap => "wrap".to_string(),
+        Wrap::WrapReverse => "wrap-reverse".to_string(),
+    };
+
+    format!("{} {}", direction, wrap)
+}
+
+fn get_mode(mode: Mode) -> String {
+    match mode {
+        Mode::NoMode => "".to_string(),
+        Mode::SafeMode => " safe".to_string(),
+        Mode::UnsafeMode => " unsafe".to_string(),
     }
+}
 
-    fn get_flow(self, direction: Direction, wrap: Wrap, key: String) {
-        let direction = match direction {
-            Direction::Row => "row".to_string(),
-            Direction::RowReverse => "row-reverse".to_string(),
-            Direction::Column => "column".to_string(),
-            Direction::ColumnReverse => "column-reverse".to_string(),
-        };
-
-        let wrap = match wrap {
-            Wrap::Nowrap => "nowrap".to_string(),
-            Wrap::Wrap => "wrap".to_string(),
-            Wrap::WrapReverse => "wrap-reverse".to_string(),
-        };
-
-        let value = format!("{} {}", direction, wrap);
-
-        create_style(
-            String::from("flex-flow"),
-            value,
-            format!("container-{}", key),
-        );
+fn get_justify_content(justify_content: JustifyContent) -> String {
+    match justify_content {
+        JustifyContent::FlexStart(mode) => format!("flex-start{}", get_mode(mode)),
+        JustifyContent::FlexEnd(mode) => format!("flex-end{}", get_mode(mode)),
+        JustifyContent::Start(mode) => format!("start{}", get_mode(mode)),
+        JustifyContent::End(mode) => format!("end{}", get_mode(mode)),
+        JustifyContent::Left(mode) => format!("left{}", get_mode(mode)),
+        JustifyContent::Center(mode) => format!("center{}", get_mode(mode)),
+        JustifyContent::Rigth(mode) => format!("right{}", get_mode(mode)),
+        JustifyContent::SpaceAround(mode) => format!("space-around{}", get_mode(mode)),
+        JustifyContent::SpaceBetween(mode) => format!("space-between{}", get_mode(mode)),
+        JustifyContent::SpaceEvenly(mode) => format!("evenly{}", get_mode(mode))
     }
+}
 
-    fn get_mode(self, mode: Mode) -> String {
-        match mode {
-            Mode::NoMode => "".to_string(),
-            Mode::SafeMode => " safe".to_string(),
-            Mode::UnsafeMode => " unsafe".to_string(),
-        }
+fn get_align_content(align_content: AlignContent) -> String {
+    match align_content {
+        AlignContent::Stretch(mode) => format!("stretch{}", get_mode(mode)),
+        AlignContent::FlexStart(mode) => format!("flex-start{}", get_mode(mode)),
+        AlignContent::FlexEnd(mode) => format!("flex-end{}", get_mode(mode)),
+        AlignContent::Start(mode) => format!("start{}", get_mode(mode)),
+        AlignContent::End(mode) => format!("end{}", get_mode(mode)),
+        AlignContent::Center(mode) => format!("center{}", get_mode(mode)),
+        AlignContent::Baseline(mode) => format!("baseline{}", get_mode(mode)),
+        AlignContent::FirstBaseline(mode) => format!("first-baseline{}", get_mode(mode)),
+        AlignContent::LastBaseline(mode) => format!("last-baseline{}", get_mode(mode)),
+        AlignContent::SpaceAround(mode) => format!("space-around{}", get_mode(mode)),
+        AlignContent::SpaceBetween(mode) => format!("space-between{}", get_mode(mode)),
+        AlignContent::SpaceEvenly(mode) => format!("evenly{}", get_mode(mode)),
     }
+}
 
-    fn get_justify_content(self, justify_content: JustifyContent, key: String) {
-        let value = match justify_content {
-            JustifyContent::FlexStart(mode) => format!("flex-start{}", self.get_mode(mode)),
-            JustifyContent::FlexEnd(mode) => format!("flex-end{}", self.get_mode(mode)),
-            JustifyContent::Start(mode) => format!("start{}", self.get_mode(mode)),
-            JustifyContent::End(mode) => format!("end{}", self.get_mode(mode)),
-            JustifyContent::Left(mode) => format!("left{}", self.get_mode(mode)),
-            JustifyContent::Center(mode) => format!("center{}", self.get_mode(mode)),
-            JustifyContent::Rigth(mode) => format!("right{}", self.get_mode(mode)),
-            JustifyContent::SpaceAround(mode) => format!("space-around{}", self.get_mode(mode)),
-            JustifyContent::SpaceBetween(mode) => format!("space-between{}", self.get_mode(mode)),
-            JustifyContent::SpaceEvenly(mode) => format!("evenly{}", self.get_mode(mode)),
-        };
-
-        create_style(
-            String::from("justify-content"),
-            value,
-            format!("container-{}", key),
-        );
-    }
-
-    fn get_align_content(self, align_content: AlignContent, key: String) {
-        let value = match align_content {
-            AlignContent::Stretch(mode) => format!("stretch{}", self.get_mode(mode)),
-            AlignContent::FlexStart(mode) => format!("flex-start{}", self.get_mode(mode)),
-            AlignContent::FlexEnd(mode) => format!("flex-end{}", self.get_mode(mode)),
-            AlignContent::Start(mode) => format!("start{}", self.get_mode(mode)),
-            AlignContent::End(mode) => format!("end{}", self.get_mode(mode)),
-            AlignContent::Center(mode) => format!("center{}", self.get_mode(mode)),
-            AlignContent::Baseline(mode) => format!("baseline{}", self.get_mode(mode)),
-            AlignContent::FirstBaseline(mode) => format!("first-baseline{}", self.get_mode(mode)),
-            AlignContent::LastBaseline(mode) => format!("last-baseline{}", self.get_mode(mode)),
-            AlignContent::SpaceAround(mode) => format!("space-around{}", self.get_mode(mode)),
-            AlignContent::SpaceBetween(mode) => format!("space-between{}", self.get_mode(mode)),
-            AlignContent::SpaceEvenly(mode) => format!("evenly{}", self.get_mode(mode)),
-        };
-
-        create_style(
-            String::from("align-content"),
-            value,
-            format!("container-{}", key),
-        );
-    }
-
-    fn get_align_items(self, align_items: AlignItems, key: String) {
-        let value = match align_items {
-            AlignItems::Stretch(mode) => format!("stretch{}", self.get_mode(mode)),
-            AlignItems::Baseline(mode) => format!("baseline{}", self.get_mode(mode)),
-            AlignItems::Start(mode) => format!("start{}", self.get_mode(mode)),
-            AlignItems::End(mode) => format!("end{}", self.get_mode(mode)),
-            AlignItems::FlexStart(mode) => format!("start{}", self.get_mode(mode)),
-            AlignItems::FlexEnd(mode) => format!("flex-end{}", self.get_mode(mode)),
-            AlignItems::FirstBaseline(mode) => format!("first-baseline{}", self.get_mode(mode)),
-            AlignItems::LastBaseline(mode) => format!("last-baseline{}", self.get_mode(mode)),
-            AlignItems::SelfStart(mode) => format!("self-start{}", self.get_mode(mode)),
-            AlignItems::SelfEnd(mode) => format!("self-end{}", self.get_mode(mode)),
-            AlignItems::Center(mode) => format!("center{}", self.get_mode(mode)),
-        };
-
-        create_style(
-            String::from("align-items"),
-            value,
-            format!("container-{}", key),
-        );
+fn get_align_items(align_items: AlignItems) -> String {
+    match align_items {
+        AlignItems::Stretch(mode) => format!("stretch{}", get_mode(mode)),
+        AlignItems::Baseline(mode) => format!("baseline{}", get_mode(mode)),
+        AlignItems::Start(mode) => format!("start{}", get_mode(mode)),
+        AlignItems::End(mode) => format!("end{}", get_mode(mode)),
+        AlignItems::FlexStart(mode) => format!("start{}", get_mode(mode)),
+        AlignItems::FlexEnd(mode) => format!("flex-end{}", get_mode(mode)),
+        AlignItems::FirstBaseline(mode) => format!("first-baseline{}", get_mode(mode)),
+        AlignItems::LastBaseline(mode) => format!("last-baseline{}", get_mode(mode)),
+        AlignItems::SelfStart(mode) => format!("self-start{}", get_mode(mode)),
+        AlignItems::SelfEnd(mode) => format!("self-end{}", get_mode(mode)),
+        AlignItems::Center(mode) => format!("center{}", get_mode(mode)),
     }
 }
 

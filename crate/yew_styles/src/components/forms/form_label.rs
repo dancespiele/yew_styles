@@ -18,7 +18,7 @@ use yew::{utils, App};
 ///     form_group::{FormGroup, Orientation},
 ///     form_textarea::FormTextArea,
 /// };
-/// use yew_styles::styles::{Palette, Size};
+/// use yew_styles::styles::helpers::{Palette, Size};
 ///
 /// pub struct FormLabelExample {
 ///     pub link: ComponentLink<Self>,

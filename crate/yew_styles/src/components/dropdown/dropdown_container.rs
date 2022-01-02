@@ -1,4 +1,4 @@
-use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
+use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
@@ -15,7 +15,7 @@ use yew::{utils, App};
 /// ```rust
 /// use yew::prelude::*;
 /// use yew_styles::dropdown::{Dropdown, DropdownItem};
-/// use yew_styles::styles::{Palette, Size, Style};
+/// use yew_styles::styles::helpers::{Palette, Size, Style};
 ///
 /// pub struct DropDownPage {
 ///     link: ComponentLink<Self>,

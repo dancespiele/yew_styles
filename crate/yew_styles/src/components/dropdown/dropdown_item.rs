@@ -14,7 +14,7 @@ use yew::{utils, App};
 /// ```rust
 /// use yew::prelude::*;
 /// use yew_styles::dropdown::{Dropdown, DropdownItem};
-/// use yew_styles::styles::{Palette, Size, Style};
+/// use yew_styles::styles::helpers::{Palette, Size, Style};
 ///
 /// pub struct DropDownPage {
 ///     link: ComponentLink<Self>,

@@ -12,7 +12,7 @@ use yew_styles::{
         navbar_dropdown::{NavbarDropdown, NavbarDropdownItem},
         navbar_item::NavbarItem,
     },
-    styles::{get_palette, Palette, Style},
+    styles::helpers::{get_palette, Palette, Style},
 };
 
 pub struct NavbarPage {

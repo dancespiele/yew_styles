@@ -1,9 +1,9 @@
-use crate::utils::{create_style, get_random_string};
-use stylist::{css, StyleSource};
+use crate::utils::get_random_string;
+use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
-use yew::{utils, App};
+use yew::{services::ConsoleService, utils, App};
 
 /// Percent of the layout that will take the item.
 #[derive(Clone, PartialEq)]
@@ -136,6 +136,21 @@ pub struct Props {
     pub children: Children,
 }
 
+impl YieldStyle for Item {
+    fn style_from(&self) -> StyleSource<'static> {
+        format!(
+            r#"
+                align-self: {};
+
+                {}
+            "#,
+            get_item_align_self(self.props.align_self.clone()),
+            get_layout_screen(self.props.layouts.clone()),
+        )
+        .into()
+    }
+}
+
 impl Component for Item {
     type Message = Msg;
     type Properties = Props;
@@ -156,12 +171,6 @@ impl Component for Item {
         false
     }
 
-    fn rendered(&mut self, first_render: bool) {
-        if first_render {
-            ItemModel.init(self.props.align_self.clone(), self.key.clone());
-        }
-    }
-
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
         if self.props != props {
             self.props = props;
@@ -172,11 +181,9 @@ impl Component for Item {
     }
 
     fn view(&self) -> Html {
-        let item_props = ItemProps::from(self.props.clone());
-
         html! {
             <div
-                class=classes!(format!("item item-{}", self.key), item_props.layouts_classes, item_props.class_name, item_props.styles)
+                class=classes!(self.style(), get_layout_classes(self.props.layouts.clone()), self.props.class_name.clone(), self.props.styles.clone())
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
                 onclick=self.link.callback(Msg::Clicked)
@@ -187,53 +194,111 @@ impl Component for Item {
     }
 }
 
-impl From<Props> for ItemProps {
-    fn from(props: Props) -> Self {
-        ItemProps {
-            layouts_classes: ItemModel.get_layout_classes(props.layouts),
-            class_name: props.class_name,
-            styles: props.styles,
-        }
+fn get_item_align_self(align_self: AlignSelf) -> String {
+    match align_self {
+        AlignSelf::Auto => "auto".to_string(),
+        AlignSelf::Baseline => "baseline".to_string(),
+        AlignSelf::Center => "center".to_string(),
+        AlignSelf::FlexStart => "flex-start".to_string(),
+        AlignSelf::FlexEnd => "flex-end".to_string(),
+        AlignSelf::Stretch => "stretch".to_string(),
     }
 }
 
-impl ItemModel {
-    fn init(self, align_self: AlignSelf, key: String) {
-        self.get_item_align(align_self, key);
+fn get_layout(screen: &str, size: i8) -> String {
+    let calc_with = 100.0 / (12.0 / size as f32);
+
+    ConsoleService::info(&format!("{}:{}", size, calc_with));
+
+    format!(
+        r#"
+            &.it-{}-{} {{
+                flex-basis: {}%;
+            }}
+        "#,
+        screen, size, calc_with
+    )
+}
+
+fn get_layout_classes(layouts_prop: Vec<ItemLayout>) -> String {
+    let mut layouts = layouts_prop
+        .into_iter()
+        .map(get_layout_class)
+        .collect::<String>();
+
+    layouts.truncate(layouts.len() - 1);
+    layouts
+}
+
+fn get_layout_class(item_layout: ItemLayout) -> String {
+    match item_layout {
+        ItemLayout::ItXs(size) => format!("it-xs-{} ", size),
+        ItemLayout::ItS(size) => format!("it-s-{} ", size),
+        ItemLayout::ItM(size) => format!("it-m-{} ", size),
+        ItemLayout::ItL(size) => format!("it-l-{} ", size),
+        ItemLayout::ItXl(size) => format!("it-xl-{} ", size),
     }
+}
 
-    fn get_layout_classes(self, layouts_prop: Vec<ItemLayout>) -> String {
-        let mut layouts = layouts_prop
-            .into_iter()
-            .map(|layout| self.get_layout(layout))
-            .collect::<String>();
+pub fn get_layout_screen(screens: Vec<ItemLayout>) -> String {
+    let mut screens_order: Vec<Option<String>> = vec![None; 5];
 
-        layouts.truncate(layouts.len() - 1);
-        layouts
-    }
-
-    fn get_layout(self, item_layout: ItemLayout) -> String {
-        match item_layout {
-            ItemLayout::ItXs(size) => format!("it-xs-{} ", size),
-            ItemLayout::ItS(size) => format!("it-s-{} ", size),
-            ItemLayout::ItM(size) => format!("it-m-{} ", size),
-            ItemLayout::ItL(size) => format!("it-l-{} ", size),
-            ItemLayout::ItXl(size) => format!("it-xl-{} ", size),
+    screens.to_vec().into_iter().for_each(|l| match l {
+        ItemLayout::ItXs(size) => {
+            screens_order[0] = Some(get_layout("xs", size));
         }
-    }
+        ItemLayout::ItS(size) => {
+            screens_order[1] = Some(format!(
+                r#"
+                        @media (min-width: 576px){{
+                            {}
+                        }}
+                    "#,
+                get_layout("s", size)
+            ));
+        }
+        ItemLayout::ItM(size) => {
+            screens_order[2] = Some(format!(
+                r#"
+                        @media (min-width: 768px){{
+                            {}
+                        }}
+                    "#,
+                get_layout("m", size)
+            ));
+        }
+        ItemLayout::ItL(size) => {
+            screens_order[3] = Some(format!(
+                r#"
+                        @media (min-width: 992px){{
+                            {}
+                        }}
+                    "#,
+                get_layout("l", size)
+            ));
+        }
+        ItemLayout::ItXl(size) => {
+            screens_order[4] = Some(format!(
+                r#"
+                        @media (min-width: 1200px){{
+                            {}
+                        }}
+                    "#,
+                get_layout("xl", size)
+            ));
+        }
+    });
 
-    fn get_item_align(self, align: AlignSelf, key: String) {
-        let value = match align {
-            AlignSelf::Auto => "auto".to_string(),
-            AlignSelf::Baseline => "baseline".to_string(),
-            AlignSelf::Center => "center".to_string(),
-            AlignSelf::FlexStart => "flex-start".to_string(),
-            AlignSelf::FlexEnd => "flex-end".to_string(),
-            AlignSelf::Stretch => "stretch".to_string(),
-        };
+    screens_order
+        .to_vec()
+        .into_iter()
+        .fold(String::from(""), |mut acc, s| {
+            if let Some(screen) = s {
+                acc.push_str(&screen);
+            }
 
-        create_style(String::from("align-self"), value, format!("item-{}", key));
-    }
+            acc
+        })
 }
 
 wasm_bindgen_test_configure!(run_in_browser);

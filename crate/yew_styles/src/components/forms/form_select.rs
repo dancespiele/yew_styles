@@ -1,5 +1,5 @@
 use super::error_message::get_error_message;
-use crate::styles::{get_size, Size};
+use crate::styles::helpers::{get_size, Size};
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
@@ -16,7 +16,7 @@ use yew::{utils, App, ChangeData};
 /// ```rust
 /// use yew::prelude::*;
 /// use yew_styles::forms::form_select::FormSelect;
-/// use yew_styles::styles::{Size};
+/// use yew_styles::styles::helpers::{Size};
 ///
 /// pub struct FormSelectExample {
 ///     pub link: ComponentLink<Self>,

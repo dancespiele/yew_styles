@@ -11,7 +11,7 @@ use yew_styles::layouts::{
     container::{Container, Direction, Wrap},
     item::{Item, ItemLayout},
 };
-use yew_styles::styles::{get_palette, get_size, get_style, Palette, Size, Style};
+use yew_styles::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
 
 pub enum Msg {
     Dragged(DragEvent),

@@ -6,7 +6,7 @@ use yew_styles::layouts::{
     item::{Item, ItemLayout},
 };
 
-use yew_styles::styles::{get_size, get_style, Palette, Position, Size, Style};
+use yew_styles::styles::helpers::{get_size, get_style, Palette, Position, Size, Style};
 use yew_styles::tooltip::Tooltip;
 
 pub struct TooltipPage;

@@ -7,7 +7,7 @@ use yew_styles::layouts::{
     item::{Item, ItemLayout},
 };
 use yew_styles::spinner::{Spinner, SpinnerType};
-use yew_styles::styles::{get_palette, get_size, Palette, Size};
+use yew_styles::styles::helpers::{get_palette, get_size, Palette, Size};
 
 pub struct SpinnerPage;
 

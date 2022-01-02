@@ -11,7 +11,7 @@ use yew_styles::layouts::{
     container::{Container, Direction, Wrap},
     item::{Item, ItemLayout},
 };
-use yew_styles::styles::{Palette, Size, Style};
+use yew_styles::styles::helpers::{Palette, Size, Style};
 use yew_styles::text::{Header, Text, TextType};
 
 pub struct TextPage {

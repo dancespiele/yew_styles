@@ -3,7 +3,7 @@ use yew::prelude::*;
 use yew_prism::Prism;
 use yew_styles::{
     button::Button,
-    styles::{get_palette, get_size, get_style, Palette, Size, Style},
+    styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style},
 };
 
 pub struct ButtonPage {

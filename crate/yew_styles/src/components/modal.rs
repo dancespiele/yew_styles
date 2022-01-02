@@ -1,4 +1,4 @@
-use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
+use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
 use crate::utils::get_html_element_by_class;
 use stylist::{css, StyleSource};
 use wasm_bindgen::JsCast;
@@ -23,7 +23,7 @@ use yew::{utils, App};
 /// use yew_prism::Prism;
 /// use yew_styles::button::Button;
 /// use yew_styles::modal::Modal;
-/// use yew_styles::styles::{get_size, Palette, Size, Style};
+/// use yew_styles::styles::helpers::{get_size, Palette, Size, Style};
 ///
 /// pub struct ModalExample {
 ///     link: ComponentLink<Self>,

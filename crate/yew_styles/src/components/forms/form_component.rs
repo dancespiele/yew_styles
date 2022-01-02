@@ -30,7 +30,7 @@ use yew::{utils, App};
 ///     container::{Container, Direction, Wrap},
 ///     item::{Item, ItemLayout},
 /// };
-/// use yew_styles::styles::{Palette, Style};
+/// use yew_styles::styles::helpers::{Palette, Style};
 ///
 /// #[derive(Clone)]
 /// struct Fields {

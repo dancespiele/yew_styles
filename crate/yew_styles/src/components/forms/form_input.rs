@@ -1,5 +1,5 @@
 use super::error_message::get_error_message;
-use crate::styles::{get_palette, get_size, Palette, Size};
+use crate::styles::helpers::{get_palette, get_size, Palette, Size};
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
@@ -16,7 +16,7 @@ use yew::{utils, App};
 /// ```rust
 /// use yew::prelude::*;
 /// use yew_styles::forms::form_input::{FormInput, InputType};
-/// use yew_styles::styles::{Palette, Size};
+/// use yew_styles::styles::helpers::{Palette, Size};
 ///
 /// pub struct FormInputExample {
 ///     pub link: ComponentLink<Self>,

@@ -18,7 +18,7 @@ use yew_styles::layouts::{
     container::{Container, Direction, Wrap},
     item::{Item, ItemLayout},
 };
-use yew_styles::styles::{Palette, Size};
+use yew_styles::styles::helpers::{Palette, Size};
 
 pub struct FormPage {
     pub link: ComponentLink<Self>,

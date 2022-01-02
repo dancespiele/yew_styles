@@ -1,5 +1,5 @@
 use super::error_message::get_error_message;
-use crate::styles::{get_palette, get_size, Palette, Size};
+use crate::styles::helpers::{get_palette, get_size, Palette, Size};
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;

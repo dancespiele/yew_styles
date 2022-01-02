@@ -1,4 +1,4 @@
-use crate::styles::{get_palette, Palette};
+use crate::styles::helpers::{get_palette, Palette};
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
@@ -20,7 +20,7 @@ use yew_assets::object_assets::{ObjectAssets, ObjectIcon};
 /// use yew::utils::document;
 /// use yew_prism::Prism;
 /// use yew_styles::carousel::{Carousel, CarouselControls, CarouselDot, CarouselImage};
-/// use yew_styles::styles::Size;
+/// use yew_styles::styles::helpers::Size;
 ///
 /// pub struct CarouselPage {
 ///     link: ComponentLink<Self>,

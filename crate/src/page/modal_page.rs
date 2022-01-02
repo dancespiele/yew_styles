@@ -13,7 +13,7 @@ use yew_styles::forms::{
     form_label::FormLabel,
 };
 use yew_styles::modal::Modal;
-use yew_styles::styles::{get_size, Palette, Size, Style};
+use yew_styles::styles::helpers::{get_size, Palette, Size, Style};
 
 pub struct ModalPage {
     link: ComponentLink<Self>,

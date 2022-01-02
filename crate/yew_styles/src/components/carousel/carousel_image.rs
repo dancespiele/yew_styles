@@ -18,7 +18,7 @@ use yew::{utils, App};
 /// use yew::utils::document;
 /// use yew_prism::Prism;
 /// use yew_styles::carousel::{Carousel, CarouselControls, CarouselDot, CarouselImage};
-/// use yew_styles::styles::Size;
+/// use yew_styles::styles::helpers::Size;
 ///
 /// pub struct CarouselPage {
 ///     link: ComponentLink<Self>,

@@ -1,4 +1,4 @@
-use crate::styles::{get_palette, get_size, get_style, Palette, Position, Size, Style};
+use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Position, Size, Style};
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
@@ -14,7 +14,7 @@ use yew::{utils, App};
 ///
 /// ```rust
 /// use yew::prelude::*;
-/// use yew_styles::styles::{Palette, Position, Size, Style};
+/// use yew_styles::styles::helpers::{Palette, Position, Size, Style};
 /// use yew_styles::tooltip::Tooltip;
 ///
 /// pub struct TooltipPage;

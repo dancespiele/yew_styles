@@ -1,4 +1,4 @@
-use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
+use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
@@ -23,7 +23,7 @@ use yew_assets::editing_assets::{EditingAssets, EditingIcon};
 ///     container::{Container, Direction, Wrap},
 ///     item::{Item, ItemLayout},
 /// };
-/// use yew_styles::styles::{Palette, Size, Style};
+/// use yew_styles::styles::helpers::{Palette, Size, Style};
 /// use yew_styles::text::{Text, TextType};
 ///
 /// pub enum Msg {

@@ -2,7 +2,7 @@ use crate::layouts::{
     container::{AlignContent, Container, Direction, Mode, Wrap},
     item::{Item, ItemLayout},
 };
-use crate::styles::{get_palette, get_size, get_style, Palette, Size, Style};
+use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
@@ -25,7 +25,7 @@ use yew::{utils, App};
 /// use yew::utils;
 /// use yew_prism::Prism;
 /// use yew_styles::card::Card;
-/// use yew_styles::styles::{Palette, Size, Style};
+/// use yew_styles::styles::helpers::{Palette, Size, Style};
 /// use yew_styles::layouts::{
 ///     container::{Container, Direction, Wrap},
 ///     item::{Item, ItemLayout},
