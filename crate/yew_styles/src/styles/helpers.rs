@@ -1,4 +1,4 @@
-use super::colors::{get_styles, ColorStyle};
+use colorsys::{ColorTransform, Rgb};
 
 /// Palette of styles according with the purpose
 #[derive(Clone, PartialEq)]
@@ -69,65 +69,30 @@ pub fn get_style(style: Style) -> String {
     }
 }
 
-pub fn get_palette_style(iteraction: bool) -> String {
-    let styles = get_styles();
-    let mut palette: String = String::from("");
-    for (key, value) in styles {
-        palette.push_str(&format!(
-            r#"
-            .{} {{
-                {}
-            }}
-        "#,
-            key,
-            get_style_type(value)
-        ));
-    }
-
-    palette
-}
-
-pub fn get_style_type(style: Vec<ColorStyle>) -> String {
-    let mut style_type: String = String::from("");
-
-    style.to_vec().iter_mut().for_each(|item| {
-        style_type.push_str(&format!(
-            r#"
-                .{} {{
-                    background-color: {};
-                    color: {};
-                    border: {}
-                }}
-                {}
-            "#,
-            item.name,
-            item.background,
-            item.color,
-            if item.border_color != "none" {
-                format!("1px solid {}", item.border_color)
-            } else {
-                "".to_string()
-            },
-            get_iteraction(&item.name, &item.background)
-        ))
-    });
-
-    style_type
-}
-
-pub fn get_iteraction(style_name: &str, background: &str) -> String {
+pub fn get_iteractions(prop: &str, color: String) -> String {
     format!(
         r#"
-        {}:focus{{
-            background-color: darken({}, 5%);
-        }}
-        {}:hover{{
-            background-color: darken({}, 10%);
-        }}
-        {}:active{{
-            background-color: darken({}, 15%);
-        }}
-    "#,
-        style_name, background, style_name, background, style_name, background
+            &:focus{{
+                {}: {};
+            }}
+            &:hover{{
+                {}: {};
+            }}
+            &:active{{
+                {}: {};
+            }}
+        "#,
+        prop,
+        darker(&color, -10.0),
+        prop,
+        darker(&color, -20.0),
+        prop,
+        darker(&color, -30.0),
     )
+}
+
+pub fn darker(color: &str, value: f64) -> String {
+    let mut rgb = Rgb::from_hex_str(color).unwrap();
+    rgb.lighten(value);
+    rgb.to_hex_string()
 }

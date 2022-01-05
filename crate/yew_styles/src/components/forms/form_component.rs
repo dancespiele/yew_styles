@@ -436,7 +436,7 @@ impl Component for Form {
                 name=self.props.name.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
-                class=classes!("form", self.props.class_name.clone(), self.props.styles.clone())
+                class=classes!(self.props.class_name.clone(), self.props.styles.clone())
                 id=self.props.id.to_string()
             >
                 { self.props.children.clone() }
