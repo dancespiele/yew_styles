@@ -1,6 +1,7 @@
 use super::error_message::get_error_message;
-use crate::styles::helpers::{get_palette, get_size, Palette, Size};
-use stylist::{css, StyleSource};
+use crate::styles::colors::get_styles;
+use crate::styles::helpers::{get_palette, get_size, Palette, Size, get_common_form_styles};
+use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -8,6 +9,19 @@ use yew::{utils, App};
 pub struct FormFile {
     link: ComponentLink<Self>,
     props: Props,
+}
+
+impl YieldStyle for FormFile {
+    fn style_from(&self) -> StyleSource<'static> {
+        let styles = get_styles();
+        let color = styles.get("outline")
+            .unwrap()
+            .iter()
+            .find(|pallete| pallete.name == get_palette(self.props.input_palette.clone()))
+            .unwrap();
+
+        get_common_form_styles(color)
+    }
 }
 
 #[derive(Clone, PartialEq, Properties)]

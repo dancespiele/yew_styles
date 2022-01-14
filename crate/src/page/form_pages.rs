@@ -59,7 +59,7 @@ impl Component for FormPage {
             }
             Msg::UploadFile(file) => {
                 let image_blob = &file.slice().unwrap();
-                self.file_path = Url::create_object_url_with_blob(&image_blob).unwrap();
+                self.file_path = Url::create_object_url_with_blob(image_blob).unwrap();
             }
             Msg::ErrorUploadImage => {
                 ConsoleService::error("Error to upload image");

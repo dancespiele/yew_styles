@@ -1,6 +1,6 @@
 use super::error_message::get_error_message;
 use crate::styles::colors::get_styles;
-use crate::styles::helpers::{darker, get_iteractions, get_palette, get_size, Palette, Size};
+use crate::styles::helpers::{get_palette, get_size, Palette, Size, get_common_form_styles};
 use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
@@ -205,64 +205,7 @@ impl YieldStyle for FormInput {
             .find(|pallete| pallete.name == get_palette(self.props.input_palette.clone()))
             .unwrap();
 
-        css!(
-            r#"
-                padding: 5px;
-                box-sizing: border-box;
-                border-radius: 5px;
-                width: 100%;
-                border: 1px solid ${border_color};
-                ${iteractions}
-
-                &::-webkit-input-placeholder {
-                    color: ${color};
-                }
-
-                &:-moz-placeholder {
-                    color: ${color};
-                }
-
-                &::-moz-placeholder {
-                    color: ${color};
-                }
-
-                &:-ms-input-placeholder{
-                    color: ${color};
-                }
-
-                &.small {
-                    padding: 2px;
-                }
-
-                &.big {
-                    padding: 10px;
-                }
-
-                &.underline {
-                    border-radius: 2px;
-                    border-top: 0;
-                    border-left: 0;
-                    border-right: 0;
-                    border-bottom: 2px solid ${border_color};
-                }
-
-                &.underline:focus{
-                    border-bottom-color: ${focus_color};
-                }
-                &.underline:hover{
-                    border-bottom-color: ${hover_color};
-                }
-                &.underline:active{
-                    border-bottom-color: ${active_color};
-                }
-            "#,
-            border_color = color.border_color.clone(),
-            color = color.color.clone(),
-            iteractions = get_iteractions("border-color", color.border_color.clone()),
-            focus_color = darker(&color.border_color, -10.0),
-            hover_color = darker(&color.border_color, -20.0),
-            active_color = darker(&color.border_color, -30.0)
-        )
+            get_common_form_styles(color)
     }
 }
 
