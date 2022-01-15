@@ -1,5 +1,6 @@
-use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
-use stylist::{css, StyleSource};
+use crate::styles::helpers::{get_palette, get_size, get_style, get_palette_style, Palette, Size, Style};
+use crate::styles::colors::get_styles;
+use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -47,6 +48,39 @@ pub struct Props {
     pub styles: StyleSource<'static>,
 }
 
+impl YieldStyle for FormSubmit {
+    fn style_from(&self) -> StyleSource<'static> {
+        let styles = get_styles();
+        let style = get_style(self.props.submit_style.clone());
+        let color = styles
+            .get(style.as_str())
+            .unwrap()
+            .iter()
+            .find(|palette| palette.name == get_palette(self.props.submit_palette.clone()))
+            .unwrap();
+
+        css!(r#"
+                padding: 5px 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 18px;
+
+                ${palette}
+
+                &.small {
+                    font-size: 12px
+                }
+
+                &.big {
+                    font-size: 26px
+                }
+            "#,
+            palette = get_palette_style(color, !self.props.disabled)
+        )
+    }
+}
+
 impl Component for FormSubmit {
     type Message = ();
     type Properties = Props;
@@ -75,8 +109,7 @@ impl Component for FormSubmit {
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()
                 class=classes!(
-                    "form-submit",
-                    get_style(self.props.submit_style.clone()),
+                    self.style(),
                     get_palette(self.props.submit_palette.clone()),
                     get_size(self.props.size.clone()),
                 self.props.class_name.clone())

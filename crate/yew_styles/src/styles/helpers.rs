@@ -71,7 +71,7 @@ pub fn get_style(style: Style) -> String {
     }
 }
 
-pub fn get_iteractions(prop: &str, color: String) -> String {
+pub fn get_iteractions(prop: &str, color: String, focus: f64, hover: f64, active: f64) -> String {
     format!(
         r#"
             &:focus{{
@@ -85,11 +85,11 @@ pub fn get_iteractions(prop: &str, color: String) -> String {
             }}
         "#,
         prop,
-        darker(&color, -10.0),
+        darker(&color, focus),
         prop,
-        darker(&color, -20.0),
+        darker(&color, hover),
         prop,
-        darker(&color, -30.0),
+        darker(&color, active),
     )
 }
 
@@ -97,6 +97,38 @@ pub fn darker(color: &str, value: f64) -> String {
     let mut rgb = Rgb::from_hex_str(color).unwrap();
     rgb.lighten(value);
     rgb.to_hex_string()
+}
+
+pub fn get_border(border_color: String) -> String {
+    if border_color.is_empty() {
+        "none".to_string()
+    } else {
+        format!("1px solid {}", border_color)
+    }
+}
+
+pub fn get_palette_style(color: &ColorStyle, interactions: bool) -> String {
+    format!(
+        r#"
+            &.{} {{
+                background-color: {};
+                color: {};
+                border: {};
+            }}
+
+            {}
+        "#,
+        color.name.clone(),
+        color.background.clone(),
+        color.color.clone(),
+        get_border(color.border_color.clone()),
+        if interactions {
+            get_iteractions("background-color", color.background.clone(), -5.0, -10.0, -15.0)
+        } else {
+            "".to_string()
+        }
+        
+    )
 }
 
 pub fn get_common_form_styles(color: &ColorStyle) -> StyleSource<'static> {
@@ -153,7 +185,7 @@ pub fn get_common_form_styles(color: &ColorStyle) -> StyleSource<'static> {
         "#,
         border_color = color.border_color.clone(),
         color = color.color.clone(),
-        iteractions = get_iteractions("border-color", color.border_color.clone()),
+        iteractions = get_iteractions("border-color", color.border_color.clone(), -10.0, -20.0, -30.0),
         focus_color = darker(&color.border_color, -10.0),
         hover_color = darker(&color.border_color, -20.0),
         active_color = darker(&color.border_color, -30.0)

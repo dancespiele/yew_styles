@@ -205,7 +205,7 @@ impl YieldStyle for FormInput {
             .find(|pallete| pallete.name == get_palette(self.props.input_palette.clone()))
             .unwrap();
 
-            get_common_form_styles(color)
+        get_common_form_styles(color)
     }
 }
 
@@ -249,7 +249,6 @@ impl Component for FormInput {
                     id=self.props.id.clone()
                     class=classes!(
                         self.style(),
-                        get_palette(self.props.input_palette.clone()),
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" },
                         self.props.class_name.clone(),

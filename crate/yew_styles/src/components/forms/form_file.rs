@@ -128,8 +128,7 @@ impl Component for FormFile {
                     type="file"
                     id=self.props.id.clone()
                     class=classes!(
-                        "form-file",
-                        get_palette(self.props.input_palette.clone()),
+                        self.style(),
                         get_size(self.props.input_size.clone()),
                         if self.props.underline { "underline" } else { "" },
                         if self.props.hidden { "hidden" } else { "" },
