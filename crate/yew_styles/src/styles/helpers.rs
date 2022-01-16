@@ -141,6 +141,10 @@ pub fn get_common_form_styles(color: &ColorStyle) -> StyleSource<'static> {
             border: 1px solid ${border_color};
             ${iteractions}
 
+            &.hidden {
+                display: none;
+            }
+
             &::-webkit-input-placeholder {
                 color: ${color};
             }

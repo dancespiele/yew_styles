@@ -1,6 +1,6 @@
 use super::error_message::get_error_message;
 use crate::styles::helpers::{get_size, Size};
-use stylist::{css, StyleSource};
+use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App, ChangeData};
@@ -133,6 +133,23 @@ pub enum Msg {
     Selected(ChangeData),
 }
 
+impl YieldStyle for FormSelect {
+    fn style_from(&self) -> StyleSource<'static> {
+        css!(r#"
+            padding: 3px;
+            width: 100%;
+
+            &.small {
+                padding: 0;
+            }
+        
+            &.big{
+                padding: 5px;
+            }
+        "#)
+    }
+}
+
 impl Component for FormSelect {
     type Message = Msg;
     type Properties = Props;
@@ -164,7 +181,7 @@ impl Component for FormSelect {
             <>
                 <select
                     class=classes!(
-                        "form-select",
+                        self.style(),
                         get_size(self.props.select_size.clone()),
                         self.props.class_name.clone(),
                         self.props.styles.clone()

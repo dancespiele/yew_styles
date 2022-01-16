@@ -1,4 +1,4 @@
-use stylist::{css, StyleSource};
+use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -99,6 +99,33 @@ pub struct Props {
     pub children: Children,
 }
 
+impl YieldStyle for FormGroup {
+    fn style_from(&self) -> StyleSource<'static> {
+        css!(
+            r#"
+                margin: 10px;
+
+                &.vertical label, vertical input {
+                    display: flex;
+                    
+                }
+
+                &.horizontal {
+                    display: flex;
+                }
+
+                &.horizontal label {
+                    flex-basis: 6em;
+                }
+
+                &.horizontal .form-error {
+                    margin-left: 4px;
+                }
+                
+            "#)
+    }
+}
+
 impl Component for FormGroup {
     type Message = ();
     type Properties = Props;
@@ -123,7 +150,7 @@ impl Component for FormGroup {
     fn view(&self) -> Html {
         html! {
             <div
-                class=classes!("form-group", get_orientation(self.props.orientation.clone()), self.props.class_name.clone(), self.props.styles.clone())
+                class=classes!(self.style(), get_orientation(self.props.orientation.clone()), self.props.class_name.clone(), self.props.styles.clone())
                 id=self.props.id.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()

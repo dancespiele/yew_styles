@@ -1,4 +1,4 @@
-use stylist::{css, StyleSource};
+use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -94,6 +94,14 @@ pub struct Props {
     pub styles: StyleSource<'static>,
 }
 
+impl YieldStyle for FormLabel {
+    fn style_from(&self) -> StyleSource<'static> {
+        css!(r#"
+            margin-right: 5px;
+        "#)
+    }
+}
+
 impl Component for FormLabel {
     type Message = ();
     type Properties = Props;
@@ -118,7 +126,7 @@ impl Component for FormLabel {
     fn view(&self) -> Html {
         html! {
             <label
-                class=classes!("form-label", self.props.class_name.clone(), self.props.styles.clone())
+                class=classes!(self.style(), self.props.class_name.clone(), self.props.styles.clone())
                 id=self.props.id.clone()
                 key=self.props.key.clone()
                 ref=self.props.code_ref.clone()

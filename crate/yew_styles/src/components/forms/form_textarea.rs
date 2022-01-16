@@ -1,6 +1,7 @@
 use super::error_message::get_error_message;
-use crate::styles::helpers::{get_palette, get_size, Palette, Size};
-use stylist::{css, StyleSource};
+use crate::styles::colors::get_styles;
+use crate::styles::helpers::{get_palette, get_size, Palette, Size, get_iteractions, darker};
+use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 use yew::{utils, App};
@@ -158,6 +159,82 @@ pub enum Msg {
     KeyPressed(KeyboardEvent),
 }
 
+impl YieldStyle for FormTextArea {
+    fn style_from(&self) -> StyleSource<'static> {
+        let styles = get_styles();
+        let color = styles
+            .get("outline")
+            .unwrap()
+            .iter()
+            .find(|pallete| pallete.name == get_palette(self.props.textarea_style.clone()))
+            .unwrap();
+
+        css!(
+            r#"
+                padding: 5px;
+                height: 100px;
+                box-sizing: border-box;
+                border-radius: 5px;
+                width: 100%;
+                border: 1px solid ${border_color};
+                ${iteractions}
+    
+                &.hidden {
+                    display: none;
+                }
+    
+                &::-webkit-input-placeholder {
+                    color: ${color};
+                }
+    
+                &:-moz-placeholder {
+                    color: ${color};
+                }
+    
+                &::-moz-placeholder {
+                    color: ${color};
+                }
+    
+                &:-ms-input-placeholder{
+                    color: ${color};
+                }
+    
+                &.small {
+                    height: 50px;
+                }
+    
+                &.big {
+                    height: 250px;
+                }
+    
+                &.underline {
+                    border-radius: 2px;
+                    border-top: 0;
+                    border-left: 0;
+                    border-right: 0;
+                    border-bottom: 2px solid ${border_color};
+                }
+    
+                &.underline:focus{
+                    border-bottom-color: ${focus_color};
+                }
+                &.underline:hover{
+                    border-bottom-color: ${hover_color};
+                }
+                &.underline:active{
+                    border-bottom-color: ${active_color};
+                }
+            "#,
+            border_color = color.border_color.clone(),
+            color = color.color.clone(),
+            iteractions = get_iteractions("border-color", color.border_color.clone(), -10.0, -20.0, -30.0),
+            focus_color = darker(&color.border_color, -10.0),
+            hover_color = darker(&color.border_color, -20.0),
+            active_color = darker(&color.border_color, -30.0)
+        )
+    }
+}
+
 impl Component for FormTextArea {
     type Message = Msg;
     type Properties = Props;
@@ -196,8 +273,8 @@ impl Component for FormTextArea {
             <>
                 <textarea
                     id=self.props.id.clone()
-                    class=classes!("form-textarea",
-                        get_palette(self.props.textarea_style.clone()),
+                    class=classes!(
+                        self.style(),
                         get_size(self.props.textarea_size.clone()),
                         self.props.class_name.clone(),
                         self.props.styles.clone()
