@@ -1,9 +1,9 @@
-use crate::utils::get_random_string;
+use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
-use yew::{services::ConsoleService, utils, App};
+use yew::start_app;
 
 /// Percent of the layout that will take the item.
 #[derive(Clone, PartialEq)]
@@ -93,9 +93,7 @@ pub enum Msg {
 /// }
 /// ```
 pub struct Item {
-    link: ComponentLink<Self>,
     props: Props,
-    pub key: String,
 }
 
 #[derive(Clone, PartialEq)]
@@ -155,40 +153,49 @@ impl Component for Item {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        let key = get_random_string(10);
-
-        Item { link, props, key }
+    fn create(ctx: &Context<Self>) -> Self {
+        Item {
+            props: *ctx.props(),
+        }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::Clicked(mouse_event) => {
-                self.props.onclick_signal.emit(mouse_event);
+                ctx.props().onclick_signal.emit(mouse_event);
             }
         };
 
         false
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        if self.props != props {
-            self.props = props;
-            true
-        } else {
-            false
-        }
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        self.props = *ctx.props();
+
+        true
     }
 
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let Props {
+            layouts,
+            align_self,
+            code_ref,
+            key,
+            class_name,
+            id,
+            onclick_signal,
+            styles,
+            children,
+        } = &ctx.props();
+
         html! {
             <div
-                class=classes!(self.style(), get_layout_classes(self.props.layouts.clone()), self.props.class_name.clone(), self.props.styles.clone())
-                key=self.props.key.clone()
-                ref=self.props.code_ref.clone()
-                onclick=self.link.callback(Msg::Clicked)
+                class={classes!(self.style(), get_layout_classes(layouts.clone()), class_name.clone(), styles.clone())}
+                key={key.clone()}
+                ref={code_ref.clone()}
+                onclick={ctx.link().callback(Msg::Clicked)}
             >
-                {self.props.children.clone()}
+                {children.clone()}
             </div>
         }
     }
@@ -207,8 +214,6 @@ fn get_item_align_self(align_self: AlignSelf) -> String {
 
 fn get_layout(screen: &str, size: i8) -> String {
     let calc_with = 100.0 / (12.0 / size as f32);
-
-    ConsoleService::info(&format!("{}:{}", size, calc_with));
 
     format!(
         r#"
@@ -305,26 +310,25 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_item() {
-    let props_item = Props {
-        layouts: vec![ItemLayout::ItXs(12)],
-        align_self: AlignSelf::Center,
-        key: "".to_string(),
-        code_ref: NodeRef::default(),
-        class_name: "item-test".to_string(),
-        id: "item-id-test".to_string(),
-        onclick_signal: Callback::noop(),
-        styles: css!("background-color: #918d94;"),
-        children: Children::new(vec![html! {
-            <div id="item">{"Item"}</div>
-        }]),
-    };
+    impl Default for Props {
+        fn default() -> Props {
+            Props {
+                layouts: vec![ItemLayout::ItXs(12)],
+                align_self: AlignSelf::Center,
+                key: "".to_string(),
+                code_ref: NodeRef::default(),
+                class_name: "item-test".to_string(),
+                id: "item-id-test".to_string(),
+                onclick_signal: Callback::noop(),
+                styles: css!("background-color: #918d94;"),
+                children: Children::new(vec![html! {
+                    <div id="item">{"Item"}</div>
+                }]),
+            }
+        }
+    }
 
-    let item: App<Item> = App::new();
-
-    item.mount_with_props(
-        utils::document().get_element_by_id("output").unwrap(),
-        props_item,
-    );
+    start_app::<Item>();
 
     let item_element = utils::document().get_element_by_id("item").unwrap();
 

@@ -1,8 +1,9 @@
 use crate::utils::{get_html_element_by_class, get_random_string};
+use gloo::utils;
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::{utils, App};
+use yew::start_app;
 
 /// # Navbar Dropdown Container component
 ///
@@ -108,10 +109,8 @@ use yew::{utils, App};
 /// }
 /// ```
 pub struct NavbarDropdown {
-    props: Props,
     show: bool,
     key: String,
-    link: ComponentLink<Self>,
 }
 
 #[derive(Clone, Properties, PartialEq)]
@@ -145,18 +144,13 @@ impl Component for NavbarDropdown {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(_ctx: &Context<Self>) -> Self {
         let key = get_random_string(10);
 
-        Self {
-            props,
-            link,
-            key,
-            show: false,
-        }
+        Self { show: false, key }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::ShowDropdown => {
                 self.show = true;
@@ -168,15 +162,7 @@ impl Component for NavbarDropdown {
         true
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        if self.props != props {
-            self.props = props;
-            return true;
-        }
-        false
-    }
-
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
         if first_render {
             let navbar_dropdown =
                 get_html_element_by_class(&format!("navbar-dropdown-{}", self.key), 0);
@@ -192,22 +178,32 @@ impl Component for NavbarDropdown {
         }
     }
 
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let Props {
+            main_content,
+            key,
+            class_name,
+            active,
+            id,
+            styles,
+            children,
+        } = &ctx.props();
+
         html! {
             <div
-                class=classes!("navbar-dropdown", format!("navbar-dropdown-{}", self.key), if self.props.active {
+                class={classes!("navbar-dropdown", format!("navbar-dropdown-{}", self.key), if *active {
                     "active"
                 } else {
                     ""
-                }, self.props.class_name.clone(), self.props.styles.clone())
-                id=self.props.id.clone()
-                key=self.props.key.clone()
-                onmouseover=self.link.callback(|_| Msg::ShowDropdown)
-                onmouseleave=self.link.callback(|_| Msg::HideDropdown)
-                onclick=self.link.callback(|_| Msg::HideDropdown)
+                }, class_name.clone(), styles.clone())}
+                id={id.clone()}
+                key={key.clone()}
+                onmouseover={ctx.link().callback(|_| Msg::ShowDropdown)}
+                onmouseleave={ctx.link().callback(|_| Msg::HideDropdown)}
+                onclick={ctx.link().callback(|_| Msg::HideDropdown)}
                 >
-                <div class="main-content">{self.props.main_content.clone()}</div>
-                {get_items(self.show, self.key.clone(), self.props.children.clone())}
+                <div class="main-content">{main_content.clone()}</div>
+                {get_items(self.show, self.key.clone(), children.clone())}
             </div>
         }
     }
@@ -215,7 +211,7 @@ impl Component for NavbarDropdown {
 
 fn get_items(show: bool, key: String, children: Children) -> Html {
     html! {
-        <ul class=classes!(format!("navbar-dropdown-container-{}", key), if show { "active"} else {"inactive"})>
+        <ul class={classes!(format!("navbar-dropdown-container-{}", key), if show { "active"} else {"inactive"})}>
             {children.clone()}
         </ul>
     }
@@ -223,24 +219,23 @@ fn get_items(show: bool, key: String, children: Children) -> Html {
 
 #[wasm_bindgen_test]
 fn should_create_navbar_dropdown_container() {
-    let navbar_dropdown_container_props = Props {
-        main_content: html! {<div id="test">{"test"}</div>},
-        active: false,
-        key: String::from("navbar-dropdown-1"),
-        class_name: String::from("class-test"),
-        id: String::from("id-test"),
-        styles: css!("background-color: #918d94;"),
-        children: Children::new(vec![html! {
-            <div id="item">{"Item"}</div>
-        }]),
-    };
+    impl Default for Props {
+        fn default() -> Self {
+            Props {
+                main_content: html! {<div id="test">{"test"}</div>},
+                active: false,
+                key: String::from("navbar-dropdown-1"),
+                class_name: String::from("class-test"),
+                id: String::from("id-test"),
+                styles: css!("background-color: #918d94;"),
+                children: Children::new(vec![html! {
+                    <div id="item">{"Item"}</div>
+                }]),
+            }
+        }
+    }
 
-    let navbar_dropdown_container: App<NavbarDropdown> = App::new();
-
-    navbar_dropdown_container.mount_with_props(
-        utils::document().get_element_by_id("output").unwrap(),
-        navbar_dropdown_container_props,
-    );
+    start_app::<NavbarDropdown>();
 
     let content_element = utils::document().get_element_by_id("test").unwrap();
     assert_eq!(content_element.text_content().unwrap(), "test".to_string());

@@ -1,9 +1,10 @@
 use super::navbar_container::NavbarContainer;
 use super::navbar_item::NavbarItem;
 use crate::layouts::container::{Direction, JustifyContent, Mode};
-use crate::styles::helpers::{get_palette, get_style, Palette, Style};
+use crate::styles::colors::get_styles;
+use crate::styles::helpers::{darker, get_palette, get_style, Palette, Style};
 use crate::utils::create_style;
-use stylist::{css, StyleSource};
+use stylist::{css, StyleSource, YieldStyle};
 use yew::prelude::*;
 use yew::Children;
 use yew_assets::ux_assets::{UxAssets, UxIcon};
@@ -127,7 +128,6 @@ use yew_assets::ux_assets::{UxAssets, UxIcon};
 /// }
 /// ```
 pub struct Navbar {
-    pub link: ComponentLink<Self>,
     pub props: NavbarProps,
     pub display_menu: bool,
 }
@@ -163,6 +163,7 @@ pub struct Props {
     /// Vnode embedded in the beginning of the navbar, useful to include a branch logo
     #[prop_or_default]
     pub branch: Html,
+    /// Set css styles directly in the component
     #[prop_or(css!(""))]
     pub styles: StyleSource<'static>,
     pub children: Children,
@@ -213,19 +214,209 @@ pub enum Msg {
     TroggleMenu,
 }
 
+impl YieldStyle for Navbar {
+    fn style_from(&self) -> StyleSource<'static> {
+        let styles = get_styles();
+        let color = styles
+            .get(self.props.navbar_style.as_str())
+            .unwrap()
+            .iter()
+            .find(|pallete| pallete.name == self.props.navbar_palette)
+            .unwrap();
+
+        css!(
+            r#"
+                .navbar.navbar-router .navbar-item.navbar-route, .navbar-dropdown-item.navbar-route {
+                    padding: 0;
+                    height: 100%;
+                }
+
+                .navbar.navbar-router .navbar-item.navbar-route, .navbar-dropdown-item.navbar-route a {
+                    text-decoration: none;
+                    color: inherit;
+                    display: block;
+                    height: 100%;
+                    padding: 10px;
+                    width: 100%;
+                }
+
+                .navbar.navbar-router .navbar-item.navbar-route, .navbar-dropdown-item.navbar-route a:focus {
+                    outline: none;
+                }
+
+                .navbar-container {
+                    width: 100%;
+                }
+
+                .navbar-container.navbar-container-mobile {
+                    width: auto;
+                }
+
+                .navbar, navbar-mobile {
+                    z-index: 1;
+                    background-color: ${background};
+                    color: ${color};
+                    border: ${border_color};
+                }
+
+                .navbar, navbar-mobile .navbar-dropdow {
+                    cursor: pointer;
+                }
+
+                .navbar, navbar-mobile navbar-dropdown li {
+                    text-decoration: none;
+                }
+
+                .navbar, navbar-mobile ul {
+                    background-color: ${background};
+                }
+
+                .navbar, navbar-mobile .branch {
+                    align-self: center;
+                    margin-left: 5px;
+                }
+
+                .navbar-item.interaction:focus, .navbar-dropdown:focus, .navbar-dropdown-item:focus {
+                    background-color: ${focus_background};
+                }
+
+                .navbar-item.interaction:hover, .navbar-dropdown:hover, .navbar-dropdown-item:hover {
+                    background-color: ${hover_background};
+                }
+
+                .navbar-item.interaction:active,
+                .navbar-dropdown:active,
+                .navbar-dropdown-item:active,
+                .navbar-item.interaction.active,
+                .navbar-dropdown.active,
+                .navbar-dropdown-item.active, {
+                    background-color: ${active_background};
+                }
+
+                .navbar-menu {
+                    fill: ${color};
+                    width: 40px;
+                }
+
+                .navbar-item {
+                    padding: 10px;
+                    cursor: default;
+                }
+
+                @media all and (max-width: 991px) {
+                    .navbar {
+                        display: none;
+                    }
+
+                    .navbar-mobile {
+                        width: 100%;
+                    }
+
+                    .navbar-mobile .navbar-collapse {
+                        display: flex;
+                    }
+
+                    .navbar-mobile .navbar-container {
+                        width: 100%;
+                        flex-direction: column !important;
+                    }
+
+                    .navbar-mobile .navbar-container.navbar-container-mobile {
+                        flex-direction: row !important;
+                    }
+
+                    .navbar-mobile .branch img {
+                        width: 50px;
+                    }
+
+                    .navbar-mobile .navbar-dropdown {
+                        padding: 0;
+                    }
+
+                    .navbar-mobile .navbar-dropdown .main-content {
+                        padding: 10px;
+                    }
+
+                    .navbar-mobile .navbar-dropdown ul {
+                        padding: 0;
+                        margin: 0;
+                        list-style-type: none
+                    }
+
+                    .navbar-mobile .navbar-dropdown ul li {
+                        padding: 8px 15px;
+                        text-decoration: none;
+                    }
+                }
+
+                @media all and (min-width: 992px) {
+                    .navbar-mobile {
+                        display: none;
+                    }
+                    
+                    .navbar {
+                        display: inline-flex;
+                        width: 100%;
+                    }
+
+                    .navbar navbar-dropdown {
+                        padding: 10px;
+                        position: relative;
+                    }
+
+                    .navbar navbar-dropdown ul {
+                        padding: 0;
+                        margin-top: 2px;
+                        position: absolute;
+                        left: 0;
+                        top: 40px;
+                        z-index: 1;
+                    }
+
+                    .navbar navbar-dropdown ul.active {
+                        display: inherit;
+                    }
+
+                    .navbar navbar-dropdown ul.inactive {
+                        display: none;
+                    }
+
+                    .navbar navbar-dropdown li {
+                        display: block;
+                        padding: 10px;
+                    }
+
+                    .navbar-item, .navbar-dropdown {
+                        align-self: center;
+                    }
+
+                }
+
+            "#,
+            background = color.background,
+            color = color.color,
+            border_color = color.border_color,
+            focus_background = darker(&color.background, -5.0),
+            hover_background = darker(&color.background, -10.0),
+            active_background = darker(&color.background, -15.0),
+        )
+    }
+}
+
 impl Component for Navbar {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(ctx: &Context<Self>) -> Self {
+        let props = *ctx.props();
+
         Navbar {
-            link,
             props: NavbarProps::from(props),
             display_menu: false,
         }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::TroggleMenu => {
                 self.display_menu = !self.display_menu;
@@ -235,72 +426,82 @@ impl Component for Navbar {
         true
     }
 
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
         if first_render {
-            NavbarModel.init(self.props.clone());
+            NavbarModel.init(*ctx.props());
         }
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        if self.props != NavbarProps::from(props.clone()) {
-            NavbarModel.init(self.props.clone());
-            self.props = NavbarProps::from(props);
-            if self.props.hide_navbar_items_mobile && self.display_menu {
-                self.display_menu = false;
-            }
-            return true;
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        NavbarModel.init(*ctx.props());
+        self.props = NavbarProps::from(*ctx.props());
+        if self.props.hide_navbar_items_mobile && self.display_menu {
+            self.display_menu = false;
         }
-
-        false
+        true
     }
 
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let Props {
+            navbar_palette,
+            navbar_style,
+            hide_navbar_items_mobile,
+            code_ref,
+            key,
+            class_name,
+            id,
+            fixed,
+            branch,
+            styles,
+            children,
+        } = &ctx.props();
+
         html! {
             <>
                 <div
-                    class=classes!("navbar-mobile", self.props.navbar_style.clone(), self.props.navbar_palette.clone(), self.props.class_name.clone(), self.props.styles.clone())
-                    id=self.props.id.clone()
-                    key=self.props.key.clone()
-                    ref=self.props.code_ref.clone()
+                    class={classes!("navbar-mobile", class_name.clone(), styles.clone())}
+                    id={id.clone()}
+                    key={key.clone()}
+                    ref={code_ref.clone()}
                 >
                     <div class="navbar-collapse">
-                        <NavbarContainer justify_content=JustifyContent::FlexStart(Mode::NoMode)
-                        direction=Direction::Row
+                        <NavbarContainer justify_content={JustifyContent::FlexStart(Mode::NoMode)}
+                        direction={Direction::Row}
                         class_name="navbar-container-mobile">
-                        {get_branch(self.props.branch.clone())}
+                        {get_branch(branch.clone())}
                         </NavbarContainer>
-                        <NavbarContainer justify_content=JustifyContent::FlexEnd(Mode::NoMode)
-                            direction=Direction::Row
+                        <NavbarContainer justify_content={JustifyContent::FlexEnd(Mode::NoMode)}
+                            direction={Direction::Row}
                             class_name="navbar-container-mobile">
                             <NavbarItem
-                                onclick_signal=self.link.callback(move |_| Msg::TroggleMenu)
+                                onclick_signal={ctx.link().callback(move |_| Msg::TroggleMenu)}
                                 class_name="navbar-menu-item"
                             >
                              <UxAssets
-                                icon=UxIcon::Menu
-                                size=(String::from("30"), String::from("30"))
+                                icon={UxIcon::Menu}
+                                size={(String::from("30"), String::from("30"))}
                                 class_name="navbar-menu"
                              />
                             </NavbarItem>
                         </NavbarContainer>
                     </div>
                     {if self.display_menu {
-                        self.props.children.clone()
+                        children.clone()
                     } else {
                         Children::new(vec![])
                     }}
                 </div>
 
                 <div
-                    class=format!("navbar {} {} {}", self.props.navbar_style, self.props.navbar_palette, self.props.class_name)
+                    class={classes!("navbar", self.props.navbar_style, self.props.navbar_palette, class_name)}
                 >
-                <NavbarContainer justify_content=JustifyContent::Start(Mode::NoMode)
-                    direction=Direction::Row
+                <NavbarContainer justify_content={JustifyContent::Start(Mode::NoMode)}
+                    direction={Direction::Row}
                     class_name="navbar-container-mobile">
-                    {get_branch(self.props.branch.clone())}
+                    {get_branch(branch.clone())}
                 </NavbarContainer>
                     {if !self.display_menu {
-                        self.props.children.clone()
+                        children.clone()
                     } else {
                         Children::new(vec![])
                     } }
@@ -311,7 +512,7 @@ impl Component for Navbar {
 }
 
 impl NavbarModel {
-    fn init(self, props: NavbarProps) {
+    fn init(self, props: Props) {
         self.set_fixed(props.fixed);
     }
 

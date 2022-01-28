@@ -56,3 +56,4 @@ wasm-bindgen-test = "0.3"
 yew_assets={version = "0.1.2", features = ["ux_assets", "editing_assets", "controller_assets", "object_assets"]}
 stylist = {version= "0.10", features= ["yew_integration"]}
 colorsys = "0.6.5"
+gloo = "0.6"

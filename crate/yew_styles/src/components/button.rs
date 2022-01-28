@@ -1,9 +1,13 @@
-use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
-use stylist::{css, StyleSource};
+use crate::styles::colors::get_styles;
+use crate::styles::helpers::{
+    get_palette, get_palette_style, get_size, get_style, Palette, Size, Style,
+};
+use gloo::utils;
+use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
-use yew::{utils, App};
+use yew::start_app;
 
 /// # Button component
 ///
@@ -68,7 +72,6 @@ use yew::{utils, App};
 /// }
 /// ```
 pub struct Button {
-    link: ComponentLink<Self>,
     props: ButtonProps,
 }
 
@@ -84,6 +87,41 @@ struct ButtonProps {
     onclick_signal: Callback<MouseEvent>,
     styles: StyleSource<'static>,
     children: Children,
+}
+
+impl YieldStyle for Button {
+    fn style_from(&self) -> StyleSource<'static> {
+        let styles = get_styles();
+        let style = self.props.button_style.clone();
+        let color = styles
+            .get(style.as_str())
+            .unwrap()
+            .iter()
+            .find(|palette| palette.name == self.props.button_palette.clone())
+            .unwrap();
+
+        css!(
+            r#"
+                padding: 5px 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-family: Rosario;
+                font-size: 18px;
+
+                ${palette}
+
+                &.small {
+                    font-size: 12px;
+                }
+
+                &.big {
+                    font-size: 26px;
+                }
+            "#,
+            palette = get_palette_style(color, true)
+        )
+    }
 }
 
 impl From<Props> for ButtonProps {
@@ -142,47 +180,55 @@ impl Component for Button {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(ctx: &Context<Self>) -> Self {
         Self {
-            link,
-            props: ButtonProps::from(props),
+            props: ButtonProps::from(*ctx.props()),
         }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::Clicked(mouse_event) => {
-                self.props.onclick_signal.emit(mouse_event);
+                ctx.props().onclick_signal.emit(mouse_event);
             }
         };
 
         true
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        let prop_mapped = ButtonProps::from(props);
-        if self.props != prop_mapped {
-            self.props = prop_mapped;
-            return true;
-        }
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        self.props = ButtonProps::from(*ctx.props());
         true
     }
 
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let Props {
+            button_palette,
+            class_name,
+            id,
+            code_ref,
+            key,
+            button_size,
+            button_style,
+            onclick_signal,
+            styles,
+            children,
+        } = &ctx.props();
+
         html! {
             <button
-                onclick=self.link.callback(Msg::Clicked)
-                class=classes!("button",
+                onclick={ctx.link().callback(Msg::Clicked)}
+                class={classes!("button",
                     self.props.button_palette.clone(),
                     self.props.button_size.clone(),
                     self.props.button_style.clone(),
-                    self.props.class_name.clone(),
-                    self.props.styles.clone(),
-                )
-                key=self.props.key.clone()
-                ref=self.props.code_ref.clone()
-                id=self.props.id.clone()
-            > { self.props.children.clone() }
+                    class_name.clone(),
+                    styles.clone(),
+                )}
+                key={key.clone()}
+                ref={code_ref.clone()}
+                id={id.clone()}
+            > { children.clone() }
             </button>
         }
     }
@@ -247,24 +293,24 @@ fn should_trigger_action_when_button_clicked() {
 
 #[wasm_bindgen_test]
 fn should_create_button_component() {
-    let props = Props {
-        class_name: String::from("test-button"),
-        id: String::from("button-id-test"),
-        key: "".to_string(),
-        code_ref: NodeRef::default(),
-        button_size: Size::Medium,
-        button_style: Style::Regular,
-        onclick_signal: Callback::noop(),
-        button_palette: Palette::Standard,
-        styles: css!("background-color: #918d94;"),
-        children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
-    };
+    impl Default for Props {
+        fn default() -> Props {
+            Props {
+                class_name: String::from("test-button"),
+                id: String::from("button-id-test"),
+                key: "".to_string(),
+                code_ref: NodeRef::default(),
+                button_size: Size::Medium,
+                button_style: Style::Regular,
+                onclick_signal: Callback::noop(),
+                button_palette: Palette::Standard,
+                styles: css!("background-color: #918d94;"),
+                children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
+            }
+        }
+    }
 
-    let button: App<Button> = App::new();
-    button.mount_with_props(
-        utils::document().get_element_by_id("output").unwrap(),
-        props,
-    );
+    start_app::<Button>();
 
     let button_element = utils::document()
         .get_elements_by_tag_name("button")

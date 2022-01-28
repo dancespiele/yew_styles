@@ -1,8 +1,9 @@
+use gloo::utils;
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
-use yew::{utils, App};
+use yew::start_app;
 
 pub enum Msg {
     Clicked(MouseEvent),
@@ -98,10 +99,7 @@ pub enum Msg {
 ///     }
 /// }
 /// ```
-pub struct NavbarItem {
-    link: ComponentLink<Self>,
-    props: Props,
-}
+pub struct NavbarItem;
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct Props {
@@ -136,51 +134,56 @@ impl Component for NavbarItem {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        NavbarItem { link, props }
+    fn create(ctx: &Context<Self>) -> Self {
+        Self
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::Clicked(mouse_event) => {
-                self.props.onclick_signal.emit(mouse_event);
+                ctx.props().onclick_signal.emit(mouse_event);
             }
         }
 
         true
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        if self.props != props {
-            self.props = props;
-            true
-        } else {
-            false
-        }
-    }
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let Props {
+            code_ref,
+            key,
+            class_name,
+            id,
+            interaction_effect,
+            active,
+            onclick_signal,
+            styles,
+            children,
+        } = &ctx.props();
 
-    fn view(&self) -> Html {
         html! {
             <div
-                class=classes!("navbar-item", if self.props.active {
+                class={
+                    classes!("navbar-item", if *active {
                     "active"
-                } else {
-                    ""
-                },
-                if self.props.interaction_effect {
-                    "interaction"
-                } else {
-                    ""
-                },
-                self.props.class_name.clone(),
-                self.props.styles.clone()
-            )
-                id=self.props.id.clone()
-                key=self.props.key.clone()
-                ref=self.props.code_ref.clone()
-                onclick=self.link.callback(Msg::Clicked)
+                    } else {
+                        ""
+                    },
+                    if *interaction_effect {
+                        "interaction"
+                    } else {
+                        ""
+                    },
+                    class_name.clone(),
+                    styles.clone()
+                    )
+                }
+                id={id.clone()}
+                key={key.clone()}
+                ref={code_ref.clone()}
+                onclick={ctx.link().callback(Msg::Clicked)}
             >
-                {self.props.children.clone()}
+                {children.clone()}
             </div>
         }
     }
@@ -190,26 +193,25 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_navbar_item() {
-    let navbar_item_props = Props {
-        key: "".to_string(),
-        code_ref: NodeRef::default(),
-        class_name: "navbar-item-test".to_string(),
-        id: "navbar-item-id-test".to_string(),
-        onclick_signal: Callback::noop(),
-        active: false,
-        interaction_effect: true,
-        styles: css!("background-color: #918d94;"),
-        children: Children::new(vec![html! {
-            <div id="item">{"Item"}</div>
-        }]),
-    };
+    impl Default for Props {
+        fn default() -> Self {
+            Props {
+                key: "".to_string(),
+                code_ref: NodeRef::default(),
+                class_name: "navbar-item-test".to_string(),
+                id: "navbar-item-id-test".to_string(),
+                onclick_signal: Callback::noop(),
+                active: false,
+                interaction_effect: true,
+                styles: css!("background-color: #918d94;"),
+                children: Children::new(vec![html! {
+                    <div id="item">{"Item"}</div>
+                }]),
+            }
+        }
+    }
 
-    let navbar_item: App<NavbarItem> = App::new();
-
-    navbar_item.mount_with_props(
-        utils::document().get_element_by_id("output").unwrap(),
-        navbar_item_props,
-    );
+    start_app::<NavbarItem>();
 
     let item_element = utils::document().get_element_by_id("item").unwrap();
 

@@ -1,5 +1,6 @@
-use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
-use stylist::{css, StyleSource};
+use crate::styles::colors::get_styles;
+use crate::styles::helpers::{darker, get_palette, get_size, get_style, Palette, Size, Style};
+use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 
@@ -70,6 +71,7 @@ use yew::prelude::*;
 /// ```
 pub struct Dropdown {
     active: bool,
+    props: Props,
 }
 
 #[derive(Clone, Properties, PartialEq)]
@@ -104,12 +106,73 @@ pub enum Msg {
     ShowDropdown,
 }
 
+impl YieldStyle for Dropdown {
+    fn style_from(&self) -> StyleSource<'static> {
+        let style = get_style(self.props.dropdown_style);
+        let styles = get_styles();
+        let color = styles
+            .get(style.as_str())
+            .unwrap()
+            .iter()
+            .find(|pallete| pallete.name == get_palette(self.props.dropdown_palette))
+            .unwrap();
+
+        css!(
+            r#"
+                cursor: pointer;
+                padding-left: 0;
+                background: ${background};
+                color: ${color};
+                border: ${border_color};
+
+                .dropdown-item:focus {
+                    background-color: ${focus_background};
+                }
+
+                .dropdown_item:hover {
+                    background-color: ${hover_background};
+                }
+
+                .dropdown_item:active, dropdown_item.active {
+                    background-color: ${active_background};
+                }
+
+                ul {
+                    padding: 0;
+                    marging-top: 3px;
+                }
+
+                &.small .main-content, li {
+                    padding: 2px 5px 2px;
+                }
+
+                &.big .main-content, li {
+                    padding: 12px 15px 12px;
+                }
+
+                .main-content, li {
+                    padding: 8px 10px 8px;
+                }
+            "#,
+            background = color.background,
+            color = color.color,
+            border_color = color.border_color,
+            focus_background = darker(&color.background, -5.0),
+            hover_background = darker(&color.background, -10.0),
+            active_background = darker(&color.background, -15.0),
+        )
+    }
+}
+
 impl Component for Dropdown {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(_ctx: &Context<Self>) -> Self {
-        Self { active: false }
+    fn create(ctx: &Context<Self>) -> Self {
+        Self {
+            active: false,
+            props: *ctx.props(),
+        }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -118,6 +181,11 @@ impl Component for Dropdown {
                 self.active = !self.active;
             }
         }
+        true
+    }
+
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        self.props = *ctx.props();
         true
     }
 

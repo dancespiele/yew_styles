@@ -1,7 +1,8 @@
+use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::{utils, App};
+use yew::start_app;
 
 /// # Container component
 ///
@@ -200,31 +201,44 @@ impl Component for Container {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        Container { props }
-    }
-
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        if self.props != props {
-            self.props = props;
-            true
-        } else {
-            false
+    fn create(ctx: &Context<Self>) -> Self {
+        Container {
+            props: *ctx.props(),
         }
     }
 
-    fn view(&self) -> Html {
+    fn update(&mut self, _ctx: &Context<Self>, _msg: Self::Message) -> bool {
+        false
+    }
+
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        self.props = *ctx.props();
+
+        true
+    }
+
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let Props {
+            direction,
+            wrap,
+            justify_content,
+            align_content,
+            align_items,
+            code_ref,
+            key,
+            class_name,
+            id,
+            styles,
+            children,
+        } = &ctx.props();
+
         html! {
-            <div class=classes!(self.style(), self.props.class_name.clone(), self.props.styles.clone())
-                id=self.props.id.to_string()
-                key=self.props.key.clone()
-                ref=self.props.code_ref.clone()
+            <div class={classes!(self.style(), self.props.class_name.clone(), self.props.styles.clone())}
+                id={id.to_string()}
+                key={key.clone()}
+                ref={code_ref.clone()}
             >
-                {self.props.children.clone()}
+                {children.clone()}
             </div>
         }
     }
@@ -266,7 +280,7 @@ fn get_justify_content(justify_content: JustifyContent) -> String {
         JustifyContent::Rigth(mode) => format!("right{}", get_mode(mode)),
         JustifyContent::SpaceAround(mode) => format!("space-around{}", get_mode(mode)),
         JustifyContent::SpaceBetween(mode) => format!("space-between{}", get_mode(mode)),
-        JustifyContent::SpaceEvenly(mode) => format!("evenly{}", get_mode(mode))
+        JustifyContent::SpaceEvenly(mode) => format!("evenly{}", get_mode(mode)),
     }
 }
 
@@ -307,27 +321,27 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_a_container() {
-    let props_container = Props {
-        direction: Direction::Row,
-        wrap: Wrap::Wrap,
-        justify_content: JustifyContent::Center(Mode::NoMode),
-        align_content: AlignContent::Center(Mode::NoMode),
-        align_items: AlignItems::Center(Mode::NoMode),
-        key: "".to_string(),
-        code_ref: NodeRef::default(),
-        class_name: String::from("layout-test"),
-        styles: css!("color: red;"),
-        id: String::from("layout-id-test"),
-        children: Children::new(vec![html! {
-            <div id="container">{"Container"}</div>
-        }]),
-    };
+    impl Default for Props {
+        fn default() -> Self {
+            Props {
+                direction: Direction::Row,
+                wrap: Wrap::Wrap,
+                justify_content: JustifyContent::Center(Mode::NoMode),
+                align_content: AlignContent::Center(Mode::NoMode),
+                align_items: AlignItems::Center(Mode::NoMode),
+                key: "".to_string(),
+                code_ref: NodeRef::default(),
+                class_name: String::from("layout-test"),
+                styles: css!("color: red;"),
+                id: String::from("layout-id-test"),
+                children: Children::new(vec![html! {
+                    <div id="container">{"Container"}</div>
+                }]),
+            }
+        }
+    }
 
-    let container: App<Container> = App::new();
-    container.mount_with_props(
-        utils::document().get_element_by_id("output").unwrap(),
-        props_container,
-    );
+    start_app::<Container>();
 
     let container_element = utils::document().get_element_by_id("container").unwrap();
 

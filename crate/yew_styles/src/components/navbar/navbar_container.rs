@@ -118,42 +118,41 @@ pub struct Props {
 ///     }
 /// }
 /// ```
-pub struct NavbarContainer {
-    pub props: Props,
-}
+pub struct NavbarContainer;
 
 impl Component for NavbarContainer {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        NavbarContainer { props }
+    fn create(_ctx: &Context<Self>) -> Self {
+        Self
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, _ctx: &Context<Self>, _msg: Self::Message) -> bool {
         false
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        if self.props != props {
-            self.props = props;
-            true
-        } else {
-            false
-        }
-    }
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let Props {
+            justify_content,
+            direction,
+            children,
+            code_ref,
+            key,
+            class_name,
+            id,
+        } = &ctx.props();
 
-    fn view(&self) -> Html {
         html! {
             <Container
-                class_name=format!("navbar-container {}", self.props.class_name)
-                id=self.props.id.clone()
-                key=self.props.key.clone()
-                ref=self.props.code_ref.clone()
-                direction=self.props.direction.clone()
-                wrap=Wrap::Wrap
-                justify_content=self.props.justify_content.clone()>
-                    {self.props.children.clone()}
+                class_name={format!("navbar-container {}", class_name)}
+                id={id.clone()}
+                key={key.clone()}
+                ref={code_ref.clone()}
+                direction={direction.clone()}
+                wrap={Wrap::Wrap}
+                justify_content={justify_content.clone()}>
+                    {children.clone()}
             </Container>
         }
     }
