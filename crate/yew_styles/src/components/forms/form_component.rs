@@ -466,7 +466,7 @@ fn get_method(method: Method) -> String {
 //         children: Children::new(vec![html! {<input id="result"/>}]),
 //     };
 
-//     let form_component: App<Form> = App::new();
+//     start_app::<Form>();
 
 //     form_component.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),

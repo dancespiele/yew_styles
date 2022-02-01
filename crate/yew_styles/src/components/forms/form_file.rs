@@ -200,7 +200,7 @@ impl Component for FormFile {
 //         capture: "".to_string(),
 //     };
 
-//     let form_input: App<FormFile> = App::new();
+//     start_app::<FormFile>();
 
 //     form_input.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),

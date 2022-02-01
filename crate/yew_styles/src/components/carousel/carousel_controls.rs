@@ -311,7 +311,7 @@ impl Component for CarouselControls {
 //         key: "".to_string(),
 //     };
 
-//     let carousel: App<CarouselControls> = App::new();
+//     start_app::<CarouselControls>();
 //     carousel.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),
 //         props,

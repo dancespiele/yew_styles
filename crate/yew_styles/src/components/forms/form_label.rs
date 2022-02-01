@@ -147,7 +147,7 @@ impl Component for FormLabel {
 //         text: "label text".to_string(),
 //     };
 
-//     let form_label: App<FormLabel> = App::new();
+//     start_app::<FormLabel>();
 
 //     form_label.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),

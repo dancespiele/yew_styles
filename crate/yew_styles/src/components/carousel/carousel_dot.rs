@@ -2,7 +2,8 @@ use crate::styles::helpers::{get_palette, Palette};
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::{utils, App};
+use yew::start_app;
+use gloo::utils;
 use yew_assets::object_assets::{ObjectAssets, ObjectIcon};
 
 /// # Carousel Dots
@@ -263,7 +264,7 @@ impl Component for CarouselDot {
                     "carousel-dot",
                     class_name.clone(),
                     get_palette(carousel_dot_palette.clone()),
-                    if active {
+                    if *active {
                         "active"
                     } else {
                         ""
@@ -293,28 +294,28 @@ impl Component for CarouselDot {
 }
 
 // #[wasm_bindgen_test]
-// fn should_create_carousel_dot_component() {
-//     let props = Props {
-//         code_ref: NodeRef::default(),
-//         class_name: String::from("test-carousel"),
-//         id: String::from("carousel-id-test"),
-//         carousel_dot_palette: Palette::Standard,
-//         active: false,
-//         onclick_signal: Callback::noop(),
-//         key: "".to_string(),
-//         styles: css!("background-color: #918d94;"),
-//         children: None,
-//     };
+fn should_create_carousel_dot_component() {
+    impl Default for Props {
+        fn default() -> Self {
+            Self {
+                code_ref: NodeRef::default(),
+                class_name: String::from("test-carousel"),
+                id: String::from("carousel-id-test"),
+                carousel_dot_palette: Palette::Standard,
+                active: false,
+                onclick_signal: Callback::noop(),
+                key: "".to_string(),
+                styles: css!("background-color: #918d94;"),
+                children: None,
+            }
+        }
+    }
 
-//     let carousel: App<CarouselDot> = App::new();
-//     carousel.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    start_app::<CarouselDot>();
 
-//     let carousel_element = utils::document()
-//         .get_element_by_id("carousel-id-test")
-//         .unwrap();
+    let carousel_element = utils::document()
+        .get_element_by_id("carousel-id-test")
+        .unwrap();
 
-//     assert_eq!(carousel_element.id(), "carousel-id-test");
-// }
+    assert_eq!(carousel_element.id(), "carousel-id-test");
+}

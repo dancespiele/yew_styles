@@ -143,7 +143,7 @@ impl Component for DropdownItem {
 //         }]),
 //     };
 
-//     let dropdown_item: App<DropdownItem> = App::new();
+//     start_app::<DropdownItem>();
 
 //     dropdown_item.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),

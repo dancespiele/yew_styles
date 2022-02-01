@@ -148,7 +148,7 @@ impl Component for FormSubmit {
 //         styles: css!("background-color: #918d94;"),
 //     };
 
-//     let form_submit: App<FormSubmit> = App::new();
+//     start_app::<FormSubmit>();
 
 //     form_submit.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),

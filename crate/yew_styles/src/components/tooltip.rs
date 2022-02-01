@@ -2,7 +2,8 @@ use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Position
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::{utils, App};
+use yew::start_app;
+use gloo::utils;
 
 /// # Tooltip component
 ///
@@ -55,7 +56,6 @@ use yew::{utils, App};
 /// ```
 pub struct Tooltip {
     props: Props,
-    link: ComponentLink<Self>,
     show_tooltip: bool,
 }
 
@@ -101,15 +101,14 @@ impl Component for Tooltip {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(ctx: &Context<Self>) -> Self {
         Self {
-            props,
-            link,
+            props: *ctx.props(),
             show_tooltip: false,
         }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::TargetOver => self.show_tooltip = true,
             Msg::TargetLeave => self.show_tooltip = false,
@@ -118,45 +117,42 @@ impl Component for Tooltip {
         true
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        if self.props != props {
-            self.props = props;
-            return true;
-        }
-        false
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        self.props = *ctx.props();
+        true
     }
 
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
         let tooltip = html! {
             <div
-                id=self.props.id.clone()
-                key=self.props.key.clone()
-                ref=self.props.code_ref.clone()
-                class=classes!(
+                id={ctx.props().id.clone()}
+                key={ctx.props().key.clone()}
+                ref={ctx.props().code_ref.clone()}
+                class={classes!(
                     "tooltip",
-                    get_position(self.props.tooltip_position.clone()),
-                    get_palette(self.props.tooltip_palette.clone()),
-                    get_style(self.props.tooltip_style.clone()),
-                    get_size(self.props.tooltip_size.clone()),
-                    self.props.class_name.clone(),
-                    self.props.styles.clone()
-                )
+                    get_position(ctx.props().tooltip_position.clone()),
+                    get_palette(ctx.props().tooltip_palette.clone()),
+                    get_style(ctx.props().tooltip_style.clone()),
+                    get_size(ctx.props().tooltip_size.clone()),
+                    ctx.props().class_name.clone(),
+                    ctx.props().styles.clone()
+                )}
             >
-             {self.props.content.clone()}
+             {ctx.props().content.clone()}
             </div>
         };
 
         html! {
             <div class="tooltip-container"
-                onmouseover = self.link.callback(|_| Msg::TargetOver)
-                onmouseleave = self.link.callback(|_| Msg::TargetLeave)
+                onmouseover = {ctx.link().callback(|_| Msg::TargetOver)}
+                onmouseleave = {ctx.link().callback(|_| Msg::TargetLeave)}
             >
                 {if self.show_tooltip {
                     tooltip
                 }else {
                     html!{}
                 }}
-                {self.props.children.clone()}
+                {ctx.props().children.clone()}
             </div>
         }
     }
@@ -173,26 +169,25 @@ fn get_position(position: Position) -> String {
 
 #[wasm_bindgen_test]
 fn should_create_tooltip() {
-    let tooltip_props = Props {
-        tooltip_palette: Palette::Clean,
-        tooltip_style: Style::Regular,
-        tooltip_size: Size::Medium,
-        tooltip_position: Position::Above,
-        content: html! {<p>{"tooltip"}</p>},
-        code_ref: NodeRef::default(),
-        key: String::from("dropdown-1"),
-        class_name: String::from("class-test"),
-        id: String::from("id-test"),
-        styles: css!("color: blue;"),
-        children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
-    };
+    impl Default for Props {
+        fn default() -> Self {
+            Self {
+                tooltip_palette: Palette::Clean,
+                tooltip_style: Style::Regular,
+                tooltip_size: Size::Medium,
+                tooltip_position: Position::Above,
+                content: html! {<p>{"tooltip"}</p>},
+                code_ref: NodeRef::default(),
+                key: String::from("dropdown-1"),
+                class_name: String::from("class-test"),
+                id: String::from("id-test"),
+                styles: css!("color: blue;"),
+                children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
+            }
+        }
+    }
 
-    let tooltip: App<Tooltip> = App::new();
-
-    tooltip.mount_with_props(
-        utils::document().get_element_by_id("output").unwrap(),
-        tooltip_props,
-    );
+    start_app::<Tooltip>();
 
     let tooltip_element = utils::document()
         .get_elements_by_class_name("tooltip-container")

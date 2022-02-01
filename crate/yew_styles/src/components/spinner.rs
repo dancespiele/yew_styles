@@ -2,7 +2,8 @@ use crate::styles::helpers::{get_palette, get_size, Palette, Size};
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::{utils, App};
+use yew::start_app;
+use gloo::utils;
 
 /// # Spinner component
 ///
@@ -100,24 +101,23 @@ impl Component for Spinner {
     type Message = ();
     type Properties = Props;
 
-    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        Self { props }
-    }
-
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        if self.props != props {
-            self.props = props;
-            return true;
+    fn create(ctx: &Context<Self>) -> Self {
+        Self {
+            props: *ctx.props(),
         }
+    }
+
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         false
     }
 
-    fn view(&self) -> Html {
-        get_spinner_type(self.props.clone())
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        self.props = *ctx.props();
+        true
+    }
+
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        get_spinner_type(ctx.props().clone())
     }
 }
 
@@ -144,23 +144,23 @@ fn render_spinner_type(spinner_type: &str, dots: u8, props: Props) -> Html {
 
     while i < dots {
         vdots.push(html! {
-            <div class=if spinner_type == "sk-wave" {
+            <div class={if spinner_type == "sk-wave" {
                 format!("{}-rect", spinner_type)
             } else if spinner_type == "sk-grid" || spinner_type == "sk-fold" || spinner_type == "sk-wander" {
                 format!("{}-cube", spinner_type)
             } else {
                 format!("{}-dot", spinner_type)
-            }></div>
+            }}></div>
         });
 
         i += 1;
     }
     html! {
         <div
-            class=classes!(spinner_type.to_owned(), get_palette(props.spinner_palette), get_size(props.spinner_size), props.class_name, props.styles)
-            ref=props.code_ref
-            id=props.id
-            key=props.key
+            class={classes!(spinner_type.to_owned(), get_palette(props.spinner_palette), get_size(props.spinner_size), props.class_name, props.styles)}
+            ref={props.code_ref}
+            id={props.id}
+            key={props.key}
         >
             {vdots.into_iter().collect::<Html>()}
         </div>
@@ -171,23 +171,22 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_spinner() {
-    let spinner_props = Props {
-        spinner_palette: Palette::Clean,
-        spinner_type: SpinnerType::Circle,
-        spinner_size: Size::Medium,
-        code_ref: NodeRef::default(),
-        key: String::from("dropdown-1"),
-        class_name: String::from("class-test"),
-        id: String::from("id-test"),
-        styles: css!("font-size: 50px;"),
-    };
+    impl Default for Props {
+        fn default() -> Self {
+            Self {
+                spinner_palette: Palette::Clean,
+                spinner_type: SpinnerType::Circle,
+                spinner_size: Size::Medium,
+                code_ref: NodeRef::default(),
+                key: String::from("dropdown-1"),
+                class_name: String::from("class-test"),
+                id: String::from("id-test"),
+                styles: css!("font-size: 50px;"),
+            }
+        }
+    }
 
-    let spinner: App<Spinner> = App::new();
-
-    spinner.mount_with_props(
-        utils::document().get_element_by_id("output").unwrap(),
-        spinner_props,
-    );
+    start_app::<Spinner>();
 
     let content_element = utils::document().get_element_by_id("id-test").unwrap();
     assert_eq!(content_element.id(), "id-test".to_string());

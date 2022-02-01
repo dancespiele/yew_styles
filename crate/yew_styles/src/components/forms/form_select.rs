@@ -240,7 +240,7 @@ impl Component for FormSelect {
 //         },
 //     };
 
-//     let form_select: App<FormSelect> = App::new();
+//     start_app::<FormSelect>();
 //     form_select.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),
 //         props,

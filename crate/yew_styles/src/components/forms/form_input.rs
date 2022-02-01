@@ -373,7 +373,7 @@ fn get_type(input_type: InputType) -> String {
 //         styles: css!("background-color: #918d94;"),
 //     };
 
-//     let form_input: App<FormInput> = App::new();
+//     start_app::<FormInput>();
 
 //     form_input.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),

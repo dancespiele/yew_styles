@@ -246,7 +246,7 @@ wasm_bindgen_test_configure!(run_in_browser);
 //         }]),
 //     };
 
-//     let dropdown_container: App<Dropdown> = App::new();
+//     start_app::<Dropdown>();
 
 //     dropdown_container.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),

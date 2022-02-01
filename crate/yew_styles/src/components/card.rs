@@ -331,7 +331,7 @@ impl Component for Card {
             Msg::Dropped(drag_event) => {
                 ctx.props().ondrop_signal.emit(drag_event);
             }
-            Msg::Clicked(mouse_event) => self.props.onclick_signal.emit(mouse_event),
+            Msg::Clicked(mouse_event) => ctx.props().onclick_signal.emit(mouse_event),
         };
 
         true
