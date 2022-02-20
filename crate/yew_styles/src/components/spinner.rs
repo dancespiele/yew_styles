@@ -1,9 +1,9 @@
 use crate::styles::helpers::{get_palette, get_size, Palette, Size};
+use gloo::utils;
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::start_app;
-use gloo::utils;
+use yew::start_app_with_props;
 
 /// # Spinner component
 ///
@@ -107,7 +107,7 @@ impl Component for Spinner {
         }
     }
 
-    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, _ctx: &Context<Self>, _msg: Self::Message) -> bool {
         false
     }
 
@@ -117,7 +117,7 @@ impl Component for Spinner {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        get_spinner_type(ctx.props().clone())
+        get_spinner_type(*ctx.props())
     }
 }
 
@@ -171,22 +171,18 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_spinner() {
-    impl Default for Props {
-        fn default() -> Self {
-            Self {
-                spinner_palette: Palette::Clean,
-                spinner_type: SpinnerType::Circle,
-                spinner_size: Size::Medium,
-                code_ref: NodeRef::default(),
-                key: String::from("dropdown-1"),
-                class_name: String::from("class-test"),
-                id: String::from("id-test"),
-                styles: css!("font-size: 50px;"),
-            }
-        }
-    }
+    let spinner_props = Props {
+        spinner_palette: Palette::Clean,
+        spinner_type: SpinnerType::Circle,
+        spinner_size: Size::Medium,
+        code_ref: NodeRef::default(),
+        key: String::from("dropdown-1"),
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
+        styles: css!("font-size: 50px;"),
+    };
 
-    start_app::<Spinner>();
+    start_app_with_props::<Spinner>(spinner_props);
 
     let content_element = utils::document().get_element_by_id("id-test").unwrap();
     assert_eq!(content_element.id(), "id-test".to_string());

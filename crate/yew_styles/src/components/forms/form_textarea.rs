@@ -1,6 +1,6 @@
 use super::error_message::get_error_message;
-use crate::styles::colors::get_styles;
-use crate::styles::helpers::{darker, get_iteractions, get_palette, get_size, Palette, Size};
+use crate::styles::colors::{darker, get_styles};
+use crate::styles::helpers::{get_iteractions, get_palette, get_size, Palette, Size};
 use stylist::{css, StyleSource, YieldStyle};
 use yew::prelude::*;
 

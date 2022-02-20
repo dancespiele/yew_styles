@@ -1,8 +1,8 @@
 use super::navbar_container::NavbarContainer;
 use super::navbar_item::NavbarItem;
 use crate::layouts::container::{Direction, JustifyContent, Mode};
-use crate::styles::colors::get_styles;
-use crate::styles::helpers::{darker, get_palette, get_style, Palette, Style};
+use crate::styles::colors::{darker, get_styles};
+use crate::styles::helpers::{get_palette, get_style, Palette, Style};
 use crate::utils::create_style;
 use stylist::{css, StyleSource, YieldStyle};
 use yew::prelude::*;

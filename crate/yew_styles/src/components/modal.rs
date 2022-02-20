@@ -1,13 +1,15 @@
-use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
+use crate::styles::colors::{get_styles, transparentize};
+use crate::styles::helpers::{
+    get_palette, get_palette_style, get_size, get_style, Palette, Size, Style,
+};
 use crate::utils::get_html_element_by_class;
-use stylist::{css, StyleSource};
+use gloo::utils;
+use stylist::{css, Style as StyleList, StyleSource, YieldStyle};
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use web_sys::Element;
 use yew::prelude::*;
-use yew::html::Scope;
-use yew::start_app;
-use gloo::utils;
+use yew::{html::Scope, start_app_with_props};
 
 /// # Modal component
 ///
@@ -180,6 +182,75 @@ pub enum Msg {
     Pressed(KeyboardEvent),
 }
 
+impl YieldStyle for Modal {
+    fn style_from(&self) -> StyleSource<'static> {
+        let styles = get_styles();
+        let header_style = self.props.header_style.clone();
+        let body_style = self.props.body_style.clone();
+
+        let header_color = styles
+            .get(get_style(header_style).as_str())
+            .unwrap()
+            .iter()
+            .find(|palette| palette.name == get_palette(self.props.header_palette.clone()))
+            .unwrap();
+
+        let body_color = styles
+            .get(get_style(body_style).as_str())
+            .unwrap()
+            .iter()
+            .find(|palette| palette.name == get_palette(self.props.body_palette.clone()))
+            .unwrap();
+
+        format!(
+            r#"
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                overflow: hidden;
+                background-color: {};
+
+                .modal-content {{
+                    width: 50%;
+                    top: 20vh;
+                    position: fixed;
+                    z-index: 2;
+                }}
+
+                .modal-content .small {{
+                    width: 30%;
+                }}
+
+                .modal-content .big {{
+                    width: 75%;
+                }}
+
+                .modal-header {{
+                    padding: 3px 15px;
+                    border-radius: 8px 8px 0 0;
+
+                    {}
+                }}
+
+                .modal-body {{
+                    padding: 10px 15px;
+                    border-radius: 0 0 5px 5px;
+
+                    {}
+                }}
+            "#,
+            transparentize("regular", -0.4),
+            get_palette_style(header_color, true),
+            get_palette_style(body_color, true),
+        )
+    }
+}
+
 impl Component for Modal {
     type Message = Msg;
     type Properties = Props;
@@ -217,7 +288,7 @@ impl Component for Modal {
     }
 
     fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
-        if ctx.props().is_open && ctx.props().auto_focus {
+        if self.props.is_open && self.props.auto_focus {
             let modal_form = get_html_element_by_class("modal", 0);
 
             modal_form.focus().unwrap();
@@ -225,35 +296,31 @@ impl Component for Modal {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        get_modal(ctx.props().clone(), ctx.link().clone())
+        get_modal(self.style(), *ctx.props(), ctx.link())
     }
 }
 
-fn get_modal(props: Props, link: Scope<Modal>) -> Html {
+fn get_modal(style: StyleList, props: Props, link: &Scope<Modal>) -> Html {
     if props.is_open {
         html! {
             <div
-                class={classes!("modal", "container", get_palette(props.modal_palette), props.class_name, props.styles)}
+                class={classes!(style, "container", get_palette(props.modal_palette), props.class_name, props.styles)}
                 key={props.key}
                 ref={props.code_ref}
-                tabindex="0"
+                tabindex={"0"}
                 id={props.id}
                 onclick={link.callback(Msg::Clicked)}
                 onkeydown={link.callback(Msg::Pressed)}
             >
                 <div class={format!("modal-content {}", get_size(props.modal_size))}>
-                    <div class={format!(
-                        "modal-header {} {} {}",
-                        get_style(props.header_style),
-                        get_palette(props.header_palette),
+                    <div class={classes!(
+                        "modal-header",
                         if props.header_interaction { "interaction" } else { "" }
                     )}>
                         {props.header}
                     </div>
-                    <div class={format!(
-                        "modal-body {} {} {}",
-                        get_style(props.body_style),
-                        get_palette(props.body_palette),
+                    <div class={classes!(
+                        "modal-body",
                         if props.body_interaction { "interaction" } else { "" }
                     )}>
                         {props.body}
@@ -270,37 +337,33 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_modal_component() {
-    impl Default for Props {
-        fn default() -> Self {
-            Self {
-                class_name: "test-modal".to_string(),
-                id: "modal-id-test".to_string(),
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                onclick_signal: Callback::noop(),
-                onkeydown_signal: Callback::noop(),
-                modal_palette: Palette::Standard,
-                modal_size: Size::Medium,
-                header: html! {<div id="header">{"Modal Test"}</div>},
-                header_style: Style::Regular,
-                header_palette: Palette::Standard,
-                header_interaction: false,
-                body: html! {<div id="body">{"Content Test"}</div>},
-                body_style: Style::Regular,
-                body_palette: Palette::Standard,
-                body_interaction: false,
-                is_open: true,
-                auto_focus: false,
-                styles: css!(
-                    "modal-content {
-                        color: #000;
-                    }"
-                ),
-            }
-        }
-    }
+    let props = Props {
+        class_name: "test-modal".to_string(),
+        id: "modal-id-test".to_string(),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        onclick_signal: Callback::noop(),
+        onkeydown_signal: Callback::noop(),
+        modal_palette: Palette::Standard,
+        modal_size: Size::Medium,
+        header: html! {<div id="header">{"Modal Test"}</div>},
+        header_style: Style::Regular,
+        header_palette: Palette::Standard,
+        header_interaction: false,
+        body: html! {<div id="body">{"Content Test"}</div>},
+        body_style: Style::Regular,
+        body_palette: Palette::Standard,
+        body_interaction: false,
+        is_open: true,
+        auto_focus: false,
+        styles: css!(
+            "modal-content {
+                    color: #000;
+                }"
+        ),
+    };
 
-    start_app::<Modal>();
+    start_app_with_props::<Modal>(props);
 
     let modal_header_element = utils::document().get_element_by_id("header").unwrap();
 
@@ -342,7 +405,7 @@ fn should_hide_modal_component_from_doom() {
         }
     }
 
-    start_app::<Modal>();
+    start_app_with_props::<Modal>(props);
 
     let modal_element = utils::document().get_element_by_id("modal-id-test");
 

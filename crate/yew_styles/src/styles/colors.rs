@@ -1,3 +1,4 @@
+use colorsys::{ColorAlpha, ColorTransform, Rgb};
 use std::collections::HashMap;
 
 #[derive(Clone)]
@@ -70,4 +71,16 @@ pub fn get_styles() -> HashMap<&'static str, Vec<ColorStyle>> {
     );
 
     styles
+}
+
+pub fn darker(color: &str, value: f64) -> String {
+    let mut rgb = Rgb::from_hex_str(color).unwrap();
+    rgb.lighten(value);
+    rgb.to_hex_string()
+}
+
+pub fn transparentize(color: &str, value: f64) -> String {
+    let mut rgb = Rgb::from_hex_str(color).unwrap();
+    rgb.opacify(value);
+    rgb.to_css_string()
 }

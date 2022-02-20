@@ -1,5 +1,5 @@
-use crate::styles::colors::get_styles;
-use crate::styles::helpers::{darker, get_palette, get_size, get_style, Palette, Size, Style};
+use crate::styles::colors::{darker, get_styles};
+use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
 use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
