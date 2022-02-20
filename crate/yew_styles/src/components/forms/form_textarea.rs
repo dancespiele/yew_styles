@@ -372,7 +372,7 @@ fn get_wrap(wrap_text: WrapText) -> String {
 //         wrap: WrapText::Hard,
 //     };
 
-//     let form_textarea: App<FormTextArea> = App::new();
+//     start_app::<FormTextArea>();
 
 //     form_textarea.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),

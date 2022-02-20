@@ -292,7 +292,7 @@ impl Component for Carousel {
 //         children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
 //     };
 
-//     let carousel: App<Carousel> = App::new();
+//     start_app::<Carousel>();
 //     carousel.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),
 //         props,

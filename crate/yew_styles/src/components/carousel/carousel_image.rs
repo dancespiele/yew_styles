@@ -262,7 +262,7 @@ impl Component for CarouselImage {
 //         key: "".to_string(),
 //     };
 
-//     let carousel: App<CarouselImage> = App::new();
+//     start_app::<CarouselImage>();
 //     carousel.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),
 //         props,

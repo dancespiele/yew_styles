@@ -189,7 +189,7 @@ fn get_orientation(orientation: Orientation) -> String {
 //         }]),
 //     };
 
-//     let form_group: App<FormGroup> = App::new();
+//     start_app::<FormGroup>();
 //     form_group.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),
 //         props,
@@ -221,7 +221,7 @@ fn get_orientation(orientation: Orientation) -> String {
 //         }]),
 //     };
 
-//     let form_group: App<FormGroup> = App::new();
+//     start_app::<FormGroup>();
 //     form_group.mount_with_props(
 //         utils::document().get_element_by_id("output").unwrap(),
 //         props,

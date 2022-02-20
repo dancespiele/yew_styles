@@ -5,7 +5,7 @@ use rand::{distributions::Alphanumeric, thread_rng, Rng};
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use web_sys::{window, HtmlElement};
-use yew::utils;
+use gloo::utils;
 
 pub fn create_style(style: String, value: String, wrap: String) {
     let element = get_html_element_by_class(&wrap, 0);
