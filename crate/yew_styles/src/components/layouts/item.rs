@@ -3,7 +3,7 @@ use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
-use yew::start_app;
+use yew::start_app_with_props;
 
 /// Percent of the layout that will take the item.
 #[derive(Clone, PartialEq)]
@@ -310,25 +310,21 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_item() {
-    impl Default for Props {
-        fn default() -> Props {
-            Props {
-                layouts: vec![ItemLayout::ItXs(12)],
-                align_self: AlignSelf::Center,
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                class_name: "item-test".to_string(),
-                id: "item-id-test".to_string(),
-                onclick_signal: Callback::noop(),
-                styles: css!("background-color: #918d94;"),
-                children: Children::new(vec![html! {
-                    <div id="item">{"Item"}</div>
-                }]),
-            }
-        }
-    }
+    let props = Props {
+        layouts: vec![ItemLayout::ItXs(12)],
+        align_self: AlignSelf::Center,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "item-test".to_string(),
+        id: "item-id-test".to_string(),
+        onclick_signal: Callback::noop(),
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {
+            <div id="item">{"Item"}</div>
+        }]),
+    };
 
-    start_app::<Item>();
+    start_app_with_props::<Item>(props);
 
     let item_element = utils::document().get_element_by_id("item").unwrap();
 

@@ -372,42 +372,38 @@ fn should_create_modal_component() {
     assert_eq!(modal_header_element.text_content().unwrap(), "Modal Test");
     assert_eq!(modal_body_element.text_content().unwrap(), "Content Test");
 }
-/*
+
 #[wasm_bindgen_test]
 fn should_hide_modal_component_from_doom() {
-    impl Default for Props {
-        fn default() -> Self {
-            Self {
-                class_name: "test-modal".to_string(),
-                id: "modal-id-test".to_string(),
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                onclick_signal: Callback::noop(),
-                onkeydown_signal: Callback::noop(),
-                modal_palette: Palette::Standard,
-                modal_size: Size::Medium,
-                header: html! {<div id="header">{"Modal Test"}</div>},
-                header_style: Style::Regular,
-                header_palette: Palette::Standard,
-                header_interaction: false,
-                body: html! {<div id="body">{"Content Test"}</div>},
-                body_style: Style::Regular,
-                body_palette: Palette::Standard,
-                body_interaction: false,
-                is_open: false,
-                auto_focus: false,
-                styles: css!(
-                    "modal-content {
+    let props = Props {
+        class_name: "test-modal".to_string(),
+        id: "modal-id-test".to_string(),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        onclick_signal: Callback::noop(),
+        onkeydown_signal: Callback::noop(),
+        modal_palette: Palette::Standard,
+        modal_size: Size::Medium,
+        header: html! {<div id="header">{"Modal Test"}</div>},
+        header_style: Style::Regular,
+        header_palette: Palette::Standard,
+        header_interaction: false,
+        body: html! {<div id="body">{"Content Test"}</div>},
+        body_style: Style::Regular,
+        body_palette: Palette::Standard,
+        body_interaction: false,
+        is_open: false,
+        auto_focus: false,
+        styles: css!(
+            "modal-content {
                         color: #000;
                     }"
-                ),
-            }
-        }
-    }
+        ),
+    };
 
     start_app_with_props::<Modal>(props);
 
     let modal_element = utils::document().get_element_by_id("modal-id-test");
 
     assert_eq!(modal_element, None);
-}*/
+}

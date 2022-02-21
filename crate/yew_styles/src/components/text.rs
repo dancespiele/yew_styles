@@ -1,10 +1,10 @@
 use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
+use gloo::utils;
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
-use yew::prelude::*;
 use yew::html::Scope;
-use yew::start_app;
-use gloo::utils;
+use yew::prelude::*;
+use yew::start_app_with_props;
 use yew_assets::editing_assets::{EditingAssets, EditingIcon};
 
 /// # Text
@@ -478,38 +478,34 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_plain_text() {
-    impl Default for Props {
-        fn default() -> Self {
-            Self {
-                text_type: TextType::Plain,
-                ondrag_signal: Callback::noop(),
-                ondragend_signal: Callback::noop(),
-                ondragenter_signal: Callback::noop(),
-                ondragexit_signal: Callback::noop(),
-                ondragleave_signal: Callback::noop(),
-                ondragover_signal: Callback::noop(),
-                ondragstart_signal: Callback::noop(),
-                ondrop_signal: Callback::noop(),
-                onclick_signal: Callback::noop(),
-                ondelete_signal: Callback::noop(),
-                draggable: false,
-                removable: false,
-                plain_text: "hello test".to_string(),
-                html_text: None,
-                text_palette: Palette::Primary,
-                text_style: Style::Regular,
-                text_size: Size::Medium,
-                interaction_effect: false,
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                class_name: "class-card-test".to_string(),
-                styles: css!("color: blue;"),
-                id: "id-text-test".to_string(),
-            }
-        }
-    }
+    let props = Props {
+        text_type: TextType::Plain,
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
+        ondelete_signal: Callback::noop(),
+        draggable: false,
+        removable: false,
+        plain_text: "hello test".to_string(),
+        html_text: None,
+        text_palette: Palette::Primary,
+        text_style: Style::Regular,
+        text_size: Size::Medium,
+        interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "class-card-test".to_string(),
+        styles: css!("color: blue;"),
+        id: "id-text-test".to_string(),
+    };
 
-    start_app::<Text>();
+    start_app_with_props::<Text>(props);
 
     let plain_text_element = utils::document()
         .get_elements_by_class_name("plain-text")
@@ -517,41 +513,37 @@ fn should_create_plain_text() {
 
     assert!(plain_text_element.is_some());
 }
-/*
+
 #[wasm_bindgen_test]
 fn should_create_paragraph_text() {
-    impl Default for Props {
-        fn default() -> Self {
-            Self {
-                text_type: TextType::Paragraph,
-                ondrag_signal: Callback::noop(),
-                ondragend_signal: Callback::noop(),
-                ondragenter_signal: Callback::noop(),
-                ondragexit_signal: Callback::noop(),
-                ondragleave_signal: Callback::noop(),
-                ondragover_signal: Callback::noop(),
-                ondragstart_signal: Callback::noop(),
-                ondrop_signal: Callback::noop(),
-                onclick_signal: Callback::noop(),
-                ondelete_signal: Callback::noop(),
-                draggable: false,
-                removable: false,
-                plain_text: "hello test".to_string(),
-                html_text: None,
-                text_palette: Palette::Primary,
-                text_style: Style::Regular,
-                text_size: Size::Medium,
-                interaction_effect: false,
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                class_name: "class-card-test".to_string(),
-                styles: css!("color: blue;"),
-                id: "id-text-test".to_string(),
-            }
-        }
-    }
+    let props = Props {
+        text_type: TextType::Paragraph,
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
+        ondelete_signal: Callback::noop(),
+        draggable: false,
+        removable: false,
+        plain_text: "hello test".to_string(),
+        html_text: None,
+        text_palette: Palette::Primary,
+        text_style: Style::Regular,
+        text_size: Size::Medium,
+        interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "class-card-test".to_string(),
+        styles: css!("color: blue;"),
+        id: "id-text-test".to_string(),
+    };
 
-    start_app::<Text>();
+    start_app_with_props::<Text>(props);
 
     let paragraph_text_element = utils::document()
         .get_elements_by_class_name("paragraph-text")
@@ -562,38 +554,34 @@ fn should_create_paragraph_text() {
 
 #[wasm_bindgen_test]
 fn should_create_alert_text() {
-    impl Default for Props {
-        fn default() -> Self {
-            Self {
-                text_type: TextType::Alert,
-                ondrag_signal: Callback::noop(),
-                ondragend_signal: Callback::noop(),
-                ondragenter_signal: Callback::noop(),
-                ondragexit_signal: Callback::noop(),
-                ondragleave_signal: Callback::noop(),
-                ondragover_signal: Callback::noop(),
-                ondragstart_signal: Callback::noop(),
-                ondrop_signal: Callback::noop(),
-                onclick_signal: Callback::noop(),
-                ondelete_signal: Callback::noop(),
-                draggable: false,
-                removable: false,
-                plain_text: "hello test".to_string(),
-                html_text: None,
-                text_palette: Palette::Primary,
-                text_style: Style::Regular,
-                text_size: Size::Medium,
-                interaction_effect: false,
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                class_name: "class-card-test".to_string(),
-                styles: css!("color: blue;"),
-                id: "id-text-test".to_string(),
-            }
-        }
-    }
+    let props = Props {
+        text_type: TextType::Alert,
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
+        ondelete_signal: Callback::noop(),
+        draggable: false,
+        removable: false,
+        plain_text: "hello test".to_string(),
+        html_text: None,
+        text_palette: Palette::Primary,
+        text_style: Style::Regular,
+        text_size: Size::Medium,
+        interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "class-card-test".to_string(),
+        styles: css!("color: blue;"),
+        id: "id-text-test".to_string(),
+    };
 
-    start_app::<Text>();
+    start_app_with_props::<Text>(props);
 
     let alert_text_element = utils::document()
         .get_elements_by_class_name("alert-text")
@@ -604,38 +592,34 @@ fn should_create_alert_text() {
 
 #[wasm_bindgen_test]
 fn should_create_tag_text() {
-    impl Default for Props {
-        fn default() -> Self {
-            Self {
-                text_type: TextType::Tag,
-                ondrag_signal: Callback::noop(),
-                ondragend_signal: Callback::noop(),
-                ondragenter_signal: Callback::noop(),
-                ondragexit_signal: Callback::noop(),
-                ondragleave_signal: Callback::noop(),
-                ondragover_signal: Callback::noop(),
-                ondragstart_signal: Callback::noop(),
-                ondrop_signal: Callback::noop(),
-                onclick_signal: Callback::noop(),
-                ondelete_signal: Callback::noop(),
-                draggable: false,
-                removable: false,
-                plain_text: "hello test".to_string(),
-                html_text: None,
-                text_palette: Palette::Primary,
-                text_style: Style::Regular,
-                text_size: Size::Medium,
-                interaction_effect: false,
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                class_name: "class-card-test".to_string(),
-                styles: css!("color: blue;"),
-                id: "id-text-test".to_string(),
-            }
-        }
-    }
+    let props = Props {
+        text_type: TextType::Tag,
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
+        ondelete_signal: Callback::noop(),
+        draggable: false,
+        removable: false,
+        plain_text: "hello test".to_string(),
+        html_text: None,
+        text_palette: Palette::Primary,
+        text_style: Style::Regular,
+        text_size: Size::Medium,
+        interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "class-card-test".to_string(),
+        styles: css!("color: blue;"),
+        id: "id-text-test".to_string(),
+    };
 
-    start_app::<Text>();
+    start_app_with_props::<Text>(props);
 
     let tag_text_element = utils::document()
         .get_elements_by_class_name("tag-text")
@@ -646,36 +630,32 @@ fn should_create_tag_text() {
 
 #[wasm_bindgen_test]
 fn should_add_delete_icon_tag_text() {
-    impl Default for Props {
-        fn default() -> Self {
-            Self {
-                text_type: TextType::Tag,
-                ondrag_signal: Callback::noop(),
-                ondragend_signal: Callback::noop(),
-                ondragenter_signal: Callback::noop(),
-                ondragexit_signal: Callback::noop(),
-                ondragleave_signal: Callback::noop(),
-                ondragover_signal: Callback::noop(),
-                ondragstart_signal: Callback::noop(),
-                ondrop_signal: Callback::noop(),
-                onclick_signal: Callback::noop(),
-                ondelete_signal: Callback::noop(),
-                draggable: false,
-                removable: true,
-                plain_text: "hello test".to_string(),
-                html_text: None,
-                text_palette: Palette::Primary,
-                text_style: Style::Regular,
-                text_size: Size::Medium,
-                interaction_effect: false,
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                class_name: "class-card-test".to_string(),
-                styles: css!("color: blue;"),
-                id: "id-text-test".to_string(),
-            }
-        }
-    }
+    let props = Props {
+        text_type: TextType::Tag,
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
+        ondelete_signal: Callback::noop(),
+        draggable: false,
+        removable: true,
+        plain_text: "hello test".to_string(),
+        html_text: None,
+        text_palette: Palette::Primary,
+        text_style: Style::Regular,
+        text_size: Size::Medium,
+        interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "class-card-test".to_string(),
+        styles: css!("color: blue;"),
+        id: "id-text-test".to_string(),
+    };
 
     start_app::<Text>();
 
@@ -684,4 +664,4 @@ fn should_add_delete_icon_tag_text() {
         .get_with_index(0);
 
     assert!(tag_text_element.is_some());
-}*/
+}

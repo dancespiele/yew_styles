@@ -1,9 +1,9 @@
 use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Position, Size, Style};
+use gloo::utils;
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::start_app;
-use gloo::utils;
+use yew::start_app_with_props;
 
 /// # Tooltip component
 ///
@@ -169,25 +169,21 @@ fn get_position(position: Position) -> String {
 
 #[wasm_bindgen_test]
 fn should_create_tooltip() {
-    impl Default for Props {
-        fn default() -> Self {
-            Self {
-                tooltip_palette: Palette::Clean,
-                tooltip_style: Style::Regular,
-                tooltip_size: Size::Medium,
-                tooltip_position: Position::Above,
-                content: html! {<p>{"tooltip"}</p>},
-                code_ref: NodeRef::default(),
-                key: String::from("dropdown-1"),
-                class_name: String::from("class-test"),
-                id: String::from("id-test"),
-                styles: css!("color: blue;"),
-                children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
-            }
-        }
-    }
+    let props = Props {
+        tooltip_palette: Palette::Clean,
+        tooltip_style: Style::Regular,
+        tooltip_size: Size::Medium,
+        tooltip_position: Position::Above,
+        content: html! {<p>{"tooltip"}</p>},
+        code_ref: NodeRef::default(),
+        key: String::from("dropdown-1"),
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
+        styles: css!("color: blue;"),
+        children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
+    };
 
-    start_app::<Tooltip>();
+    start_app_with_props::<Tooltip>(props);
 
     let tooltip_element = utils::document()
         .get_elements_by_class_name("tooltip-container")

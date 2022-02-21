@@ -2,8 +2,11 @@ use crate::styles::colors::get_styles;
 use crate::styles::helpers::{
     get_palette, get_palette_style, get_size, get_style, Palette, Size, Style,
 };
+use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Form Submit
 ///
@@ -133,29 +136,24 @@ impl Component for FormSubmit {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_form_submit() {
-//     let props = Props {
-//         value: "submit".to_string(),
-//         disabled: false,
-//         key: "".to_string(),
-//         code_ref: NodeRef::default(),
-//         id: "result".to_string(),
-//         class_name: "form-submit-test".to_string(),
-//         submit_style: Style::Regular,
-//         submit_palette: Palette::Standard,
-//         size: Size::Medium,
-//         styles: css!("background-color: #918d94;"),
-//     };
+#[wasm_bindgen_test]
+fn should_create_form_submit() {
+    let props = Props {
+        value: "submit".to_string(),
+        disabled: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        id: "result".to_string(),
+        class_name: "form-submit-test".to_string(),
+        submit_style: Style::Regular,
+        submit_palette: Palette::Standard,
+        size: Size::Medium,
+        styles: css!("background-color: #918d94;"),
+    };
 
-//     start_app::<FormSubmit>();
+    start_app_with_props::<FormSubmit>(props);
 
-//     form_submit.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    let form_submit_element = utils::document().get_element_by_id("result").unwrap();
 
-//     let form_submit_element = utils::document().get_element_by_id("result").unwrap();
-
-//     assert_eq!(form_submit_element.tag_name(), "INPUT");
-// }
+    assert_eq!(form_submit_element.tag_name(), "INPUT");
+}

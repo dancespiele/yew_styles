@@ -3,7 +3,7 @@ use gloo::utils;
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::start_app;
+use yew::start_app_with_props;
 
 /// # Navbar Dropdown Container component
 ///
@@ -219,23 +219,19 @@ fn get_items(show: bool, key: String, children: Children) -> Html {
 
 #[wasm_bindgen_test]
 fn should_create_navbar_dropdown_container() {
-    impl Default for Props {
-        fn default() -> Self {
-            Props {
-                main_content: html! {<div id="test">{"test"}</div>},
-                active: false,
-                key: String::from("navbar-dropdown-1"),
-                class_name: String::from("class-test"),
-                id: String::from("id-test"),
-                styles: css!("background-color: #918d94;"),
-                children: Children::new(vec![html! {
-                    <div id="item">{"Item"}</div>
-                }]),
-            }
-        }
-    }
+    let props = Props {
+        main_content: html! {<div id="test">{"test"}</div>},
+        active: false,
+        key: String::from("navbar-dropdown-1"),
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {
+            <div id="item">{"Item"}</div>
+        }]),
+    };
 
-    start_app::<NavbarDropdown>();
+    start_app_with_props::<NavbarDropdown>(props);
 
     let content_element = utils::document().get_element_by_id("test").unwrap();
     assert_eq!(content_element.text_content().unwrap(), "test".to_string());

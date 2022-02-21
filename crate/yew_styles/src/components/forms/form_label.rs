@@ -1,5 +1,8 @@
+use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Form Label
 ///
@@ -135,31 +138,26 @@ impl Component for FormLabel {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_form_label() {
-//     let props = Props {
-//         key: "".to_string(),
-//         code_ref: NodeRef::default(),
-//         class_name: "form-label-class-test".to_string(),
-//         id: "form-label-id-test".to_string(),
-//         label_for: "label-form".to_string(),
-//         styles: css!("background-color: #918d94;"),
-//         text: "label text".to_string(),
-//     };
+#[wasm_bindgen_test]
+fn should_create_form_label() {
+    let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "form-label-class-test".to_string(),
+        id: "form-label-id-test".to_string(),
+        label_for: "label-form".to_string(),
+        styles: css!("background-color: #918d94;"),
+        text: "label text".to_string(),
+    };
 
-//     start_app::<FormLabel>();
+    start_app_with_props::<FormLabel>(props);
 
-//     form_label.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    let form_label_element = utils::document()
+        .get_element_by_id("form-label-id-test")
+        .unwrap();
 
-//     let form_label_element = utils::document()
-//         .get_element_by_id("form-label-id-test")
-//         .unwrap();
-
-//     assert_eq!(
-//         form_label_element.text_content().unwrap(),
-//         "label text".to_string()
-//     )
-// }
+    assert_eq!(
+        form_label_element.text_content().unwrap(),
+        "label text".to_string()
+    )
+}

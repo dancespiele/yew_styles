@@ -2,7 +2,7 @@ use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::start_app;
+use yew::start_app_with_props;
 
 /// # Container component
 ///
@@ -321,27 +321,23 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_a_container() {
-    impl Default for Props {
-        fn default() -> Self {
-            Props {
-                direction: Direction::Row,
-                wrap: Wrap::Wrap,
-                justify_content: JustifyContent::Center(Mode::NoMode),
-                align_content: AlignContent::Center(Mode::NoMode),
-                align_items: AlignItems::Center(Mode::NoMode),
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                class_name: String::from("layout-test"),
-                styles: css!("color: red;"),
-                id: String::from("layout-id-test"),
-                children: Children::new(vec![html! {
-                    <div id="container">{"Container"}</div>
-                }]),
-            }
-        }
-    }
+    let props = Props {
+        direction: Direction::Row,
+        wrap: Wrap::Wrap,
+        justify_content: JustifyContent::Center(Mode::NoMode),
+        align_content: AlignContent::Center(Mode::NoMode),
+        align_items: AlignItems::Center(Mode::NoMode),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: String::from("layout-test"),
+        styles: css!("color: red;"),
+        id: String::from("layout-id-test"),
+        children: Children::new(vec![html! {
+            <div id="container">{"Container"}</div>
+        }]),
+    };
 
-    start_app::<Container>();
+    start_app_with_props::<Container>(props);
 
     let container_element = utils::document().get_element_by_id("container").unwrap();
 

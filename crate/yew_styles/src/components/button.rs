@@ -7,7 +7,7 @@ use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
-use yew::start_app;
+use yew::start_app_with_props;
 
 /// # Button component
 ///
@@ -293,24 +293,20 @@ fn should_trigger_action_when_button_clicked() {
 
 #[wasm_bindgen_test]
 fn should_create_button_component() {
-    impl Default for Props {
-        fn default() -> Props {
-            Props {
-                class_name: String::from("test-button"),
-                id: String::from("button-id-test"),
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                button_size: Size::Medium,
-                button_style: Style::Regular,
-                onclick_signal: Callback::noop(),
-                button_palette: Palette::Standard,
-                styles: css!("background-color: #918d94;"),
-                children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
-            }
-        }
-    }
+    let props = Props {
+        class_name: String::from("test-button"),
+        id: String::from("button-id-test"),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        button_size: Size::Medium,
+        button_style: Style::Regular,
+        onclick_signal: Callback::noop(),
+        button_palette: Palette::Standard,
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
+    };
 
-    start_app::<Button>();
+    start_app_with_props::<Button>(props);
 
     let button_element = utils::document()
         .get_elements_by_tag_name("button")

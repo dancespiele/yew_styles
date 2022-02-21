@@ -3,7 +3,7 @@ use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use web_sys::window;
 use yew::prelude::*;
-use yew::start_app;
+use yew::start_app_with_props;
 
 pub enum Msg {
     Clicked(MouseEvent),
@@ -193,25 +193,21 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_navbar_item() {
-    impl Default for Props {
-        fn default() -> Self {
-            Props {
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                class_name: "navbar-item-test".to_string(),
-                id: "navbar-item-id-test".to_string(),
-                onclick_signal: Callback::noop(),
-                active: false,
-                interaction_effect: true,
-                styles: css!("background-color: #918d94;"),
-                children: Children::new(vec![html! {
-                    <div id="item">{"Item"}</div>
-                }]),
-            }
-        }
-    }
+    let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "navbar-item-test".to_string(),
+        id: "navbar-item-id-test".to_string(),
+        onclick_signal: Callback::noop(),
+        active: false,
+        interaction_effect: true,
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {
+            <div id="item">{"Item"}</div>
+        }]),
+    };
 
-    start_app::<NavbarItem>();
+    start_app_with_props::<NavbarItem>(props);
 
     let item_element = utils::document().get_element_by_id("item").unwrap();
 

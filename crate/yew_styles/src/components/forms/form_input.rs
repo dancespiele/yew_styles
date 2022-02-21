@@ -1,8 +1,11 @@
 use super::error_message::get_error_message;
 use crate::styles::colors::get_styles;
 use crate::styles::helpers::{get_common_form_styles, get_palette, get_size, Palette, Size};
+use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Form Input
 ///
@@ -338,51 +341,46 @@ fn get_type(input_type: InputType) -> String {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_form_input() {
-//     let props = Props {
-//         key: "".to_string(),
-//         code_ref: NodeRef::default(),
-//         id: "form-input-id-test".to_string(),
-//         class_name: "form-input-class-test".to_string(),
-//         input_type: InputType::Text,
-//         oninput_signal: Callback::noop(),
-//         onblur_signal: Callback::noop(),
-//         onkeydown_signal: Callback::noop(),
-//         checked: false,
-//         error_message: "invalid input".to_string(),
-//         error_state: false,
-//         name: "input-test".to_string(),
-//         input_palette: Palette::Standard,
-//         input_size: Size::Medium,
-//         placeholder: "test input".to_string(),
-//         required: false,
-//         autocomplete: false,
-//         autofocus: false,
-//         alt: "input test".to_string(),
-//         pattern: "".to_string(),
-//         min: 0,
-//         max: 0,
-//         maxlength: 100,
-//         minlength: 0,
-//         readonly: false,
-//         underline: false,
-//         disabled: false,
-//         step: 1,
-//         list: "".to_string(),
-//         styles: css!("background-color: #918d94;"),
-//     };
+#[wasm_bindgen_test]
+fn should_create_form_input() {
+    let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        id: "form-input-id-test".to_string(),
+        class_name: "form-input-class-test".to_string(),
+        input_type: InputType::Text,
+        oninput_signal: Callback::noop(),
+        onblur_signal: Callback::noop(),
+        onkeydown_signal: Callback::noop(),
+        checked: false,
+        error_message: "invalid input".to_string(),
+        error_state: false,
+        name: "input-test".to_string(),
+        input_palette: Palette::Standard,
+        input_size: Size::Medium,
+        placeholder: "test input".to_string(),
+        required: false,
+        autocomplete: false,
+        autofocus: false,
+        alt: "input test".to_string(),
+        pattern: "".to_string(),
+        min: 0,
+        max: 0,
+        maxlength: 100,
+        minlength: 0,
+        readonly: false,
+        underline: false,
+        disabled: false,
+        step: 1,
+        list: "".to_string(),
+        styles: css!("background-color: #918d94;"),
+    };
 
-//     start_app::<FormInput>();
+    start_app_with_props::<FormInput>(props);
 
-//     form_input.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    let form_input_element = utils::document()
+        .get_element_by_id("form-input-id-test")
+        .unwrap();
 
-//     let form_input_element = utils::document()
-//         .get_element_by_id("form-input-id-test")
-//         .unwrap();
-
-//     assert_eq!(form_input_element.tag_name(), "INPUT");
-// }
+    assert_eq!(form_input_element.tag_name(), "INPUT");
+}

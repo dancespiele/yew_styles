@@ -1,7 +1,10 @@
 use super::error_message::get_error_message;
 use crate::styles::helpers::{get_size, Size};
+use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Form Select
 ///
@@ -212,44 +215,40 @@ impl Component for FormSelect {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_form_select() {
-//     let props = Props {
-//         onchange_signal: Callback::noop(),
-//         id: "form-select-id-test".to_string(),
-//         class_name: "form-select-class-test".to_string(),
-//         key: "".to_string(),
-//         code_ref: NodeRef::default(),
-//         disabled: false,
-//         autofocus: false,
-//         required: false,
-//         select_size: Size::Medium,
-//         size: 0,
-//         name: "options".to_string(),
-//         error_message: "".to_string(),
-//         error_state: false,
-//         multiple: false,
-//         styles: css!("background-color: #918d94;"),
-//         options: html! {
-//             <>
-//                 <option value="value-1" selected=true>{"option 1"}</option>
-//                 <option value="value-2">{"option 2"}</option>
-//                 <option value="value-3">{"option 3"}</option>
-//                 <option value="value-4" id="result">{"option 4"}</option>
-//             </>
-//         },
-//     };
+#[wasm_bindgen_test]
+fn should_create_form_select() {
+    let props = Props {
+        onchange_signal: Callback::noop(),
+        id: "form-select-id-test".to_string(),
+        class_name: "form-select-class-test".to_string(),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        disabled: false,
+        autofocus: false,
+        required: false,
+        select_size: Size::Medium,
+        size: 0,
+        name: "options".to_string(),
+        error_message: "".to_string(),
+        error_state: false,
+        multiple: false,
+        styles: css!("background-color: #918d94;"),
+        options: html! {
+            <>
+                <option value="value-1" selected=true>{"option 1"}</option>
+                <option value="value-2">{"option 2"}</option>
+                <option value="value-3">{"option 3"}</option>
+                <option value="value-4" id="result">{"option 4"}</option>
+            </>
+        },
+    };
 
-//     start_app::<FormSelect>();
-//     form_select.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    start_app_with_props::<FormSelect>(props);
 
-//     let form_select_element = utils::document().get_element_by_id("result").unwrap();
+    let form_select_element = utils::document().get_element_by_id("result").unwrap();
 
-//     assert_eq!(
-//         form_select_element.text_content().unwrap(),
-//         "option 4".to_string()
-//     );
-// }
+    assert_eq!(
+        form_select_element.text_content().unwrap(),
+        "option 4".to_string()
+    );
+}

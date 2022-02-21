@@ -1,8 +1,11 @@
 use super::error_message::get_error_message;
 use crate::styles::colors::{darker, get_styles};
 use crate::styles::helpers::{get_iteractions, get_palette, get_size, Palette, Size};
+use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Form Textearea
 ///
@@ -342,46 +345,41 @@ fn get_wrap(wrap_text: WrapText) -> String {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_form_textarea() {
-//     let props = Props {
-//         id: "form-input-id-test".to_string(),
-//         key: "".to_string(),
-//         code_ref: NodeRef::default(),
-//         class_name: "form-input-class-test".to_string(),
-//         styles: css!("background-color: #918d94;"),
-//         oninput_signal: Callback::noop(),
-//         onblur_signal: Callback::noop(),
-//         onkeydown_signal: Callback::noop(),
-//         error_message: "invalid input".to_string(),
-//         error_state: false,
-//         name: "input-test".to_string(),
-//         textarea_style: Palette::Standard,
-//         textarea_size: Size::Medium,
-//         placeholder: "test input".to_string(),
-//         required: false,
-//         autocomplete: false,
-//         autofocus: false,
-//         maxlength: 100,
-//         minlength: 0,
-//         readonly: false,
-//         disabled: false,
-//         cols: 20,
-//         rows: 10,
-//         spellcheck: true,
-//         wrap: WrapText::Hard,
-//     };
+#[wasm_bindgen_test]
+fn should_create_form_textarea() {
+    let props = Props {
+        id: "form-input-id-test".to_string(),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "form-input-class-test".to_string(),
+        styles: css!("background-color: #918d94;"),
+        oninput_signal: Callback::noop(),
+        onblur_signal: Callback::noop(),
+        onkeydown_signal: Callback::noop(),
+        error_message: "invalid input".to_string(),
+        error_state: false,
+        name: "input-test".to_string(),
+        textarea_style: Palette::Standard,
+        textarea_size: Size::Medium,
+        placeholder: "test input".to_string(),
+        required: false,
+        autocomplete: false,
+        autofocus: false,
+        maxlength: 100,
+        minlength: 0,
+        readonly: false,
+        disabled: false,
+        cols: 20,
+        rows: 10,
+        spellcheck: true,
+        wrap: WrapText::Hard,
+    };
 
-//     start_app::<FormTextArea>();
+    start_app_with_props::<FormTextArea>(props);
 
-//     form_textarea.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    let form_textarea_element = utils::document()
+        .get_element_by_id("form-input-id-test")
+        .unwrap();
 
-//     let form_textarea_element = utils::document()
-//         .get_element_by_id("form-input-id-test")
-//         .unwrap();
-
-//     assert_eq!(form_textarea_element.tag_name(), "TEXTAREA");
-// }
+    assert_eq!(form_textarea_element.tag_name(), "TEXTAREA");
+}

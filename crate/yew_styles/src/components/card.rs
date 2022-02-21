@@ -10,7 +10,7 @@ use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::start_app;
+use yew::start_app_with_props;
 
 /// # Card
 ///
@@ -450,42 +450,42 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn should_create_card_with_three_parts() {
-    impl Default for Props {
-        fn default() -> Self {
-            Props {
-                ondrag_signal: Callback::noop(),
-                ondragend_signal: Callback::noop(),
-                ondragenter_signal: Callback::noop(),
-                ondragexit_signal: Callback::noop(),
-                ondragleave_signal: Callback::noop(),
-                ondragover_signal: Callback::noop(),
-                ondragstart_signal: Callback::noop(),
-                ondrop_signal: Callback::noop(),
-                onclick_signal: Callback::noop(),
-                draggable: false,
-                header: None,
-                header_size: 4,
-                body: None,
-                body_size: 6,
-                footer: None,
-                footer_size: 2,
-                single_content: Some(html! {
-                    <div id="single-content">{"single content"}</div>
-                }),
-                card_palette: Palette::Primary,
-                card_style: Style::Regular,
-                card_size: Size::Medium,
-                interaction_effect: false,
-                key: "".to_string(),
-                code_ref: NodeRef::default(),
-                class_name: "class-card-test".to_string(),
-                styles: css!("background-color: #918d94;"),
-                id: "id-card-test".to_string(),
-            }
-        }
-    }
+    let props = Props {
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
+        draggable: false,
+        header: Some(html! {
+            <div id="header">{"header"}</div>
+        }),
+        header_size: 4,
+        body: Some(html! {
+            <div id="body">{"body"}</div>
+        }),
+        body_size: 6,
+        footer: Some(html! {
+            <div id="footer">{"footer"}</div>
+        }),
+        footer_size: 2,
+        single_content: None,
+        card_palette: Palette::Primary,
+        card_style: Style::Regular,
+        card_size: Size::Medium,
+        interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "class-card-test".to_string(),
+        styles: css!("background-color: #918d94;"),
+        id: "id-card-rest".to_string(),
+    };
 
-    start_app::<Card>();
+    start_app_with_props::<Card>(props);
 
     let header_element = utils::document().get_element_by_id("header").unwrap();
 
@@ -500,34 +500,102 @@ fn should_create_card_with_three_parts() {
     assert_eq!(footer_element.text_content().unwrap(), "footer".to_string());
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_card_with_single_content() {
-//     start_app::<Card>();
+#[wasm_bindgen_test]
+fn should_create_card_with_single_content() {
+    let props = Props {
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
+        draggable: false,
+        header: None,
+        header_size: 4,
+        body: None,
+        body_size: 6,
+        footer: None,
+        footer_size: 2,
+        single_content: Some(html! {
+            <div id="single-content">{"single content"}</div>
+        }),
+        card_palette: Palette::Primary,
+        card_style: Style::Regular,
+        card_size: Size::Medium,
+        interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "class-card-test".to_string(),
+        styles: css!("background-color: #918d94;"),
+        id: "id-card-test".to_string(),
+    };
 
-//     let single_content_element = utils::document()
-//         .get_element_by_id("single-content")
-//         .unwrap();
+    start_app_with_props::<Card>(props);
 
-//     assert_eq!(
-//         single_content_element.text_content().unwrap(),
-//         "single content".to_string()
-//     );
-// }
+    let single_content_element = utils::document()
+        .get_element_by_id("single-content")
+        .unwrap();
 
-// #[wasm_bindgen_test]
-// fn should_ignore_parts_when_single_content_exist() {
-//     start_app::<Card>();
+    assert_eq!(
+        single_content_element.text_content().unwrap(),
+        "single content".to_string()
+    );
+}
 
-//     let header_element = utils::document().get_element_by_id("header");
+#[wasm_bindgen_test]
+fn should_ignore_parts_when_single_content_exist() {
+    let props = Props {
+        ondrag_signal: Callback::noop(),
+        ondragend_signal: Callback::noop(),
+        ondragenter_signal: Callback::noop(),
+        ondragexit_signal: Callback::noop(),
+        ondragleave_signal: Callback::noop(),
+        ondragover_signal: Callback::noop(),
+        ondragstart_signal: Callback::noop(),
+        ondrop_signal: Callback::noop(),
+        onclick_signal: Callback::noop(),
+        draggable: false,
+        header: Some(html! {
+            <div id="header">{"header"}</div>
+        }),
+        header_size: 4,
+        body: Some(html! {
+            <div id="body">{"body"}</div>
+        }),
+        body_size: 6,
+        footer: Some(html! {
+            <div id="footer">{"footer"}</div>
+        }),
+        footer_size: 2,
+        single_content: Some(html! {
+            <div id="single-content">{"single content"}</div>
+        }),
+        card_palette: Palette::Primary,
+        card_style: Style::Regular,
+        card_size: Size::Medium,
+        interaction_effect: false,
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "class-card-test".to_string(),
+        styles: css!("background-color: #918d94;"),
+        id: "id-card-rest".to_string(),
+    };
 
-//     assert_eq!(header_element, None);
+    start_app_with_props::<Card>(props);
 
-//     let single_content_element = utils::document()
-//         .get_element_by_id("single-content")
-//         .unwrap();
+    let header_element = utils::document().get_element_by_id("header");
 
-//     assert_eq!(
-//         single_content_element.text_content().unwrap(),
-//         "single content".to_string()
-//     );
-// }
+    assert_eq!(header_element, None);
+
+    let single_content_element = utils::document()
+        .get_element_by_id("single-content")
+        .unwrap();
+
+    assert_eq!(
+        single_content_element.text_content().unwrap(),
+        "single content".to_string()
+    );
+}
