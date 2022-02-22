@@ -1,8 +1,10 @@
 use crate::styles::colors::{darker, get_styles};
 use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
+use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Dropdown Container component
 ///
@@ -230,29 +232,24 @@ fn get_items(active: bool, children: Children) -> Html {
 
 wasm_bindgen_test_configure!(run_in_browser);
 
-// #[wasm_bindgen_test]
-// fn should_create_dropdown_container() {
-//     let dropdown_container_props = Props {
-//         main_content: html! {<div id="test">{"test"}</div>},
-//         dropdown_palette: Palette::Clean,
-//         dropdown_size: Size::Medium,
-//         dropdown_style: Style::Outline,
-//         key: String::from("dropdown-1"),
-//         class_name: String::from("class-test"),
-//         id: String::from("id-test"),
-//         styles: css!("background-color: #918d94;"),
-//         children: Children::new(vec![html! {
-//             <div id="item">{"Item"}</div>
-//         }]),
-//     };
+#[wasm_bindgen_test]
+fn should_create_dropdown_container() {
+    let dropdown_container_props = Props {
+        main_content: html! {<div id="test">{"test"}</div>},
+        dropdown_palette: Palette::Clean,
+        dropdown_size: Size::Medium,
+        dropdown_style: Style::Outline,
+        key: String::from("dropdown-1"),
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {
+            <div id="item">{"Item"}</div>
+        }]),
+    };
 
-//     start_app::<Dropdown>();
+    start_app_with_props::<Dropdown>(dropdown_container_props);
 
-//     dropdown_container.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         dropdown_container_props,
-//     );
-
-//     let content_element = utils::document().get_element_by_id("test").unwrap();
-//     assert_eq!(content_element.text_content().unwrap(), "test".to_string());
-// }
+    let content_element = utils::document().get_element_by_id("test").unwrap();
+    assert_eq!(content_element.text_content().unwrap(), "test".to_string());
+}

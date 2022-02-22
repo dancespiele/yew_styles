@@ -1,5 +1,8 @@
+use gloo::utils;
 use stylist::{css, StyleSource};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Form
 ///
@@ -451,70 +454,65 @@ fn get_method(method: Method) -> String {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_form_component() {
-//     let props = Props {
-//         key: "".to_string(),
-//         code_ref: NodeRef::default(),
-//         class_name: "form-test".to_string(),
-//         id: "form-test-id".to_string(),
-//         onsubmit_signal: Callback::noop(),
-//         method: Method::Post,
-//         action: "".to_string(),
-//         name: "form-test".to_string(),
-//         styles: css!("background-color: #918d94;"),
-//         children: Children::new(vec![html! {<input id="result"/>}]),
-//     };
+#[wasm_bindgen_test]
+fn should_create_form_component() {
+    let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "form-test".to_string(),
+        id: "form-test-id".to_string(),
+        onsubmit_signal: Callback::noop(),
+        method: Method::Post,
+        action: "".to_string(),
+        name: "form-test".to_string(),
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {<input id="result"/>}]),
+    };
 
-//     start_app::<Form>();
+    start_app_with_props::<Form>(props);
 
-//     form_component.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    let form_element = utils::document().get_element_by_id("result").unwrap();
 
-//     let form_element = utils::document().get_element_by_id("result").unwrap();
+    assert_eq!(form_element.tag_name(), "INPUT");
+}
 
-//     assert_eq!(form_element.tag_name(), "INPUT");
-// }
+#[wasm_bindgen_test]
+fn should_submit_the_form() {
+    let body = utils::document().body().unwrap();
 
-// #[wasm_bindgen_test]
-// fn should_submit_the_form() {
-//     let body = utils::document().body().unwrap();
+    let element = utils::document().create_element("div").unwrap();
+    element.set_text_content(Some("fill the form"));
+    element.set_id("form");
 
-//     let element = utils::document().create_element("div").unwrap();
-//     element.set_text_content(Some("fill the form"));
-//     element.set_id("form");
+    body.append_child(&element).unwrap();
 
-//     body.append_child(&element).unwrap();
+    let onsubmit = Callback::from(|_| {
+        let content = utils::document().get_element_by_id("form").unwrap();
 
-//     let onsubmit = Callback::from(|_| {
-//         let content = utils::document().get_element_by_id("form").unwrap();
+        content.set_text_content(Some("form submitted"));
+    });
 
-//         content.set_text_content(Some("form submitted"));
-//     });
+    let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        class_name: "form-test".to_string(),
+        id: "form-test-id".to_string(),
+        onsubmit_signal: onsubmit,
+        method: Method::Post,
+        action: "".to_string(),
+        name: "form-test".to_string(),
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {<input/>}]),
+    };
 
-//     let props = Props {
-//         key: "".to_string(),
-//         code_ref: NodeRef::default(),
-//         class_name: "form-test".to_string(),
-//         id: "form-test-id".to_string(),
-//         onsubmit_signal: onsubmit,
-//         method: Method::Post,
-//         action: "".to_string(),
-//         name: "form-test".to_string(),
-//         styles: css!("background-color: #918d94;"),
-//         children: Children::new(vec![html! {<input/>}]),
-//     };
+    let focus_event = FocusEvent::new("Submit").unwrap();
 
-//     let focus_event = FocusEvent::new("Submit").unwrap();
+    props.onsubmit_signal.emit(focus_event);
 
-//     props.onsubmit_signal.emit(focus_event);
+    let form_element = utils::document().get_element_by_id("form").unwrap();
 
-//     let form_element = utils::document().get_element_by_id("form").unwrap();
-
-//     assert_eq!(
-//         form_element.text_content().unwrap(),
-//         "form submitted".to_string()
-//     );
-// }
+    assert_eq!(
+        form_element.text_content().unwrap(),
+        "form submitted".to_string()
+    );
+}

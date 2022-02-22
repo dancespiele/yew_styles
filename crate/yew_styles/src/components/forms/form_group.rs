@@ -1,5 +1,8 @@
+use gloo::utils;
 use stylist::{css, StyleSource, YieldStyle};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Form Group
 ///
@@ -175,66 +178,58 @@ fn get_orientation(orientation: Orientation) -> String {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_form_group_horizontal_oriented() {
-//     let props = Props {
-//         key: "".to_string(),
-//         code_ref: NodeRef::default(),
-//         id: "form-group-test-id".to_string(),
-//         class_name: "form-group-test-class".to_string(),
-//         orientation: Orientation::Horizontal,
-//         styles: css!("background-color: #918d94;"),
-//         children: Children::new(vec![html! {
-//             <input id="input-child"/>
-//         }]),
-//     };
+#[wasm_bindgen_test]
+fn should_create_form_group_horizontal_oriented() {
+    let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        id: "form-group-test-id".to_string(),
+        class_name: "form-group-test-class".to_string(),
+        orientation: Orientation::Horizontal,
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {
+            <input id="input-child"/>
+        }]),
+    };
 
-//     start_app::<FormGroup>();
-//     form_group.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    start_app_with_props::<FormGroup>(props);
 
-//     let form_group_h_element = utils::document()
-//         .get_elements_by_class_name("horizontal")
-//         .get_with_index(0)
-//         .unwrap();
-//     let form_group_v_element = utils::document()
-//         .get_elements_by_class_name("vertical")
-//         .get_with_index(0);
+    let form_group_h_element = utils::document()
+        .get_elements_by_class_name("horizontal")
+        .get_with_index(0)
+        .unwrap();
+    let form_group_v_element = utils::document()
+        .get_elements_by_class_name("vertical")
+        .get_with_index(0);
 
-//     assert_eq!(form_group_h_element.tag_name(), "DIV");
-//     assert_eq!(form_group_v_element, None);
-// }
+    assert_eq!(form_group_h_element.tag_name(), "DIV");
+    assert_eq!(form_group_v_element, None);
+}
 
-// #[wasm_bindgen_test]
-// fn should_create_form_group_vertical_oriented() {
-//     let props = Props {
-//         key: "".to_string(),
-//         code_ref: NodeRef::default(),
-//         id: "form-group-test-id".to_string(),
-//         class_name: "form-group-test-class".to_string(),
-//         orientation: Orientation::Vertical,
-//         styles: css!("background-color: #918d94;"),
-//         children: Children::new(vec![html! {
-//             <input id="input-child"/>
-//         }]),
-//     };
+#[wasm_bindgen_test]
+fn should_create_form_group_vertical_oriented() {
+    let props = Props {
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        id: "form-group-test-id".to_string(),
+        class_name: "form-group-test-class".to_string(),
+        orientation: Orientation::Vertical,
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {
+            <input id="input-child"/>
+        }]),
+    };
 
-//     start_app::<FormGroup>();
-//     form_group.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    start_app_with_props::<FormGroup>(props);
 
-//     let form_group_h_element = utils::document()
-//         .get_elements_by_class_name("horizontal")
-//         .get_with_index(0);
-//     let form_group_v_element = utils::document()
-//         .get_elements_by_class_name("vertical")
-//         .get_with_index(0)
-//         .unwrap();
+    let form_group_h_element = utils::document()
+        .get_elements_by_class_name("horizontal")
+        .get_with_index(0);
+    let form_group_v_element = utils::document()
+        .get_elements_by_class_name("vertical")
+        .get_with_index(0)
+        .unwrap();
 
-//     assert_eq!(form_group_h_element, None);
-//     assert_eq!(form_group_v_element.tag_name(), "DIV");
-// }
+    assert_eq!(form_group_h_element, None);
+    assert_eq!(form_group_v_element.tag_name(), "DIV");
+}

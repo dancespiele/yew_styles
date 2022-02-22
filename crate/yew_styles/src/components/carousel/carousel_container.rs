@@ -1,5 +1,8 @@
+use gloo::utils;
 use stylist::{css, StyleSource};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Carousel Component
 ///
@@ -278,32 +281,28 @@ impl Component for Carousel {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_carousel_container_component() {
-//     let props = Props {
-//         class_name: String::from("test-carousel"),
-//         id: String::from("carousel-id-test"),
-//         key: "".to_string(),
-//         code_ref: NodeRef::default(),
-//         onwheel_signal: Callback::noop(),
-//         onmouseover_signal: Callback::noop(),
-//         onmouseleave_signal: Callback::noop(),
-//         styles: css!("background-color: #918d94;"),
-//         children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
-//     };
+#[wasm_bindgen_test]
+fn should_create_carousel_container_component() {
+    let props = Props {
+        class_name: String::from("test-carousel"),
+        id: String::from("carousel-id-test"),
+        key: "".to_string(),
+        code_ref: NodeRef::default(),
+        onwheel_signal: Callback::noop(),
+        onmouseover_signal: Callback::noop(),
+        onmouseleave_signal: Callback::noop(),
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {<div id="result">{"result"}</div>}]),
+    };
 
-//     start_app::<Carousel>();
-//     carousel.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    start_app_with_props::<Carousel>(props);
 
-//     let carousel_element = utils::document()
-//         .get_elements_by_class_name("carousel-container")
-//         .get_with_index(0)
-//         .unwrap();
+    let carousel_element = utils::document()
+        .get_elements_by_class_name("carousel-container")
+        .get_with_index(0)
+        .unwrap();
 
-//     let child = carousel_element.first_element_child().unwrap();
+    let child = carousel_element.first_element_child().unwrap();
 
-//     assert_eq!(child.id(), "result");
-// }
+    assert_eq!(child.id(), "result");
+}

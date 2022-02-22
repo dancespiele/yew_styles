@@ -657,7 +657,7 @@ fn should_add_delete_icon_tag_text() {
         id: "id-text-test".to_string(),
     };
 
-    start_app::<Text>();
+    start_app_with_props::<Text>(props);
 
     let tag_text_element = utils::document()
         .get_elements_by_class_name("tag-delete")

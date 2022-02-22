@@ -1,5 +1,8 @@
+use gloo::utils;
 use stylist::{css, StyleSource};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Dropdown Item component
 ///
@@ -130,26 +133,21 @@ impl Component for DropdownItem {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_dropdown_item() {
-//     let dropdown_item_props = Props {
-//         onclick_signal: Callback::noop(),
-//         key: String::from("dropdown-item-1"),
-//         class_name: String::from("class-test"),
-//         id: String::from("id-test"),
-//         styles: css!("background-color: #918d94;"),
-//         children: Children::new(vec![html! {
-//             <div id="item">{"Item"}</div>
-//         }]),
-//     };
+#[wasm_bindgen_test]
+fn should_create_dropdown_item() {
+    let dropdown_item_props = Props {
+        onclick_signal: Callback::noop(),
+        key: String::from("dropdown-item-1"),
+        class_name: String::from("class-test"),
+        id: String::from("id-test"),
+        styles: css!("background-color: #918d94;"),
+        children: Children::new(vec![html! {
+            <div id="item">{"Item"}</div>
+        }]),
+    };
 
-//     start_app::<DropdownItem>();
+    start_app_with_props::<DropdownItem>(dropdown_item_props);
 
-//     dropdown_item.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         dropdown_item_props,
-//     );
-
-//     let content_element = utils::document().get_element_by_id("item").unwrap();
-//     assert_eq!(content_element.text_content().unwrap(), "Item".to_string());
-// }
+    let content_element = utils::document().get_element_by_id("item").unwrap();
+    assert_eq!(content_element.text_content().unwrap(), "Item".to_string());
+}

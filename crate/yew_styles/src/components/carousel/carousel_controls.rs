@@ -1,7 +1,8 @@
 use crate::styles::helpers::{get_palette, get_size, get_style, Palette, Size, Style};
+use gloo::utils;
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::utils;
+use yew::start_app_with_props;
 use yew_assets::controller_assets::{ControllerAssets, ControllerIcon};
 
 /// # Carousel Controls
@@ -297,29 +298,25 @@ impl Component for CarouselControls {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_carousel_controls_component() {
-//     let props = Props {
-//         code_ref: NodeRef::default(),
-//         class_name: String::from("test-carousel"),
-//         id: String::from("carousel-id-test"),
-//         controls_palette: Palette::Standard,
-//         controls_style: Style::Regular,
-//         controls_size: Size::Medium,
-//         next_signal: Callback::noop(),
-//         prev_signal: Callback::noop(),
-//         key: "".to_string(),
-//     };
+#[wasm_bindgen_test]
+fn should_create_carousel_controls_component() {
+    let props = Props {
+        code_ref: NodeRef::default(),
+        class_name: String::from("test-carousel"),
+        id: String::from("carousel-id-test"),
+        controls_palette: Palette::Standard,
+        controls_style: Style::Regular,
+        controls_size: Size::Medium,
+        next_signal: Callback::noop(),
+        prev_signal: Callback::noop(),
+        key: "".to_string(),
+    };
 
-//     start_app::<CarouselControls>();
-//     carousel.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    start_app_with_props::<CarouselControls>(props);
 
-//     let carousel_element = utils::document()
-//         .get_element_by_id("carousel-id-test")
-//         .unwrap();
+    let carousel_element = utils::document()
+        .get_element_by_id("carousel-id-test")
+        .unwrap();
 
-//     assert_eq!(carousel_element.id(), "carousel-id-test");
-// }
+    assert_eq!(carousel_element.id(), "carousel-id-test");
+}

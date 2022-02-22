@@ -1,5 +1,8 @@
+use gloo::utils;
 use stylist::{css, StyleSource};
+use wasm_bindgen_test::*;
 use yew::prelude::*;
+use yew::start_app_with_props;
 
 /// # Carousel Images
 ///
@@ -250,27 +253,23 @@ impl Component for CarouselImage {
     }
 }
 
-// #[wasm_bindgen_test]
-// fn should_create_carousel_dot_component() {
-//     let props = Props {
-//         code_ref: NodeRef::default(),
-//         class_name: String::from("test-carousel"),
-//         id: String::from("carousel-id-test"),
-//         active: false,
-//         img_src: "/slide_1.jpg".to_string(),
-//         styles: css!("background-color: #918d94;"),
-//         key: "".to_string(),
-//     };
+#[wasm_bindgen_test]
+fn should_create_carousel_dot_component() {
+    let props = Props {
+        code_ref: NodeRef::default(),
+        class_name: String::from("test-carousel"),
+        id: String::from("carousel-id-test"),
+        active: false,
+        img_src: "/slide_1.jpg".to_string(),
+        styles: css!("background-color: #918d94;"),
+        key: "".to_string(),
+    };
 
-//     start_app::<CarouselImage>();
-//     carousel.mount_with_props(
-//         utils::document().get_element_by_id("output").unwrap(),
-//         props,
-//     );
+    start_app_with_props::<CarouselImage>(props);
 
-//     let carousel_element = utils::document()
-//         .get_element_by_id("carousel-id-test")
-//         .unwrap();
+    let carousel_element = utils::document()
+        .get_element_by_id("carousel-id-test")
+        .unwrap();
 
-//     assert_eq!(carousel_element.id(), "carousel-id-test");
-// }
+    assert_eq!(carousel_element.id(), "carousel-id-test");
+}

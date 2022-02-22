@@ -1,9 +1,9 @@
 use crate::styles::helpers::{get_palette, Palette};
+use gloo::utils;
 use stylist::{css, StyleSource};
 use wasm_bindgen_test::*;
 use yew::prelude::*;
-use yew::start_app;
-use gloo::utils;
+use yew::start_app_with_props;
 use yew_assets::object_assets::{ObjectAssets, ObjectIcon};
 
 /// # Carousel Dots
@@ -295,23 +295,18 @@ impl Component for CarouselDot {
 
 // #[wasm_bindgen_test]
 fn should_create_carousel_dot_component() {
-    impl Default for Props {
-        fn default() -> Self {
-            Self {
-                code_ref: NodeRef::default(),
-                class_name: String::from("test-carousel"),
-                id: String::from("carousel-id-test"),
-                carousel_dot_palette: Palette::Standard,
-                active: false,
-                onclick_signal: Callback::noop(),
-                key: "".to_string(),
-                styles: css!("background-color: #918d94;"),
-                children: None,
-            }
-        }
-    }
-
-    start_app::<CarouselDot>();
+    let props = Props {
+        code_ref: NodeRef::default(),
+        class_name: String::from("test-carousel"),
+        id: String::from("carousel-id-test"),
+        carousel_dot_palette: Palette::Standard,
+        active: false,
+        onclick_signal: Callback::noop(),
+        key: "".to_string(),
+        styles: css!("background-color: #918d94;"),
+        children: None,
+    };
+    start_app_with_props::<CarouselDot>(props);
 
     let carousel_element = utils::document()
         .get_element_by_id("carousel-id-test")
